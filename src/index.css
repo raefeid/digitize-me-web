@@ -124,14 +124,29 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Inter', 'Plus Jakarta Sans', system-ui, sans-serif;
     text-rendering: optimizeLegibility;
   }
 
+  html[dir="rtl"] body,
+  [dir="rtl"] {
+    font-family: 'IBM Plex Sans Arabic', 'Noto Sans Arabic', 'Inter', system-ui, sans-serif;
+  }
+
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    letter-spacing: 0;
+    font-family: 'Fraunces', Georgia, serif;
+    letter-spacing: -0.01em;
     line-height: 1.1;
+    font-weight: 500;
+  }
+
+  html[dir="rtl"] h1,
+  html[dir="rtl"] h2,
+  html[dir="rtl"] h3,
+  html[dir="rtl"] h4,
+  html[dir="rtl"] h5,
+  html[dir="rtl"] h6 {
+    font-family: 'IBM Plex Sans Arabic', 'Noto Naskh Arabic', serif;
   }
 
   p {
