@@ -12,6 +12,7 @@ import AnimatedCounter from "@/components/home/AnimatedStatsCounter";
 import AnimatedDocFlow from "@/components/home/AnimatedDocFlow";
 import AnimatedSearchPreview from "@/components/home/AnimatedSearchPreview";
 import BilingualOCRHero from "@/components/home/BilingualOCRHero";
+import ArchivalHero from "@/components/home/ArchivalHero";
 
 import RotatingHeroWord from "@/components/home/RotatingHeroWord";
 import TrustedBySection from "@/components/home/TrustedBySection";
@@ -123,56 +124,9 @@ const Index = () => {
         faqs={homeFaqs}
       />
 
-      {/* 1. Hero */}
-      <section className="section-padding relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-dm-navy-light via-background to-dm-coral-light opacity-50" />
-        <div className="container-max relative">
-          <div className="max-w-3xl mx-auto text-center section-stack">
-            <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0}>
-              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-medium mb-2 md:mb-3">
-                <Languages size={16} />
-                <EditableText page="home" section="home" contentKey="hero_badge" fallback={t("hero.badge")} />
-              </span>
-            </motion.div>
-            <motion.h1 className={`text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-2 md:mb-3 ${isRTL ? "leading-[1.5] pb-2" : "leading-[1.05]"}`} initial="hidden" animate="visible" variants={fadeUp} custom={1}>
-              <EditableText page="home" section="home" contentKey="hero_title" fallback={t("hero.title1")}  rich />{" "}
-              <RotatingHeroWord words={rotatingWords} />
-            </motion.h1>
-            <EditableText
-              as="p"
-              page="home"
-              section="home"
-              contentKey="hero_desc"
-              fallback={t("hero.desc")}
-              multiline
-              className="text-base md:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto"
-             rich />
-            <motion.div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center pt-2" initial="hidden" animate="visible" variants={fadeUp} custom={3}>
-              <CtaButton ctaKey="hero_primary" size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 px-8">
-                <EditableText page="home" section="home" contentKey="hero_cta1" fallback={t("hero.cta1")} />
-                <ArrowRight size={18} className={isRTL ? "mr-2 rotate-180" : "ml-2"} />
-              </CtaButton>
-              <CtaButton ctaKey="hero_secondary" size="lg" variant="outline" className="px-8">
-                <EditableText page="home" section="home" contentKey="hero_cta2" fallback={t("hero.cta2")} />
-              </CtaButton>
-              <LeadCaptureCTA source="home_hero" size="lg" variant="outline" className="px-8 bg-transparent border border-accent text-accent hover:bg-accent hover:text-accent-foreground">
-                <EditableText page="home" section="home" contentKey="hero_talk_to_sales" fallback={isRTL ? "تحدث مع المبيعات" : "Talk to sales"} />
-              </LeadCaptureCTA>
-            </motion.div>
-          </div>
-          <motion.div className="mt-12 grid md:grid-cols-2 gap-8 items-center max-w-5xl mx-auto" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 0.7 }}>
-            <EditableImage page="home" slotKey="hero_search_image" alt="Search preview">
-              <AnimatedSearchPreview />
-            </EditableImage>
-            <EditableImage page="home" slotKey="hero_visual_image" alt="Hero visual">
-              <AnimatedHeroVisual />
-            </EditableImage>
-          </motion.div>
-        </div>
-      </section>
+      {/* 1. Archival bilingual hero (asymmetric, scan-to-data moment) */}
+      <ArchivalHero />
 
-      {/* 1b. Bilingual OCR interactive feature */}
-      <BilingualOCRHero />
 
       {/* 2. Trusted By */}
       <TrustedBySection />
