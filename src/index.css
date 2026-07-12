@@ -181,11 +181,13 @@
   }
 
   .icon-chip {
-    @apply inline-flex items-center justify-center rounded-xl border border-border bg-card text-accent shrink-0;
+    @apply inline-flex items-center justify-center border border-accent/40 bg-transparent text-accent shrink-0;
+    border-radius: 2px;
   }
 
   .gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-[hsl(var(--dm-navy))] to-[hsl(var(--dm-coral))];
+    @apply text-accent italic;
+    font-family: 'Fraunces', Georgia, serif;
   }
 
   html[dir="rtl"] .nav-auth-en,
