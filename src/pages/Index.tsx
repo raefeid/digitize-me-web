@@ -12,6 +12,7 @@ import AnimatedCounter from "@/components/home/AnimatedStatsCounter";
 import AnimatedDocFlow from "@/components/home/AnimatedDocFlow";
 import AnimatedSearchPreview from "@/components/home/AnimatedSearchPreview";
 import BilingualOCRHero from "@/components/home/BilingualOCRHero";
+import ArchivalHero from "@/components/home/ArchivalHero";
 
 import RotatingHeroWord from "@/components/home/RotatingHeroWord";
 import TrustedBySection from "@/components/home/TrustedBySection";
