@@ -1,0 +1,132 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
+import { Toaster as Sonner } from "@/components/ui/sonner";
+import { Toaster } from "@/components/ui/toaster";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { LanguageProvider } from "@/i18n/LanguageContext";
+import { AuthProvider } from "@/hooks/useAuth";
+import { EditModeProvider } from "@/components/cms/EditModeContext";
+import { RevealRegistryProvider } from "@/hooks/useSectionReveals";
+import EditModeBar from "@/components/cms/EditModeBar";
+import FormatToolbar from "@/components/cms/FormatToolbar";
+import { PromotionsHost } from "@/components/promotions/PromotionsHost";
+import { GeoProvider } from "@/hooks/useGeoLocation";
+import { Suspense, lazy, useEffect } from "react";
+
+const queryClient = new QueryClient();
+
+const Index = lazy(() => import("./pages/Index.tsx"));
+const Product = lazy(() => import("./pages/Product.tsx"));
+const Industries = lazy(() => import("./pages/Industries.tsx"));
+const IndustryDetail = lazy(() => import("./pages/Industries.tsx").then((m) => ({ default: m.IndustryDetail })));
+const Integrations = lazy(() => import("./pages/Integrations.tsx"));
+const Pricing = lazy(() => import("./pages/Pricing.tsx"));
+const Contact = lazy(() => import("./pages/Contact.tsx"));
+const NotFound = lazy(() => import("./pages/NotFound.tsx"));
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy.tsx"));
+const TermsOfService = lazy(() => import("./pages/TermsOfService.tsx"));
+const Blog = lazy(() => import("./pages/Blog.tsx"));
+const BlogPost = lazy(() => import("./pages/BlogPost.tsx"));
+const Admin = lazy(() => import("./pages/Admin.tsx"));
+const AdminLogin = lazy(() => import("./pages/AdminLogin.tsx"));
+const AdminAnalytics = lazy(() => import("./pages/AdminAnalytics.tsx"));
+const AdminSitemapDebug = lazy(() => import("./pages/AdminSitemapDebug.tsx"));
+const FeatureDetail = lazy(() => import("./pages/FeatureDetail.tsx"));
+const Features = lazy(() => import("./pages/Features.tsx"));
+const CustomPage = lazy(() => import("./pages/CustomPage.tsx"));
+const SignIn = lazy(() => import("./pages/SignIn.tsx"));
+const SignUp = lazy(() => import("./pages/SignUp.tsx"));
+const ForgotPassword = lazy(() => import("./pages/ForgotPassword.tsx"));
+const ResetPassword = lazy(() => import("./pages/ResetPassword.tsx"));
+const About = lazy(() => import("./pages/About.tsx"));
+
+import { useTrackingScripts } from "@/hooks/useTrackingScripts";
+
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+};
+
+const TrackingLoader = () => {
+  useTrackingScripts();
+  return null;
+};
+
+const AppRoutes = () => (
+  <>
+    <ScrollToTop />
+    <TrackingLoader />
+    <PromotionsHost />
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-muted-foreground">Loading…</div>}>
+      <Routes>
+        <Route path="/" element={<Index />} />
+        <Route path="/ar" element={<Index />} />
+        <Route path="/product" element={<Product />} />
+        <Route path="/ar/product" element={<Product />} />
+        <Route path="/industries" element={<Industries />} />
+        <Route path="/ar/industries" element={<Industries />} />
+        <Route path="/industries/:slug" element={<IndustryDetail />} />
+        <Route path="/ar/industries/:slug" element={<IndustryDetail />} />
+        <Route path="/integrations" element={<Integrations />} />
+        <Route path="/pricing" element={<Pricing />} />
+        <Route path="/ar/pricing" element={<Pricing />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/ar/contact" element={<Contact />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/ar/about" element={<About />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="/terms" element={<TermsOfService />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/:slug" element={<BlogPost />} />
+        <Route path="/admin" element={<Admin />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin/analytics" element={<AdminAnalytics />} />
+        <Route path="/admin/sitemap-debug" element={<AdminSitemapDebug />} />
+        <Route path="/features" element={<Features />} />
+        <Route path="/features/:slug" element={<FeatureDetail />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/ar/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/ar/signup" element={<SignUp />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/ar/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/ar/reset-password" element={<ResetPassword />} />
+        <Route path="/:slug" element={<CustomPage />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Suspense>
+    <EditModeBar />
+    <FormatToolbar />
+  </>
+);
+
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <HelmetProvider>
+      <BrowserRouter>
+        <LanguageProvider>
+          <GeoProvider>
+          <AuthProvider>
+            <EditModeProvider>
+              <RevealRegistryProvider>
+              <TooltipProvider>
+                <Toaster />
+                <Sonner />
+                <AppRoutes />
+              </TooltipProvider>
+              </RevealRegistryProvider>
+            </EditModeProvider>
+          </AuthProvider>
+          </GeoProvider>
+        </LanguageProvider>
+      </BrowserRouter>
+    </HelmetProvider>
+  </QueryClientProvider>
+);
+
+export default App;

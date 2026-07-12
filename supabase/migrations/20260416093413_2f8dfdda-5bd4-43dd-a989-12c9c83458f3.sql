@@ -1,0 +1,1 @@
+ALTER TABLE public.site_content ADD COLUMN value_fr text DEFAULT NULL;
