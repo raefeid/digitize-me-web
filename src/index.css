@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Noto+Sans+Arabic:wght@300;400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,70 +7,66 @@
 
 @layer base {
   :root {
-    /* Archival document palette:
-       parchment #FAF7F0, ink #1C1A17, brick-stamp #B23A2E,
-       ledger teal #2F5D50, deep archive green #0E4D3C, warm gray #8C8271 */
-    --background: 42 44% 96%;
-    --foreground: 30 8% 10%;
+    --background: 0 0% 100%;
+    --foreground: 220 20% 20%;
 
-    --card: 42 40% 98%;
-    --card-foreground: 30 8% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 20%;
 
-    --popover: 42 40% 98%;
-    --popover-foreground: 30 8% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 20%;
 
-    /* Primary = deep archive green (used for footer, dark bands) */
-    --primary: 161 71% 18%;
-    --primary-foreground: 42 44% 96%;
+    --primary: 220 25% 20%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 40 20% 92%;
-    --secondary-foreground: 30 8% 10%;
+    --secondary: 240 5% 96%;
+    --secondary-foreground: 220 25% 20%;
 
-    --muted: 40 20% 92%;
-    --muted-foreground: 30 10% 38%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
 
-    /* Accent = brick-stamp red, used sparingly */
-    --accent: 5 60% 44%;
-    --accent-foreground: 42 44% 96%;
+    --accent: 356 94% 67%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 5 70% 40%;
-    --destructive-foreground: 42 44% 96%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 34 15% 82%;
-    --input: 34 15% 82%;
-    --ring: 5 60% 44%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 356 94% 67%;
 
-    --radius: 0.25rem;
+    --radius: 0.75rem;
 
-    /* Digitize me brand tokens (retained for existing components) */
-    --dm-navy: 161 71% 18%;
-    --dm-coral: 5 60% 44%;
-    --dm-coral-light: 42 44% 94%;
-    --dm-navy-light: 165 33% 92%;
-    --dm-gray: 34 12% 45%;
-    --dm-gray-light: 40 20% 92%;
+    /* DigitizeMe brand tokens */
+    --dm-navy: 220 25% 20%;
+    --dm-coral: 356 94% 67%;
+    --dm-coral-light: 356 94% 95%;
+    --dm-navy-light: 220 25% 95%;
+    --dm-gray: 220 9% 46%;
+    --dm-gray-light: 220 14% 96%;
 
-    /* Status badge tokens */
-    --badge-available-bg: 165 33% 88%;
-    --badge-available-fg: 165 33% 22%;
-    --badge-available-border: 165 33% 60%;
+    /* Status badge theme tokens (Available / Coming Soon / Custom).
+       Wording is locked; colors are themed and brand-aligned. */
+    --badge-available-bg: 142 72% 94%;
+    --badge-available-fg: 142 72% 29%;
+    --badge-available-border: 142 60% 80%;
 
-    --badge-coming-bg: 40 20% 92%;
-    --badge-coming-fg: 30 8% 20%;
-    --badge-coming-border: 34 15% 75%;
+    --badge-coming-bg: 220 25% 95%;
+    --badge-coming-fg: 220 25% 30%;
+    --badge-coming-border: 220 20% 85%;
 
-    --badge-custom-bg: 5 60% 44%;
-    --badge-custom-fg: 42 44% 96%;
-    --badge-custom-border: 5 60% 44%;
+    --badge-custom-bg: 356 94% 67%;
+    --badge-custom-fg: 0 0% 100%;
+    --badge-custom-border: 356 94% 67%;
 
-    --sidebar-background: 42 40% 98%;
-    --sidebar-foreground: 30 8% 20%;
-    --sidebar-primary: 30 8% 10%;
-    --sidebar-primary-foreground: 42 44% 96%;
-    --sidebar-accent: 40 20% 92%;
-    --sidebar-accent-foreground: 30 8% 10%;
-    --sidebar-border: 34 15% 82%;
-    --sidebar-ring: 5 60% 44%;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
   .dark {
@@ -124,29 +120,14 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    font-family: 'Inter', 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     text-rendering: optimizeLegibility;
   }
 
-  html[dir="rtl"] body,
-  [dir="rtl"] {
-    font-family: 'IBM Plex Sans Arabic', 'Noto Sans Arabic', 'Inter', system-ui, sans-serif;
-  }
-
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Fraunces', Georgia, serif;
-    letter-spacing: -0.01em;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    letter-spacing: 0;
     line-height: 1.1;
-    font-weight: 500;
-  }
-
-  html[dir="rtl"] h1,
-  html[dir="rtl"] h2,
-  html[dir="rtl"] h3,
-  html[dir="rtl"] h4,
-  html[dir="rtl"] h5,
-  html[dir="rtl"] h6 {
-    font-family: 'IBM Plex Sans Arabic', 'Noto Naskh Arabic', serif;
   }
 
   p {
@@ -181,13 +162,11 @@
   }
 
   .icon-chip {
-    @apply inline-flex items-center justify-center border border-accent/40 bg-transparent text-accent shrink-0;
-    border-radius: 2px;
+    @apply inline-flex items-center justify-center rounded-xl border border-border bg-card text-accent shrink-0;
   }
 
   .gradient-text {
-    @apply text-accent italic;
-    font-family: 'Fraunces', Georgia, serif;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[hsl(var(--dm-navy))] to-[hsl(var(--dm-coral))];
   }
 
   html[dir="rtl"] .nav-auth-en,
