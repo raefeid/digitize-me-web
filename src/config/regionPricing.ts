@@ -26,6 +26,8 @@ export interface PlanPricing {
 // Admins can override per-region from the Pricing editor.
 
 // Individual plans
+// Annual pricing per image: Starter AED 15,000/yr, Business AED 25,000/yr, Professional AED 50,000/yr.
+// `yearly` = per-month equivalent when billed annually; `monthly` = month-to-month.
 export const individualPricing: Record<string, PlanPricing> = {
   free: {
     EG: { monthly: 0, yearly: 0 },
@@ -34,22 +36,22 @@ export const individualPricing: Record<string, PlanPricing> = {
     DEFAULT: { monthly: 0, yearly: 0 },
   },
   starter: {
-    EG: { monthly: 500, yearly: 350 },
-    AE: { monthly: 99, yearly: 69 },
-    SA: { monthly: 99, yearly: 69 },
-    DEFAULT: { monthly: 25, yearly: 17 },
+    EG: { monthly: 11900, yearly: 10625 },
+    AE: { monthly: 1400, yearly: 1250 },
+    SA: { monthly: 1400, yearly: 1250 },
+    DEFAULT: { monthly: 341, yearly: 292 },
   },
   sme: {
-    EG: { monthly: 1000, yearly: 700 },
-    AE: { monthly: 199, yearly: 139 },
-    SA: { monthly: 199, yearly: 139 },
-    DEFAULT: { monthly: 49, yearly: 34 },
+    EG: { monthly: 19550, yearly: 17700 },
+    AE: { monthly: 2300, yearly: 2083 },
+    SA: { monthly: 2300, yearly: 2083 },
+    DEFAULT: { monthly: 568, yearly: 491 },
   },
   enterprise: {
-    EG: { monthly: 2500, yearly: 1750 },
-    AE: { monthly: 599, yearly: 419 },
-    SA: { monthly: 599, yearly: 419 },
-    DEFAULT: { monthly: 99, yearly: 69 },
+    EG: { monthly: 38250, yearly: 35400 },
+    AE: { monthly: 4500, yearly: 4167 },
+    SA: { monthly: 4500, yearly: 4167 },
+    DEFAULT: { monthly: 1093, yearly: 985 },
   },
 };
 
