@@ -180,7 +180,10 @@ const Index = () => {
       <div className="container-max flex justify-center -mt-4 mb-2"><UAEHostingBadge /></div>
       <ClientLogosCarousel />
 
-      {/* 3. Stats */}
+      {/* 3. Made by Infasme */}
+      <MadeByInfasme />
+
+      {/* 3b. Stats */}
       <section className="py-16 md:py-20 relative overflow-hidden border-y border-border/60 bg-background">
         <div
           aria-hidden
@@ -209,9 +212,6 @@ const Index = () => {
           </div>
         </div>
       </section>
-
-      {/* 3b. Made by Infasme */}
-      <MadeByInfasme />
 
 
 
