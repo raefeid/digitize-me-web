@@ -210,6 +210,11 @@ const Index = () => {
         </div>
       </section>
 
+      {/* 3b. Made by Infasme */}
+      <MadeByInfasme />
+
+
+
       {/* 4. How It Works */}
       <section className="section-padding bg-background" aria-label="Document Processing Workflow">
         <div className="container-max">
