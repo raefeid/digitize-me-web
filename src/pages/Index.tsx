@@ -21,6 +21,7 @@ import TestimonialsSection from "@/components/home/TestimonialsSection";
 import BeforeAfterSection from "@/components/home/BeforeAfterSection";
 import SecuritySection from "@/components/home/SecuritySection";
 import AllInOneSection from "@/components/home/AllInOneSection";
+import MadeByInfasme from "@/components/home/MadeByInfasme";
 import VisualSlot from "@/components/cms/VisualSlot";
 import EditableText from "@/components/cms/EditableText";
 import EditableImage from "@/components/cms/EditableImage";
