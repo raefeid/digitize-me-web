@@ -13,6 +13,7 @@ import logoFallback from "@/assets/digitizeme-logo-light.png";
 import { useBrandingAsset } from "@/hooks/useBranding";
 import { useNavItems, navItemHref } from "@/hooks/useNavItems";
 import { useCustomPages } from "@/hooks/useCustomPages";
+import { launchExternal } from "@/components/transitions/LaunchOverlay";
 
 import { localizeInternalPath, switchLanguagePath } from "@/lib/localizedRoutes";
 
@@ -544,6 +545,7 @@ const Navbar = () => {
               href="https://fotofind.digitizeme.ae/"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={(e) => { e.preventDefault(); launchExternal("https://fotofind.digitizeme.ae/"); }}
               className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-[0.95rem] 2xl:text-sm font-semibold transition-all whitespace-nowrap text-accent-foreground bg-accent hover:bg-accent/90 h-10 shadow-[0_10px_24px_hsl(var(--accent)/0.28)]"
             >
               {isRTL ? "ابدأ مجانًا" : "Start Free"}
@@ -618,7 +620,7 @@ const Navbar = () => {
                   href="https://fotofind.digitizeme.ae/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={() => setIsOpen(false)}
+                  onClick={(e) => { e.preventDefault(); setIsOpen(false); launchExternal("https://fotofind.digitizeme.ae/"); }}
                   className="w-full flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl text-sm font-semibold bg-accent text-accent-foreground hover:bg-accent/90"
                 >
                   {isRTL ? "ابدأ مجانًا" : "Start Free"}

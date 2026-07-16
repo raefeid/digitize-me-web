@@ -22,6 +22,7 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import { localizeInternalPath } from "@/lib/localizedRoutes";
 import type { CtaLabelEditorConfig } from "@/components/cms/CtaStyleEditor";
 import { extractLabelEditor } from "@/components/cms/extractLabelEditor";
+import { launchExternal } from "@/components/transitions/LaunchOverlay";
 
 /** Render a Lucide icon by name, or null if not found. */
 const renderIcon = (name: string | null | undefined, position: "left" | "right") => {
@@ -152,6 +153,14 @@ const CtaButton = forwardRef<HTMLButtonElement, CtaButtonProps>(
         source: ctaKey,
         registry: true,
       });
+      // Cool launch animation for the DigitizeMe app URL.
+      if (typeof destination === "string" && /fotofind\.digitizeme\.ae/i.test(destination)) {
+        e.preventDefault();
+        e.stopPropagation();
+        launchExternal(destination);
+        onClick?.(e);
+        return;
+      }
       onClick?.(e);
     };
 

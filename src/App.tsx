@@ -13,6 +13,7 @@ import FormatToolbar from "@/components/cms/FormatToolbar";
 import { PromotionsHost } from "@/components/promotions/PromotionsHost";
 import { GeoProvider } from "@/hooks/useGeoLocation";
 import { Suspense, lazy, useEffect } from "react";
+import LaunchOverlay from "@/components/transitions/LaunchOverlay";
 
 const queryClient = new QueryClient();
 
@@ -104,6 +105,7 @@ const AppRoutes = () => (
     <EditModeBar />
     <FormatToolbar />
     <ChatbotMount />
+    <LaunchOverlay />
   </>
 );
 
