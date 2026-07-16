@@ -194,7 +194,7 @@ const LaunchOverlay = () => {
           100% { width: 100% }
         }
 
-        .animate-launch-fade { animation: launch-fade 220ms ease-out forwards, launch-fade 260ms ease-in ${DURATION - 260}ms reverse forwards }
+        .animate-launch-fade { animation: launch-fade 220ms ease-out forwards }
         .animate-launch-glow { animation: launch-glow ${DURATION}ms ease-out forwards }
         .animate-launch-text { animation: launch-text ${DURATION}ms ease-out forwards }
         .animate-launch-progress { animation: launch-progress ${DURATION - 200}ms cubic-bezier(0.4, 0, 0.2, 1) forwards }
