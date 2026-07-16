@@ -514,7 +514,7 @@ export const translations: TranslationMap = {
     "aio.classify": "التصنيف",
     "aio.workflow": "سير العمل",
     "aio.approve": "الموافقات",
-    "aio.costNote": "١٢ اشتراك منفصل = +٥٠٠$ شهريًا",
+    "aio.costNote": "١٢ اشتراك منفصل = +${{total}} شهريًا",
     "aio.unified": "كل احتياجات مستنداتك: منصة واحدة، اشتراك واحد",
     "aio.savings": "منصة واحدة. سعر واحد. كل شيء مشمول.",
     "aio.notSeamless": "لا شيء بهذه السلاسة",
