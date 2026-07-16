@@ -1,0 +1,22 @@
+# Digitize me
+
+> AI-powered document management and OCR platform for the UAE and Middle East. Arabic & English OCR, auto-classification, and full-text search across millions of pages.
+
+Digitize me (by Fotopia Technologies) helps businesses turn paper and digital documents into a searchable, secure archive. Compatible with Google Drive and OneDrive, setup in about two minutes.
+
+## Pages
+
+- [Home](/): Overview of the platform, features, and outcomes.
+- [Product](/product): Deep dive on OCR, classification, search, and security.
+- [Features](/features): Feature catalog and detail pages.
+- [Industries](/industries): Solutions by industry (law, accounting, healthcare, real estate, government, banking, and more).
+- [Integrations](/integrations): Google Drive, OneDrive, ERP/CRM and other integrations.
+- [Pricing](/pricing): Plans, tiers, and value comparison.
+- [About](/about): Company background and mission.
+- [Contact](/contact): Sales and support contact details.
+- [Blog](/blog): Articles on document management, OCR, and digital transformation.
+
+## Optional
+
+- [Privacy Policy](/privacy)
+- [Terms of Service](/terms)

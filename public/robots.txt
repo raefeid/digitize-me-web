@@ -5,6 +5,3 @@ Disallow: /admin/
 
 Host: https://digitize-me-web.lovable.app
 Sitemap: https://digitize-me-web.lovable.app/sitemap.xml
-Sitemap: https://digitize-me-web.lovable.app/sitemap-en.xml
-Sitemap: https://digitize-me-web.lovable.app/sitemap-ar.xml
-Sitemap: https://digitize-me-web.lovable.app/sitemap-index.xml
