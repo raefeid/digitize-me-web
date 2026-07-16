@@ -1371,6 +1371,7 @@ export type Database = {
         | "seo_manager"
         | "blog_author"
         | "customer"
+        | "super_admin"
       integration_category:
         | "erp"
         | "crm"
@@ -1513,6 +1514,7 @@ export const Constants = {
         "seo_manager",
         "blog_author",
         "customer",
+        "super_admin",
       ],
       integration_category: [
         "erp",
