@@ -8,10 +8,16 @@ import { Rocket, Sparkles } from "lucide-react";
  *   launchExternal("https://fotofind.digitizeme.ae/")
  */
 export const launchExternal = (url: string, newTab = true) => {
-  window.dispatchEvent(new CustomEvent("launch-external", { detail: { url, newTab } }));
+  // Open the tab synchronously inside the click handler so popup blockers
+  // don't kill it. We navigate it after the animation finishes.
+  let win: Window | null = null;
+  if (newTab && typeof window !== "undefined") {
+    win = window.open("about:blank", "_blank", "noopener,noreferrer");
+  }
+  window.dispatchEvent(new CustomEvent("launch-external", { detail: { url, newTab, win } }));
 };
 
-type Payload = { url: string; newTab: boolean };
+type Payload = { url: string; newTab: boolean; win: Window | null };
 
 const DURATION = 1600; // ms
 
