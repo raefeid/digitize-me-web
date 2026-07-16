@@ -105,6 +105,7 @@ const AppRoutes = () => (
     <EditModeBar />
     <FormatToolbar />
     <ChatbotMount />
+    <LaunchOverlay />
   </>
 );
 
