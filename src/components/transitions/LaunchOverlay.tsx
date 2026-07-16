@@ -24,11 +24,13 @@ const LaunchOverlay = () => {
       window.setTimeout(() => {
         if (ce.detail.newTab) {
           window.open(ce.detail.url, "_blank", "noopener,noreferrer");
+          // keep overlay a bit longer so the homepage isn't visible behind
+          window.setTimeout(() => setPayload(null), 1200);
         } else {
+          // same-tab: leave overlay mounted until the browser navigates away
           window.location.href = ce.detail.url;
         }
       }, DURATION);
-      window.setTimeout(() => setPayload(null), DURATION + 250);
     };
     window.addEventListener("launch-external", handler as EventListener);
     return () => window.removeEventListener("launch-external", handler as EventListener);
@@ -192,7 +194,7 @@ const LaunchOverlay = () => {
           100% { width: 100% }
         }
 
-        .animate-launch-fade { animation: launch-fade 220ms ease-out forwards, launch-fade 260ms ease-in ${DURATION - 260}ms reverse forwards }
+        .animate-launch-fade { animation: launch-fade 220ms ease-out forwards }
         .animate-launch-glow { animation: launch-glow ${DURATION}ms ease-out forwards }
         .animate-launch-text { animation: launch-text ${DURATION}ms ease-out forwards }
         .animate-launch-progress { animation: launch-progress ${DURATION - 200}ms cubic-bezier(0.4, 0, 0.2, 1) forwards }
