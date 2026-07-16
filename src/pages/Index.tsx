@@ -255,37 +255,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* 6. Features Grid */}
-      <section aria-label="Platform Features" className="section-padding bg-background">
-        <div className="container-max">
-          <div className="text-center max-w-2xl mx-auto mb-10 md:mb-12 section-stack">
-            <EditableText page="home" section="home" contentKey="features_badge" fallback={t("features.badge")} className="text-accent font-semibold text-sm uppercase tracking-wider" />
-            <EditableText as="h2" page="home" section="home" contentKey="features_title" fallback={t("features.title")} className="text-3xl md:text-4xl font-bold text-foreground mt-2 mb-4"  rich />
-            <EditableText as="p" page="home" section="home" contentKey="features_desc" fallback={t("features.desc")} multiline className="text-muted-foreground"  rich />
-          </div>
-          <EditableCardGrid
-            page="home"
-            gridKey="features"
-            seeds={features.map((f) => ({ key: f.key, icon: f.icon, title: f.title, desc: f.desc }))}
-            renderCard={({ index, icon, title, desc }) => (
-              <motion.div
-                className="bg-card rounded-xl p-6 border border-border hover:border-accent/20 hover:shadow-lg transition-all group h-full"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-                whileHover={{ y: -4 }}
-              >
-                <div className="icon-chip w-12 h-12 mb-4 group-hover:bg-accent/20 transition-colors">
-                  {icon}
-                </div>
-                {title}
-                {desc}
-              </motion.div>
-            )}
-          />
-        </div>
-      </section>
 
       {/* 7. All-in-One */}
       <AllInOneSection />
