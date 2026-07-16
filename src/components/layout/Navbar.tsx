@@ -540,39 +540,15 @@ const Navbar = () => {
                 </button>
               </Button>
             )}
-            <span className="contents">
-              <a
-                href="/signin"
-                className="nav-auth-en flex items-center gap-1.5 px-4 py-2 rounded-xl text-[0.95rem] 2xl:text-sm font-medium transition-all whitespace-nowrap text-muted-foreground hover:text-foreground hover:bg-muted/50 border border-transparent"
-              >
-                <LogIn size={14} />
-                Log in
-              </a>
-              <a
-                href="/signup"
-                className="nav-auth-en flex items-center gap-1.5 px-4 py-2 rounded-xl text-[0.95rem] 2xl:text-sm font-semibold transition-all whitespace-nowrap text-primary-foreground bg-primary hover:bg-primary/90 border border-primary"
-              >
-                <UserPlus size={14} />
-                Sign up
-              </a>
-              <a
-                href="/ar/signin"
-                className="nav-auth-ar hidden items-center gap-1.5 px-4 py-2 rounded-xl text-[0.95rem] 2xl:text-sm font-medium transition-all whitespace-nowrap text-muted-foreground hover:text-foreground hover:bg-muted/50 border border-transparent"
-              >
-                <LogIn size={14} />
-                تسجيل الدخول
-              </a>
-              <a
-                href="/ar/signup"
-                className="nav-auth-ar hidden items-center gap-1.5 px-4 py-2 rounded-xl text-[0.95rem] 2xl:text-sm font-semibold transition-all whitespace-nowrap text-primary-foreground bg-primary hover:bg-primary/90 border border-primary"
-              >
-                <UserPlus size={14} />
-                إنشاء حساب
-              </a>
-            </span>
-            <CtaButton ctaKey="nav_start" size="sm" className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-xl px-3 xl:px-4 2xl:px-5 text-[0.95rem] 2xl:text-sm h-10 whitespace-nowrap shadow-[0_10px_24px_hsl(var(--accent)/0.28)]">
-              <EditableText page="navbar" section="cta" contentKey="nav_start_label" as="span" fallback={t("nav.start")} />
-            </CtaButton>
+            <a
+              href="https://fotofind.digitizeme.ae/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-[0.95rem] 2xl:text-sm font-semibold transition-all whitespace-nowrap text-accent-foreground bg-accent hover:bg-accent/90 h-10 shadow-[0_10px_24px_hsl(var(--accent)/0.28)]"
+            >
+              {isRTL ? "ابدأ مجانًا" : "Start Free"}
+            </a>
+
             {/* Language toggle — placed to the right of "Start Free" per design */}
             <div className="relative" ref={langRef}>
               <button
@@ -638,58 +614,18 @@ const Navbar = () => {
                   ))}
                 </div>
               </div>
-              <div className="flex flex-col gap-2 mt-3 px-1">
-                {showCustomerSignedIn && (
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => { signOut(); setIsOpen(false); }}
-                    className="w-full rounded-xl flex items-center justify-center gap-2"
-                  >
-                    <LogOut size={14} />
-                    {isRTL ? "تسجيل الخروج" : "Log out"}
-                  </Button>
-                )}
-                <div className="flex gap-2">
-                  <a
-                    href="/signin"
-                    onClick={() => setIsOpen(false)}
-                    className="nav-auth-en flex flex-1 items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium transition-colors text-foreground border border-border bg-card hover:bg-muted/50"
-                  >
-                    <LogIn size={14} />
-                    Log in
-                  </a>
-                  <a
-                    href="/signup"
-                    onClick={() => setIsOpen(false)}
-                    className="nav-auth-en flex flex-1 items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-sm font-semibold transition-colors text-primary-foreground bg-primary hover:bg-primary/90 border border-primary"
-                  >
-                    <UserPlus size={14} />
-                    Sign up
-                  </a>
-                  <a
-                    href="/ar/signin"
-                    onClick={() => setIsOpen(false)}
-                    className="nav-auth-ar hidden flex-1 items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium transition-colors text-foreground border border-border bg-card hover:bg-muted/50"
-                  >
-                    <LogIn size={14} />
-                    تسجيل الدخول
-                  </a>
-                  <a
-                    href="/ar/signup"
-                    onClick={() => setIsOpen(false)}
-                    className="nav-auth-ar hidden flex-1 items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-sm font-semibold transition-colors text-primary-foreground bg-primary hover:bg-primary/90 border border-primary"
-                  >
-                    <UserPlus size={14} />
-                    إنشاء حساب
-                  </a>
-                </div>
-                <CtaButton ctaKey="nav_start" size="sm" className="w-full bg-accent text-accent-foreground hover:bg-accent/90 rounded-xl" onClick={() => setIsOpen(false)}>
-                  <EditableText page="navbar" section="cta" contentKey="nav_start_label" as="span" fallback={t("nav.start")} />
-                </CtaButton>
-              </div>
+                <a
+                  href="https://fotofind.digitizeme.ae/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setIsOpen(false)}
+                  className="w-full flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl text-sm font-semibold bg-accent text-accent-foreground hover:bg-accent/90"
+                >
+                  {isRTL ? "ابدأ مجانًا" : "Start Free"}
+                </a>
             </div>
           </div>
+
         )}
       </div>
     </nav>
