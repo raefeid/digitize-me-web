@@ -22,6 +22,7 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import { localizeInternalPath } from "@/lib/localizedRoutes";
 import type { CtaLabelEditorConfig } from "@/components/cms/CtaStyleEditor";
 import { extractLabelEditor } from "@/components/cms/extractLabelEditor";
+import { launchExternal } from "@/components/transitions/LaunchOverlay";
 
 /** Render a Lucide icon by name, or null if not found. */
 const renderIcon = (name: string | null | undefined, position: "left" | "right") => {
