@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Globe, Clock, CheckCircle, ArrowRight, Scan, Languages, Building2, Scale, Stethoscope, Truck, GraduationCap, Factory, HardHat, Landmark, DollarSign, ShoppingBag, Droplets } from "lucide-react";
+import { Globe, Clock, CheckCircle, ArrowRight, Scan, Languages, Building2, Scale, Stethoscope, Landmark, DollarSign } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/layout/Layout";
 import SEOHead from "@/components/SEOHead";
