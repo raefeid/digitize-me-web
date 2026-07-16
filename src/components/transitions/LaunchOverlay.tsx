@@ -19,7 +19,7 @@ export const launchExternal = (url: string, newTab = true) => {
 
 type Payload = { url: string; newTab: boolean; win: Window | null };
 
-const DURATION = 1600; // ms
+const DURATION = 2600; // ms — show rocket, THEN redirect
 
 const LaunchOverlay = () => {
   const [payload, setPayload] = useState<Payload | null>(null);
