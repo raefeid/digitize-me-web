@@ -236,8 +236,8 @@ export const translations: TranslationMap = {
 
     // All-in-One
     "aio.badge": "All-in-One Platform",
-    "aio.title": "Stop Paying for 12 Separate Tools",
-    "aio.desc": "Most businesses juggle dozens of subscriptions for scanning, OCR, search, sharing, and more. With Digitize me, you get everything in one place.",
+    "aio.title": "The Power of $10,000/mo Software for a Fraction of the Cost",
+    "aio.desc": "You shouldn't have to overpay to get top-tier document management. Compare the true market value of our built-in features against our simple, all-in-one pricing.",
     "aio.without": "Without Digitize me",
     "aio.with": "With Digitize me",
     "aio.scan": "Scanning",
@@ -498,8 +498,8 @@ export const translations: TranslationMap = {
 
     // All-in-One
     "aio.badge": "منصة شاملة",
-    "aio.title": "كفاية صرف على ١٢ أداة منفصلة",
-    "aio.desc": "معظم الشركات تتنقل بين عشرات الاشتراكات للمسح والتعرف الضوئي والبحث والمشاركة وغيرها. مع Digitize me، تحصل على كل شيء في مكان واحد.",
+    "aio.title": "قوة برامج بقيمة ١٠,٠٠٠ دولار شهريًا بجزء بسيط من التكلفة",
+    "aio.desc": "لا يجب أن تدفع أكثر للحصول على إدارة مستندات من الطراز الأول. قارن القيمة السوقية الحقيقية لميزاتنا المدمجة مع أسعارنا الشاملة البسيطة.",
     "aio.without": "بدون Digitize me",
     "aio.with": "مع Digitize me",
     "aio.scan": "المسح",
