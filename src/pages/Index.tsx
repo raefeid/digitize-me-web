@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Globe, Clock, CheckCircle, ArrowRight, Scan, Languages, Building2, Scale, Stethoscope, Truck, GraduationCap, Factory, HardHat, Landmark, DollarSign, ShoppingBag, Droplets } from "lucide-react";
+import { Globe, Clock, CheckCircle, ArrowRight, Scan, Languages, Building2, Scale, Stethoscope, Landmark, DollarSign } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/layout/Layout";
 import SEOHead from "@/components/SEOHead";
@@ -58,16 +58,10 @@ const Index = () => {
   const industries = [
     { icon: Scale, name: t("ind.law-firms"), slug: "law-firms" },
     { icon: DollarSign, name: t("ind.accounting"), slug: "accounting" },
-    { icon: Truck, name: t("ind.logistics"), slug: "logistics" },
     { icon: Building2, name: t("ind.real-estate"), slug: "real-estate" },
     { icon: Stethoscope, name: t("ind.healthcare"), slug: "healthcare" },
-    { icon: GraduationCap, name: t("ind.education"), slug: "education" },
-    { icon: Factory, name: t("ind.manufacturing"), slug: "manufacturing" },
-    { icon: HardHat, name: t("ind.construction"), slug: "construction" },
     { icon: Landmark, name: t("ind.government"), slug: "government" },
-    { icon: ShoppingBag, name: t("ind.import-export"), slug: "import-export" },
     { icon: Landmark, name: t("ind.banking-finance"), slug: "banking-finance" },
-    { icon: Droplets, name: t("ind.oil-gas"), slug: "oil-gas" },
   ];
 
   const aiFeats = [
@@ -82,7 +76,9 @@ const Index = () => {
     getContent("hero_rotate2", t("hero.rotate2")),
     getContent("hero_rotate3", t("hero.rotate3")),
   ];
-  const featuredIndustryLinks = industryLinkItems.slice(0, 6);
+  const featuredIndustryLinks = industryLinkItems.filter((i) =>
+    ["law-firms", "accounting", "healthcare"].includes(i.slug)
+  );
 
   // Bilingual homepage FAQs (page=home, section=faqs). EN strings below
   // are canonical fallbacks; Arabic comes from CMS rows. SEOHead emits
@@ -277,7 +273,7 @@ const Index = () => {
               >
                 {[0, 1, 2, 3, 4, 5].map((i) => {
                   const angle = (i / 6) * 360;
-                  const icons = [Scale, Stethoscope, Factory, GraduationCap, Building2, Truck];
+                  const icons = [Scale, DollarSign, Building2, Stethoscope, Landmark, Building2];
                   const Icon = icons[i];
                   return (
                     <motion.div key={i} className="absolute w-10 h-10 md:w-11 md:h-11 rounded-xl bg-card border border-border shadow-sm flex items-center justify-center"
@@ -354,7 +350,7 @@ const Index = () => {
               className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3"
               seeds={featuredIndustryLinks.map((industry, index) => ({
                 key: industry.slug,
-                icon: [Scale, Stethoscope, Factory, GraduationCap, Building2, Truck][index % 6],
+                icon: [Scale, DollarSign, Stethoscope][index % 3],
                 title: isRTL ? industry.titleAr : industry.titleEn,
                 desc: isRTL ? industry.descriptionAr : industry.descriptionEn,
               }))}
