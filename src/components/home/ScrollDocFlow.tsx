@@ -59,12 +59,11 @@ const stepOpacity = (progress: MotionValue<number>, step: number) => {
   const span = 1 / 4;
   const center = step * span + span / 2;
   const half = span * 0.6;
-  return useTransform(
-    progress,
-    [center - half, center - half / 2, center + half / 2, center + half],
-    [0, 1, 1, 0],
-    { clamp: true },
-  );
+  const clamp01 = (n: number) => Math.min(1, Math.max(0, n));
+  const raw = [center - half, center - half / 2, center + half / 2, center + half].map(clamp01);
+  // Ensure monotonic non-decreasing for WAAPI
+  const input = raw.map((v, i) => (i > 0 ? Math.max(v, raw[i - 1]) : v));
+  return useTransform(progress, input, [0, 1, 1, 0], { clamp: true });
 };
 
 const ScrollDocFlow = () => {
