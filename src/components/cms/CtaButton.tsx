@@ -152,6 +152,14 @@ const CtaButton = forwardRef<HTMLButtonElement, CtaButtonProps>(
         source: ctaKey,
         registry: true,
       });
+      // Cool launch animation for the DigitizeMe app URL.
+      if (typeof destination === "string" && /fotofind\.digitizeme\.ae/i.test(destination)) {
+        e.preventDefault();
+        e.stopPropagation();
+        launchExternal(destination);
+        onClick?.(e);
+        return;
+      }
       onClick?.(e);
     };
 
