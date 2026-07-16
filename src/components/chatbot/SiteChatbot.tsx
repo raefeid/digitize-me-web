@@ -16,84 +16,118 @@ type KBEntry = {
   link?: { label_en: string; label_ar: string; to: string };
 };
 
+// Concrete site facts — used both to answer directly and to display in cards.
+export const SITE_FACTS = {
+  email: "hello@digitizeme.ai",
+  phone1: "+971 4 123 4567",
+  phone2: "+971 50 987 6543",
+  address: "Dubai Internet City, Dubai, United Arab Emirates",
+  hours: "Sun–Thu, 9:00 AM – 6:00 PM (GST)",
+  freePlan: "Free — try now, pay later",
+  businessEntry: "$99/mo (or $69/mo billed yearly)",
+  setupTime: "~2 minutes",
+  hosting: "UAE data centers",
+};
+
 const KB: KBEntry[] = [
   {
+    keywords: ["email", "mail", "e-mail", "بريد", "ايميل", "إيميل"],
+    answer_en: `You can email us at ${SITE_FACTS.email}. We typically reply within one business day.`,
+    answer_ar: `يمكنك مراسلتنا على ${SITE_FACTS.email}. نرد عادةً خلال يوم عمل واحد.`,
+    link: { label_en: "Contact page", label_ar: "صفحة التواصل", to: "/contact" },
+  },
+  {
+    keywords: ["phone", "call", "number", "whatsapp", "هاتف", "رقم", "اتصال"],
+    answer_en: `Call or WhatsApp us on ${SITE_FACTS.phone1} or ${SITE_FACTS.phone2}. Hours: ${SITE_FACTS.hours}.`,
+    answer_ar: `اتصل بنا أو راسلنا على واتساب: ${SITE_FACTS.phone1} أو ${SITE_FACTS.phone2}. أوقات العمل: الأحد–الخميس 9 صباحاً – 6 مساءً (توقيت الخليج).`,
+    link: { label_en: "Contact page", label_ar: "صفحة التواصل", to: "/contact" },
+  },
+  {
+    keywords: ["address", "location", "office", "where", "based", "عنوان", "موقع", "مكتب", "أين"],
+    answer_en: `Our office is at ${SITE_FACTS.address}.`,
+    answer_ar: `مكتبنا في ${SITE_FACTS.address}.`,
+    link: { label_en: "Contact page", label_ar: "صفحة التواصل", to: "/contact" },
+  },
+  {
+    keywords: ["contact", "reach", "get in touch", "sales", "تواصل", "مبيعات"],
+    answer_en: `Here's how to reach us:\n• Email: ${SITE_FACTS.email}\n• Phone: ${SITE_FACTS.phone1}\n• Address: ${SITE_FACTS.address}\n• Hours: ${SITE_FACTS.hours}`,
+    answer_ar: `طرق التواصل معنا:\n• البريد: ${SITE_FACTS.email}\n• الهاتف: ${SITE_FACTS.phone1}\n• العنوان: ${SITE_FACTS.address}\n• الأوقات: الأحد–الخميس 9 ص – 6 م`,
+    link: { label_en: "Contact us", label_ar: "تواصل معنا", to: "/contact" },
+  },
+  {
+    keywords: ["demo", "book", "meeting", "schedule", "عرض", "حجز", "موعد"],
+    answer_en: `To book a demo, email ${SITE_FACTS.email} or call ${SITE_FACTS.phone1} — or use the form on the contact page. Demos usually run 20–30 minutes.`,
+    answer_ar: `لحجز عرض توضيحي، راسلنا على ${SITE_FACTS.email} أو اتصل على ${SITE_FACTS.phone1}، أو استخدم النموذج في صفحة التواصل. مدة العرض عادةً 20–30 دقيقة.`,
+    link: { label_en: "Book a demo", label_ar: "احجز عرضاً", to: "/contact" },
+  },
+  {
     keywords: ["price", "pricing", "cost", "how much", "plan", "plans", "subscription", "سعر", "أسعار", "تكلفة", "باقة"],
-    answer_en:
-      "Our plans start free — try now, pay later. Paid tiers: Business Entry from $99/mo, and higher tiers for enterprise volume. Full comparison on the pricing page.",
-    answer_ar:
-      "الباقات تبدأ مجاناً — جرّب الآن وادفع لاحقاً. الباقات المدفوعة تبدأ من 99$ شهرياً لباقة Business Entry. راجع صفحة الأسعار للمقارنة الكاملة.",
+    answer_en: `Plans:\n• Free — try now, pay later (no card required)\n• Business Entry — ${SITE_FACTS.businessEntry}\n• Higher tiers available for enterprise volume\nOur all-in-one bundle replaces ~$10,461/mo of separate tools.`,
+    answer_ar: `الباقات:\n• مجاناً — جرّب الآن وادفع لاحقاً (بدون بطاقة)\n• Business Entry — 99$ شهرياً (أو 69$ شهرياً سنوياً)\n• باقات أعلى للمؤسسات\nحزمتنا الشاملة تحل محل أدوات بقيمة ~10,461$ شهرياً.`,
     link: { label_en: "See pricing", label_ar: "عرض الأسعار", to: "/pricing" },
   },
   {
     keywords: ["free", "trial", "try", "start free", "مجاني", "تجربة"],
-    answer_en:
-      "Yes — Start Free lets you try now and pay later. Setup takes about 2 minutes and works with Google Drive and OneDrive.",
-    answer_ar:
-      "نعم — يمكنك البدء مجاناً والدفع لاحقاً. الإعداد يستغرق دقيقتين تقريباً ويعمل مع Google Drive و OneDrive.",
+    answer_en: `Yes — Start Free lets you try now and pay later, no credit card required. Setup takes ~${SITE_FACTS.setupTime} and connects directly to Google Drive or OneDrive.`,
+    answer_ar: `نعم — ابدأ مجاناً وادفع لاحقاً، بدون بطاقة ائتمان. الإعداد يستغرق دقيقتين تقريباً ويتصل مباشرة بـ Google Drive أو OneDrive.`,
     link: { label_en: "Start free", label_ar: "ابدأ مجاناً", to: "/pricing" },
   },
   {
     keywords: ["google drive", "onedrive", "sharepoint", "integration", "integrations", "connect", "تكامل", "ربط"],
     answer_en:
-      "We integrate with Google Drive, OneDrive, SharePoint, and more. Connect your existing storage in minutes.",
-    answer_ar: "نتكامل مع Google Drive و OneDrive و SharePoint وغيرها. اربط تخزينك الحالي خلال دقائق.",
+      "We integrate directly with Google Drive, OneDrive, and SharePoint — plus SAP, Salesforce, and more. No migration needed: keep your files where they are and we index them in place.",
+    answer_ar:
+      "نتكامل مباشرة مع Google Drive و OneDrive و SharePoint، بالإضافة إلى SAP و Salesforce وغيرها. لا حاجة للترحيل — اترك ملفاتك في مكانها ونقوم بفهرستها.",
     link: { label_en: "See integrations", label_ar: "عرض التكاملات", to: "/integrations" },
   },
   {
     keywords: ["ocr", "scan", "scanning", "arabic", "bilingual", "مسح", "عربي"],
     answer_en:
-      "Our OCR reads both Arabic and English documents, extracts structured data, and makes every scanned document searchable.",
+      "Our OCR reads Arabic and English (including mixed-language pages), extracts structured fields (invoices, contracts, IDs), and makes every scanned document fully searchable — even handwritten notes on many document types.",
     answer_ar:
-      "محرك OCR لدينا يقرأ المستندات بالعربية والإنجليزية، ويستخرج البيانات المنظمة، ويجعل كل مستند ممسوح قابلاً للبحث.",
+      "محرك OCR يقرأ العربية والإنجليزية (بما في ذلك الصفحات ثنائية اللغة)، ويستخرج الحقول المنظمة (فواتير، عقود، هويات)، ويجعل كل مستند ممسوح قابلاً للبحث بالكامل.",
     link: { label_en: "See product", label_ar: "عرض المنتج", to: "/product" },
   },
   {
     keywords: ["industry", "industries", "sector", "law", "legal", "accounting", "healthcare", "real estate", "government", "banking", "قطاع", "قانون", "محاسبة", "صحة"],
     answer_en:
-      "We serve Law Firms, Accounting, Real Estate, Healthcare, Government, and Banking & Finance — with tailored workflows per industry.",
+      "We serve 6 core industries with tailored workflows: Law Firms, Accounting, Real Estate, Healthcare, Government, and Banking & Finance.",
     answer_ar:
-      "نخدم مكاتب المحاماة والمحاسبة والعقارات والرعاية الصحية والحكومة والبنوك والتمويل — بسير عمل مخصص لكل قطاع.",
+      "نخدم 6 قطاعات رئيسية بسير عمل مخصص: مكاتب المحاماة، المحاسبة، العقارات، الرعاية الصحية، الحكومة، والبنوك والتمويل.",
     link: { label_en: "Browse industries", label_ar: "تصفح القطاعات", to: "/industries" },
   },
   {
-    keywords: ["security", "secure", "compliance", "gdpr", "uae", "hosting", "أمان", "حماية"],
+    keywords: ["security", "secure", "compliance", "gdpr", "uae", "hosting", "encryption", "أمان", "حماية", "تشفير"],
     answer_en:
-      "Data is hosted in the UAE with enterprise-grade encryption, role-based access, audit trails, and compliance controls.",
+      `Data is hosted in ${SITE_FACTS.hosting} with AES-256 encryption at rest and TLS 1.3 in transit, role-based access control, full audit trails, and compliance with UAE data-residency requirements.`,
     answer_ar:
-      "البيانات مستضافة في الإمارات مع تشفير على مستوى المؤسسات، وصلاحيات مبنية على الأدوار، وسجلات تدقيق، وضوابط امتثال.",
-  },
-  {
-    keywords: ["contact", "sales", "demo", "talk", "call", "email", "تواصل", "مبيعات", "عرض"],
-    answer_en: "Happy to help — book a demo or reach our team from the contact page.",
-    answer_ar: "يسعدنا مساعدتك — احجز عرضاً توضيحياً أو تواصل مع فريقنا من صفحة الاتصال.",
-    link: { label_en: "Contact us", label_ar: "تواصل معنا", to: "/contact" },
+      "البيانات مستضافة في مراكز بيانات الإمارات مع تشفير AES-256 وTLS 1.3، وصلاحيات مبنية على الأدوار، وسجلات تدقيق كاملة، والامتثال لمتطلبات إقامة البيانات الإماراتية.",
   },
   {
     keywords: ["about", "who", "infasme", "company", "من", "عن", "شركة"],
     answer_en:
-      "Digitize me is crafted by Infasme — 30+ years of ECM expertise, purpose-built for MENA SMEs.",
-    answer_ar: "Digitize me من تطوير Infasme — أكثر من 30 عاماً من الخبرة في إدارة المحتوى المؤسسي، مصمم لشركات المنطقة.",
+      "Digitize me is crafted by Infasme — a UAE-based company with 30+ years of ECM (Enterprise Content Management) expertise, purpose-built for MENA SMEs.",
+    answer_ar: "Digitize me من تطوير Infasme — شركة إماراتية بخبرة تزيد عن 30 عاماً في إدارة المحتوى المؤسسي، مصممة لشركات منطقة الشرق الأوسط.",
     link: { label_en: "About us", label_ar: "من نحن", to: "/about" },
   },
   {
     keywords: ["feature", "features", "what can", "capabilities", "ميزات", "خصائص"],
     answer_en:
-      "Core features: document workspace, OCR, auto-classification, summarization, document chat, and knowledge graph.",
-    answer_ar: "الميزات الأساسية: مساحة عمل المستندات، OCR، التصنيف التلقائي، التلخيص، الدردشة مع المستندات، والرسم البياني المعرفي.",
+      "Core features: document workspace, bilingual OCR (Arabic/English), auto-classification, AI summarization, document chat, knowledge graph, workflow & approvals, and enterprise search.",
+    answer_ar: "الميزات الأساسية: مساحة عمل المستندات، OCR ثنائي اللغة، التصنيف التلقائي، التلخيص بالذكاء الاصطناعي، الدردشة مع المستندات، الرسم البياني المعرفي، وسير العمل والموافقات.",
     link: { label_en: "See features", label_ar: "عرض الميزات", to: "/features" },
   },
   {
     keywords: ["setup", "how long", "install", "start", "quick", "إعداد", "تثبيت"],
-    answer_en: "Setup takes about 2 minutes. Connect your Google Drive or OneDrive and you're ready to go.",
-    answer_ar: "الإعداد يستغرق دقيقتين تقريباً. اربط Google Drive أو OneDrive وابدأ فوراً.",
+    answer_en: `Setup takes about ${SITE_FACTS.setupTime}. Sign up, connect Google Drive or OneDrive, and your documents are indexed automatically — no IT project required.`,
+    answer_ar: "الإعداد يستغرق دقيقتين تقريباً. سجّل، اربط Google Drive أو OneDrive، وسيتم فهرسة مستنداتك تلقائياً — بدون مشروع تقني.",
   },
 ];
 
 const FALLBACK_EN =
-  "I couldn't find that on the site. Try asking about pricing, features, integrations, industries, security, OCR, or contact.";
+  `I couldn't find that specific answer on the site. You can ask me about pricing, features, OCR, integrations, industries, security, or setup — or reach the team directly:\n• Email: ${SITE_FACTS.email}\n• Phone: ${SITE_FACTS.phone1}`;
 const FALLBACK_AR =
-  "لم أجد إجابة على الموقع. جرّب السؤال عن الأسعار، الميزات، التكاملات، القطاعات، الأمان، OCR، أو التواصل.";
+  `لم أجد إجابة محددة على الموقع. اسألني عن الأسعار، الميزات، OCR، التكاملات، القطاعات، الأمان، أو الإعداد — أو تواصل مباشرة:\n• البريد: ${SITE_FACTS.email}\n• الهاتف: ${SITE_FACTS.phone1}`;
 
 function score(query: string, entry: KBEntry) {
   const q = query.toLowerCase();
