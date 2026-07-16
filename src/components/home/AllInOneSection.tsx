@@ -25,7 +25,7 @@ const computePositions = (count: number): { x: number; y: number }[] => {
   const colGap = 160;
   const rowGap = 145;
   const xOffset = -((cols - 1) * colGap) / 2;
-  const yOffset = -((rows - 1) * rowGap) / 2;
+  const yOffset = 0;
   return Array.from({ length: count }, (_, i) => {
     const c = i % cols;
     const r = Math.floor(i / cols);
