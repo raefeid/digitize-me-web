@@ -43,8 +43,8 @@ const LaunchOverlay = () => {
         } catch {
           window.location.href = ce.detail.url;
         }
-      }, DURATION - 350);
-      window.setTimeout(() => setPayload(null), DURATION);
+      }, DURATION);
+      window.setTimeout(() => setPayload(null), DURATION + 250);
     };
     window.addEventListener("launch-external", handler as EventListener);
     return () => window.removeEventListener("launch-external", handler as EventListener);
