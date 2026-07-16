@@ -381,8 +381,7 @@ const UploadAnimation = ({ isRTL }: { isRTL: boolean }) => {
 const ReadyCounter = ({ isRTL, keys, times }: { isRTL: boolean; keys: number[]; times: number[] }) => {
   const [n, setN] = useState(0);
   const startRef = useRef(Date.now());
-  // Poll every 120ms — cheap and matches keyframe granularity
-  useState(() => {
+  useEffect(() => {
     const id = setInterval(() => {
       const elapsed = ((Date.now() - startRef.current) / 1000) % LOOP;
       const frac = elapsed / LOOP;
@@ -393,7 +392,7 @@ const ReadyCounter = ({ isRTL, keys, times }: { isRTL: boolean; keys: number[]; 
       setN(cur);
     }, 120);
     return () => clearInterval(id);
-  });
+  }, [keys, times]);
   return <>{n}{isRTL ? " ملفات جاهزة" : " files ready"}</>;
 };
 
