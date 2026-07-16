@@ -163,9 +163,9 @@ const ScrollDocFlow = () => {
   useMotionValueEvent(tagCount, "change", (v) => setTagsShown(Math.min(8, Math.max(0, Math.floor(v)))));
 
   const files = [
-    { name: "Contract_2024.pdf", home: file1, t: f1 },
-    { name: "Invoice_Q3.pdf", home: file2, t: f2 },
-    { name: "NDA_signed.pdf", home: file3, t: f3 },
+    { name: "Contract_2024.pdf", size: "2.4 MB", ext: "PDF", icon: FileSignature, tint: "bg-rose-500/10 text-rose-500", home: file1, t: f1 },
+    { name: "Invoice_Q3.pdf", size: "864 KB", ext: "PDF", icon: FileSpreadsheet, tint: "bg-emerald-500/10 text-emerald-500", home: file2, t: f2 },
+    { name: "NDA_signed.pdf", size: "1.1 MB", ext: "PDF", icon: FileText, tint: "bg-sky-500/10 text-sky-500", home: file3, t: f3 },
   ];
 
   const stations = STATION_DEFAULTS.map((s) => ({
