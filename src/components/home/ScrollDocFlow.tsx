@@ -15,6 +15,17 @@ import {
   CheckCircle,
   MousePointer2,
   ScanLine,
+  FileSpreadsheet,
+  FileSignature,
+  Folder,
+  FolderOpen,
+  Search,
+  Home,
+  Star,
+  Clock,
+  Trash2,
+  Plus,
+  Grid3x3,
 } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useSiteContent } from "@/hooks/useSiteContent";
@@ -85,13 +96,13 @@ const ScrollDocFlow = () => {
   const railProgress = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   // ---- Cursor path (percent-based on stage) ----
-  // Files sit in a row at the top; drop zone below. Approx positions:
-  const file1 = { x: "14%", y: "18%" };
-  const file2 = { x: "40%", y: "18%" };
-  const file3 = { x: "66%", y: "18%" };
-  const dropZ = { x: "50%", y: "58%" };
-  const btn   = { x: "50%", y: "88%" };
-  const start = { x: "6%",  y: "8%"  };
+  // Layout: left sidebar (~24%), toolbar (~14% high). File tiles sit in main grid.
+  const file1 = { x: "36%", y: "34%" };
+  const file2 = { x: "56%", y: "34%" };
+  const file3 = { x: "76%", y: "34%" };
+  const dropZ = { x: "56%", y: "64%" };
+  const btn   = { x: "83%", y: "92%" };
+  const start = { x: "28%",  y: "20%"  };
 
   const cx = useTransform(
     scrollYProgress,
@@ -151,10 +162,17 @@ const ScrollDocFlow = () => {
   const [tagsShown, setTagsShown] = useState(0);
   useMotionValueEvent(tagCount, "change", (v) => setTagsShown(Math.min(8, Math.max(0, Math.floor(v)))));
 
+  // Files-ready counter (reactive)
+  const [filesReady, setFilesReady] = useState(0);
+  useMotionValueEvent(scrollYProgress, "change", (v) => {
+    const n = v >= T.drag3[1] ? 3 : v >= T.drag2[1] ? 2 : v >= T.drag1[1] ? 1 : 0;
+    if (n !== filesReady) setFilesReady(n);
+  });
+
   const files = [
-    { name: "Contract_2024.pdf", home: file1, t: f1 },
-    { name: "Invoice_Q3.pdf", home: file2, t: f2 },
-    { name: "NDA_signed.pdf", home: file3, t: f3 },
+    { name: "Contract_2024.pdf", size: "2.4 MB", ext: "PDF", icon: FileSignature, tint: "bg-rose-500/10 text-rose-500", home: file1, t: f1 },
+    { name: "Invoice_Q3.pdf", size: "864 KB", ext: "PDF", icon: FileSpreadsheet, tint: "bg-emerald-500/10 text-emerald-500", home: file2, t: f2 },
+    { name: "NDA_signed.pdf", size: "1.1 MB", ext: "PDF", icon: FileText, tint: "bg-sky-500/10 text-sky-500", home: file3, t: f3 },
   ];
 
   const stations = STATION_DEFAULTS.map((s) => ({
@@ -229,66 +247,217 @@ const ScrollDocFlow = () => {
 
             {/* Stage */}
             <div className="relative h-[420px] md:h-[480px] bg-background">
-              {/* ===== Upload scene ===== */}
-              <motion.div className="absolute inset-0" style={{ opacity: uploadSceneOpacity }}>
-                {/* File cards in "home" positions */}
-                {files.map((f, i) => (
-                  <motion.div
-                    key={f.name}
-                    className="absolute -translate-x-1/2 -translate-y-1/2 flex items-center gap-2 px-3 py-2 rounded-lg border border-border bg-card shadow-sm"
-                    style={{ left: f.home.x, top: f.home.y, opacity: f.t.opacity }}
-                  >
-                    <FileText size={14} className="text-accent" />
-                    <span className="text-[11px] text-foreground whitespace-nowrap">{f.name}</span>
-                  </motion.div>
-                ))}
-
-                {/* Dragged file follower (attached to cursor between pickup and drop) */}
-                {files.map((f, i) => (
-                  <motion.div
-                    key={`drag-${i}`}
-                    className="absolute z-20 -translate-x-1/2 -translate-y-1/2 flex items-center gap-2 px-3 py-2 rounded-lg border border-accent bg-accent/10 shadow-lg pointer-events-none"
-                    style={{ left: f.t.x, top: f.t.y, opacity: f.t.attached, rotate: -4 }}
-                  >
-                    <FileText size={14} className="text-accent" />
-                    <span className="text-[11px] text-foreground whitespace-nowrap">{f.name}</span>
-                  </motion.div>
-                ))}
-
-                {/* Drop zone */}
-                <motion.div
-                  className="absolute -translate-x-1/2 -translate-y-1/2 w-[70%] h-[38%] rounded-xl border-2 border-dashed flex flex-col items-center justify-center gap-2"
-                  style={{ left: dropZ.x, top: dropZ.y }}
-                >
-                  <motion.div
-                    className="absolute inset-0 rounded-xl border-2 border-dashed border-accent bg-accent/10"
-                    style={{ opacity: dropGlow }}
-                  />
-                  <div className="relative z-10 flex flex-col items-center gap-2">
-                    <Upload size={28} className="text-accent" />
-                    <p className="text-xs font-medium text-foreground">
-                      {isRTL ? "أفلت الملفات هنا" : "Drop files here"}
-                    </p>
+              {/* ===== Upload scene (realistic app UI) ===== */}
+              <motion.div className="absolute inset-0 flex" style={{ opacity: uploadSceneOpacity }}>
+                {/* Sidebar */}
+                <div className="w-[24%] border-r border-border bg-muted/30 flex flex-col py-4">
+                  <div className="px-4 pb-3 border-b border-border/60 flex items-center gap-2">
+                    <div className="w-6 h-6 rounded-md bg-accent flex items-center justify-center">
+                      <FolderOpen size={13} className="text-accent-foreground" />
+                    </div>
+                    <span className="text-[11px] font-bold text-foreground tracking-tight">Infasme Docs</span>
                   </div>
-                </motion.div>
+                  <nav className="flex flex-col gap-0.5 mt-3 px-2 text-[11px]">
+                    {[
+                      { icon: Home, label: isRTL ? "الرئيسية" : "Home" },
+                      { icon: FolderOpen, label: isRTL ? "المستندات" : "Documents", active: true },
+                      { icon: Star, label: isRTL ? "المفضلة" : "Starred" },
+                      { icon: Clock, label: isRTL ? "الأخيرة" : "Recent" },
+                      { icon: Trash2, label: isRTL ? "المحذوفة" : "Trash" },
+                    ].map((item, i) => {
+                      const Ic = item.icon;
+                      return (
+                        <div
+                          key={i}
+                          className={`flex items-center gap-2 px-2.5 py-1.5 rounded-md ${
+                            item.active ? "bg-accent/15 text-accent font-semibold" : "text-muted-foreground"
+                          }`}
+                        >
+                          <Ic size={12} />
+                          <span>{item.label}</span>
+                        </div>
+                      );
+                    })}
+                  </nav>
+                  <div className="mt-4 px-3">
+                    <p className="text-[9px] uppercase tracking-wider text-muted-foreground/70 mb-1.5 font-semibold">
+                      {isRTL ? "المجلدات" : "Folders"}
+                    </p>
+                    {["Legal", "Finance", "HR"].map((f) => (
+                      <div key={f} className="flex items-center gap-2 px-1 py-1 text-[11px] text-foreground/80">
+                        <Folder size={11} className="text-muted-foreground" />
+                        <span>{f}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
 
-                {/* Upload button */}
-                <motion.button
-                  type="button"
-                  className="absolute -translate-x-1/2 -translate-y-1/2 px-5 py-2 rounded-lg bg-accent text-accent-foreground text-sm font-semibold shadow-md"
-                  style={{ left: btn.x, top: btn.y, scale: btnScale, boxShadow: btnGlow.get ? undefined : undefined }}
-                >
-                  {isRTL ? "رفع الملفات" : "Upload Files"}
-                </motion.button>
+                {/* Main pane */}
+                <div className="flex-1 flex flex-col min-w-0">
+                  {/* Toolbar */}
+                  <div className="h-11 border-b border-border flex items-center gap-2 px-4">
+                    <span className="text-[11px] text-muted-foreground">Documents</span>
+                    <span className="text-[11px] text-muted-foreground/50">/</span>
+                    <span className="text-[11px] font-semibold text-foreground">Inbox</span>
+                    <div className="flex-1" />
+                    <div className="hidden md:flex items-center gap-1.5 h-6 px-2 rounded-md border border-border bg-background text-muted-foreground w-40">
+                      <Search size={11} />
+                      <span className="text-[10px]">{isRTL ? "بحث..." : "Search files..."}</span>
+                    </div>
+                    <div className="h-6 w-6 rounded-md border border-border flex items-center justify-center text-muted-foreground">
+                      <Grid3x3 size={11} />
+                    </div>
+                    <div className="h-6 px-2 rounded-md bg-foreground/90 text-background flex items-center gap-1 text-[10px] font-semibold">
+                      <Plus size={11} />
+                      <span>{isRTL ? "جديد" : "New"}</span>
+                    </div>
+                  </div>
 
-                {/* Upload progress bar (appears near end of upload phase) */}
-                <motion.div
-                  className="absolute left-1/2 -translate-x-1/2 bottom-3 h-1.5 w-[70%] bg-muted rounded-full overflow-hidden"
-                  style={{ opacity: useTransform(scrollYProgress, [T.press[1], T.upload[0]], [0, 1], { clamp: true }) }}
-                >
-                  <motion.div className="h-full bg-accent origin-left" style={{ scaleX: uploadX }} />
-                </motion.div>
+                  {/* Content area */}
+                  <div className="relative flex-1">
+                    {/* Subtle dotted grid background */}
+                    <div
+                      className="absolute inset-0 opacity-[0.35] pointer-events-none"
+                      style={{
+                        backgroundImage:
+                          "radial-gradient(circle, hsl(var(--muted-foreground) / 0.25) 1px, transparent 1px)",
+                        backgroundSize: "18px 18px",
+                      }}
+                    />
+
+                    {/* Section label */}
+                    <div className="absolute left-4 top-2.5 text-[10px] uppercase tracking-wider text-muted-foreground/70 font-semibold">
+                      {isRTL ? "الملفات الحديثة" : "Recent files"}
+                    </div>
+
+                    {/* File tiles in "home" positions */}
+                    {files.map((f) => {
+                      const Ic = f.icon;
+                      return (
+                        <motion.div
+                          key={f.name}
+                          className="absolute -translate-x-1/2 -translate-y-1/2 w-[26%] rounded-xl border border-border bg-card shadow-sm p-2.5 flex flex-col gap-2"
+                          style={{ left: f.home.x, top: f.home.y, opacity: f.t.opacity }}
+                        >
+                          <div className={`h-14 rounded-lg flex items-center justify-center ${f.tint}`}>
+                            <Ic size={22} />
+                          </div>
+                          <div className="min-w-0">
+                            <p className="text-[10px] font-semibold text-foreground truncate">{f.name}</p>
+                            <p className="text-[9px] text-muted-foreground">
+                              {f.ext} · {f.size}
+                            </p>
+                          </div>
+                        </motion.div>
+                      );
+                    })}
+
+                    {/* Dragged file follower */}
+                    {files.map((f, i) => {
+                      const Ic = f.icon;
+                      return (
+                        <motion.div
+                          key={`drag-${i}`}
+                          className="absolute z-20 -translate-x-1/2 -translate-y-1/2 w-[24%] rounded-xl border border-accent/70 bg-card shadow-2xl p-2.5 flex flex-col gap-2 pointer-events-none ring-2 ring-accent/30"
+                          style={{ left: f.t.x, top: f.t.y, opacity: f.t.attached, rotate: -5 }}
+                        >
+                          <div className={`h-12 rounded-lg flex items-center justify-center ${f.tint}`}>
+                            <Ic size={20} />
+                          </div>
+                          <p className="text-[10px] font-semibold text-foreground truncate">{f.name}</p>
+                        </motion.div>
+                      );
+                    })}
+
+                    {/* Drop zone */}
+                    <motion.div
+                      className="absolute -translate-x-1/2 -translate-y-1/2 w-[68%] h-[36%] rounded-2xl border-2 border-dashed border-border/70 flex items-center justify-center overflow-hidden"
+                      style={{ left: dropZ.x, top: dropZ.y }}
+                    >
+                      <motion.div
+                        className="absolute inset-0 rounded-2xl border-2 border-dashed border-accent bg-accent/10"
+                        style={{ opacity: dropGlow }}
+                      />
+                      <div className="relative z-10 flex flex-col items-center gap-2">
+                        <div className="w-11 h-11 rounded-full bg-accent/10 flex items-center justify-center">
+                          <Upload size={20} className="text-accent" />
+                        </div>
+                        <p className="text-[12px] font-semibold text-foreground">
+                          {isRTL ? "أفلت الملفات هنا" : "Drop files to upload"}
+                        </p>
+                        <p className="text-[10px] text-muted-foreground">
+                          {isRTL ? "PDF, DOCX, PNG, JPG حتى 50 ميجا" : "PDF, DOCX, PNG, JPG up to 50MB"}
+                        </p>
+                      </div>
+
+                      {/* Landed thumbnails inside drop zone */}
+                      <div className="absolute bottom-2 left-0 right-0 flex justify-center gap-1.5 px-3">
+                        {files.map((f, i) => {
+                          const Ic = f.icon;
+                          const landed = useTransform(
+                            scrollYProgress,
+                            [[T.drag1[1], T.drag2[1], T.drag3[1]][i], [T.drag1[1], T.drag2[1], T.drag3[1]][i] + 0.005],
+                            [0, 1],
+                            { clamp: true },
+                          );
+                          return (
+                            <motion.div
+                              key={`landed-${i}`}
+                              className="flex items-center gap-1 px-2 py-1 rounded-md bg-background/90 border border-border shadow-sm"
+                              style={{ opacity: landed }}
+                            >
+                              <Ic size={10} className={f.tint.split(" ")[1]} />
+                              <span className="text-[9px] font-medium text-foreground truncate max-w-[80px]">
+                                {f.name}
+                              </span>
+                              <CheckCircle size={9} className="text-accent" />
+                            </motion.div>
+                          );
+                        })}
+                      </div>
+                    </motion.div>
+                  </div>
+
+                  {/* Bottom action bar */}
+                  <div className="h-12 border-t border-border flex items-center justify-between px-4 bg-muted/20">
+                    <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
+                      <span className="w-1.5 h-1.5 rounded-full bg-accent" />
+                      <span>
+                        {filesReady}
+                        {isRTL ? " ملفات جاهزة" : " files ready"}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <button className="px-3 py-1.5 rounded-md border border-border text-[10px] text-muted-foreground">
+                        {isRTL ? "إلغاء" : "Cancel"}
+                      </button>
+                      <motion.button
+                        type="button"
+                        className="relative px-4 py-1.5 rounded-md bg-accent text-accent-foreground text-[11px] font-semibold shadow-md flex items-center gap-1.5"
+                        style={{ scale: btnScale }}
+                      >
+                        <motion.span
+                          className="absolute inset-0 rounded-md bg-accent"
+                          style={{ opacity: btnGlow, filter: "blur(10px)" }}
+                        />
+                        <Upload size={11} className="relative z-10" />
+                        <span className="relative z-10">{isRTL ? "رفع الملفات" : "Upload Files"}</span>
+                      </motion.button>
+                    </div>
+                  </div>
+
+                  {/* Upload progress bar */}
+                  <motion.div
+                    className="absolute left-4 right-4 bottom-1 h-1 bg-muted rounded-full overflow-hidden"
+                    style={{
+                      opacity: useTransform(scrollYProgress, [T.press[1], T.upload[0]], [0, 1], { clamp: true }),
+                    }}
+                  >
+                    <motion.div className="h-full bg-accent origin-left" style={{ scaleX: uploadX }} />
+                  </motion.div>
+                </div>
               </motion.div>
+
 
               {/* ===== Scan / OCR scene ===== */}
               <motion.div className="absolute inset-0 p-6" style={{ opacity: scanSceneOpacity }}>
