@@ -273,7 +273,7 @@ const Index = () => {
               >
                 {[0, 1, 2, 3, 4, 5].map((i) => {
                   const angle = (i / 6) * 360;
-                  const icons = [Scale, Stethoscope, Factory, GraduationCap, Building2, Truck];
+                  const icons = [Scale, DollarSign, Building2, Stethoscope, Landmark, Building2];
                   const Icon = icons[i];
                   return (
                     <motion.div key={i} className="absolute w-10 h-10 md:w-11 md:h-11 rounded-xl bg-card border border-border shadow-sm flex items-center justify-center"
@@ -350,7 +350,7 @@ const Index = () => {
               className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3"
               seeds={featuredIndustryLinks.map((industry, index) => ({
                 key: industry.slug,
-                icon: [Scale, Stethoscope, Factory, GraduationCap, Building2, Truck][index % 6],
+                icon: [Scale, DollarSign, Stethoscope][index % 3],
                 title: isRTL ? industry.titleAr : industry.titleEn,
                 desc: isRTL ? industry.descriptionAr : industry.descriptionEn,
               }))}
