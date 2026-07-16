@@ -652,9 +652,6 @@ const ScrollDocFlow = () => {
             </div>
           </div>
 
-          <p className="text-center text-[11px] text-muted-foreground/70 mt-3">
-            {isRTL ? "عرض حي — يعمل تلقائيًا" : "Live demo — runs automatically"}
-          </p>
         </div>
       </div>
     </div>
