@@ -109,6 +109,7 @@ const AppRoutes = () => (
     </Suspense>
     <EditModeBar />
     <FormatToolbar />
+    <ChatbotMount />
   </>
 );
 
