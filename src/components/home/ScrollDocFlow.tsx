@@ -97,10 +97,11 @@ const ScrollDocFlow = () => {
 
   // ---- Cursor path (percent-based on stage) ----
   // Layout: left sidebar (~24%), toolbar (~14% high). File tiles sit in main grid.
-  const file1 = { x: "36%", y: "34%" };
-  const file2 = { x: "56%", y: "34%" };
-  const file3 = { x: "76%", y: "34%" };
-  const dropZ = { x: "56%", y: "64%" };
+  const file1 = { x: "35%", y: "30%" };
+  const file2 = { x: "56%", y: "30%" };
+  const file3 = { x: "77%", y: "30%" };
+  const dropZ = { x: "56%", y: "66%" };
+
   const btn   = { x: "83%", y: "92%" };
   const start = { x: "28%",  y: "20%"  };
 
@@ -336,21 +337,21 @@ const ScrollDocFlow = () => {
                       return (
                         <motion.div
                           key={f.name}
-                          className="absolute -translate-x-1/2 -translate-y-1/2 w-[26%] rounded-xl border border-border bg-card shadow-sm p-2.5 flex flex-col gap-2"
+                          className="absolute -translate-x-1/2 -translate-y-1/2 w-[19%] rounded-xl border border-border/80 bg-card shadow-[0_1px_2px_rgba(0,0,0,0.04),0_4px_12px_-4px_rgba(0,0,0,0.08)] p-2 flex flex-col gap-1.5 overflow-hidden"
                           style={{ left: f.home.x, top: f.home.y, opacity: f.t.opacity }}
                         >
-                          <div className={`h-14 rounded-lg flex items-center justify-center ${f.tint}`}>
-                            <Ic size={22} />
+                          <div className={`h-16 rounded-lg flex items-center justify-center ${f.tint} relative`}>
+                            <Ic size={26} strokeWidth={1.5} />
+                            <span className="absolute bottom-1 right-1.5 text-[8px] font-bold tracking-wider opacity-70">{f.ext}</span>
                           </div>
-                          <div className="min-w-0">
-                            <p className="text-[10px] font-semibold text-foreground truncate">{f.name}</p>
-                            <p className="text-[9px] text-muted-foreground">
-                              {f.ext} · {f.size}
-                            </p>
+                          <div className="min-w-0 px-0.5 pb-0.5">
+                            <p className="text-[10px] font-semibold text-foreground truncate leading-tight">{f.name}</p>
+                            <p className="text-[9px] text-muted-foreground mt-0.5">{f.size}</p>
                           </div>
                         </motion.div>
                       );
                     })}
+
 
                     {/* Dragged file follower */}
                     {files.map((f, i) => {
