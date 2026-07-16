@@ -82,7 +82,7 @@ const AllInOneSection = () => {
   };
 
   return (
-    <section className="section-padding bg-muted/20 overflow-hidden" aria-label="All in One Platform">
+    <section className="px-4 sm:px-6 lg:px-8 pt-6 md:pt-8 lg:pt-10 pb-12 md:pb-16 lg:pb-20 bg-muted/20 overflow-hidden" aria-label="All in One Platform">
       <div className="container-max">
         <div className="text-center max-w-2xl mx-auto mb-12">
           <span className="text-accent font-semibold text-sm uppercase tracking-wider">{getContent("aio_badge", t("aio.badge"))}</span>
