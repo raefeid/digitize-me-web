@@ -149,32 +149,38 @@ function findAnswer(query: string): KBEntry | null {
 
 type Msg = { role: "user" | "bot"; text: string; link?: KBEntry["link"] };
 
+const PLACEHOLDER_EN =
+  "That's a great question! DigitizeMe is built to handle that seamlessly by combining AI extraction, bilingual OCR, and secure workflows into one platform. Here's what I found:";
+const PLACEHOLDER_AR =
+  "سؤال ممتاز! تم تصميم DigitizeMe للتعامل مع ذلك بسلاسة من خلال دمج استخراج البيانات بالذكاء الاصطناعي وOCR ثنائي اللغة وسير العمل الآمن في منصة واحدة. إليك ما وجدته:";
+
 const SiteChatbot = () => {
   const { lang, isRTL } = useLanguage();
   const navigate = useNavigate();
   const isAr = lang === "ar";
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
+  const [thinking, setThinking] = useState(false);
   const [messages, setMessages] = useState<Msg[]>([
     {
       role: "bot",
       text: isAr
-        ? "مرحباً! اسألني عن الأسعار، الميزات، التكاملات، الأمان، أو أي شيء عن الموقع."
-        : "Hi! Ask me about pricing, features, integrations, security, or anything about the site.",
+        ? "مرحباً! يمكنني أن أوضح لك كيف نجمع بين استخراج البيانات بالذكاء الاصطناعي وOCR المتقدم وسير العمل الآمن في منصة واحدة. ما الذي تريد أتمتته اليوم؟"
+        : "Hi! I can show you how we bundle AI extraction, advanced OCR, and secure workflows into one platform. What are you looking to automate today?",
     },
   ]);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
-  }, [messages, open]);
+  }, [messages, open, thinking]);
 
   useEffect(() => {
     if (open) setTimeout(() => inputRef.current?.focus(), 100);
   }, [open]);
 
-  // Auto-open once per browser session, shortly after landing.
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (sessionStorage.getItem("site-chatbot-auto-opened") === "1") return;
@@ -185,20 +191,44 @@ const SiteChatbot = () => {
     return () => clearTimeout(t);
   }, []);
 
+  useEffect(() => () => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+  }, []);
+
   const send = (text: string) => {
     const q = text.trim();
-    if (!q) return;
-    const match = findAnswer(q);
-    const botMsg: Msg = match
-      ? { role: "bot", text: isAr ? match.answer_ar : match.answer_en, link: match.link }
-      : { role: "bot", text: isAr ? FALLBACK_AR : FALLBACK_EN };
-    setMessages((m) => [...m, { role: "user", text: q }, botMsg]);
+    if (!q || thinking) return;
+    setMessages((m) => [...m, { role: "user", text: q }]);
     setInput("");
+    setThinking(true);
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
+      const match = findAnswer(q);
+      const prefix = isAr ? PLACEHOLDER_AR : PLACEHOLDER_EN;
+      const body = match ? (isAr ? match.answer_ar : match.answer_en) : (isAr ? FALLBACK_AR : FALLBACK_EN);
+      const botMsg: Msg = {
+        role: "bot",
+        text: `${prefix}\n\n${body}`,
+        link: match?.link,
+      };
+      setMessages((m) => [...m, botMsg]);
+      setThinking(false);
+    }, 3000);
   };
 
   const suggestions = isAr
-    ? ["كم السعر؟", "ما هي الميزات؟", "التكاملات؟", "الأمان؟"]
-    : ["How much does it cost?", "What are the features?", "Integrations?", "Is it secure?"];
+    ? [
+        "كم يمكنني توفير مع التسعير الشامل؟",
+        "كيف يعمل استخراج البيانات بالذكاء الاصطناعي؟",
+        "هل يمكن ربطه بالأنظمة القديمة؟",
+        "كيف تتعاملون مع الامتثال والأمان؟",
+      ]
+    : [
+        "How much can I save with all-in-one pricing?",
+        "How does the AI data extraction work?",
+        "Can this connect to legacy systems?",
+        "How do you handle compliance and security?",
+      ];
 
   return (
     <>
@@ -206,7 +236,7 @@ const SiteChatbot = () => {
       <button
         onClick={() => setOpen((o) => !o)}
         aria-label={isAr ? "افتح المحادثة" : "Open chat"}
-        className={`fixed bottom-6 ${isRTL ? "left-6" : "right-6"} z-[60] h-14 w-14 rounded-full bg-accent text-accent-foreground shadow-lg hover:scale-105 transition-transform flex items-center justify-center`}
+        className={`fixed bottom-6 ${isRTL ? "left-6" : "right-6"} z-[60] h-14 w-14 rounded-full bg-[#FF5A5F] text-white shadow-lg hover:scale-105 transition-transform flex items-center justify-center`}
       >
         <AnimatePresence mode="wait">
           {open ? (
@@ -232,25 +262,32 @@ const SiteChatbot = () => {
             dir={isRTL ? "rtl" : "ltr"}
           >
             {/* Header */}
-            <div className="px-4 py-3 border-b border-border bg-gradient-to-r from-accent/10 to-transparent">
-              <div className="font-semibold text-foreground">{isAr ? "مساعد الموقع" : "Site Assistant"}</div>
-              <div className="text-xs text-muted-foreground">
-                {isAr ? "يجيب على أسئلتك عن الموقع" : "Answers questions about the site"}
+            <div className="px-4 py-3 border-b border-border bg-gradient-to-r from-[#FF5A5F]/10 to-transparent flex items-center gap-3">
+              <div className="h-9 w-9 rounded-full bg-[#FF5A5F] text-white flex items-center justify-center shadow-sm">
+                <MessageCircle className="w-4 h-4" />
+              </div>
+              <div className="min-w-0">
+                <div className="font-semibold text-foreground">
+                  {isAr ? "دليل DigitizeMe" : "DigitizeMe Guide"}
+                </div>
+                <div className="text-xs text-muted-foreground truncate">
+                  {isAr ? "اسألني كيف تتخلص من فوضى المستندات" : "Ask me how to eliminate document chaos"}
+                </div>
               </div>
             </div>
 
             {/* Messages */}
-            <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-3">
+            <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-3 bg-background/40">
               {messages.map((m, i) => (
                 <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
                   <div
-                    className={`max-w-[85%] rounded-2xl px-3 py-2 text-sm ${
+                    className={`max-w-[85%] rounded-2xl px-3.5 py-2.5 text-sm shadow-sm ${
                       m.role === "user"
-                        ? "bg-accent text-accent-foreground"
-                        : "bg-muted text-foreground"
+                        ? "bg-[#FF5A5F] text-white rounded-br-md"
+                        : "bg-muted text-foreground rounded-bl-md"
                     }`}
                   >
-                    <div className="whitespace-pre-line">{m.text}</div>
+                    <div className="whitespace-pre-line leading-relaxed">{m.text}</div>
                     {m.link && (
                       <button
                         onClick={() => {
@@ -265,17 +302,33 @@ const SiteChatbot = () => {
                   </div>
                 </div>
               ))}
-              {messages.length <= 1 && (
+
+              {thinking && (
+                <div className="flex justify-start">
+                  <div className="bg-muted rounded-2xl rounded-bl-md px-4 py-3 shadow-sm flex items-center gap-1.5">
+                    {[0, 1, 2].map((i) => (
+                      <motion.span
+                        key={i}
+                        className="block h-2 w-2 rounded-full bg-[#FF5A5F]"
+                        animate={{ y: [0, -8, 0], opacity: [0.5, 1, 0.5] }}
+                        transition={{ duration: 1, repeat: Infinity, delay: i * 0.15, ease: "easeInOut" }}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {messages.length <= 1 && !thinking && (
                 <div className="pt-2">
                   <div className="text-[11px] uppercase tracking-wider text-muted-foreground mb-2">
                     {isAr ? "اقتراحات" : "Try asking"}
                   </div>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-col gap-2">
                     {suggestions.map((s) => (
                       <button
                         key={s}
                         onClick={() => send(s)}
-                        className="text-xs px-3 py-1.5 rounded-full border border-border hover:bg-muted transition-colors"
+                        className="text-xs text-left px-3 py-2 rounded-xl border border-border hover:border-[#FF5A5F]/60 hover:bg-[#FF5A5F]/5 transition-colors"
                       >
                         {s}
                       </button>
@@ -291,19 +344,19 @@ const SiteChatbot = () => {
                 e.preventDefault();
                 send(input);
               }}
-              className="p-3 border-t border-border flex gap-2"
+              className="p-3 border-t border-border flex gap-2 bg-card"
             >
               <input
                 ref={inputRef}
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder={isAr ? "اكتب سؤالك..." : "Type your question..."}
-                className="flex-1 px-3 py-2 rounded-xl bg-muted border border-transparent focus:border-accent focus:outline-none text-sm"
+                placeholder={isAr ? "اسألني أي شيء عن المنصة..." : "Ask me anything about the platform..."}
+                className="flex-1 px-3 py-2 rounded-xl bg-muted border border-transparent focus:border-[#FF5A5F] focus:outline-none text-sm"
               />
               <button
                 type="submit"
-                disabled={!input.trim()}
-                className="h-9 w-9 flex items-center justify-center rounded-xl bg-accent text-accent-foreground disabled:opacity-40"
+                disabled={!input.trim() || thinking}
+                className="h-9 w-9 flex items-center justify-center rounded-xl bg-[#FF5A5F] text-white disabled:opacity-40 hover:brightness-110 transition"
                 aria-label={isAr ? "إرسال" : "Send"}
               >
                 <Send className="w-4 h-4" />
@@ -317,3 +370,4 @@ const SiteChatbot = () => {
 };
 
 export default SiteChatbot;
+
