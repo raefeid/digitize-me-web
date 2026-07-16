@@ -162,6 +162,13 @@ const ScrollDocFlow = () => {
   const [tagsShown, setTagsShown] = useState(0);
   useMotionValueEvent(tagCount, "change", (v) => setTagsShown(Math.min(8, Math.max(0, Math.floor(v)))));
 
+  // Files-ready counter (reactive)
+  const [filesReady, setFilesReady] = useState(0);
+  useMotionValueEvent(scrollYProgress, "change", (v) => {
+    const n = v >= T.drag3[1] ? 3 : v >= T.drag2[1] ? 2 : v >= T.drag1[1] ? 1 : 0;
+    if (n !== filesReady) setFilesReady(n);
+  });
+
   const files = [
     { name: "Contract_2024.pdf", size: "2.4 MB", ext: "PDF", icon: FileSignature, tint: "bg-rose-500/10 text-rose-500", home: file1, t: f1 },
     { name: "Invoice_Q3.pdf", size: "864 KB", ext: "PDF", icon: FileSpreadsheet, tint: "bg-emerald-500/10 text-emerald-500", home: file2, t: f2 },
