@@ -19,7 +19,7 @@ export const launchExternal = (url: string, newTab = true) => {
 
 type Payload = { url: string; newTab: boolean; win: Window | null };
 
-const DURATION = 1600; // ms
+const DURATION = 2600; // ms — show rocket, THEN redirect
 
 const LaunchOverlay = () => {
   const [payload, setPayload] = useState<Payload | null>(null);
@@ -43,8 +43,8 @@ const LaunchOverlay = () => {
         } catch {
           window.location.href = ce.detail.url;
         }
-      }, DURATION - 350);
-      window.setTimeout(() => setPayload(null), DURATION);
+      }, DURATION);
+      window.setTimeout(() => setPayload(null), DURATION + 250);
     };
     window.addEventListener("launch-external", handler as EventListener);
     return () => window.removeEventListener("launch-external", handler as EventListener);
