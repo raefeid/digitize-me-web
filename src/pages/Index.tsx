@@ -9,7 +9,7 @@ import { useSiteContent } from "@/hooks/useSiteContent";
 import AnimatedHeroVisual from "@/components/home/AnimatedHeroVisual";
 import AnimatedOCRVisual from "@/components/home/AnimatedOCRVisual";
 import AnimatedCounter from "@/components/home/AnimatedStatsCounter";
-import AnimatedDocFlow from "@/components/home/AnimatedDocFlow";
+import ScrollDocFlow from "@/components/home/ScrollDocFlow";
 import AnimatedSearchPreview from "@/components/home/AnimatedSearchPreview";
 import BilingualOCRHero from "@/components/home/BilingualOCRHero";
 
@@ -224,7 +224,7 @@ const Index = () => {
             <EditableText as="p" page="home" section="home" contentKey="workflow_desc" fallback={t("workflow.desc")} multiline className="text-muted-foreground"  rich />
           </div>
           <EditableImage page="home" slotKey="workflow_image" alt="Document workflow">
-            <AnimatedDocFlow />
+            <ScrollDocFlow />
           </EditableImage>
         </div>
       </section>

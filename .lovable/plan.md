@@ -1,49 +1,56 @@
-# About page + UAE reinforcement
+# Scroll-driven "Paper to Digital" animation
 
-## New page: `/about` (and `/ar/about`)
+Replace the current auto-cycling `AnimatedDocFlow` with a scroll-pinned cinematic sequence where a stylized laptop/browser mockup drives through all 4 steps as the user scrolls.
 
-Bilingual, fully CMS-editable via existing `EditableText` / `EditableImage` patterns. Route added to `src/App.tsx` with lazy import.
+## UX flow
 
-### Sections (top → bottom)
+The section becomes a tall scroll container (~4x viewport height). Inside, a sticky stage pins a PC/browser mockup to the center of the viewport. As the user scrolls:
 
-1. **Hero** — eyebrow ("About Digitize me"), H1, lede paragraph, subtle hero visual. Editable.
-2. **Our Story — 30+ year timeline** — vertical/horizontal timeline of milestone cards (year + title + short copy). Seeded with placeholder milestones (group founding, regional expansion, digital transformation practice, launch of Digitize me, UAE cloud rollout, today). Each milestone editable; admin can add/remove via existing CMS list pattern.
-3. **Founder's Message — Raef Eid** — portrait slot, name, title ("Founder & CEO"), signed message. Empty editable slots (you'll paste real copy/photo later). I'll add a short neutral placeholder so the layout reads correctly until you fill it.
-4. **UAE Trust block** — "Hosted in the UAE. Built for the region." 3 trust pillars: UAE data residency, Arabic-first product, regional support. Icon + title + description each, editable.
-5. **CTA footer** — "Talk to our team" button → canonical `/contact` (normalized, so Arabic version routes to `/ar/contact` correctly per existing localization rules).
+1. **Upload (0–25%)** — Cursor glides across the screen, hovers a file, drag-drops `Contract_2024.pdf` into an upload zone. Progress bar fills.
+2. **Scan & OCR (25–50%)** — Document appears on screen, a horizontal scan-line sweeps top→bottom, Arabic + English text lines materialize with checkmarks; "99% accuracy" badge pops.
+3. **AI Classify (50–75%)** — Brain icon pulses; tags fly in one by one (Contract, Commercial, Arabic, Signed…); a mini knowledge-graph line connects them.
+4. **Ready (75–100%)** — Green check bursts, document shrinks into a folder, "Searchable • Shareable • Archived" badges slide in.
 
-### SEO
-- `SEOHead` with localized title/description, `pageKey="about"`, breadcrumbs (Home → About).
-- Add `about` entry to breadcrumb label dictionary in `src/lib/jsonLd.ts` (EN "About", AR "من نحن").
-- Add `/about` to sitemap seed list in `supabase/functions/sitemap/index.ts` and to static `public/sitemap-en.xml` / `public/sitemap-ar.xml` / `public/sitemap-index.xml`.
+The 4 step nodes above the mockup stay visible and highlight in sync with scroll progress (progress bar fills as a single continuous line).
 
-### Navigation
-- Add "About" / "من نحن" link to primary nav (via `useNavItems` default seed) and to footer "Company" column.
+## Layout
 
-## Site-wide UAE reinforcement (medium scope)
+```text
+┌─────────────────────────── section (h ≈ 400vh) ───────────────────────────┐
+│  ┌─────────── sticky stage (h = 100vh) ────────────┐                       │
+│  │  ● ─── ● ─── ● ─── ●   step rail (active = scroll progress)             │
+│  │                                                                          │
+│  │     ╔══════════════════════════╗                                         │
+│  │     ║  ▄▄ browser chrome ▄▄    ║   ← laptop / browser mockup            │
+│  │     ║                          ║      content swaps per step             │
+│  │     ║   [step content]         ║                                         │
+│  │     ╚══════════════════════════╝                                         │
+│  │     caption line (step description, crossfades)                          │
+│  └──────────────────────────────────────────────────┘                       │
+└──────────────────────────────────────────────────────────────────────────────┘
+```
 
-A small reusable `UAEHostingBadge` component (flag glyph + "Hosted in the UAE" / "مستضاف في الإمارات"), styled with existing tokens, editable label via CMS keys.
+## Technical approach
 
-Placement:
-- **Footer** (`src/components/layout/Footer.tsx`) — badge in the bottom bar next to copyright, shown on every page.
-- **Homepage** (`src/pages/Index.tsx`) — one-line trust strip inside the existing TrustedBy / Security area.
-- **Pricing** (`src/pages/Pricing.tsx`) — badge under the plan grid header reinforcing local hosting.
-- **Contact** (`src/pages/Contact.tsx`) — badge in the contact info sidebar.
+- New component: `src/components/home/ScrollDocFlow.tsx` (replaces `AnimatedDocFlow` on the homepage; keep the old file for now in case we need to revert).
+- Use Framer Motion `useScroll({ target: sectionRef, offset: ["start start", "end end"] })` + `useTransform` to drive:
+  - progress bar `scaleX`
+  - active step index (via `useMotionValueEvent`)
+  - per-step opacity/scale/translate of the internal scenes
+- Browser mockup: styled `div` with traffic-light dots + URL bar (uses design tokens — `bg-card`, `border-border`, `text-accent`).
+- Reuse the existing per-step visual pieces from `AnimatedDocFlow` (upload card, OCR lines, tags, ready badges), repackaged as 4 absolutely-positioned scenes that cross-fade based on scroll progress instead of a `setInterval`.
+- CMS content: keep pulling `step{n}_label` / `step{n}_desc` from `useSiteContent("home", "doc_flow")` so admin overrides still work. Bilingual (EN/AR) preserved via `useLanguage()`.
+- Accessibility / motion: respect `useReducedMotion()` — if reduced motion is on, fall back to the current stacked (non-scroll-driven) 4-panel view with no pinning.
+- Mobile (< md): shorter scroll length (~300vh) and simplified mockup (no chrome frame, smaller cursor). On very small screens, fall back to the current tap-through version to avoid awkward long scrolls.
 
-All copy goes through `EditableText` so you can refine wording in admin.
+## Files touched
 
-## Content source decision
-Per your "Mix" answer:
-- I'll write placeholder copy for the **Hero, Story timeline milestones, UAE trust pillars, and CTA**.
-- **Founder's message** section gets a short neutral placeholder + empty portrait slot — you paste Raef Eid's real message and photo later via the admin editor.
+- **Add** `src/components/home/ScrollDocFlow.tsx`
+- **Edit** `src/pages/Index.tsx` — swap `AnimatedDocFlow` import for `ScrollDocFlow` in the doc-flow section.
+- No CMS/schema changes. No changes to other sections.
 
-## Technical notes
-- New files: `src/pages/About.tsx`, `src/components/about/StoryTimeline.tsx`, `src/components/about/FoundersMessage.tsx`, `src/components/about/UAETrustBlock.tsx`, `src/components/common/UAEHostingBadge.tsx`.
-- Edits: `src/App.tsx` (route), `src/lib/jsonLd.ts` (breadcrumb label), `src/components/layout/Footer.tsx` & `Navbar.tsx` (nav link + badge), `src/pages/Index.tsx`, `src/pages/Pricing.tsx`, `src/pages/Contact.tsx` (badge insertion), sitemap files.
-- No DB schema changes — uses existing `site_content` table for editable copy.
-- Arabic translations added to `src/i18n/translations.ts` for nav label.
+## Out of scope
 
-## Out of scope (ask if needed)
-- Leadership team grid (you chose the slimmer structure).
-- Real founder photo/bio copy — you'll provide.
-- Heavy site-wide UAE injection on product/industries/integrations pages.
+- No new images or 3D assets — pure CSS/SVG mockup.
+- No changes to pricing, hero, or Infasme attribution sections.
+- Keeping `AnimatedDocFlow.tsx` in the repo (unused) so we can revert quickly; can delete in a follow-up if you're happy.
