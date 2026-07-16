@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Search, Shield, Zap, Globe, FileText, Brain, Clock, CheckCircle, ArrowRight, Scan, Languages, Building2, Scale, Stethoscope, Truck, GraduationCap, Factory, HardHat, Landmark, DollarSign, ShoppingBag, Droplets } from "lucide-react";
+import { Globe, Clock, CheckCircle, ArrowRight, Scan, Languages, Building2, Scale, Stethoscope, Truck, GraduationCap, Factory, HardHat, Landmark, DollarSign, ShoppingBag, Droplets } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/layout/Layout";
 import SEOHead from "@/components/SEOHead";
@@ -54,14 +54,6 @@ const Index = () => {
     { editKey: "stat_smes", value: getContent("stat_smes_value", "3M+"), label: getContent("stat_smes_label", t("stats.smes")) },
   ];
 
-  const features = [
-    { key: "ocr", icon: Brain, title: getContent("feat_ocr_title", t("feat.ocr.title")), desc: getContent("feat_ocr_desc", t("feat.ocr.desc")) },
-    { key: "search", icon: Search, title: getContent("feat_search_title", t("feat.search.title")), desc: getContent("feat_search_desc", t("feat.search.desc")) },
-    { key: "security", icon: Shield, title: getContent("feat_security_title", t("feat.security.title")), desc: getContent("feat_security_desc", t("feat.security.desc")) },
-    { key: "workflow", icon: Zap, title: getContent("feat_workflow_title", t("feat.workflow.title")), desc: getContent("feat_workflow_desc", t("feat.workflow.desc")) },
-    { key: "access", icon: Globe, title: getContent("feat_access_title", t("feat.access.title")), desc: getContent("feat_access_desc", t("feat.access.desc")) },
-    { key: "classify", icon: FileText, title: getContent("feat_classify_title", t("feat.classify.title")), desc: getContent("feat_classify_desc", t("feat.classify.desc")) },
-  ];
 
   const industries = [
     { icon: Scale, name: t("ind.law-firms"), slug: "law-firms" },
