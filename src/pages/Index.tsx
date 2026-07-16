@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Search, Shield, Zap, Globe, FileText, Brain, Clock, CheckCircle, ArrowRight, Scan, Languages, Building2, Scale, Stethoscope, Truck, GraduationCap, Factory, HardHat, Landmark, DollarSign, ShoppingBag, Droplets } from "lucide-react";
+import { Globe, Clock, CheckCircle, ArrowRight, Scan, Languages, Building2, Scale, Stethoscope, Truck, GraduationCap, Factory, HardHat, Landmark, DollarSign, ShoppingBag, Droplets } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/layout/Layout";
 import SEOHead from "@/components/SEOHead";
@@ -54,14 +54,6 @@ const Index = () => {
     { editKey: "stat_smes", value: getContent("stat_smes_value", "3M+"), label: getContent("stat_smes_label", t("stats.smes")) },
   ];
 
-  const features = [
-    { key: "ocr", icon: Brain, title: getContent("feat_ocr_title", t("feat.ocr.title")), desc: getContent("feat_ocr_desc", t("feat.ocr.desc")) },
-    { key: "search", icon: Search, title: getContent("feat_search_title", t("feat.search.title")), desc: getContent("feat_search_desc", t("feat.search.desc")) },
-    { key: "security", icon: Shield, title: getContent("feat_security_title", t("feat.security.title")), desc: getContent("feat_security_desc", t("feat.security.desc")) },
-    { key: "workflow", icon: Zap, title: getContent("feat_workflow_title", t("feat.workflow.title")), desc: getContent("feat_workflow_desc", t("feat.workflow.desc")) },
-    { key: "access", icon: Globe, title: getContent("feat_access_title", t("feat.access.title")), desc: getContent("feat_access_desc", t("feat.access.desc")) },
-    { key: "classify", icon: FileText, title: getContent("feat_classify_title", t("feat.classify.title")), desc: getContent("feat_classify_desc", t("feat.classify.desc")) },
-  ];
 
   const industries = [
     { icon: Scale, name: t("ind.law-firms"), slug: "law-firms" },
@@ -255,37 +247,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* 6. Features Grid */}
-      <section aria-label="Platform Features" className="section-padding bg-background">
-        <div className="container-max">
-          <div className="text-center max-w-2xl mx-auto mb-10 md:mb-12 section-stack">
-            <EditableText page="home" section="home" contentKey="features_badge" fallback={t("features.badge")} className="text-accent font-semibold text-sm uppercase tracking-wider" />
-            <EditableText as="h2" page="home" section="home" contentKey="features_title" fallback={t("features.title")} className="text-3xl md:text-4xl font-bold text-foreground mt-2 mb-4"  rich />
-            <EditableText as="p" page="home" section="home" contentKey="features_desc" fallback={t("features.desc")} multiline className="text-muted-foreground"  rich />
-          </div>
-          <EditableCardGrid
-            page="home"
-            gridKey="features"
-            seeds={features.map((f) => ({ key: f.key, icon: f.icon, title: f.title, desc: f.desc }))}
-            renderCard={({ index, icon, title, desc }) => (
-              <motion.div
-                className="bg-card rounded-xl p-6 border border-border hover:border-accent/20 hover:shadow-lg transition-all group h-full"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-                whileHover={{ y: -4 }}
-              >
-                <div className="icon-chip w-12 h-12 mb-4 group-hover:bg-accent/20 transition-colors">
-                  {icon}
-                </div>
-                {title}
-                {desc}
-              </motion.div>
-            )}
-          />
-        </div>
-      </section>
 
       {/* 7. All-in-One */}
       <AllInOneSection />
