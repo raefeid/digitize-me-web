@@ -39,7 +39,8 @@ export interface CtaDefinition {
 export const CTA_REGISTRY: CtaDefinition[] = [
   // Navbar
   { key: "nav_demo", location: "Navbar — Book a Demo", defaultKind: "link", defaultValue: "/contact" },
-  { key: "nav_start", location: "Navbar — Get Started", defaultKind: "link", defaultValue: "/pricing" },
+  { key: "nav_start", location: "Navbar — Get Started", defaultKind: "external", defaultValue: "https://fotofind.digitizeme.ae/" },
+
   // Home
   { key: "hero_primary", location: "Home — Hero primary (Get Started)", defaultKind: "link", defaultValue: "/pricing" },
   { key: "hero_secondary", location: "Home — Hero secondary (Book a Demo)", defaultKind: "link", defaultValue: "/contact" },
