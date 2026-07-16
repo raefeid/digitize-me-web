@@ -423,7 +423,7 @@ const ScrollDocFlow = () => {
                     <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
                       <span className="w-1.5 h-1.5 rounded-full bg-accent" />
                       <span>
-                        {Math.min(3, activeStep >= 1 ? 3 : (scrollYProgress.get() >= T.drag3[1] ? 3 : scrollYProgress.get() >= T.drag2[1] ? 2 : scrollYProgress.get() >= T.drag1[1] ? 1 : 0))}
+                        {filesReady}
                         {isRTL ? " ملفات جاهزة" : " files ready"}
                       </span>
                     </div>
