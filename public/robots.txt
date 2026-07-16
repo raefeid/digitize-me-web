@@ -3,8 +3,8 @@ Allow: /
 Disallow: /admin
 Disallow: /admin/
 
-Host: https://www.digitizeme.ae
-Sitemap: https://www.digitizeme.ae/sitemap.xml
-Sitemap: https://www.digitizeme.ae/sitemap-en.xml
-Sitemap: https://www.digitizeme.ae/sitemap-ar.xml
-Sitemap: https://www.digitizeme.ae/sitemap-index.xml
+Host: https://digitize-me-web.lovable.app
+Sitemap: https://digitize-me-web.lovable.app/sitemap.xml
+Sitemap: https://digitize-me-web.lovable.app/sitemap-en.xml
+Sitemap: https://digitize-me-web.lovable.app/sitemap-ar.xml
+Sitemap: https://digitize-me-web.lovable.app/sitemap-index.xml
