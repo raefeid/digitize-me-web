@@ -33,7 +33,9 @@ const LaunchOverlay = () => {
       // new tab opens as part of the same user gesture (popup blockers).
       window.setTimeout(() => {
         try {
-          if (ce.detail.newTab) {
+          if (ce.detail.newTab && ce.detail.win && !ce.detail.win.closed) {
+            ce.detail.win.location.href = ce.detail.url;
+          } else if (ce.detail.newTab) {
             window.open(ce.detail.url, "_blank", "noopener,noreferrer");
           } else {
             window.location.href = ce.detail.url;
