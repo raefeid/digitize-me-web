@@ -97,10 +97,10 @@ const ScrollDocFlow = () => {
 
   // ---- Cursor path (percent-based on stage) ----
   // Layout: left sidebar (~24%), toolbar (~14% high). File tiles sit in main grid.
-  const file1 = { x: "35%", y: "30%" };
-  const file2 = { x: "56%", y: "30%" };
-  const file3 = { x: "77%", y: "30%" };
-  const dropZ = { x: "56%", y: "66%" };
+  const file1 = { x: "40%", y: "34%" };
+  const file2 = { x: "60%", y: "34%" };
+  const file3 = { x: "80%", y: "34%" };
+  const dropZ = { x: "62%", y: "70%" };
 
   const btn   = { x: "83%", y: "92%" };
   const start = { x: "28%",  y: "20%"  };
