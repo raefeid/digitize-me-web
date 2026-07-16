@@ -17,6 +17,7 @@ import {
   ScanLine,
   FileSpreadsheet,
   FileSignature,
+  FileImage,
   Folder,
   FolderOpen,
   Search,
@@ -96,14 +97,16 @@ const ScrollDocFlow = () => {
   const railProgress = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   // ---- Cursor path (percent-based on stage) ----
-  // Layout: left sidebar (~24%), toolbar (~14% high). File tiles sit in main grid.
+  // Layout: sidebar ~24% wide, toolbar ~44px. Grid: 3 cols x 2 rows.
+  // Column centers (measured from full stage width, sidebar included): 40%, 61%, 82%
+  // Row centers: top row 34%, bottom row 62%
   const file1 = { x: "40%", y: "34%" };
-  const file2 = { x: "60%", y: "34%" };
-  const file3 = { x: "80%", y: "34%" };
-  const dropZ = { x: "62%", y: "70%" };
+  const file2 = { x: "61%", y: "34%" };
+  const file3 = { x: "82%", y: "34%" };
+  const dropZ = { x: "61%", y: "70%" };
 
   const btn   = { x: "83%", y: "92%" };
-  const start = { x: "28%",  y: "20%"  };
+  const start = { x: "28%",  y: "18%"  };
 
   const cx = useTransform(
     scrollYProgress,
@@ -119,18 +122,32 @@ const ScrollDocFlow = () => {
 
   // Per-file "grabbed" state — file follows cursor between moveTo end and drag end
   const makeFileTransform = (moveTo: readonly [number, number], drag: readonly [number, number], home: { x: string; y: string }) => {
-    // opacity=1 in home until picked; then fades out at drag end (it "lands" in drop zone)
     const opacity = useTransform(scrollYProgress, [drag[1] - 0.005, drag[1]], [1, 0], { clamp: true });
-    // Interpolate x/y from home → dropZone across [moveTo[1], drag[1]]
     const x = useTransform(scrollYProgress, [moveTo[1], drag[1]], [home.x, dropZ.x], { clamp: true });
     const y = useTransform(scrollYProgress, [moveTo[1], drag[1]], [home.y, dropZ.y], { clamp: true });
-    // Only "attached" (visible follower) between moveTo end and drag end
     const attached = useTransform(scrollYProgress, [moveTo[1] - 0.005, moveTo[1], drag[1], drag[1] + 0.005], [0, 1, 1, 0], { clamp: true });
-    return { opacity, x, y, attached };
+    // subtle highlight on the source tile just before pickup
+    const highlight = useTransform(scrollYProgress, [moveTo[1] - 0.04, moveTo[1], moveTo[1] + 0.001], [0, 1, 0], { clamp: true });
+    return { opacity, x, y, attached, highlight };
   };
   const f1 = makeFileTransform(T.moveTo1, T.drag1, file1);
   const f2 = makeFileTransform(T.moveTo2, T.drag2, file2);
   const f3 = makeFileTransform(T.moveTo3, T.drag3, file3);
+
+  // Drop zone appears only when the first drag begins, fades out after last drop
+  const dropZoneOpacity = useTransform(
+    scrollYProgress,
+    [T.moveTo1[0], T.moveTo1[1] - 0.01, T.drag3[1] + 0.02, T.upload[0]],
+    [0, 1, 1, 0],
+    { clamp: true },
+  );
+  // Bottom row of static files fades out to make room for the drop zone
+  const bottomRowOpacity = useTransform(
+    scrollYProgress,
+    [T.moveTo1[0] - 0.02, T.moveTo1[0] + 0.02, T.drag3[1] + 0.04, T.upload[0]],
+    [1, 0, 0, 1],
+    { clamp: true },
+  );
 
   // Drop zone highlight when cursor is over it
   const dropGlow = useTransform(
@@ -170,10 +187,18 @@ const ScrollDocFlow = () => {
     if (n !== filesReady) setFilesReady(n);
   });
 
+  // Top row — the files that actually get dragged
   const files = [
-    { name: "Contract_2024.pdf", size: "2.4 MB", ext: "PDF", icon: FileSignature, tint: "bg-rose-500/10 text-rose-500", home: file1, t: f1 },
-    { name: "Invoice_Q3.pdf", size: "864 KB", ext: "PDF", icon: FileSpreadsheet, tint: "bg-emerald-500/10 text-emerald-500", home: file2, t: f2 },
-    { name: "NDA_signed.pdf", size: "1.1 MB", ext: "PDF", icon: FileText, tint: "bg-sky-500/10 text-sky-500", home: file3, t: f3 },
+    { name: "Invoice_Q3.pdf", size: "1.2 MB", updated: "Sep 10", ext: "PDF", icon: FileSpreadsheet, tint: "bg-emerald-500/10 text-emerald-500", home: file1, t: f1 },
+    { name: "Contract_2024.pdf", size: "864 KB", updated: "Sep 05", ext: "PDF", icon: FileSignature, tint: "bg-sky-500/10 text-sky-500", home: file2, t: f2 },
+    { name: "Meeting_Notes.docx", size: "320 KB", updated: "Sep 12", ext: "DOCX", icon: FileText, tint: "bg-indigo-500/10 text-indigo-500", home: file3, t: f3 },
+  ];
+
+  // Bottom row — decorative filler files (never dragged)
+  const bottomFiles = [
+    { name: "Budget_FY24.pdf", size: "3.1 MB", updated: "Sep 08", ext: "PDF", icon: FileSpreadsheet, tint: "bg-emerald-500/10 text-emerald-500", x: "40%", y: "62%" },
+    { name: "Project_Logo.png", size: "4.5 MB", updated: "Sep 01", ext: "PNG", icon: FileImage, tint: "bg-slate-500/10 text-slate-500", x: "61%", y: "62%" },
+    { name: "Client_Forecast.xlsx", size: "1.8 MB", updated: "Sep 14", ext: "XLSX", icon: FileSpreadsheet, tint: "bg-emerald-600/10 text-emerald-600", x: "82%", y: "62%" },
   ];
 
   const stations = STATION_DEFAULTS.map((s) => ({
@@ -331,27 +356,57 @@ const ScrollDocFlow = () => {
                       {isRTL ? "الملفات الحديثة" : "Recent files"}
                     </div>
 
-                    {/* File tiles in "home" positions */}
+                    {/* File tiles — draggable top row */}
                     {files.map((f) => {
                       const Ic = f.icon;
                       return (
                         <motion.div
                           key={f.name}
-                          className="absolute -translate-x-1/2 -translate-y-1/2 w-[16%] rounded-xl border border-border/70 bg-card shadow-[0_1px_2px_rgba(0,0,0,0.04),0_6px_16px_-6px_rgba(15,23,42,0.12)] p-2.5 flex flex-col gap-2 overflow-hidden"
+                          className="absolute -translate-x-1/2 -translate-y-1/2 w-[19%] rounded-2xl border border-border/70 bg-card shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_20px_-8px_rgba(15,23,42,0.14)] p-3 flex flex-col gap-2.5 overflow-hidden"
                           style={{ left: f.home.x, top: f.home.y, opacity: f.t.opacity }}
                         >
-                          <div className={`aspect-[4/3] rounded-lg flex items-center justify-center ${f.tint} relative`}>
-                            <Ic size={28} strokeWidth={1.5} />
-                            <span className="absolute bottom-1 right-1.5 text-[8px] font-bold tracking-wider opacity-70">{f.ext}</span>
+                          <motion.div
+                            className="absolute inset-0 rounded-2xl ring-2 ring-accent/60 pointer-events-none"
+                            style={{ opacity: f.t.highlight }}
+                          />
+                          <div className={`aspect-[4/3] rounded-xl flex flex-col items-center justify-center gap-1 ${f.tint}`}>
+                            <Ic size={26} strokeWidth={1.5} />
+                            <span className="text-[9px] font-bold tracking-wider opacity-70">{f.ext}</span>
                           </div>
                           <div className="min-w-0 px-0.5">
-                            <p className="text-[10px] font-semibold text-foreground truncate leading-tight">{f.name}</p>
+                            <p className="text-[10.5px] font-semibold text-foreground truncate leading-tight">{f.name}</p>
                             <p className="text-[9px] text-muted-foreground mt-0.5">{f.size}</p>
+                            <p className="text-[9px] text-muted-foreground/70 mt-0.5">
+                              {isRTL ? "آخر تحديث" : "Last updated"} {f.updated}
+                            </p>
                           </div>
                         </motion.div>
                       );
                     })}
 
+                    {/* Bottom row — decorative filler files that fade out when drop zone activates */}
+                    {bottomFiles.map((f) => {
+                      const Ic = f.icon;
+                      return (
+                        <motion.div
+                          key={f.name}
+                          className="absolute -translate-x-1/2 -translate-y-1/2 w-[19%] rounded-2xl border border-border/70 bg-card shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_20px_-8px_rgba(15,23,42,0.14)] p-3 flex flex-col gap-2.5 overflow-hidden"
+                          style={{ left: f.x, top: f.y, opacity: bottomRowOpacity }}
+                        >
+                          <div className={`aspect-[4/3] rounded-xl flex flex-col items-center justify-center gap-1 ${f.tint}`}>
+                            <Ic size={26} strokeWidth={1.5} />
+                            <span className="text-[9px] font-bold tracking-wider opacity-70">{f.ext}</span>
+                          </div>
+                          <div className="min-w-0 px-0.5">
+                            <p className="text-[10.5px] font-semibold text-foreground truncate leading-tight">{f.name}</p>
+                            <p className="text-[9px] text-muted-foreground mt-0.5">{f.size}</p>
+                            <p className="text-[9px] text-muted-foreground/70 mt-0.5">
+                              {isRTL ? "آخر تحديث" : "Last updated"} {f.updated}
+                            </p>
+                          </div>
+                        </motion.div>
+                      );
+                    })}
 
                     {/* Dragged file follower */}
                     {files.map((f, i) => {
@@ -359,21 +414,21 @@ const ScrollDocFlow = () => {
                       return (
                         <motion.div
                           key={`drag-${i}`}
-                          className="absolute z-20 -translate-x-1/2 -translate-y-1/2 w-[24%] rounded-xl border border-accent/70 bg-card shadow-2xl p-2.5 flex flex-col gap-2 pointer-events-none ring-2 ring-accent/30"
+                          className="absolute z-20 -translate-x-1/2 -translate-y-1/2 w-[19%] rounded-2xl border border-accent/70 bg-card shadow-2xl p-3 flex flex-col gap-2 pointer-events-none ring-2 ring-accent/30"
                           style={{ left: f.t.x, top: f.t.y, opacity: f.t.attached, rotate: -5 }}
                         >
-                          <div className={`h-12 rounded-lg flex items-center justify-center ${f.tint}`}>
-                            <Ic size={20} />
+                          <div className={`aspect-[4/3] rounded-xl flex items-center justify-center ${f.tint}`}>
+                            <Ic size={22} />
                           </div>
                           <p className="text-[10px] font-semibold text-foreground truncate">{f.name}</p>
                         </motion.div>
                       );
                     })}
 
-                    {/* Drop zone */}
+                    {/* Drop zone — only appears while dragging */}
                     <motion.div
-                      className="absolute -translate-x-1/2 -translate-y-1/2 w-[68%] h-[36%] rounded-2xl border-2 border-dashed border-border/70 flex items-center justify-center overflow-hidden"
-                      style={{ left: dropZ.x, top: dropZ.y }}
+                      className="absolute -translate-x-1/2 -translate-y-1/2 w-[70%] h-[34%] rounded-2xl border-2 border-dashed border-border/70 flex items-center justify-center overflow-hidden bg-background/60 backdrop-blur-[1px]"
+                      style={{ left: dropZ.x, top: dropZ.y, opacity: dropZoneOpacity }}
                     >
                       <motion.div
                         className="absolute inset-0 rounded-2xl border-2 border-dashed border-accent bg-accent/10"
@@ -417,6 +472,7 @@ const ScrollDocFlow = () => {
                         })}
                       </div>
                     </motion.div>
+
                   </div>
 
                   {/* Bottom action bar */}
