@@ -58,16 +58,10 @@ const Index = () => {
   const industries = [
     { icon: Scale, name: t("ind.law-firms"), slug: "law-firms" },
     { icon: DollarSign, name: t("ind.accounting"), slug: "accounting" },
-    { icon: Truck, name: t("ind.logistics"), slug: "logistics" },
     { icon: Building2, name: t("ind.real-estate"), slug: "real-estate" },
     { icon: Stethoscope, name: t("ind.healthcare"), slug: "healthcare" },
-    { icon: GraduationCap, name: t("ind.education"), slug: "education" },
-    { icon: Factory, name: t("ind.manufacturing"), slug: "manufacturing" },
-    { icon: HardHat, name: t("ind.construction"), slug: "construction" },
     { icon: Landmark, name: t("ind.government"), slug: "government" },
-    { icon: ShoppingBag, name: t("ind.import-export"), slug: "import-export" },
     { icon: Landmark, name: t("ind.banking-finance"), slug: "banking-finance" },
-    { icon: Droplets, name: t("ind.oil-gas"), slug: "oil-gas" },
   ];
 
   const aiFeats = [
