@@ -63,7 +63,7 @@ const AllInOneSection = () => {
   });
 
   const totalPrice = resolvedTools.reduce((sum, t) => sum + t.effectivePrice, 0);
-  const bundlePriceUsd = parseFloat(getContent("aio_bundle_price_usd", "49")) || 49;
+  const bundlePriceUsd = parseFloat(getContent("aio_bundle_price_usd", "99")) || 99;
 
   // Recompute scatter positions whenever the tool count changes.
   const positions = useMemo(() => computePositions(resolvedTools.length), [resolvedTools.length]);
