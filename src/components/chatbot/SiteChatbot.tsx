@@ -174,6 +174,17 @@ const SiteChatbot = () => {
     if (open) setTimeout(() => inputRef.current?.focus(), 100);
   }, [open]);
 
+  // Auto-open once per browser session, shortly after landing.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (sessionStorage.getItem("site-chatbot-auto-opened") === "1") return;
+    const t = setTimeout(() => {
+      setOpen(true);
+      sessionStorage.setItem("site-chatbot-auto-opened", "1");
+    }, 1500);
+    return () => clearTimeout(t);
+  }, []);
+
   const send = (text: string) => {
     const q = text.trim();
     if (!q) return;
