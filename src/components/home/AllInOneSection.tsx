@@ -71,7 +71,7 @@ const AllInOneSection = () => {
   // Canvas height adapts to the number of rows so taller lists don't get clipped.
   const canvasHeight = useMemo(() => {
     const rows = Math.ceil(resolvedTools.length / 4) || 1;
-    return Math.max(320, rows * 160 + 160);
+    return Math.max(320, rows * 160 + 80);
   }, [resolvedTools.length]);
 
   const formatPrice = (usdAmount: number, suffix = true) => {
