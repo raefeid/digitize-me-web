@@ -17,6 +17,7 @@ import {
   ScanLine,
   FileSpreadsheet,
   FileSignature,
+  FileImage,
   Folder,
   FolderOpen,
   Search,
