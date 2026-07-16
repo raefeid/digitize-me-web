@@ -7,17 +7,11 @@ import { Rocket, Sparkles } from "lucide-react";
  * then open the given URL. Usage:
  *   launchExternal("https://fotofind.digitizeme.ae/")
  */
-export const launchExternal = (url: string, newTab = true) => {
-  // Open the tab synchronously inside the click handler so popup blockers
-  // don't kill it. We navigate it after the animation finishes.
-  let win: Window | null = null;
-  if (newTab && typeof window !== "undefined") {
-    win = window.open("about:blank", "_blank", "noopener,noreferrer");
-  }
-  window.dispatchEvent(new CustomEvent("launch-external", { detail: { url, newTab, win } }));
+export const launchExternal = (url: string, newTab = false) => {
+  window.dispatchEvent(new CustomEvent("launch-external", { detail: { url, newTab } }));
 };
 
-type Payload = { url: string; newTab: boolean; win: Window | null };
+type Payload = { url: string; newTab: boolean };
 
 const DURATION = 2600; // ms — show rocket, THEN redirect
 
