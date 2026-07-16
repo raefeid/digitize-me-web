@@ -42,6 +42,13 @@ const ResetPassword = lazy(() => import("./pages/ResetPassword.tsx"));
 const About = lazy(() => import("./pages/About.tsx"));
 
 import { useTrackingScripts } from "@/hooks/useTrackingScripts";
+import SiteChatbot from "@/components/chatbot/SiteChatbot";
+
+const ChatbotMount = () => {
+  const { pathname } = useLocation();
+  if (pathname.startsWith("/admin")) return null;
+  return <SiteChatbot />;
+};
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -102,6 +109,7 @@ const AppRoutes = () => (
     </Suspense>
     <EditModeBar />
     <FormatToolbar />
+    <ChatbotMount />
   </>
 );
 
