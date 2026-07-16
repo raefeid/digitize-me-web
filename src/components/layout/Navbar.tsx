@@ -623,10 +623,9 @@ const Navbar = () => {
                 >
                   {isRTL ? "ابدأ مجانًا" : "Start Free"}
                 </a>
-
-              </div>
             </div>
           </div>
+
         )}
       </div>
     </nav>

@@ -35,8 +35,6 @@ const AdminSitemapDebug = lazy(() => import("./pages/AdminSitemapDebug.tsx"));
 const FeatureDetail = lazy(() => import("./pages/FeatureDetail.tsx"));
 const Features = lazy(() => import("./pages/Features.tsx"));
 const CustomPage = lazy(() => import("./pages/CustomPage.tsx"));
-const SignIn = lazy(() => import("./pages/SignIn.tsx"));
-const SignUp = lazy(() => import("./pages/SignUp.tsx"));
 const ForgotPassword = lazy(() => import("./pages/ForgotPassword.tsx"));
 const ResetPassword = lazy(() => import("./pages/ResetPassword.tsx"));
 const About = lazy(() => import("./pages/About.tsx"));
@@ -95,10 +93,6 @@ const AppRoutes = () => (
         <Route path="/admin/sitemap-debug" element={<AdminSitemapDebug />} />
         <Route path="/features" element={<Features />} />
         <Route path="/features/:slug" element={<FeatureDetail />} />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/ar/signin" element={<SignIn />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/ar/signup" element={<SignUp />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/ar/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
