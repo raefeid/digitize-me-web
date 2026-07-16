@@ -76,7 +76,7 @@ const Index = () => {
     getContent("hero_rotate2", t("hero.rotate2")),
     getContent("hero_rotate3", t("hero.rotate3")),
   ];
-  const featuredIndustryLinks = industryLinkItems.slice(0, 6);
+  const featuredIndustryLinks = industryLinkItems.slice(0, 3);
 
   // Bilingual homepage FAQs (page=home, section=faqs). EN strings below
   // are canonical fallbacks; Arabic comes from CMS rows. SEOHead emits
