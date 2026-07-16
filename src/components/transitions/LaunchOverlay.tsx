@@ -24,11 +24,13 @@ const LaunchOverlay = () => {
       window.setTimeout(() => {
         if (ce.detail.newTab) {
           window.open(ce.detail.url, "_blank", "noopener,noreferrer");
+          // keep overlay a bit longer so the homepage isn't visible behind
+          window.setTimeout(() => setPayload(null), 1200);
         } else {
+          // same-tab: leave overlay mounted until the browser navigates away
           window.location.href = ce.detail.url;
         }
       }, DURATION);
-      window.setTimeout(() => setPayload(null), DURATION + 250);
     };
     window.addEventListener("launch-external", handler as EventListener);
     return () => window.removeEventListener("launch-external", handler as EventListener);
