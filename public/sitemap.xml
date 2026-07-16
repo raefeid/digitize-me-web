@@ -1,190 +1,273 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://digitize-me-web.lovable.app/</loc>
-    <lastmod>2026-04-21</lastmod>
+    <lastmod>2026-07-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://digitize-me-web.lovable.app/" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://digitize-me-web.lovable.app/?lang=ar" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://digitize-me-web.lovable.app/" />
   </url>
   <url>
     <loc>https://digitize-me-web.lovable.app/product</loc>
-    <lastmod>2026-04-21</lastmod>
+    <lastmod>2026-07-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://digitize-me-web.lovable.app/product" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://digitize-me-web.lovable.app/product?lang=ar" />
   </url>
   <url>
-    <loc>https://digitize-me-web.lovable.app/pricing</loc>
-    <lastmod>2026-04-21</lastmod>
+    <loc>https://digitize-me-web.lovable.app/features</loc>
+    <lastmod>2026-07-16</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://digitize-me-web.lovable.app/pricing" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://digitize-me-web.lovable.app/pricing?lang=ar" />
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://digitize-me-web.lovable.app/industries</loc>
-    <lastmod>2026-04-21</lastmod>
+    <lastmod>2026-07-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://digitize-me-web.lovable.app/industries" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://digitize-me-web.lovable.app/industries?lang=ar" />
+  </url>
+  <url>
+    <loc>https://digitize-me-web.lovable.app/integrations</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://digitize-me-web.lovable.app/pricing</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://digitize-me-web.lovable.app/about</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://digitize-me-web.lovable.app/contact</loc>
-    <lastmod>2026-04-21</lastmod>
+    <lastmod>2026-07-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://digitize-me-web.lovable.app/contact" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://digitize-me-web.lovable.app/contact?lang=ar" />
-  </url>
-  <url>
-    <loc>https://digitize-me-web.lovable.app/industries/law-firms</loc>
-    <lastmod>2026-04-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://digitize-me-web.lovable.app/industries/law-firms" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://digitize-me-web.lovable.app/industries/law-firms?lang=ar" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://digitize-me-web.lovable.app/industries/law-firms" />
-  </url>
-  <url>
-    <loc>https://digitize-me-web.lovable.app/industries/accounting</loc>
-    <lastmod>2026-04-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://digitize-me-web.lovable.app/industries/accounting" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://digitize-me-web.lovable.app/industries/accounting?lang=ar" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://digitize-me-web.lovable.app/industries/accounting" />
-  </url>
-  <url>
-    <loc>https://digitize-me-web.lovable.app/industries/logistics</loc>
-    <lastmod>2026-04-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://digitize-me-web.lovable.app/industries/logistics" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://digitize-me-web.lovable.app/industries/logistics?lang=ar" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://digitize-me-web.lovable.app/industries/logistics" />
-  </url>
-  <url>
-    <loc>https://digitize-me-web.lovable.app/industries/real-estate</loc>
-    <lastmod>2026-04-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://digitize-me-web.lovable.app/industries/real-estate" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://digitize-me-web.lovable.app/industries/real-estate?lang=ar" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://digitize-me-web.lovable.app/industries/real-estate" />
-  </url>
-  <url>
-    <loc>https://digitize-me-web.lovable.app/industries/healthcare</loc>
-    <lastmod>2026-04-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://digitize-me-web.lovable.app/industries/healthcare" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://digitize-me-web.lovable.app/industries/healthcare?lang=ar" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://digitize-me-web.lovable.app/industries/healthcare" />
-  </url>
-  <url>
-    <loc>https://digitize-me-web.lovable.app/industries/education</loc>
-    <lastmod>2026-04-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://digitize-me-web.lovable.app/industries/education" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://digitize-me-web.lovable.app/industries/education?lang=ar" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://digitize-me-web.lovable.app/industries/education" />
-  </url>
-  <url>
-    <loc>https://digitize-me-web.lovable.app/industries/manufacturing</loc>
-    <lastmod>2026-04-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://digitize-me-web.lovable.app/industries/manufacturing" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://digitize-me-web.lovable.app/industries/manufacturing?lang=ar" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://digitize-me-web.lovable.app/industries/manufacturing" />
-  </url>
-  <url>
-    <loc>https://digitize-me-web.lovable.app/industries/construction</loc>
-    <lastmod>2026-04-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://digitize-me-web.lovable.app/industries/construction" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://digitize-me-web.lovable.app/industries/construction?lang=ar" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://digitize-me-web.lovable.app/industries/construction" />
-  </url>
-  <url>
-    <loc>https://digitize-me-web.lovable.app/industries/government</loc>
-    <lastmod>2026-04-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://digitize-me-web.lovable.app/industries/government" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://digitize-me-web.lovable.app/industries/government?lang=ar" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://digitize-me-web.lovable.app/industries/government" />
-  </url>
-  <url>
-    <loc>https://digitize-me-web.lovable.app/industries/banking-finance</loc>
-    <lastmod>2026-04-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://digitize-me-web.lovable.app/industries/banking-finance" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://digitize-me-web.lovable.app/industries/banking-finance?lang=ar" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://digitize-me-web.lovable.app/industries/banking-finance" />
-  </url>
-  <url>
-    <loc>https://digitize-me-web.lovable.app/industries/import-export</loc>
-    <lastmod>2026-04-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://digitize-me-web.lovable.app/industries/import-export" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://digitize-me-web.lovable.app/industries/import-export?lang=ar" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://digitize-me-web.lovable.app/industries/import-export" />
-  </url>
-  <url>
-    <loc>https://digitize-me-web.lovable.app/industries/oil-gas</loc>
-    <lastmod>2026-04-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://digitize-me-web.lovable.app/industries/oil-gas" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://digitize-me-web.lovable.app/industries/oil-gas?lang=ar" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://digitize-me-web.lovable.app/industries/oil-gas" />
-  </url>
-  <url>
-    <loc>https://digitize-me-web.lovable.app/industries/insurance</loc>
-    <lastmod>2026-04-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://digitize-me-web.lovable.app/industries/insurance" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://digitize-me-web.lovable.app/industries/insurance?lang=ar" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://digitize-me-web.lovable.app/industries/insurance" />
-  </url>
-  <url>
-    <loc>https://digitize-me-web.lovable.app/industries/retail</loc>
-    <lastmod>2026-04-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://digitize-me-web.lovable.app/industries/retail" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://digitize-me-web.lovable.app/industries/retail?lang=ar" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://digitize-me-web.lovable.app/industries/retail" />
   </url>
   <url>
     <loc>https://digitize-me-web.lovable.app/blog</loc>
-    <lastmod>2026-04-21</lastmod>
+    <lastmod>2026-07-16</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://digitize-me-web.lovable.app/blog" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://digitize-me-web.lovable.app/blog?lang=ar" />
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://digitize-me-web.lovable.app/privacy</loc>
-    <lastmod>2026-04-21</lastmod>
+    <lastmod>2026-07-16</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://digitize-me-web.lovable.app/terms</loc>
-    <lastmod>2026-04-21</lastmod>
+    <lastmod>2026-07-16</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://digitize-me-web.lovable.app/industries/law-firms</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://digitize-me-web.lovable.app/industries/accounting</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://digitize-me-web.lovable.app/industries/logistics</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://digitize-me-web.lovable.app/industries/real-estate</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://digitize-me-web.lovable.app/industries/healthcare</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://digitize-me-web.lovable.app/industries/education</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://digitize-me-web.lovable.app/industries/manufacturing</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://digitize-me-web.lovable.app/industries/construction</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://digitize-me-web.lovable.app/industries/government</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://digitize-me-web.lovable.app/industries/banking-finance</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://digitize-me-web.lovable.app/industries/import-export</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://digitize-me-web.lovable.app/industries/oil-gas</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://digitize-me-web.lovable.app/industries/insurance</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://digitize-me-web.lovable.app/industries/retail</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://digitize-me-web.lovable.app/ar</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://digitize-me-web.lovable.app/ar/product</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://digitize-me-web.lovable.app/ar/industries</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://digitize-me-web.lovable.app/ar/pricing</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://digitize-me-web.lovable.app/ar/contact</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://digitize-me-web.lovable.app/ar/about</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://digitize-me-web.lovable.app/ar/industries/law-firms</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://digitize-me-web.lovable.app/ar/industries/accounting</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://digitize-me-web.lovable.app/ar/industries/logistics</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://digitize-me-web.lovable.app/ar/industries/real-estate</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://digitize-me-web.lovable.app/ar/industries/healthcare</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://digitize-me-web.lovable.app/ar/industries/education</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://digitize-me-web.lovable.app/ar/industries/manufacturing</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://digitize-me-web.lovable.app/ar/industries/construction</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://digitize-me-web.lovable.app/ar/industries/government</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://digitize-me-web.lovable.app/ar/industries/banking-finance</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://digitize-me-web.lovable.app/ar/industries/import-export</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://digitize-me-web.lovable.app/ar/industries/oil-gas</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://digitize-me-web.lovable.app/ar/industries/insurance</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://digitize-me-web.lovable.app/ar/industries/retail</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>
