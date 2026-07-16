@@ -7,17 +7,11 @@ import { Rocket, Sparkles } from "lucide-react";
  * then open the given URL. Usage:
  *   launchExternal("https://fotofind.digitizeme.ae/")
  */
-export const launchExternal = (url: string, newTab = true) => {
-  // Open the tab synchronously inside the click handler so popup blockers
-  // don't kill it. We navigate it after the animation finishes.
-  let win: Window | null = null;
-  if (newTab && typeof window !== "undefined") {
-    win = window.open("about:blank", "_blank", "noopener,noreferrer");
-  }
-  window.dispatchEvent(new CustomEvent("launch-external", { detail: { url, newTab, win } }));
+export const launchExternal = (url: string, newTab = false) => {
+  window.dispatchEvent(new CustomEvent("launch-external", { detail: { url, newTab } }));
 };
 
-type Payload = { url: string; newTab: boolean; win: Window | null };
+type Payload = { url: string; newTab: boolean };
 
 const DURATION = 2600; // ms — show rocket, THEN redirect
 
@@ -32,15 +26,9 @@ const LaunchOverlay = () => {
       // Fire the actual navigation slightly before the overlay fades so the
       // new tab opens as part of the same user gesture (popup blockers).
       window.setTimeout(() => {
-        try {
-          if (ce.detail.newTab && ce.detail.win && !ce.detail.win.closed) {
-            ce.detail.win.location.href = ce.detail.url;
-          } else if (ce.detail.newTab) {
-            window.open(ce.detail.url, "_blank", "noopener,noreferrer");
-          } else {
-            window.location.href = ce.detail.url;
-          }
-        } catch {
+        if (ce.detail.newTab) {
+          window.open(ce.detail.url, "_blank", "noopener,noreferrer");
+        } else {
           window.location.href = ce.detail.url;
         }
       }, DURATION);
