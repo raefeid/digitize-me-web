@@ -252,7 +252,7 @@ export const translations: TranslationMap = {
     "aio.classify": "Classification",
     "aio.workflow": "Workflows",
     "aio.approve": "Approvals",
-    "aio.costNote": "12 separate subscriptions = $500+/month",
+    "aio.costNote": "12 separate subscriptions = ${{total}}/month",
     "aio.unified": "All your document needs: one platform, one subscription",
     "aio.savings": "One platform. One price. Everything included.",
     "aio.notSeamless": "Nothing that seamless",
