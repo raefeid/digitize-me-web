@@ -159,7 +159,7 @@ const Industries = () => {
                         </span>
                       )}
                     </div>
-                    <h3 className="text-lg font-bold text-foreground mb-2">{displayName}</h3>
+                    <h2 className="text-lg font-bold text-foreground mb-2">{displayName}</h2>
                     {description ? (
                       <p className="text-sm text-muted-foreground">{description}</p>
                     ) : (
@@ -172,7 +172,7 @@ const Industries = () => {
                       </p>
                     )}
                     <span className="text-sm font-medium text-accent flex items-center gap-1 mt-3">
-                      {t("industries.learnMore")} <ArrowRight size={14} className={isRTL ? "rotate-180" : ""} />
+                      {t("industries.learnMore")} {displayName} <ArrowRight size={14} className={isRTL ? "rotate-180" : ""} />
                     </span>
                   </Link>
                   {industry.isCustom && editEnabled && (
