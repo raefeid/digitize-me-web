@@ -13,6 +13,7 @@ import logoFallback from "@/assets/digitizeme-logo-light.png";
 import { useBrandingAsset } from "@/hooks/useBranding";
 import { useNavItems, navItemHref } from "@/hooks/useNavItems";
 import { useCustomPages } from "@/hooks/useCustomPages";
+import { launchExternal } from "@/components/transitions/LaunchOverlay";
 
 import { localizeInternalPath, switchLanguagePath } from "@/lib/localizedRoutes";
 
