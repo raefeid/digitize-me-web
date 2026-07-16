@@ -97,14 +97,16 @@ const ScrollDocFlow = () => {
   const railProgress = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   // ---- Cursor path (percent-based on stage) ----
-  // Layout: left sidebar (~24%), toolbar (~14% high). File tiles sit in main grid.
+  // Layout: sidebar ~24% wide, toolbar ~44px. Grid: 3 cols x 2 rows.
+  // Column centers (measured from full stage width, sidebar included): 40%, 61%, 82%
+  // Row centers: top row 34%, bottom row 62%
   const file1 = { x: "40%", y: "34%" };
-  const file2 = { x: "60%", y: "34%" };
-  const file3 = { x: "80%", y: "34%" };
-  const dropZ = { x: "62%", y: "70%" };
+  const file2 = { x: "61%", y: "34%" };
+  const file3 = { x: "82%", y: "34%" };
+  const dropZ = { x: "61%", y: "70%" };
 
   const btn   = { x: "83%", y: "92%" };
-  const start = { x: "28%",  y: "20%"  };
+  const start = { x: "28%",  y: "18%"  };
 
   const cx = useTransform(
     scrollYProgress,
@@ -120,18 +122,32 @@ const ScrollDocFlow = () => {
 
   // Per-file "grabbed" state — file follows cursor between moveTo end and drag end
   const makeFileTransform = (moveTo: readonly [number, number], drag: readonly [number, number], home: { x: string; y: string }) => {
-    // opacity=1 in home until picked; then fades out at drag end (it "lands" in drop zone)
     const opacity = useTransform(scrollYProgress, [drag[1] - 0.005, drag[1]], [1, 0], { clamp: true });
-    // Interpolate x/y from home → dropZone across [moveTo[1], drag[1]]
     const x = useTransform(scrollYProgress, [moveTo[1], drag[1]], [home.x, dropZ.x], { clamp: true });
     const y = useTransform(scrollYProgress, [moveTo[1], drag[1]], [home.y, dropZ.y], { clamp: true });
-    // Only "attached" (visible follower) between moveTo end and drag end
     const attached = useTransform(scrollYProgress, [moveTo[1] - 0.005, moveTo[1], drag[1], drag[1] + 0.005], [0, 1, 1, 0], { clamp: true });
-    return { opacity, x, y, attached };
+    // subtle highlight on the source tile just before pickup
+    const highlight = useTransform(scrollYProgress, [moveTo[1] - 0.04, moveTo[1], moveTo[1] + 0.001], [0, 1, 0], { clamp: true });
+    return { opacity, x, y, attached, highlight };
   };
   const f1 = makeFileTransform(T.moveTo1, T.drag1, file1);
   const f2 = makeFileTransform(T.moveTo2, T.drag2, file2);
   const f3 = makeFileTransform(T.moveTo3, T.drag3, file3);
+
+  // Drop zone appears only when the first drag begins, fades out after last drop
+  const dropZoneOpacity = useTransform(
+    scrollYProgress,
+    [T.moveTo1[0], T.moveTo1[1] - 0.01, T.drag3[1] + 0.02, T.upload[0]],
+    [0, 1, 1, 0],
+    { clamp: true },
+  );
+  // Bottom row of static files fades out to make room for the drop zone
+  const bottomRowOpacity = useTransform(
+    scrollYProgress,
+    [T.moveTo1[0] - 0.02, T.moveTo1[0] + 0.02, T.drag3[1] + 0.04, T.upload[0]],
+    [1, 0, 0, 1],
+    { clamp: true },
+  );
 
   // Drop zone highlight when cursor is over it
   const dropGlow = useTransform(
@@ -171,10 +187,18 @@ const ScrollDocFlow = () => {
     if (n !== filesReady) setFilesReady(n);
   });
 
+  // Top row — the files that actually get dragged
   const files = [
-    { name: "Contract_2024.pdf", size: "2.4 MB", ext: "PDF", icon: FileSignature, tint: "bg-rose-500/10 text-rose-500", home: file1, t: f1 },
-    { name: "Invoice_Q3.pdf", size: "864 KB", ext: "PDF", icon: FileSpreadsheet, tint: "bg-emerald-500/10 text-emerald-500", home: file2, t: f2 },
-    { name: "NDA_signed.pdf", size: "1.1 MB", ext: "PDF", icon: FileText, tint: "bg-sky-500/10 text-sky-500", home: file3, t: f3 },
+    { name: "Invoice_Q3.pdf", size: "1.2 MB", updated: "Sep 10", ext: "PDF", icon: FileSpreadsheet, tint: "bg-emerald-500/10 text-emerald-500", home: file1, t: f1 },
+    { name: "Contract_2024.pdf", size: "864 KB", updated: "Sep 05", ext: "PDF", icon: FileSignature, tint: "bg-sky-500/10 text-sky-500", home: file2, t: f2 },
+    { name: "Meeting_Notes.docx", size: "320 KB", updated: "Sep 12", ext: "DOCX", icon: FileText, tint: "bg-indigo-500/10 text-indigo-500", home: file3, t: f3 },
+  ];
+
+  // Bottom row — decorative filler files (never dragged)
+  const bottomFiles = [
+    { name: "Budget_FY24.pdf", size: "3.1 MB", updated: "Sep 08", ext: "PDF", icon: FileSpreadsheet, tint: "bg-emerald-500/10 text-emerald-500", x: "40%", y: "62%" },
+    { name: "Project_Logo.png", size: "4.5 MB", updated: "Sep 01", ext: "PNG", icon: FileImage, tint: "bg-slate-500/10 text-slate-500", x: "61%", y: "62%" },
+    { name: "Client_Forecast.xlsx", size: "1.8 MB", updated: "Sep 14", ext: "XLSX", icon: FileSpreadsheet, tint: "bg-emerald-600/10 text-emerald-600", x: "82%", y: "62%" },
   ];
 
   const stations = STATION_DEFAULTS.map((s) => ({
