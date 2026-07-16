@@ -15,6 +15,17 @@ import {
   CheckCircle,
   MousePointer2,
   ScanLine,
+  FileSpreadsheet,
+  FileSignature,
+  Folder,
+  FolderOpen,
+  Search,
+  Home,
+  Star,
+  Clock,
+  Trash2,
+  Plus,
+  Grid3x3,
 } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useSiteContent } from "@/hooks/useSiteContent";
