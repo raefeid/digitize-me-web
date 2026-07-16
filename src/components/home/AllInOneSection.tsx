@@ -25,7 +25,7 @@ const computePositions = (count: number): { x: number; y: number }[] => {
   const colGap = 160;
   const rowGap = 145;
   const xOffset = -((cols - 1) * colGap) / 2;
-  const yOffset = -((rows - 1) * rowGap) / 2;
+  const yOffset = 0;
   return Array.from({ length: count }, (_, i) => {
     const c = i % cols;
     const r = Math.floor(i / cols);
@@ -71,7 +71,7 @@ const AllInOneSection = () => {
   // Canvas height adapts to the number of rows so taller lists don't get clipped.
   const canvasHeight = useMemo(() => {
     const rows = Math.ceil(resolvedTools.length / 4) || 1;
-    return Math.max(320, rows * 160 + 160);
+    return Math.max(320, rows * 160 + 80);
   }, [resolvedTools.length]);
 
   const formatPrice = (usdAmount: number, suffix = true) => {
@@ -134,7 +134,7 @@ const AllInOneSection = () => {
                 const pos = positions[i] ?? { x: 0, y: 0 };
                 const Icon = resolveIcon(tool.icon);
                 return (
-                  <motion.div key={tool.id} className="absolute left-1/2 top-1/2 z-20" initial={false} animate={{ x: pos.x, y: pos.y, scale: 1, opacity: 1 }} transition={{ duration: 0.6, delay: (resolvedTools.length - i) * 0.03, type: "spring", stiffness: 120, damping: 18 }} style={{ marginLeft: -56, marginTop: -32 }}>
+                  <motion.div key={tool.id} className="absolute left-1/2 top-0 z-20" initial={false} animate={{ x: pos.x, y: pos.y, scale: 1, opacity: 1 }} transition={{ duration: 0.6, delay: (resolvedTools.length - i) * 0.03, type: "spring", stiffness: 120, damping: 18 }} style={{ marginLeft: -56, marginTop: 48 }}>
                     <div className="w-28 flex flex-col items-center gap-1.5 group">
                       <div className="w-14 h-14 rounded-2xl bg-card border border-border shadow-md flex items-center justify-center group-hover:shadow-lg group-hover:border-accent/30 transition-all">
                         <Icon size={22} className="text-muted-foreground group-hover:text-accent transition-colors" />
