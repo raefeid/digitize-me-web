@@ -53,15 +53,16 @@ const fadeRange = (p: MotionValue<number>, inStart: number, inEnd: number, outSt
 
 // Timeline segments (fractions of scrollYProgress)
 const T = {
-  moveTo1: [0.02, 0.10] as const,
-  drag1:   [0.10, 0.18] as const,
-  moveTo2: [0.18, 0.24] as const,
-  drag2:   [0.24, 0.30] as const,
-  moveTo3: [0.30, 0.36] as const,
-  drag3:   [0.36, 0.42] as const,
-  moveBtn: [0.42, 0.50] as const,
-  press:   [0.50, 0.54] as const,
-  upload:  [0.54, 0.68] as const,
+  // Selection phase — cursor clicks each file
+  sel1:    [0.02, 0.08] as const,
+  sel2:    [0.08, 0.14] as const,
+  sel3:    [0.14, 0.20] as const,
+  // Drag stack down to drop zone
+  drag:    [0.20, 0.36] as const,
+  // Move to Upload button + press
+  moveBtn: [0.40, 0.48] as const,
+  press:   [0.48, 0.52] as const,
+  upload:  [0.52, 0.68] as const,
   scan:    [0.68, 0.82] as const,
   classify:[0.82, 0.92] as const,
   ready:   [0.92, 1.00] as const,
@@ -78,16 +79,12 @@ const ScrollDocFlow = () => {
     offset: ["start start", "end end"],
   });
 
-  // Fallback for reduced motion / very small screens
-  if (reduced || mobile) {
-    return <AnimatedDocFlow />;
-  }
+  if (reduced || mobile) return <AnimatedDocFlow />;
 
-  // Track current logical station for the rail
   const [activeStep, setActiveStep] = useState(0);
   useMotionValueEvent(scrollYProgress, "change", (v) => {
     let idx = 0;
-    if (v >= T.upload[0]) idx = 1;
+    if (v >= T.moveBtn[0]) idx = 1;
     if (v >= T.scan[0]) idx = 2;
     if (v >= T.classify[0]) idx = 3;
     if (v >= T.ready[0]) idx = 4;
@@ -96,73 +93,81 @@ const ScrollDocFlow = () => {
 
   const railProgress = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
-  // ---- Cursor path (percent-based on stage) ----
-  // Layout: sidebar ~24% wide, toolbar ~44px. Grid: 3 cols x 2 rows.
-  // Column centers (measured from full stage width, sidebar included): 40%, 61%, 82%
-  // Row centers: top row 34%, bottom row 62%
-  const file1 = { x: "40%", y: "34%" };
-  const file2 = { x: "61%", y: "34%" };
-  const file3 = { x: "82%", y: "34%" };
-  const dropZ = { x: "61%", y: "70%" };
+  // ---- Layout coords ----
+  // Sidebar ~24% wide. Grid 3 cols x 2 rows. Column centers 40/61/82%. Row centers 30/54%.
+  const file1 = { x: "40%", y: "30%" };
+  const file2 = { x: "61%", y: "30%" };
+  const file3 = { x: "82%", y: "30%" };
+  const dropZ = { x: "61%", y: "80%" };
+  const btn   = { x: "84%", y: "94%" };
+  const start = { x: "28%", y: "18%" };
 
-  const btn   = { x: "83%", y: "92%" };
-  const start = { x: "28%",  y: "18%"  };
-
+  // Cursor path — clicks each file in turn, then drags the stack to the drop zone, then to Upload btn
   const cx = useTransform(
     scrollYProgress,
-    [0, T.moveTo1[1], T.drag1[1], T.moveTo2[1], T.drag2[1], T.moveTo3[1], T.drag3[1], T.moveBtn[1], T.press[1], 1],
-    [start.x, file1.x, dropZ.x, file2.x, dropZ.x, file3.x, dropZ.x, btn.x, btn.x, btn.x],
+    [0, T.sel1[1], T.sel2[1], T.sel3[1], T.drag[1], T.moveBtn[1], T.press[1], 1],
+    [start.x, file1.x, file2.x, file3.x, dropZ.x, btn.x, btn.x, btn.x],
   );
   const cy = useTransform(
     scrollYProgress,
-    [0, T.moveTo1[1], T.drag1[1], T.moveTo2[1], T.drag2[1], T.moveTo3[1], T.drag3[1], T.moveBtn[1], T.press[1], 1],
-    [start.y, file1.y, dropZ.y, file2.y, dropZ.y, file3.y, dropZ.y, btn.y, btn.y, btn.y],
+    [0, T.sel1[1], T.sel2[1], T.sel3[1], T.drag[1], T.moveBtn[1], T.press[1], 1],
+    [start.y, file1.y, file2.y, file3.y, dropZ.y, btn.y, btn.y, btn.y],
   );
-  const cursorOpacity = useTransform(scrollYProgress, [0, 0.01, T.upload[0] - 0.01, T.upload[0]], [0, 1, 1, 0], { clamp: true });
-
-  // Per-file "grabbed" state — file follows cursor between moveTo end and drag end
-  const makeFileTransform = (moveTo: readonly [number, number], drag: readonly [number, number], home: { x: string; y: string }) => {
-    const opacity = useTransform(scrollYProgress, [drag[1] - 0.005, drag[1]], [1, 0], { clamp: true });
-    const x = useTransform(scrollYProgress, [moveTo[1], drag[1]], [home.x, dropZ.x], { clamp: true });
-    const y = useTransform(scrollYProgress, [moveTo[1], drag[1]], [home.y, dropZ.y], { clamp: true });
-    const attached = useTransform(scrollYProgress, [moveTo[1] - 0.005, moveTo[1], drag[1], drag[1] + 0.005], [0, 1, 1, 0], { clamp: true });
-    // subtle highlight on the source tile just before pickup
-    const highlight = useTransform(scrollYProgress, [moveTo[1] - 0.04, moveTo[1], moveTo[1] + 0.001], [0, 1, 0], { clamp: true });
-    return { opacity, x, y, attached, highlight };
-  };
-  const f1 = makeFileTransform(T.moveTo1, T.drag1, file1);
-  const f2 = makeFileTransform(T.moveTo2, T.drag2, file2);
-  const f3 = makeFileTransform(T.moveTo3, T.drag3, file3);
-
-  // Drop zone appears only when the first drag begins, fades out after last drop
-  const dropZoneOpacity = useTransform(
+  const cursorOpacity = useTransform(
     scrollYProgress,
-    [T.moveTo1[0], T.moveTo1[1] - 0.01, T.drag3[1] + 0.02, T.upload[0]],
+    [0, 0.01, T.upload[0] - 0.01, T.upload[0]],
     [0, 1, 1, 0],
     { clamp: true },
   );
-  // Bottom row of static files fades out to make room for the drop zone
-  const bottomRowOpacity = useTransform(
+
+  // Per-file selected state (blue glow ring)
+  const sel1On = useTransform(scrollYProgress, [T.sel1[1] - 0.005, T.sel1[1]], [0, 1], { clamp: true });
+  const sel2On = useTransform(scrollYProgress, [T.sel2[1] - 0.005, T.sel2[1]], [0, 1], { clamp: true });
+  const sel3On = useTransform(scrollYProgress, [T.sel3[1] - 0.005, T.sel3[1]], [0, 1], { clamp: true });
+
+  // Source tiles fade after the stack drops
+  const sourceOpacity = useTransform(
     scrollYProgress,
-    [T.moveTo1[0] - 0.02, T.moveTo1[0] + 0.02, T.drag3[1] + 0.04, T.upload[0]],
-    [1, 0, 0, 1],
+    [T.drag[1] - 0.01, T.drag[1] + 0.01],
+    [1, 0.15],
     { clamp: true },
   );
 
-  // Drop zone highlight when cursor is over it
+  // Dragged stack — visible from end of sel3 through drag phase
+  const stackOpacity = useTransform(
+    scrollYProgress,
+    [T.sel3[1] - 0.01, T.sel3[1], T.drag[1] - 0.005, T.drag[1] + 0.01],
+    [0, 1, 1, 0],
+    { clamp: true },
+  );
+  const stackX = useTransform(
+    scrollYProgress,
+    [T.sel3[1], T.drag[1]],
+    [file2.x, dropZ.x],
+    { clamp: true },
+  );
+  const stackY = useTransform(
+    scrollYProgress,
+    [T.sel3[1], T.drag[1]],
+    [file2.y, dropZ.y],
+    { clamp: true },
+  );
+
+  // Drop zone glow when the stack hovers over it
   const dropGlow = useTransform(
     scrollYProgress,
-    [T.moveTo1[1] - 0.02, T.moveTo1[1], T.drag1[1], T.drag2[1], T.drag3[1], T.drag3[1] + 0.02],
-    [0, 1, 1, 1, 1, 0],
+    [T.drag[0] + (T.drag[1] - T.drag[0]) * 0.6, T.drag[1], T.drag[1] + 0.02],
+    [0, 1, 0],
     { clamp: true },
   );
 
-  // Button press scale
+  // Button press + glow
   const btnScale = useTransform(scrollYProgress, [T.press[0], T.press[0] + 0.02, T.press[1]], [1, 0.92, 1], { clamp: true });
   const btnGlow = useTransform(scrollYProgress, [T.moveBtn[0], T.moveBtn[1]], [0, 1], { clamp: true });
 
   // Upload progress bar
   const uploadX = useTransform(scrollYProgress, [T.upload[0], T.upload[1]], [0, 1], { clamp: true });
+  const uploadBarOpacity = useTransform(scrollYProgress, [T.press[1], T.upload[0]], [0, 1], { clamp: true });
 
   // Scene fades
   const uploadSceneOpacity = fadeRange(scrollYProgress, 0, 0.01, T.upload[1] - 0.02, T.upload[1]);
@@ -170,41 +175,34 @@ const ScrollDocFlow = () => {
   const classifySceneOpacity = fadeRange(scrollYProgress, T.scan[1] - 0.02, T.classify[0], T.classify[1] - 0.02, T.classify[1]);
   const readySceneOpacity = fadeRange(scrollYProgress, T.classify[1] - 0.02, T.ready[0], 1, 1);
 
-  // OCR text reveal count
+  // OCR + tag reveal
   const ocrCount = useTransform(scrollYProgress, [T.scan[0], T.scan[1]], [0, 5]);
   const [ocrShown, setOcrShown] = useState(0);
   useMotionValueEvent(ocrCount, "change", (v) => setOcrShown(Math.min(5, Math.max(0, Math.floor(v)))));
 
-  // Tag reveal count
   const tagCount = useTransform(scrollYProgress, [T.classify[0], T.classify[1]], [0, 8]);
   const [tagsShown, setTagsShown] = useState(0);
   useMotionValueEvent(tagCount, "change", (v) => setTagsShown(Math.min(8, Math.max(0, Math.floor(v)))));
 
-  // Files-ready counter (reactive)
+  // Files-ready counter — increments as each file gets selected
   const [filesReady, setFilesReady] = useState(0);
   useMotionValueEvent(scrollYProgress, "change", (v) => {
-    const n = v >= T.drag3[1] ? 3 : v >= T.drag2[1] ? 2 : v >= T.drag1[1] ? 1 : 0;
+    const n = v >= T.sel3[1] ? 3 : v >= T.sel2[1] ? 2 : v >= T.sel1[1] ? 1 : 0;
     if (n !== filesReady) setFilesReady(n);
   });
 
-  // Top row — the files that actually get dragged
-  const files = [
-    { name: "Invoice_Q3.pdf", size: "1.2 MB", updated: "Sep 10", ext: "PDF", icon: FileSpreadsheet, tint: "bg-emerald-500/10 text-emerald-500", home: file1, t: f1 },
-    { name: "Contract_2024.pdf", size: "864 KB", updated: "Sep 05", ext: "PDF", icon: FileSignature, tint: "bg-sky-500/10 text-sky-500", home: file2, t: f2 },
-    { name: "Meeting_Notes.docx", size: "320 KB", updated: "Sep 12", ext: "DOCX", icon: FileText, tint: "bg-indigo-500/10 text-indigo-500", home: file3, t: f3 },
+  const topFiles = [
+    { name: "Invoice_Q3.pdf",     size: "1.2 MB", updated: "Sep 10", ext: "PDF",  icon: FileSpreadsheet, tint: "bg-emerald-100 text-emerald-600",   home: file1, sel: sel1On },
+    { name: "Contract_2024.pdf",  size: "864 KB", updated: "Sep 05", ext: "PDF",  icon: FileSignature,   tint: "bg-sky-100 text-sky-600",           home: file2, sel: sel2On },
+    { name: "Meeting_Notes.docx", size: "320 KB", updated: "Sep 12", ext: "DOCX", icon: FileText,        tint: "bg-violet-100 text-violet-600",     home: file3, sel: sel3On },
   ];
-
-  // Bottom row — decorative filler files (never dragged)
   const bottomFiles = [
-    { name: "Budget_FY24.pdf", size: "3.1 MB", updated: "Sep 08", ext: "PDF", icon: FileSpreadsheet, tint: "bg-emerald-500/10 text-emerald-500", x: "40%", y: "62%" },
-    { name: "Project_Logo.png", size: "4.5 MB", updated: "Sep 01", ext: "PNG", icon: FileImage, tint: "bg-slate-500/10 text-slate-500", x: "61%", y: "62%" },
-    { name: "Client_Forecast.xlsx", size: "1.8 MB", updated: "Sep 14", ext: "XLSX", icon: FileSpreadsheet, tint: "bg-emerald-600/10 text-emerald-600", x: "82%", y: "62%" },
+    { name: "Budget_FY24.xlsx",   size: "3.1 MB", updated: "Sep 08", ext: "XLSX", icon: FileSpreadsheet, tint: "bg-emerald-100 text-emerald-600", x: "40%", y: "54%" },
+    { name: "Project_Logo.png",   size: "4.5 MB", updated: "Sep 01", ext: "PNG",  icon: FileImage,       tint: "bg-amber-100 text-amber-600",      x: "61%", y: "54%" },
+    { name: "Client_Forecast.pdf",size: "1.8 MB", updated: "Sep 14", ext: "PDF",  icon: FileText,        tint: "bg-sky-100 text-sky-600",          x: "82%", y: "54%" },
   ];
 
-  const stations = STATION_DEFAULTS.map((s) => ({
-    icon: s.icon,
-    label: isRTL ? s.labelAr : s.labelEn,
-  }));
+  const stations = STATION_DEFAULTS.map((s) => ({ icon: s.icon, label: isRTL ? s.labelAr : s.labelEn }));
 
   const ocrLines = isRTL
     ? ["عقد تجاري رقم ٤٥٦٧", "شركة الأهلي للتجارة", "بتاريخ ١٥ يناير ٢٠٢٤", "قيمة العقد: ٢٥٠,٠٠٠ درهم", "توقيع الطرفين معتمد"]
@@ -240,16 +238,9 @@ const ScrollDocFlow = () => {
                     animate={{ scale: isActive ? 1.15 : 1 }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   >
-                    <Icon
-                      size={20}
-                      className={isActive ? "text-accent-foreground" : isPast ? "text-accent" : "text-muted-foreground"}
-                    />
+                    <Icon size={20} className={isActive ? "text-accent-foreground" : isPast ? "text-accent" : "text-muted-foreground"} />
                   </motion.div>
-                  <span
-                    className={`mt-2 text-[11px] md:text-xs font-semibold text-center ${
-                      isActive ? "text-accent" : isPast ? "text-foreground" : "text-muted-foreground"
-                    }`}
-                  >
+                  <span className={`mt-2 text-[11px] md:text-xs font-semibold text-center ${isActive ? "text-accent" : isPast ? "text-foreground" : "text-muted-foreground"}`}>
                     {station.label}
                   </span>
                 </div>
@@ -262,7 +253,7 @@ const ScrollDocFlow = () => {
         <div className="w-full max-w-3xl px-4">
           <div className="rounded-2xl border border-border bg-card shadow-2xl overflow-hidden">
             {/* Chrome */}
-            <div className="flex items-center gap-2 px-4 py-2.5 bg-muted/60 border-b border-border">
+            <div className="flex items-center gap-2 px-4 py-2.5 bg-[#F9FAFB] border-b border-border">
               <span className="w-3 h-3 rounded-full bg-destructive/70" />
               <span className="w-3 h-3 rounded-full bg-yellow-400/70" />
               <span className="w-3 h-3 rounded-full bg-green-500/70" />
@@ -272,11 +263,11 @@ const ScrollDocFlow = () => {
             </div>
 
             {/* Stage */}
-            <div className="relative h-[420px] md:h-[480px] bg-background">
-              {/* ===== Upload scene (realistic app UI) ===== */}
+            <div className="relative h-[440px] md:h-[500px] bg-white">
+              {/* ===== Upload scene ===== */}
               <motion.div className="absolute inset-0 flex" style={{ opacity: uploadSceneOpacity }}>
                 {/* Sidebar */}
-                <div className="w-[24%] border-r border-border bg-muted/30 flex flex-col py-4">
+                <div className="w-[24%] border-r border-border bg-[#F9FAFB] flex flex-col py-4">
                   <div className="px-4 pb-3 border-b border-border/60 flex items-center gap-2">
                     <div className="w-6 h-6 rounded-md bg-accent flex items-center justify-center">
                       <FolderOpen size={13} className="text-accent-foreground" />
@@ -296,7 +287,7 @@ const ScrollDocFlow = () => {
                         <div
                           key={i}
                           className={`flex items-center gap-2 px-2.5 py-1.5 rounded-md ${
-                            item.active ? "bg-accent/15 text-accent font-semibold" : "text-muted-foreground"
+                            item.active ? "bg-[hsl(var(--dm-coral-light))] text-accent font-semibold" : "text-muted-foreground"
                           }`}
                         >
                           <Ic size={12} />
@@ -319,59 +310,48 @@ const ScrollDocFlow = () => {
                 </div>
 
                 {/* Main pane */}
-                <div className="flex-1 flex flex-col min-w-0">
+                <div className="flex-1 flex flex-col min-w-0 relative">
                   {/* Toolbar */}
-                  <div className="h-11 border-b border-border flex items-center gap-2 px-4">
+                  <div className="h-11 border-b border-border flex items-center gap-2 px-4 bg-white">
                     <span className="text-[11px] text-muted-foreground">Documents</span>
                     <span className="text-[11px] text-muted-foreground/50">/</span>
                     <span className="text-[11px] font-semibold text-foreground">Inbox</span>
                     <div className="flex-1" />
-                    <div className="hidden md:flex items-center gap-1.5 h-6 px-2 rounded-md border border-border bg-background text-muted-foreground w-40">
+                    <div className="hidden md:flex items-center gap-1.5 h-6 px-2 rounded-md border border-border bg-[#F9FAFB] text-muted-foreground w-40">
                       <Search size={11} />
                       <span className="text-[10px]">{isRTL ? "بحث..." : "Search files..."}</span>
                     </div>
                     <div className="h-6 w-6 rounded-md border border-border flex items-center justify-center text-muted-foreground">
                       <Grid3x3 size={11} />
                     </div>
-                    <div className="h-6 px-2 rounded-md bg-foreground/90 text-background flex items-center gap-1 text-[10px] font-semibold">
+                    <div className="h-6 px-2 rounded-md bg-foreground text-background flex items-center gap-1 text-[10px] font-semibold">
                       <Plus size={11} />
                       <span>{isRTL ? "جديد" : "New"}</span>
                     </div>
                   </div>
 
                   {/* Content area */}
-                  <div className="relative flex-1">
-                    {/* Subtle dotted grid background */}
-                    <div
-                      className="absolute inset-0 opacity-[0.35] pointer-events-none"
-                      style={{
-                        backgroundImage:
-                          "radial-gradient(circle, hsl(var(--muted-foreground) / 0.25) 1px, transparent 1px)",
-                        backgroundSize: "18px 18px",
-                      }}
-                    />
-
-                    {/* Section label */}
+                  <div className="relative flex-1 bg-white">
                     <div className="absolute left-4 top-2.5 text-[10px] uppercase tracking-wider text-muted-foreground/70 font-semibold">
                       {isRTL ? "الملفات الحديثة" : "Recent files"}
                     </div>
 
-                    {/* File tiles — draggable top row */}
-                    {files.map((f) => {
+                    {/* Top row — draggable, get blue selection ring */}
+                    {topFiles.map((f) => {
                       const Ic = f.icon;
                       return (
                         <motion.div
                           key={f.name}
-                          className="absolute -translate-x-1/2 -translate-y-1/2 w-[19%] rounded-2xl border border-border/70 bg-card shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_20px_-8px_rgba(15,23,42,0.14)] p-3 flex flex-col gap-2.5 overflow-hidden"
-                          style={{ left: f.home.x, top: f.home.y, opacity: f.t.opacity }}
+                          className="absolute -translate-x-1/2 -translate-y-1/2 w-[17%] rounded-xl border border-border bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04),0_4px_12px_-6px_rgba(15,23,42,0.10)] p-2.5 flex flex-col gap-2 overflow-hidden"
+                          style={{ left: f.home.x, top: f.home.y, opacity: sourceOpacity }}
                         >
+                          {/* Blue selection glow */}
                           <motion.div
-                            className="absolute inset-0 rounded-2xl ring-2 ring-accent/60 pointer-events-none"
-                            style={{ opacity: f.t.highlight }}
+                            className="absolute inset-0 rounded-xl ring-2 ring-blue-400 shadow-[0_0_15px_rgba(59,130,246,0.5)] pointer-events-none"
+                            style={{ opacity: f.sel }}
                           />
-                          <div className={`aspect-[4/3] rounded-xl flex flex-col items-center justify-center gap-1 ${f.tint}`}>
-                            <Ic size={26} strokeWidth={1.5} />
-                            <span className="text-[9px] font-bold tracking-wider opacity-70">{f.ext}</span>
+                          <div className={`aspect-[4/3] rounded-lg flex items-center justify-center ${f.tint}`}>
+                            <Ic size={26} strokeWidth={1.6} />
                           </div>
                           <div className="min-w-0 px-0.5">
                             <p className="text-[10.5px] font-semibold text-foreground truncate leading-tight">{f.name}</p>
@@ -384,18 +364,17 @@ const ScrollDocFlow = () => {
                       );
                     })}
 
-                    {/* Bottom row — decorative filler files that fade out when drop zone activates */}
+                    {/* Bottom row — decorative */}
                     {bottomFiles.map((f) => {
                       const Ic = f.icon;
                       return (
-                        <motion.div
+                        <div
                           key={f.name}
-                          className="absolute -translate-x-1/2 -translate-y-1/2 w-[19%] rounded-2xl border border-border/70 bg-card shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_20px_-8px_rgba(15,23,42,0.14)] p-3 flex flex-col gap-2.5 overflow-hidden"
-                          style={{ left: f.x, top: f.y, opacity: bottomRowOpacity }}
+                          className="absolute -translate-x-1/2 -translate-y-1/2 w-[17%] rounded-xl border border-border bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04),0_4px_12px_-6px_rgba(15,23,42,0.10)] p-2.5 flex flex-col gap-2 overflow-hidden"
+                          style={{ left: f.x, top: f.y }}
                         >
-                          <div className={`aspect-[4/3] rounded-xl flex flex-col items-center justify-center gap-1 ${f.tint}`}>
-                            <Ic size={26} strokeWidth={1.5} />
-                            <span className="text-[9px] font-bold tracking-wider opacity-70">{f.ext}</span>
+                          <div className={`aspect-[4/3] rounded-lg flex items-center justify-center ${f.tint}`}>
+                            <Ic size={26} strokeWidth={1.6} />
                           </div>
                           <div className="min-w-0 px-0.5">
                             <p className="text-[10.5px] font-semibold text-foreground truncate leading-tight">{f.name}</p>
@@ -404,88 +383,83 @@ const ScrollDocFlow = () => {
                               {isRTL ? "آخر تحديث" : "Last updated"} {f.updated}
                             </p>
                           </div>
-                        </motion.div>
+                        </div>
                       );
                     })}
 
-                    {/* Dragged file follower */}
-                    {files.map((f, i) => {
-                      const Ic = f.icon;
-                      return (
-                        <motion.div
-                          key={`drag-${i}`}
-                          className="absolute z-20 -translate-x-1/2 -translate-y-1/2 w-[19%] rounded-2xl border border-accent/70 bg-card shadow-2xl p-3 flex flex-col gap-2 pointer-events-none ring-2 ring-accent/30"
-                          style={{ left: f.t.x, top: f.t.y, opacity: f.t.attached, rotate: -5 }}
-                        >
-                          <div className={`aspect-[4/3] rounded-xl flex items-center justify-center ${f.tint}`}>
-                            <Ic size={22} />
-                          </div>
-                          <p className="text-[10px] font-semibold text-foreground truncate">{f.name}</p>
-                        </motion.div>
-                      );
-                    })}
-
-                    {/* Drop zone — only appears while dragging */}
-                    <motion.div
-                      className="absolute -translate-x-1/2 -translate-y-1/2 w-[70%] h-[34%] rounded-2xl border-2 border-dashed border-border/70 flex items-center justify-center overflow-hidden bg-background/60 backdrop-blur-[1px]"
-                      style={{ left: dropZ.x, top: dropZ.y, opacity: dropZoneOpacity }}
+                    {/* Drop zone — always visible */}
+                    <div
+                      className="absolute -translate-x-1/2 -translate-y-1/2 w-[70%] h-[24%]"
+                      style={{ left: dropZ.x, top: dropZ.y }}
                     >
                       <motion.div
-                        className="absolute inset-0 rounded-2xl border-2 border-dashed border-accent bg-accent/10"
-                        style={{ opacity: dropGlow }}
-                      />
-                      <div className="relative z-10 flex flex-col items-center gap-2">
-                        <div className="w-11 h-11 rounded-full bg-accent/10 flex items-center justify-center">
-                          <Upload size={20} className="text-accent" />
+                        className="relative w-full h-full rounded-2xl border-2 border-dashed border-accent/60 bg-[hsl(var(--dm-coral-light))] flex flex-col items-center justify-center gap-1.5"
+                        animate={{}}
+                      >
+                        <motion.div
+                          className="absolute inset-0 rounded-2xl"
+                          style={{
+                            opacity: dropGlow,
+                            boxShadow: "0 0 30px rgba(255,90,95,0.55), inset 0 0 0 2px hsl(var(--accent))",
+                          }}
+                        />
+                        <div className="relative w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm">
+                          <Upload size={18} className="text-accent" />
                         </div>
-                        <p className="text-[12px] font-semibold text-foreground">
+                        <p className="relative text-[12px] font-semibold text-foreground">
                           {isRTL ? "أفلت الملفات هنا" : "Drop files to upload"}
                         </p>
-                        <p className="text-[10px] text-muted-foreground">
+                        <p className="relative text-[10px] text-muted-foreground">
                           {isRTL ? "PDF, DOCX, PNG, JPG حتى 50 ميجا" : "PDF, DOCX, PNG, JPG up to 50MB"}
                         </p>
-                      </div>
+                      </motion.div>
+                    </div>
 
-                      {/* Landed thumbnails inside drop zone */}
-                      <div className="absolute bottom-2 left-0 right-0 flex justify-center gap-1.5 px-3">
-                        {files.map((f, i) => {
+                    {/* Dragged stack of cards + count badge */}
+                    <motion.div
+                      className="absolute z-30 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+                      style={{ left: stackX, top: stackY, opacity: stackOpacity }}
+                    >
+                      <div className="relative w-[110px] h-[80px]">
+                        {topFiles.map((f, i) => {
                           const Ic = f.icon;
-                          const landed = useTransform(
-                            scrollYProgress,
-                            [[T.drag1[1], T.drag2[1], T.drag3[1]][i], [T.drag1[1], T.drag2[1], T.drag3[1]][i] + 0.005],
-                            [0, 1],
-                            { clamp: true },
-                          );
+                          const rot = [-6, -1, 4][i];
+                          const off = [-8, 0, 8][i];
                           return (
-                            <motion.div
-                              key={`landed-${i}`}
-                              className="flex items-center gap-1 px-2 py-1 rounded-md bg-background/90 border border-border shadow-sm"
-                              style={{ opacity: landed }}
+                            <div
+                              key={`stack-${i}`}
+                              className="absolute inset-0 rounded-xl border border-border bg-white shadow-lg p-2 flex items-center gap-2"
+                              style={{ transform: `translate(${off}px, ${off}px) rotate(${rot}deg)` }}
                             >
-                              <Ic size={10} className={f.tint.split(" ")[1]} />
-                              <span className="text-[9px] font-medium text-foreground truncate max-w-[80px]">
-                                {f.name}
-                              </span>
-                              <CheckCircle size={9} className="text-accent" />
-                            </motion.div>
+                              <div className={`w-9 h-9 rounded-md flex items-center justify-center ${f.tint}`}>
+                                <Ic size={16} />
+                              </div>
+                              <div className="min-w-0 flex-1">
+                                <p className="text-[9px] font-semibold text-foreground truncate">{f.name}</p>
+                                <p className="text-[8px] text-muted-foreground">{f.size}</p>
+                              </div>
+                            </div>
                           );
                         })}
+                        {/* Count badge */}
+                        <div className="absolute -top-2 -right-2 px-2 py-0.5 rounded-full bg-accent text-accent-foreground text-[9px] font-bold shadow-md">
+                          3 {isRTL ? "ملفات" : "Files"}
+                        </div>
                       </div>
                     </motion.div>
-
                   </div>
 
                   {/* Bottom action bar */}
-                  <div className="h-12 border-t border-border flex items-center justify-between px-4 bg-muted/20">
+                  <div className="h-12 border-t border-border flex items-center justify-between px-4 bg-[#F9FAFB]">
                     <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
-                      <span className="w-1.5 h-1.5 rounded-full bg-accent" />
-                      <span>
+                      <span className="w-1.5 h-1.5 rounded-full bg-destructive" />
+                      <span className="font-medium text-foreground">
                         {filesReady}
                         {isRTL ? " ملفات جاهزة" : " files ready"}
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <button className="px-3 py-1.5 rounded-md border border-border text-[10px] text-muted-foreground">
+                      <button className="px-3 py-1.5 rounded-md text-[10px] text-muted-foreground hover:bg-muted">
                         {isRTL ? "إلغاء" : "Cancel"}
                       </button>
                       <motion.button
@@ -506,15 +480,12 @@ const ScrollDocFlow = () => {
                   {/* Upload progress bar */}
                   <motion.div
                     className="absolute left-4 right-4 bottom-1 h-1 bg-muted rounded-full overflow-hidden"
-                    style={{
-                      opacity: useTransform(scrollYProgress, [T.press[1], T.upload[0]], [0, 1], { clamp: true }),
-                    }}
+                    style={{ opacity: uploadBarOpacity }}
                   >
                     <motion.div className="h-full bg-accent origin-left" style={{ scaleX: uploadX }} />
                   </motion.div>
                 </div>
               </motion.div>
-
 
               {/* ===== Scan / OCR scene ===== */}
               <motion.div className="absolute inset-0 p-6" style={{ opacity: scanSceneOpacity }}>
@@ -525,11 +496,7 @@ const ScrollDocFlow = () => {
                   />
                   <div className="space-y-3">
                     {ocrLines.map((line, i) => (
-                      <div
-                        key={i}
-                        className="flex items-center gap-2 transition-opacity duration-300"
-                        style={{ opacity: i < ocrShown ? 1 : 0.15 }}
-                      >
+                      <div key={i} className="flex items-center gap-2 transition-opacity duration-300" style={{ opacity: i < ocrShown ? 1 : 0.15 }}>
                         <div className="w-4 h-4 rounded-full bg-accent/20 flex items-center justify-center">
                           <CheckCircle size={10} className="text-accent" />
                         </div>
@@ -541,9 +508,7 @@ const ScrollDocFlow = () => {
                     <div className="text-[10px] font-bold text-accent bg-accent/10 px-2 py-0.5 rounded">
                       99% {isRTL ? "دقة" : "accuracy"}
                     </div>
-                    <span className="text-[10px] text-muted-foreground">
-                      {isRTL ? "عربي + إنجليزي" : "Arabic + English"}
-                    </span>
+                    <span className="text-[10px] text-muted-foreground">{isRTL ? "عربي + إنجليزي" : "Arabic + English"}</span>
                   </div>
                 </div>
               </motion.div>
@@ -553,19 +518,14 @@ const ScrollDocFlow = () => {
                 <div className="h-full rounded-xl border border-border bg-card p-5 flex flex-col">
                   <div className="flex items-center gap-2 mb-4">
                     <Brain size={20} className="text-accent" />
-                    <span className="text-sm font-semibold text-foreground">
-                      {isRTL ? "تصنيف تلقائي..." : "Auto-classifying..."}
-                    </span>
+                    <span className="text-sm font-semibold text-foreground">{isRTL ? "تصنيف تلقائي..." : "Auto-classifying..."}</span>
                   </div>
                   <div className="flex flex-wrap gap-2">
                     {tags.map((tag, i) => (
                       <span
                         key={tag}
                         className="px-2.5 py-1 bg-accent/10 text-accent rounded-full text-xs font-medium flex items-center gap-1 transition-all duration-300"
-                        style={{
-                          opacity: i < tagsShown ? 1 : 0,
-                          transform: i < tagsShown ? "scale(1)" : "scale(0.6)",
-                        }}
+                        style={{ opacity: i < tagsShown ? 1 : 0, transform: i < tagsShown ? "scale(1)" : "scale(0.6)" }}
                       >
                         <Tag size={10} />
                         {tag}
@@ -576,10 +536,7 @@ const ScrollDocFlow = () => {
               </motion.div>
 
               {/* ===== Ready scene ===== */}
-              <motion.div
-                className="absolute inset-0 p-6 flex items-center justify-center"
-                style={{ opacity: readySceneOpacity }}
-              >
+              <motion.div className="absolute inset-0 p-6 flex items-center justify-center" style={{ opacity: readySceneOpacity }}>
                 <div className="flex flex-col items-center gap-4">
                   <motion.div
                     className="w-20 h-20 rounded-full bg-accent/10 flex items-center justify-center"
@@ -588,28 +545,24 @@ const ScrollDocFlow = () => {
                   >
                     <CheckCircle size={40} className="text-accent" />
                   </motion.div>
-                  <p className="text-lg font-semibold text-foreground">
-                    {isRTL ? "المستند جاهز!" : "Document Ready!"}
-                  </p>
+                  <p className="text-lg font-semibold text-foreground">{isRTL ? "المستند جاهز!" : "Document Ready!"}</p>
                   <p className="text-sm text-muted-foreground text-center">
                     {isRTL ? "قابل للبحث • قابل للمشاركة • مؤرشف بأمان" : "Searchable • Shareable • Securely Archived"}
                   </p>
                   <div className="flex gap-2 flex-wrap justify-center">
                     {["< 5s", isRTL ? "مؤمّن" : "Encrypted", isRTL ? "نسخة احتياطية" : "Backed up"].map((badge, i) => (
-                      <span key={i} className="px-2.5 py-1 bg-accent/10 text-accent rounded text-xs font-medium">
-                        {badge}
-                      </span>
+                      <span key={i} className="px-2.5 py-1 bg-accent/10 text-accent rounded text-xs font-medium">{badge}</span>
                     ))}
                   </div>
                 </div>
               </motion.div>
 
-              {/* Cursor (overlay on top of everything during upload scene) */}
+              {/* Cursor overlay */}
               <motion.div
-                className="absolute z-30 pointer-events-none -translate-x-1 -translate-y-1"
+                className="absolute z-40 pointer-events-none -translate-x-1 -translate-y-1"
                 style={{ left: cx, top: cy, opacity: cursorOpacity }}
               >
-                <MousePointer2 className="text-foreground drop-shadow-lg" size={22} fill="currentColor" />
+                <MousePointer2 className="text-foreground drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]" size={22} fill="currentColor" />
               </motion.div>
             </div>
           </div>
