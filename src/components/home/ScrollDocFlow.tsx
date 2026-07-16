@@ -96,13 +96,13 @@ const ScrollDocFlow = () => {
   const railProgress = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   // ---- Cursor path (percent-based on stage) ----
-  // Files sit in a row at the top; drop zone below. Approx positions:
-  const file1 = { x: "14%", y: "18%" };
-  const file2 = { x: "40%", y: "18%" };
-  const file3 = { x: "66%", y: "18%" };
-  const dropZ = { x: "50%", y: "58%" };
-  const btn   = { x: "50%", y: "88%" };
-  const start = { x: "6%",  y: "8%"  };
+  // Layout: left sidebar (~24%), toolbar (~14% high). File tiles sit in main grid.
+  const file1 = { x: "36%", y: "34%" };
+  const file2 = { x: "56%", y: "34%" };
+  const file3 = { x: "76%", y: "34%" };
+  const dropZ = { x: "56%", y: "64%" };
+  const btn   = { x: "83%", y: "92%" };
+  const start = { x: "28%",  y: "20%"  };
 
   const cx = useTransform(
     scrollYProgress,
