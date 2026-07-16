@@ -153,7 +153,7 @@ const AllInOneSection = () => {
         <AnimatePresence>
           {!absorbed && (
             <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-center text-muted-foreground mt-8 text-sm">
-              💸 {t("aio.costNote")}
+              💸 {t("aio.costNote").replace("{{total}}", formatPrice(totalPrice, false))}
             </motion.p>
           )}
         </AnimatePresence>

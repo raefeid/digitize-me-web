@@ -31,18 +31,18 @@ const STORAGE_KEY = "aio_tools_list";
 
 /** Hardcoded fallback list — also seeds the editor on first save. */
 export const DEFAULT_AIO_TOOLS: AioTool[] = [
-  { id: "tool1", icon: "ScanLine", name: "Scanning", competitor: "ABBYY", price: 49 },
-  { id: "tool2", icon: "Languages", name: "OCR", competitor: "Tesseract Pro", price: 35 },
-  { id: "tool3", icon: "Brain", name: "AI Extraction", competitor: "Rossum", price: 89 },
+  { id: "tool1", icon: "ScanLine", name: "Scanning", competitor: "ABBYY", price: 169 },
+  { id: "tool2", icon: "Languages", name: "OCR", competitor: "Tesseract", price: 0 },
+  { id: "tool3", icon: "Brain", name: "AI Extraction", competitor: "Rossum", price: 1500 },
   { id: "tool4", icon: "Search", name: "Search", competitor: "Elasticsearch", price: 95 },
-  { id: "tool5", icon: "FolderSearch", name: "Find Documents", competitor: "DocuWare", price: 60 },
-  { id: "tool6", icon: "Share2", name: "Share", competitor: "SharePoint", price: 45 },
-  { id: "tool7", icon: "Users", name: "Collaborate", competitor: "Google Drive", price: 30 },
-  { id: "tool8", icon: "ShieldCheck", name: "ID Verification", competitor: "Hyperverge", price: 55 },
-  { id: "tool9", icon: "Archive", name: "Archive", competitor: "Iron Mountain", price: 40 },
-  { id: "tool10", icon: "FileText", name: "Classify", competitor: "Kofax", price: 70 },
+  { id: "tool5", icon: "FolderSearch", name: "Find Documents", competitor: "DocuWare", price: 62 },
+  { id: "tool6", icon: "Share2", name: "Share", competitor: "SharePoint", price: 5 },
+  { id: "tool7", icon: "Users", name: "Collaborate", competitor: "Google Drive", price: 6 },
+  { id: "tool8", icon: "ShieldCheck", name: "ID Verification", competitor: "Hyperverge", price: 50 },
+  { id: "tool9", icon: "Archive", name: "Archive", competitor: "Iron Mountain", price: 200 },
+  { id: "tool10", icon: "FileText", name: "Classify", competitor: "Kofax", price: 8300 },
   { id: "tool11", icon: "Workflow", name: "Workflow", competitor: "Zapier", price: 49 },
-  { id: "tool12", icon: "FileCheck", name: "Approvals", competitor: "DocuSign", price: 45 },
+  { id: "tool12", icon: "FileCheck", name: "Approvals", competitor: "DocuSign", price: 25 },
 ];
 
 /**
