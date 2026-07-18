@@ -15,7 +15,7 @@ import AnimatedSearchPreview from "@/components/home/AnimatedSearchPreview";
 import BilingualOCRHero from "@/components/home/BilingualOCRHero";
 
 import RotatingHeroWord from "@/components/home/RotatingHeroWord";
-import TrustedBySection from "@/components/home/TrustedBySection";
+
 import UAEHostingBadge from "@/components/common/UAEHostingBadge";
 import ClientLogosCarousel from "@/components/home/ClientLogosCarousel";
 import TestimonialsSection from "@/components/home/TestimonialsSection";
