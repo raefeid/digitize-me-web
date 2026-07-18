@@ -1,56 +1,80 @@
-# Scroll-driven "Paper to Digital" animation
 
-Replace the current auto-cycling `AnimatedDocFlow` with a scroll-pinned cinematic sequence where a stylized laptop/browser mockup drives through all 4 steps as the user scrolls.
+# Homepage Overhaul Plan
 
-## UX flow
+Section-by-section changes to `src/pages/Index.tsx` and related components. Brand colors, fonts, and overall visual language are preserved.
 
-The section becomes a tall scroll container (~4x viewport height). Inside, a sticky stage pins a PC/browser mockup to the center of the viewport. As the user scrolls:
+---
 
-1. **Upload (0–25%)** — Cursor glides across the screen, hovers a file, drag-drops `Contract_2024.pdf` into an upload zone. Progress bar fills.
-2. **Scan & OCR (25–50%)** — Document appears on screen, a horizontal scan-line sweeps top→bottom, Arabic + English text lines materialize with checkmarks; "99% accuracy" badge pops.
-3. **AI Classify (50–75%)** — Brain icon pulses; tags fly in one by one (Contract, Commercial, Arabic, Signed…); a mini knowledge-graph line connects them.
-4. **Ready (75–100%)** — Green check bursts, document shrinks into a folder, "Searchable • Shareable • Archived" badges slide in.
+## 1. Hero Section
+- **CTAs**: Reduce to exactly two buttons — **Start Free Trial** and **Book a Demo**. Remove all other hero CTAs.
+- **Tagline**: Move "Scan, extract, classify…" to its own line directly under the H1 "From Paper Chaos to Smart Archives". Force single-line via responsive font-size + `whitespace-nowrap` (with a smaller mobile fallback so it still fits).
+- **Brand video**: Embed the Google Drive video (`1oeBzPVkCrv3WCjkm3CGJ4PyhilLkghST`) into the hero. Use a **poster thumbnail with click-to-open modal** (autoplay in-modal, muted), so the initial hero paint stays fast. Video shown via Drive's `/preview` iframe inside a lightbox.
 
-The 4 step nodes above the mockup stay visible and highlight in sync with scroll progress (progress bar fills as a single continuous line).
+## 2. Client Logos Strip
+- No content changes.
+- Boost visibility: increase logo height (~40 → ~64px), remove/soften the grayscale filter, raise opacity to 100%, lighten section background one shade for contrast.
 
-## Layout
+## 3. Stats / "Built by Infasme"
+- **Numbers**: Wrap each stat in a card (soft background, border, subtle shadow). Increase number font size and weight for higher visual pop.
+- **Infasme logo**: Regenerate a high-resolution/vector-style logo asset and move the "Crafted by Infasme" block **above** the stats row.
 
-```text
-┌─────────────────────────── section (h ≈ 400vh) ───────────────────────────┐
-│  ┌─────────── sticky stage (h = 100vh) ────────────┐                       │
-│  │  ● ─── ● ─── ● ─── ●   step rail (active = scroll progress)             │
-│  │                                                                          │
-│  │     ╔══════════════════════════╗                                         │
-│  │     ║  ▄▄ browser chrome ▄▄    ║   ← laptop / browser mockup            │
-│  │     ║                          ║      content swaps per step             │
-│  │     ║   [step content]         ║                                         │
-│  │     ╚══════════════════════════╝                                         │
-│  │     caption line (step description, crossfades)                          │
-│  └──────────────────────────────────────────────────┘                       │
-└──────────────────────────────────────────────────────────────────────────────┘
-```
+## 4. Merge "What the Platform Is About" + Features → single interactive section
+- Merge the two current blocks into one section with a centered header.
+- Two-column layout below:
+  - **Left**: 4–5 USPs as checkbox-style bullets (checkmark icon + short label + one-line description). Clicking/hovering a bullet selects it.
+  - **Right**: A visual panel that swaps its graphic based on the active USP (e.g. Upload, OCR, Classify, Search, Export). Smooth crossfade between states.
+- Content edit inside the doc preview graphic: change label **"Issued to:" → "Vendor:"**, keep "Gulf Logistics".
 
-## Technical approach
+## 5. Industry Section
+- Split the banner into two halves.
+- **Left half**: existing copy/text.
+- **Right half**: 6 industry boxes in a 3×2 grid (larger tiles than today).
+- Move the rotating orbit/circles graphic to the right side, sized to balance the left column.
+- Fix the orbit animation so the circles stay on a stable horizontal axis (correct transform-origin, remove drift from any translateY oscillation).
 
-- New component: `src/components/home/ScrollDocFlow.tsx` (replaces `AnimatedDocFlow` on the homepage; keep the old file for now in case we need to revert).
-- Use Framer Motion `useScroll({ target: sectionRef, offset: ["start start", "end end"] })` + `useTransform` to drive:
-  - progress bar `scaleX`
-  - active step index (via `useMotionValueEvent`)
-  - per-step opacity/scale/translate of the internal scenes
-- Browser mockup: styled `div` with traffic-light dots + URL bar (uses design tokens — `bg-card`, `border-border`, `text-accent`).
-- Reuse the existing per-step visual pieces from `AnimatedDocFlow` (upload card, OCR lines, tags, ready badges), repackaged as 4 absolutely-positioned scenes that cross-fade based on scroll progress instead of a `setInterval`.
-- CMS content: keep pulling `step{n}_label` / `step{n}_desc` from `useSiteContent("home", "doc_flow")` so admin overrides still work. Bilingual (EN/AR) preserved via `useLanguage()`.
-- Accessibility / motion: respect `useReducedMotion()` — if reduced motion is on, fall back to the current stacked (non-scroll-driven) 4-panel view with no pinning.
-- Mobile (< md): shorter scroll length (~300vh) and simplified mockup (no chrome frame, smaller cursor). On very small screens, fall back to the current tap-through version to avoid awkward long scrolls.
+## 6. "$10,000 Worth of Software. Included."
+- **Sub A (inclusion boxes)**: Keep headline/subheadline. Enlarge the inclusion tiles and distribute evenly full-width via a responsive grid (`grid-cols-2 md:grid-cols-3 lg:grid-cols-4`, equal gap, `w-full`).
+- **Sub B (chart)**: No changes.
+- **Sub C (dark panel with left visual)**: Enlarge the left-side visual (wider column, larger illustration) without changing the rest of the layout.
 
-## Files touched
+## 7. Testimonials (NEW)
+- Add a new section below the "$10,000" block containing:
+  - A row of numeric proof stats (e.g. "500+ businesses", "5M+ pages processed", "99.9% uptime", "4.9/5 rating") in bold card treatment.
+  - 3 written testimonial cards (quote, name, role, company).
+  - Client logos row alongside/under the testimonials.
+- Seeded with placeholder testimonials from the existing `useTestimonials` data if present; otherwise inline three plausible UAE-market quotes clearly marked as sample content so you can edit later via the admin.
 
-- **Add** `src/components/home/ScrollDocFlow.tsx`
-- **Edit** `src/pages/Index.tsx` — swap `AnimatedDocFlow` import for `ScrollDocFlow` in the doc-flow section.
-- No CMS/schema changes. No changes to other sections.
+## 8. Ending CTA
+- Wrap the final CTA in a large dark container (rounded, deep brand-dark background, generous padding, subtle inner glow).
+- Increase heading + subcopy font sizes for prominence.
+- Keep copy and CTA button destinations unchanged.
 
-## Out of scope
+---
 
-- No new images or 3D assets — pure CSS/SVG mockup.
-- No changes to pricing, hero, or Infasme attribution sections.
-- Keeping `AnimatedDocFlow.tsx` in the repo (unused) so we can revert quickly; can delete in a follow-up if you're happy.
+## Technical notes
+
+**Files touched (create/modify):**
+- `src/pages/Index.tsx` — reorder/compose sections.
+- `src/components/home/BilingualOCRHero.tsx` (or current hero) — CTA reduction, tagline placement, video embed trigger.
+- `src/components/home/HeroVideoModal.tsx` *(new)* — lightbox wrapping Drive `/preview` iframe.
+- `src/components/home/ClientLogosCarousel.tsx` — sizing/contrast tweaks.
+- `src/components/home/AnimatedStatsCounter.tsx` — card treatment, larger numerals.
+- `src/components/home/MadeByInfasme.tsx` — swap in HD logo asset, ensure it renders above stats via order in `Index.tsx`.
+- `src/components/home/InteractiveFeaturesSection.tsx` *(new)* — merged section with USP list ↔ visual panel; "Vendor:" label fix lives here.
+- `src/components/home/AnimatedDocFlow.tsx` or similar — remove now-duplicated feature block.
+- `src/components/home/IndustrySplitSection.tsx` *(new)* — split layout, 3×2 tile grid, relocated orbit.
+- Orbit component (existing) — patch transform math to lock the horizontal axis.
+- `src/components/home/AllInOneSection.tsx` — inclusion tile sizing/distribution; enlarge dark-panel left visual.
+- `src/components/home/TestimonialsProofSection.tsx` *(new)* — stats + quotes + logos.
+- Final CTA component — dark container + larger typography.
+- `src/assets/infasme-logo-hd.png.asset.json` *(new)* — regenerated HD logo via imagegen + `lovable-assets`.
+
+**Interaction pattern (Section 4):** Local `useState<number>` for active USP, keyboard-accessible list (`role="tablist"` + arrow-key nav), right panel uses Framer Motion `AnimatePresence` crossfade keyed on the active index.
+
+**Video embed:** `<iframe src="https://drive.google.com/file/d/1oeBzPVkCrv3WCjkm3CGJ4PyhilLkghST/preview" allow="autoplay">` mounted only when the modal opens.
+
+**Orbit fix:** current drift is from a `translateY` on the orbiting children. Replacement: parent rotates, children counter-rotate, positioned purely via `translateX(radius)` so they trace a perfect horizontal ellipse.
+
+**Non-goals:** No color/font changes. No copy changes outside "Vendor:" label. No changes to sections/subsections explicitly marked "no changes".
+
+**Open item before build:** Testimonial content — I'll use plausible sample quotes labeled clearly so you can replace them from the admin. Say the word if you'd rather supply the exact quotes/logos first.

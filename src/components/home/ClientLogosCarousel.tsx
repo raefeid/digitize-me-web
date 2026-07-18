@@ -20,19 +20,19 @@ const ClientLogosCarousel = () => {
   const display = [...logos, ...logos];
 
   return (
-    <section className="py-10 bg-background border-y border-border/60 overflow-hidden">
+    <section className="py-14 bg-muted/30 border-y border-border overflow-hidden">
       <EditableText
         page="home"
         section="client_logos"
         contentKey="label"
         fallback={isRTL ? "شركات تثق بنا" : "Companies that trust us"}
-        className="block text-center text-xs text-muted-foreground/70 font-semibold uppercase tracking-[0.2em] mb-6"
+        className="block text-center text-sm text-foreground/70 font-semibold uppercase tracking-[0.2em] mb-8"
       />
       <div className="relative">
-        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-muted/30 to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-muted/30 to-transparent z-10 pointer-events-none" />
         <motion.div
-          className="flex gap-12 items-center whitespace-nowrap"
+          className="flex gap-16 items-center whitespace-nowrap"
           animate={{ x: [0, -1200] }}
           transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
         >
@@ -41,7 +41,7 @@ const ClientLogosCarousel = () => {
               <img
                 src={logo.logo_url}
                 alt={logo.company_name}
-                className="h-10 md:h-12 w-auto object-contain shrink-0 grayscale opacity-70 hover:opacity-100 hover:grayscale-0 transition-all duration-300 select-none"
+                className="h-14 md:h-16 w-auto object-contain shrink-0 opacity-100 hover:scale-105 transition-transform duration-300 select-none"
                 loading="lazy"
               />
             );

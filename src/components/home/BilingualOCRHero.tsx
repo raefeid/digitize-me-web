@@ -31,7 +31,7 @@ const SAMPLE: Record<OcrLang, {
     fileName: "Commercial_Invoice_8821.pdf",
     rawLines: [
       "Commercial Invoice — INV-8821",
-      "Issued to: Gulf Logistics Co. LLC",
+      "Vendor: Gulf Logistics Co. LLC",
       "Date: 12 March 2026 · Total: AED 48,250",
       "Payment terms: Net 30 · TRN: 100123456700003",
     ],

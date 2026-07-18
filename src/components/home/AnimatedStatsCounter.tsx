@@ -72,7 +72,6 @@ const AnimatedCounter = ({
   return (
     <div ref={ref} className="text-center">
       {editKey && editEnabled ? (
-        // In edit mode, render EditableText so admins can click to change value & label
         <>
           <EditableText
             as="div"
@@ -80,7 +79,7 @@ const AnimatedCounter = ({
             section={section}
             contentKey={`${editKey}_value`}
             fallback={value}
-            className="text-3xl md:text-4xl font-bold text-accent"
+            className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-accent tracking-tight"
           />
           <EditableText
             as="div"
@@ -88,13 +87,13 @@ const AnimatedCounter = ({
             section={section}
             contentKey={`${editKey}_label`}
             fallback={label}
-            className="text-sm text-muted-foreground mt-1"
+            className="text-sm md:text-base text-muted-foreground mt-2 font-medium"
           />
         </>
       ) : (
         <>
           <motion.div
-            className="text-3xl md:text-4xl font-bold text-accent"
+            className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-accent tracking-tight"
             initial={{ opacity: 0, scale: 0.5 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
@@ -103,7 +102,7 @@ const AnimatedCounter = ({
             {displayValue}
           </motion.div>
           <motion.div
-            className="text-sm text-muted-foreground mt-1"
+            className="text-sm md:text-base text-muted-foreground mt-2 font-medium"
             initial={{ opacity: 0, y: 5 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
