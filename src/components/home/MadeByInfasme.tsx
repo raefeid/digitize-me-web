@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useLanguage } from "@/i18n/LanguageContext";
-import infasmeLogo from "@/assets/infasme-logo.png.asset.json";
+import infasmeLogo from "@/assets/infasme-logo-hd.png.asset.json";
 
 /**
  * "Crafted by Infasme" attribution strip. Subtle, elegant animation:
@@ -57,7 +57,7 @@ const MadeByInfasme = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-              className="relative h-10 md:h-12 w-auto object-contain select-none"
+              className="relative h-14 md:h-20 w-auto object-contain select-none"
               loading="lazy"
             />
           </motion.a>
