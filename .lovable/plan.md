@@ -1,80 +1,30 @@
 
-# Homepage Overhaul Plan
+# Add real customer logos to the trust strip
 
-Section-by-section changes to `src/pages/Index.tsx` and related components. Brand colors, fonts, and overall visual language are preserved.
+Replace the fallback text names ("ADNOC", "Emirates NBD", …) with the 8 uploaded logo images so the `ClientLogosCarousel` (which already reads from `client_logos`) takes over from the text-based `TrustedBySection`.
 
----
+## Steps
 
-## 1. Hero Section
-- **CTAs**: Reduce to exactly two buttons — **Start Free Trial** and **Book a Demo**. Remove all other hero CTAs.
-- **Tagline**: Move "Scan, extract, classify…" to its own line directly under the H1 "From Paper Chaos to Smart Archives". Force single-line via responsive font-size + `whitespace-nowrap` (with a smaller mobile fallback so it still fits).
-- **Brand video**: Embed the Google Drive video (`1oeBzPVkCrv3WCjkm3CGJ4PyhilLkghST`) into the hero. Use a **poster thumbnail with click-to-open modal** (autoplay in-modal, muted), so the initial hero paint stays fast. Video shown via Drive's `/preview` iframe inside a lightbox.
+1. **Prep each logo**
+   - ADNOC, Emirates NBD, Etisalat, DEWA, Emaar, DP World, Majid Al Futtaim → uploaded with white/solid backgrounds. Run each through `imagegen--edit_image` with `transparent_background: true` to produce clean transparent PNGs.
+   - RTA → already appears transparent; use as-is (skip background removal to avoid quality loss).
 
-## 2. Client Logos Strip
-- No content changes.
-- Boost visibility: increase logo height (~40 → ~64px), remove/soften the grayscale filter, raise opacity to 100%, lighten section background one shade for contrast.
+2. **Upload to CDN** via `lovable-assets create` from `/mnt/user-uploads/…` → write `.asset.json` pointers under `src/assets/logos/`. This avoids putting binaries in the repo.
 
-## 3. Stats / "Built by Infasme"
-- **Numbers**: Wrap each stat in a card (soft background, border, subtle shadow). Increase number font size and weight for higher visual pop.
-- **Infasme logo**: Regenerate a high-resolution/vector-style logo asset and move the "Crafted by Infasme" block **above** the stats row.
+3. **Seed `client_logos` table** via a single `supabase--insert` (or SQL migration) with 8 rows:
+   | company_name | logo_url (CDN url from pointer) | sort_order | published |
+   |---|---|---|---|
+   | ADNOC | … | 10 | true |
+   | Emirates NBD | … | 20 | true |
+   | Etisalat | … | 30 | true |
+   | DEWA | … | 40 | true |
+   | RTA | … | 50 | true |
+   | Emaar | … | 60 | true |
+   | DP World | … | 70 | true |
+   | Majid Al Futtaim | … | 80 | true |
 
-## 4. Merge "What the Platform Is About" + Features → single interactive section
-- Merge the two current blocks into one section with a centered header.
-- Two-column layout below:
-  - **Left**: 4–5 USPs as checkbox-style bullets (checkmark icon + short label + one-line description). Clicking/hovering a bullet selects it.
-  - **Right**: A visual panel that swaps its graphic based on the active USP (e.g. Upload, OCR, Classify, Search, Export). Smooth crossfade between states.
-- Content edit inside the doc preview graphic: change label **"Issued to:" → "Vendor:"**, keep "Gulf Logistics".
+4. **Verify** the homepage: `ClientLogosCarousel` now renders (currently hidden because table is empty), and the older text-based `TrustedBySection` becomes redundant. Confirm scroll animation and spacing look right; no code changes expected since sizing was already boosted.
 
-## 5. Industry Section
-- Split the banner into two halves.
-- **Left half**: existing copy/text.
-- **Right half**: 6 industry boxes in a 3×2 grid (larger tiles than today).
-- Move the rotating orbit/circles graphic to the right side, sized to balance the left column.
-- Fix the orbit animation so the circles stay on a stable horizontal axis (correct transform-origin, remove drift from any translateY oscillation).
+## Notes / open item
 
-## 6. "$10,000 Worth of Software. Included."
-- **Sub A (inclusion boxes)**: Keep headline/subheadline. Enlarge the inclusion tiles and distribute evenly full-width via a responsive grid (`grid-cols-2 md:grid-cols-3 lg:grid-cols-4`, equal gap, `w-full`).
-- **Sub B (chart)**: No changes.
-- **Sub C (dark panel with left visual)**: Enlarge the left-side visual (wider column, larger illustration) without changing the rest of the layout.
-
-## 7. Testimonials (NEW)
-- Add a new section below the "$10,000" block containing:
-  - A row of numeric proof stats (e.g. "500+ businesses", "5M+ pages processed", "99.9% uptime", "4.9/5 rating") in bold card treatment.
-  - 3 written testimonial cards (quote, name, role, company).
-  - Client logos row alongside/under the testimonials.
-- Seeded with placeholder testimonials from the existing `useTestimonials` data if present; otherwise inline three plausible UAE-market quotes clearly marked as sample content so you can edit later via the admin.
-
-## 8. Ending CTA
-- Wrap the final CTA in a large dark container (rounded, deep brand-dark background, generous padding, subtle inner glow).
-- Increase heading + subcopy font sizes for prominence.
-- Keep copy and CTA button destinations unchanged.
-
----
-
-## Technical notes
-
-**Files touched (create/modify):**
-- `src/pages/Index.tsx` — reorder/compose sections.
-- `src/components/home/BilingualOCRHero.tsx` (or current hero) — CTA reduction, tagline placement, video embed trigger.
-- `src/components/home/HeroVideoModal.tsx` *(new)* — lightbox wrapping Drive `/preview` iframe.
-- `src/components/home/ClientLogosCarousel.tsx` — sizing/contrast tweaks.
-- `src/components/home/AnimatedStatsCounter.tsx` — card treatment, larger numerals.
-- `src/components/home/MadeByInfasme.tsx` — swap in HD logo asset, ensure it renders above stats via order in `Index.tsx`.
-- `src/components/home/InteractiveFeaturesSection.tsx` *(new)* — merged section with USP list ↔ visual panel; "Vendor:" label fix lives here.
-- `src/components/home/AnimatedDocFlow.tsx` or similar — remove now-duplicated feature block.
-- `src/components/home/IndustrySplitSection.tsx` *(new)* — split layout, 3×2 tile grid, relocated orbit.
-- Orbit component (existing) — patch transform math to lock the horizontal axis.
-- `src/components/home/AllInOneSection.tsx` — inclusion tile sizing/distribution; enlarge dark-panel left visual.
-- `src/components/home/TestimonialsProofSection.tsx` *(new)* — stats + quotes + logos.
-- Final CTA component — dark container + larger typography.
-- `src/assets/infasme-logo-hd.png.asset.json` *(new)* — regenerated HD logo via imagegen + `lovable-assets`.
-
-**Interaction pattern (Section 4):** Local `useState<number>` for active USP, keyboard-accessible list (`role="tablist"` + arrow-key nav), right panel uses Framer Motion `AnimatePresence` crossfade keyed on the active index.
-
-**Video embed:** `<iframe src="https://drive.google.com/file/d/1oeBzPVkCrv3WCjkm3CGJ4PyhilLkghST/preview" allow="autoplay">` mounted only when the modal opens.
-
-**Orbit fix:** current drift is from a `translateY` on the orbiting children. Replacement: parent rotates, children counter-rotate, positioned purely via `translateX(radius)` so they trace a perfect horizontal ellipse.
-
-**Non-goals:** No color/font changes. No copy changes outside "Vendor:" label. No changes to sections/subsections explicitly marked "no changes".
-
-**Open item before build:** Testimonial content — I'll use plausible sample quotes labeled clearly so you can replace them from the admin. Say the word if you'd rather supply the exact quotes/logos first.
+- The homepage currently renders **both** `TrustedBySection` (text fallback) and `ClientLogosCarousel` (image logos). Once real logos are seeded, we'll have two trust strips stacked. **Recommend removing `TrustedBySection` from `src/pages/Index.tsx`** so only the real-logo carousel shows. Let me know if you'd prefer to keep both.
