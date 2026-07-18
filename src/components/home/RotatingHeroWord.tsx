@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 interface RotatingHeroWordProps {
   words: string[];
+  className?: string;
 }
 
-const RotatingHeroWord = ({ words }: RotatingHeroWordProps) => {
+const RotatingHeroWord = ({ words, className }: RotatingHeroWordProps) => {
   const [index, setIndex] = useState(0);
   const rootRef = useRef<HTMLSpanElement>(null);
 
@@ -17,7 +19,7 @@ const RotatingHeroWord = ({ words }: RotatingHeroWordProps) => {
   }, [words.length]);
 
   return (
-    <span ref={rootRef} className="inline-block relative overflow-visible pb-3 leading-[1.5]">
+    <span ref={rootRef} className={cn("relative overflow-visible pb-3 leading-[1.5]", className)}>
       <motion.span
         key={words[index]}
         className="gradient-text inline-block"
