@@ -230,72 +230,90 @@ const Index = () => {
       {/* 10. Industries */}
       <section aria-label="Industries We Serve" className="section-padding bg-muted/20">
         <div className="container-max">
-          <div className="grid md:grid-cols-2 gap-8 lg:gap-12 items-center mb-10 md:mb-12">
-            <div className="text-center md:text-start max-w-2xl">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            {/* LEFT half — copy */}
+            <div className="text-center lg:text-start">
               <EditableText page="home" section="home" contentKey="industries_badge" fallback={t("industries.badge")} className="text-accent font-semibold text-sm uppercase tracking-wider" />
-              <EditableText as="h2" page="home" section="home" contentKey="industries_title" fallback={t("industries.title")} className="text-3xl md:text-4xl font-bold text-foreground mt-2 mb-4"  rich />
-              <EditableText as="p" page="home" section="home" contentKey="industries_desc" fallback={t("industries.desc")} multiline className="text-muted-foreground"  rich />
+              <EditableText as="h2" page="home" section="home" contentKey="industries_title" fallback={t("industries.title")} className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mt-2 mb-4"  rich />
+              <EditableText as="p" page="home" section="home" contentKey="industries_desc" fallback={t("industries.desc")} multiline className="text-muted-foreground text-base md:text-lg"  rich />
+              <div className="mt-6 flex justify-center lg:justify-start">
+                <CtaButton ctaKey="home_industries_viewall" variant="outline" defaultStyle={{ variant: "outline" }}>
+                  {t("industries.viewAll")} <ArrowRight size={16} className={isRTL ? "mr-2 rotate-180" : "ml-2"} />
+                </CtaButton>
+              </div>
             </div>
-            <div className="relative w-full max-w-[15rem] md:max-w-xs mx-auto aspect-square">
-              <motion.div
-                className="absolute inset-0 rounded-full border border-accent/10"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-              >
-                {[0, 1, 2, 3, 4, 5].map((i) => {
-                  const angle = (i / 6) * 360;
-                  const icons = [Scale, DollarSign, Building2, Stethoscope, Landmark, Building2];
-                  const Icon = icons[i];
-                  return (
-                    <motion.div key={i} className="absolute w-10 h-10 md:w-11 md:h-11 rounded-xl bg-card border border-border shadow-sm flex items-center justify-center"
-                      style={{ top: `${50 - 45 * Math.cos((angle * Math.PI) / 180)}%`, left: `${50 + 45 * Math.sin((angle * Math.PI) / 180)}%`, transform: "translate(-50%, -50%)" }}
-                      animate={{ rotate: -360 }} transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+
+            {/* RIGHT half — orbit background + 3x2 industry tile grid */}
+            <div className="relative w-full">
+              {/* Decorative orbit behind tiles */}
+              <div aria-hidden className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                <div className="relative w-[110%] max-w-[520px] aspect-square opacity-60">
+                  <motion.div
+                    className="absolute inset-0 rounded-full border border-accent/15"
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+                    style={{ transformOrigin: "50% 50%" }}
+                  >
+                    {[0, 1, 2, 3, 4, 5].map((i) => {
+                      const angle = (i / 6) * 360;
+                      const rad = (angle * Math.PI) / 180;
+                      // Position on a circle of radius 45% around center — no CSS transforms on the tile,
+                      // so motion's rotate cleanly counter-rotates and the icons stay level.
+                      const size = 40;
+                      return (
+                        <motion.div
+                          key={i}
+                          className="absolute w-10 h-10 rounded-xl bg-card/80 backdrop-blur border border-border shadow-sm flex items-center justify-center"
+                          style={{
+                            top: `${50 - 45 * Math.cos(rad)}%`,
+                            left: `${50 + 45 * Math.sin(rad)}%`,
+                            marginLeft: -size / 2,
+                            marginTop: -size / 2,
+                          }}
+                          animate={{ rotate: -360 }}
+                          transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+                        >
+                          <Globe size={16} className="text-accent/60" />
+                        </motion.div>
+                      );
+                    })}
+                  </motion.div>
+                </div>
+              </div>
+
+              {/* 3x2 industry tile grid */}
+              <div className="relative grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-5">
+                {industries.map((industry, index) => {
+                  const Icon = industry.icon;
+                  const href = localizeInternalPath(`/industries/${industry.slug}`, isRTL ? "ar" : "en");
+                  const card = (
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.07, duration: 0.45 }}
+                      className="rounded-2xl border border-border bg-card p-5 md:p-6 h-full min-h-[130px] flex flex-col justify-between shadow-sm hover:shadow-md hover:border-accent/40 hover:-translate-y-0.5 transition-all"
                     >
-                      <Icon size={18} className="text-accent shrink-0" />
+                      <div className="w-11 h-11 rounded-xl bg-accent/10 text-accent flex items-center justify-center mb-3">
+                        <Icon size={22} />
+                      </div>
+                      <div className="text-base md:text-lg font-semibold text-foreground leading-snug">
+                        {industry.name}
+                      </div>
                     </motion.div>
                   );
+                  return editMode ? (
+                    <div key={industry.slug}>{card}</div>
+                  ) : (
+                    <Link key={industry.slug} to={href} aria-label={industry.name}>
+                      {card}
+                    </Link>
+                  );
                 })}
-              </motion.div>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <motion.div className="w-16 h-16 rounded-2xl bg-accent/10 flex items-center justify-center"
-                  animate={{ scale: [1, 1.1, 1] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" as const }}
-                >
-                  <Globe size={28} className="text-accent" />
-                </motion.div>
               </div>
             </div>
           </div>
-          <EditableCardGrid
-            page="home"
-            gridKey="industry_tiles"
-            className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
-            seeds={industries.map((industry) => ({
-              key: industry.slug,
-              icon: industry.icon,
-              title: industry.name,
-              desc: "",
-            }))}
-            renderCard={({ id, index, icon, title, animClass }) => {
-              const href = localizeInternalPath(`/industries/${id}`, isRTL ? "ar" : "en");
-              const content = (
-                <motion.div
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  variants={fadeUp}
-                  custom={index * 0.5}
-                  className={`block rounded-xl border border-border bg-card p-5 transition-all group h-full ${animClass}`}
-                >
-                  <div className="mb-3 flex items-center">{icon}</div>
-                  <div className="text-base font-semibold text-foreground group-hover:text-accent transition-colors leading-snug">
-                    {title}
-                  </div>
-                </motion.div>
-              );
 
-              return editMode ? content : <Link to={href}>{content}</Link>;
-            }}
-          />
           <div className="text-center mt-8">
             <CtaButton ctaKey="home_industries_viewall" variant="outline" defaultStyle={{ variant: "outline" }}>
               {t("industries.viewAll")} <ArrowRight size={16} className={isRTL ? "mr-2 rotate-180" : "ml-2"} />
@@ -355,17 +373,31 @@ const Index = () => {
       <CustomBlocksRenderer page="home" />
 
       {/* 11. Final CTA */}
-      <section className="section-padding bg-accent/10">
-        <div className="container-max text-center">
-          <EditableText as="h2" page="home" section="home" contentKey="cta_title" fallback={t("cta.title")} className="text-3xl md:text-4xl font-bold text-foreground mb-4"  rich />
-          <EditableText as="p" page="home" section="home" contentKey="cta_desc" fallback={t("cta.desc")} multiline className="text-muted-foreground max-w-xl mx-auto mb-8 text-lg"  rich />
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <CtaButton ctaKey="home_cta_start" size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 px-8">
-              <EditableText page="home" section="home" contentKey="cta_start" fallback={t("cta.start")} />
-            </CtaButton>
-            <CtaButton ctaKey="home_cta_sales" size="lg" variant="outline" className="px-8">
-              <EditableText page="home" section="home" contentKey="cta_sales" fallback={t("cta.sales")} />
-            </CtaButton>
+      <section className="section-padding">
+        <div className="container-max">
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white px-6 py-16 md:px-16 md:py-24 shadow-2xl border border-white/5">
+            {/* decorative glows */}
+            <div aria-hidden className="pointer-events-none absolute -top-32 -right-32 w-96 h-96 rounded-full bg-accent/30 blur-3xl" />
+            <div aria-hidden className="pointer-events-none absolute -bottom-32 -left-32 w-96 h-96 rounded-full bg-accent/20 blur-3xl" />
+            <div aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.05]"
+              style={{
+                backgroundImage:
+                  "linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)",
+                backgroundSize: "48px 48px",
+              }}
+            />
+            <div className="relative text-center max-w-3xl mx-auto">
+              <EditableText as="h2" page="home" section="home" contentKey="cta_title" fallback={t("cta.title")} className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-5 leading-tight tracking-tight"  rich />
+              <EditableText as="p" page="home" section="home" contentKey="cta_desc" fallback={t("cta.desc")} multiline className="text-white/75 max-w-2xl mx-auto mb-10 text-lg md:text-xl leading-relaxed"  rich />
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <CtaButton ctaKey="home_cta_start" size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 px-10 py-6 text-base md:text-lg font-semibold">
+                  <EditableText page="home" section="home" contentKey="cta_start" fallback={t("cta.start")} />
+                </CtaButton>
+                <CtaButton ctaKey="home_cta_sales" size="lg" variant="outline" className="px-10 py-6 text-base md:text-lg font-semibold border-white/30 bg-white/5 text-white hover:bg-white/10 hover:text-white">
+                  <EditableText page="home" section="home" contentKey="cta_sales" fallback={t("cta.sales")} />
+                </CtaButton>
+              </div>
+            </div>
           </div>
         </div>
       </section>
