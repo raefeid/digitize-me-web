@@ -125,9 +125,11 @@ const Index = () => {
                 <EditableText page="home" section="home" contentKey="hero_badge" fallback={t("hero.badge")} />
               </span>
             </motion.div>
-            <motion.h1 className={`text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-3 md:mb-4 ${isRTL ? "leading-[1.5] pb-2" : "leading-[1.05]"}`} initial="hidden" animate="visible" variants={fadeUp} custom={1}>
-              <EditableText page="home" section="home" contentKey="hero_title" fallback={t("hero.title1")}  rich />{" "}
-              <RotatingHeroWord words={rotatingWords} />
+            <motion.h1 className={`flex flex-col items-center text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-3 md:mb-4 ${isRTL ? "leading-[1.5] pb-2" : "leading-[1.05]"}`} initial="hidden" animate="visible" variants={fadeUp} custom={1}>
+              <span className="block">
+                <EditableText page="home" section="home" contentKey="hero_title" fallback={t("hero.title1")} rich />
+              </span>
+              <RotatingHeroWord words={rotatingWords} className="block" />
             </motion.h1>
             <EditableText
               as="p"
@@ -136,7 +138,7 @@ const Index = () => {
               contentKey="hero_desc"
               fallback={t("hero.desc")}
               multiline
-              className="block text-sm sm:text-base md:text-lg text-muted-foreground max-w-full mx-auto whitespace-nowrap overflow-hidden text-ellipsis"
+              className="block text-sm sm:text-base md:text-lg text-muted-foreground max-w-3xl mx-auto"
              rich />
             <motion.div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center pt-2" initial="hidden" animate="visible" variants={fadeUp} custom={3}>
               <CtaButton ctaKey="hero_primary" size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 px-8">
