@@ -24,12 +24,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const checkRoles = useCallback(async (userId: string) => {
     try {
-      const [{ data: adminData }, { data: customerData }] = await Promise.all([
-        supabase.rpc("has_role", { _user_id: userId, _role: "admin" }),
-        supabase.rpc("has_role", { _user_id: userId, _role: "customer" }),
-      ]);
-      setIsAdmin(!!adminData);
-      setIsCustomer(!!customerData);
+      const { data } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", userId);
+      const roles = (data ?? []).map((r) => r.role as string);
+      setIsAdmin(roles.includes("admin") || roles.includes("super_admin"));
+      setIsCustomer(roles.includes("customer"));
     } catch {
       setIsAdmin(false);
       setIsCustomer(false);
