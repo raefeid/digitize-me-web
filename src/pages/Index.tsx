@@ -23,6 +23,7 @@ import BeforeAfterSection from "@/components/home/BeforeAfterSection";
 import SecuritySection from "@/components/home/SecuritySection";
 import AllInOneSection from "@/components/home/AllInOneSection";
 import MadeByInfasme from "@/components/home/MadeByInfasme";
+import TestimonialsProofSection from "@/components/home/TestimonialsProofSection";
 import VisualSlot from "@/components/cms/VisualSlot";
 import EditableText from "@/components/cms/EditableText";
 import EditableImage from "@/components/cms/EditableImage";
@@ -210,31 +211,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* 5. AI & OCR */}
-      <section aria-label="AI and OCR Technology" className="section-padding bg-muted/20">
-        <div className="container-max">
-          <div className="grid md:grid-cols-2 gap-8 lg:gap-12 items-center max-w-5xl mx-auto">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0} className={isRTL ? "md:order-2" : ""}>
-              <EditableText page="home" section="home" contentKey="ai_badge" fallback={t("ai.badge")} className="text-accent font-semibold text-sm uppercase tracking-wider" />
-              <EditableText as="h2" page="home" section="home" contentKey="ai_title" fallback={t("ai.title")} className="text-3xl md:text-4xl font-bold text-foreground mt-2 mb-4"  rich />
-              <EditableText as="p" page="home" section="home" contentKey="ai_desc" fallback={t("ai.desc")} multiline className="text-muted-foreground mb-6"  rich />
-              <ul className="space-y-3">
-                {aiFeats.map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-sm">
-                    <CheckCircle size={18} className="text-accent mt-0.5 shrink-0" />
-                    <EditableText page="home" section="home" contentKey={`ai_feat${i + 1}`} fallback={item} className="text-foreground" />
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2} className={isRTL ? "md:order-1" : ""}>
-              <EditableImage page="home" slotKey="ai_ocr_image" alt="OCR illustration">
-                <AnimatedOCRVisual />
-              </EditableImage>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+      {/* 5. AI & OCR section removed — consolidated into the interactive BilingualOCRHero above. */}
 
 
       {/* 7. All-in-One */}
@@ -243,7 +220,8 @@ const Index = () => {
       {/* 8. Before/After */}
       <BeforeAfterSection />
 
-      {/* 8b. Testimonials */}
+      {/* 8b. Testimonials + proof stats */}
+      <TestimonialsProofSection />
       <TestimonialsSection />
 
       {/* 9. Security */}
