@@ -129,20 +129,28 @@ const AllInOneSection = () => {
 
         <AnimatePresence>
           {!absorbed && (
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="relative w-full max-w-3xl mx-auto flex flex-col items-center" style={{ minHeight: canvasHeight }}>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="relative w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5"
+            >
               {resolvedTools.map((tool, i) => {
-                const pos = positions[i] ?? { x: 0, y: 0 };
                 const Icon = resolveIcon(tool.icon);
                 return (
-                  <motion.div key={tool.id} className="absolute left-1/2 top-0 z-20" initial={false} animate={{ x: pos.x, y: pos.y, scale: 1, opacity: 1 }} transition={{ duration: 0.6, delay: (resolvedTools.length - i) * 0.03, type: "spring", stiffness: 120, damping: 18 }} style={{ marginLeft: -56, marginTop: 48 }}>
-                    <div className="w-28 flex flex-col items-center gap-1.5 group">
-                      <div className="w-14 h-14 rounded-2xl bg-card border border-border shadow-md flex items-center justify-center group-hover:shadow-lg group-hover:border-accent/30 transition-all">
-                        <Icon size={22} className="text-muted-foreground group-hover:text-accent transition-colors" />
-                      </div>
-                      <EditableText as="span" page="home" section="aio_tools" contentKey={`${tool.id}_name`} fallback={isRTL && tool.name_ar ? tool.name_ar : tool.name} className="text-xs text-muted-foreground font-medium text-center leading-tight" />
-                      <EditableText as="span" page="home" section="aio_tools" contentKey={`${tool.id}_competitor`} fallback={tool.competitor} className="text-[11px] text-foreground/50 font-medium" />
-                      <span className="text-[11px] font-bold text-destructive/70">{formatPrice(tool.effectivePrice)}</span>
+                  <motion.div
+                    key={tool.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.45, delay: i * 0.04, type: "spring", stiffness: 140, damping: 18 }}
+                    className="group rounded-2xl border border-border bg-card p-5 md:p-6 shadow-sm hover:shadow-md hover:border-accent/30 hover:-translate-y-0.5 transition-all flex flex-col items-center text-center gap-2 min-h-[170px]"
+                  >
+                    <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-accent/10 text-accent flex items-center justify-center group-hover:bg-accent group-hover:text-accent-foreground transition-colors">
+                      <Icon size={26} />
                     </div>
+                    <EditableText as="span" page="home" section="aio_tools" contentKey={`${tool.id}_name`} fallback={isRTL && tool.name_ar ? tool.name_ar : tool.name} className="text-sm md:text-base font-semibold text-foreground leading-tight" />
+                    <EditableText as="span" page="home" section="aio_tools" contentKey={`${tool.id}_competitor`} fallback={tool.competitor} className="text-xs text-muted-foreground" />
+                    <span className="mt-auto text-sm font-bold text-destructive/80">{formatPrice(tool.effectivePrice)}</span>
                   </motion.div>
                 );
               })}
