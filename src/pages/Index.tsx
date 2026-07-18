@@ -160,9 +160,8 @@ const Index = () => {
       <BilingualOCRHero />
 
       {/* 2. Trusted By */}
-      <TrustedBySection />
-      <div className="container-max flex justify-center -mt-4 mb-2"><UAEHostingBadge /></div>
       <ClientLogosCarousel />
+      <div className="container-max flex justify-center -mt-4 mb-2"><UAEHostingBadge /></div>
 
       {/* 3. Made by Infasme */}
       <MadeByInfasme />
