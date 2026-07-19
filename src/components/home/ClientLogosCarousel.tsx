@@ -30,10 +30,9 @@ const ClientLogosCarousel = () => {
       <div className="relative">
         <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-muted/30 to-transparent z-10 pointer-events-none" />
         <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-muted/30 to-transparent z-10 pointer-events-none" />
-        <motion.div
-          className="flex gap-16 items-center whitespace-nowrap"
-          animate={{ x: [0, -1200] }}
-          transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
+        <div
+          className="flex gap-16 items-center whitespace-nowrap w-max animate-marquee"
+          style={{ animationDuration: `${Math.max(20, logos.length * 4)}s` }}
         >
           {display.map((logo, i) => {
             const img = (
@@ -60,7 +59,7 @@ const ClientLogosCarousel = () => {
               </span>
             );
           })}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
