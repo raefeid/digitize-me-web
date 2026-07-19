@@ -141,25 +141,6 @@ const TestimonialsProofSection = () => {
           ))}
         </div>
 
-        {/* Companion logo strip */}
-        {publishedLogos.length > 0 && (
-          <div className="mt-12 pt-8 border-t border-border">
-            <p className="text-center text-xs uppercase tracking-[0.2em] text-muted-foreground mb-6 font-semibold">
-              {isRTL ? "بثقة من" : "Trusted by teams at"}
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
-              {publishedLogos.slice(0, 8).map((logo) => (
-                <img
-                  key={logo.id}
-                  src={logo.logo_url}
-                  alt={logo.company_name}
-                  className="h-10 md:h-12 w-auto object-contain"
-                  loading="lazy"
-                />
-              ))}
-            </div>
-          </div>
-        )}
       </div>
     </section>
   );

@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useClientLogos } from "@/hooks/useClientLogos";
 import EditableText from "@/components/cms/EditableText";
@@ -31,17 +30,16 @@ const ClientLogosCarousel = () => {
       <div className="relative">
         <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-muted/30 to-transparent z-10 pointer-events-none" />
         <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-muted/30 to-transparent z-10 pointer-events-none" />
-        <motion.div
-          className="flex gap-16 items-center whitespace-nowrap"
-          animate={{ x: [0, -1200] }}
-          transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
+        <div
+          className="flex items-center whitespace-nowrap w-max animate-marquee"
+          style={{ animationDuration: `${Math.max(20, logos.length * 4)}s` }}
         >
           {display.map((logo, i) => {
             const img = (
               <img
                 src={logo.logo_url}
                 alt={logo.company_name}
-                className="h-14 md:h-16 w-auto object-contain shrink-0 opacity-100 hover:scale-105 transition-transform duration-300 select-none"
+                className="h-14 md:h-16 w-auto object-contain shrink-0 opacity-100 hover:scale-105 transition-transform duration-300 select-none mx-8"
                 loading="lazy"
               />
             );
@@ -61,7 +59,7 @@ const ClientLogosCarousel = () => {
               </span>
             );
           })}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

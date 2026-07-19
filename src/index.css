@@ -221,3 +221,12 @@
   background: hsl(var(--popover)) !important;
   border-color: hsl(var(--border)) !important;
 }
+
+@keyframes marquee-x {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+.animate-marquee {
+  animation: marquee-x linear infinite;
+  will-change: transform;
+}
