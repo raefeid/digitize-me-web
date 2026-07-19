@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useLanguage } from "@/i18n/LanguageContext";
-import infasmeLogo from "@/assets/infasme-logo-hd.png.asset.json";
+import infasmeLogo from "@/assets/infasme-logo-new.webp.asset.json";
 
 /**
  * "Crafted by Infasme" attribution strip. Subtle, elegant animation:
