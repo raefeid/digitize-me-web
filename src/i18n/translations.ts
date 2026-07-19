@@ -16,7 +16,7 @@ export const translations: TranslationMap = {
 
     // Hero
     "hero.badge": "Arabic & English AI-Powered OCR",
-    "hero.title1": "From Paper Chaos to",
+    "hero.title1": "From Document Chaos to",
     "hero.title2": "Digital Control",
     "hero.rotate1": "Digital Control",
     "hero.rotate2": "Smart Archives",
