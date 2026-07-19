@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useClientLogos } from "@/hooks/useClientLogos";
 import EditableText from "@/components/cms/EditableText";
