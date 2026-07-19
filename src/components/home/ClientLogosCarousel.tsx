@@ -39,7 +39,7 @@ const ClientLogosCarousel = () => {
               <img
                 src={logo.logo_url}
                 alt={logo.company_name}
-                className="h-14 md:h-16 w-auto object-contain shrink-0 opacity-100 hover:scale-105 transition-transform duration-300 select-none"
+                className="h-14 md:h-16 w-auto object-contain shrink-0 opacity-100 hover:scale-105 transition-transform duration-300 select-none mx-8"
                 loading="lazy"
               />
             );
