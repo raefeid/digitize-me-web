@@ -32,7 +32,7 @@ const MadeByInfasme = () => {
           />
 
           <p className="text-xs md:text-sm uppercase tracking-[0.28em] text-muted-foreground/70 font-medium">
-            {isRTL ? "من صنع" : "Crafted by"}
+            {isRTL ? "تم التطوير بواسطة" : "BUILT BY"}
           </p>
 
           <motion.a
