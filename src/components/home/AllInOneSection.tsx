@@ -3,8 +3,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { icons, Check } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useSiteContent } from "@/hooks/useSiteContent";
-import { useGeo } from "@/hooks/useGeoLocation";
-import { formatRegionPrice } from "@/config/regionPricing";
 import EditableText from "@/components/cms/EditableText";
 import { useAioTools, DEFAULT_AIO_TOOLS, type AioTool } from "@/hooks/useAioTools";
 import logo from "@/assets/digitizeme-logo.png";
