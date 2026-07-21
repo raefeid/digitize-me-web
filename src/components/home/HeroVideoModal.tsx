@@ -14,6 +14,18 @@ const VIDEO_URL = promoVideo.url;
 const HeroVideoModal = () => {
   const { isRTL } = useLanguage();
   const [open, setOpen] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (open) {
+      video.play().catch(() => {});
+    } else {
+      video.pause();
+      video.currentTime = 0;
+    }
+  }, [open]);
 
   return (
     <>
