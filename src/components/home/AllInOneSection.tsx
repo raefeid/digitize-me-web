@@ -1,37 +1,11 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { icons, Check } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useSiteContent } from "@/hooks/useSiteContent";
-import { useGeo } from "@/hooks/useGeoLocation";
-import { formatRegionPrice } from "@/config/regionPricing";
 import EditableText from "@/components/cms/EditableText";
 import { useAioTools, DEFAULT_AIO_TOOLS, type AioTool } from "@/hooks/useAioTools";
 import logo from "@/assets/digitizeme-logo.png";
-
-/**
- * Lay out N tools in a centered grid around the absolute origin (0,0).
- * Used by the "scattered" view so the canvas adapts to any tool count
- * (the section was previously hardcoded for exactly 12).
- *
- * - 1-4 tools  → single row
- * - 5-8 tools  → 4 columns × 2 rows
- * - 9+ tools   → 4 columns × ceil(N/4) rows
- */
-const computePositions = (count: number): { x: number; y: number }[] => {
-  if (count === 0) return [];
-  const cols = count <= 4 ? count : 4;
-  const rows = Math.ceil(count / cols);
-  const colGap = 160;
-  const rowGap = 145;
-  const xOffset = -((cols - 1) * colGap) / 2;
-  const yOffset = 0;
-  return Array.from({ length: count }, (_, i) => {
-    const c = i % cols;
-    const r = Math.floor(i / cols);
-    return { x: xOffset + c * colGap, y: yOffset + r * rowGap };
-  });
-};
 
 /** Resolve a Lucide icon by name, falling back to a generic check icon. */
 const resolveIcon = (name: string) => {
@@ -42,44 +16,13 @@ const resolveIcon = (name: string) => {
 const AllInOneSection = () => {
   const { t, isRTL } = useLanguage();
   const { getContent } = useSiteContent("home", "allinone");
-  const { getContent: getToolContent } = useSiteContent("home", "aio_tools");
   const [absorbed, setAbsorbed] = useState(false);
-  const { region } = useGeo({ respectLanguageOverride: false });
 
   // Pull the admin-managed tool list (falls back to defaults until query resolves).
   const { data: toolsData } = useAioTools();
   const tools: AioTool[] = toolsData ?? DEFAULT_AIO_TOOLS;
 
-  // Per-tool inline text overrides (name + competitor) and price overrides keep working
-  // by addressing each row's stable `id` — admins can either edit inline OR via the panel.
-  const resolvedTools = tools.map((tool) => {
-    const overridePrice = parseFloat(getToolContent(`${tool.id}_price`, ""));
-    return {
-      ...tool,
-      displayName: getToolContent(`${tool.id}_name`, isRTL && tool.name_ar ? tool.name_ar : tool.name),
-      displayCompetitor: getToolContent(`${tool.id}_competitor`, tool.competitor),
-      effectivePrice: !isNaN(overridePrice) && overridePrice > 0 ? overridePrice : tool.price,
-    };
-  });
-
-  const totalPrice = resolvedTools.reduce((sum, t) => sum + t.effectivePrice, 0);
-  const bundlePriceUsd = parseFloat(getContent("aio_bundle_price_usd", "99")) || 99;
-
-  // Recompute scatter positions whenever the tool count changes.
-  const positions = useMemo(() => computePositions(resolvedTools.length), [resolvedTools.length]);
-
-  // Canvas height adapts to the number of rows so taller lists don't get clipped.
-  const canvasHeight = useMemo(() => {
-    const rows = Math.ceil(resolvedTools.length / 4) || 1;
-    return Math.max(320, rows * 160 + 80);
-  }, [resolvedTools.length]);
-
-  const formatPrice = (usdAmount: number, suffix = true) => {
-    const rates: Record<string, number> = { EG: 50, AE: 3.67, SA: 3.75, DEFAULT: 1 };
-    const localAmount = Math.round(usdAmount * (rates[region] || 1));
-    const per = suffix ? (isRTL ? "/شهر" : "/mo") : "";
-    return formatRegionPrice(localAmount, region, per, isRTL ? "مجاني" : "Free", isRTL);
-  };
+  const resolvedTools = tools;
 
   return (
     <section className="section-padding bg-muted/20 overflow-hidden" aria-label="All in One Platform">
@@ -113,13 +56,9 @@ const AllInOneSection = () => {
                     </motion.div>
                   ))}
                 </div>
-                <div className="border-t border-border pt-3 flex items-center justify-between">
-                  <div>
-                    <span className="text-xs text-muted-foreground line-through">{formatPrice(totalPrice)}</span>
-                    <div className="text-xl font-extrabold text-accent">{formatPrice(bundlePriceUsd)}</div>
-                  </div>
-                  <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1, type: "spring" }} className="bg-accent/10 text-accent text-xs font-bold px-3 py-1.5 rounded-full">
-                    {isRTL ? `وفّر ` : `Save `}{formatPrice(totalPrice - bundlePriceUsd)}
+                <div className="border-t border-border pt-3 flex items-center justify-center">
+                  <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1, type: "spring" }} className="bg-accent/10 text-accent text-xs font-bold px-4 py-2 rounded-full">
+                    {t("aio.unified")}
                   </motion.div>
                 </div>
               </div>
@@ -149,8 +88,7 @@ const AllInOneSection = () => {
                       <Icon size={26} />
                     </div>
                     <EditableText as="span" page="home" section="aio_tools" contentKey={`${tool.id}_name`} fallback={isRTL && tool.name_ar ? tool.name_ar : tool.name} className="text-sm md:text-base font-semibold text-foreground leading-tight" />
-                    <EditableText as="span" page="home" section="aio_tools" contentKey={`${tool.id}_competitor`} fallback={tool.competitor} className="text-xs text-muted-foreground" />
-                    <span className="mt-auto text-sm font-bold text-destructive/80">{formatPrice(tool.effectivePrice)}</span>
+                    <EditableText as="span" page="home" section="aio_tools" contentKey={`${tool.id}_competitor`} fallback={tool.competitor} className="text-xs text-muted-foreground mt-auto" />
                   </motion.div>
                 );
               })}
@@ -158,13 +96,6 @@ const AllInOneSection = () => {
           )}
         </AnimatePresence>
 
-        <AnimatePresence>
-          {!absorbed && (
-            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-center text-muted-foreground mt-8 text-sm">
-              💸 {t("aio.costNote").replace("{{total}}", formatPrice(totalPrice, false))}
-            </motion.p>
-          )}
-        </AnimatePresence>
       </div>
     </section>
   );
