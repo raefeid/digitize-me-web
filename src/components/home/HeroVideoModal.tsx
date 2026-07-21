@@ -1,15 +1,15 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, X } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
+import promoVideo from "@/assets/digitizeme-promo-58s.mp4.asset.json";
 
 /**
  * Hero brand video: shows a poster with play button; opens a fullscreen
- * modal with the Google Drive video embedded via /preview iframe.
+ * modal with the self-hosted promo video.
  * Video: DigitizeMe brand + walkthrough.
  */
-const DRIVE_FILE_ID = "1oeBzPVkCrv3WCjkm3CGJ4PyhilLkghST";
-const EMBED_URL = `https://drive.google.com/file/d/${DRIVE_FILE_ID}/preview`;
+const VIDEO_URL = promoVideo.url;
 
 const HeroVideoModal = () => {
   const { isRTL } = useLanguage();
