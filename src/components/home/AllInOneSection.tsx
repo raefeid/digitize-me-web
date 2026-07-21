@@ -64,13 +64,6 @@ const AllInOneSection = () => {
     return Math.max(320, rows * 160 + 80);
   }, [resolvedTools.length]);
 
-  const formatPrice = (usdAmount: number, suffix = true) => {
-    const rates: Record<string, number> = { EG: 50, AE: 3.67, SA: 3.75, DEFAULT: 1 };
-    const localAmount = Math.round(usdAmount * (rates[region] || 1));
-    const per = suffix ? (isRTL ? "/شهر" : "/mo") : "";
-    return formatRegionPrice(localAmount, region, per, isRTL ? "مجاني" : "Free", isRTL);
-  };
-
   return (
     <section className="section-padding bg-muted/20 overflow-hidden" aria-label="All in One Platform">
       <div className="container-max">
@@ -103,13 +96,9 @@ const AllInOneSection = () => {
                     </motion.div>
                   ))}
                 </div>
-                <div className="border-t border-border pt-3 flex items-center justify-between">
-                  <div>
-                    <span className="text-xs text-muted-foreground line-through">{formatPrice(totalPrice)}</span>
-                    <div className="text-xl font-extrabold text-accent">{formatPrice(bundlePriceUsd)}</div>
-                  </div>
-                  <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1, type: "spring" }} className="bg-accent/10 text-accent text-xs font-bold px-3 py-1.5 rounded-full">
-                    {isRTL ? `وفّر ` : `Save `}{formatPrice(totalPrice - bundlePriceUsd)}
+                <div className="border-t border-border pt-3 flex items-center justify-center">
+                  <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1, type: "spring" }} className="bg-accent/10 text-accent text-xs font-bold px-4 py-2 rounded-full">
+                    {t("aio.unified")}
                   </motion.div>
                 </div>
               </div>
@@ -139,8 +128,7 @@ const AllInOneSection = () => {
                       <Icon size={26} />
                     </div>
                     <EditableText as="span" page="home" section="aio_tools" contentKey={`${tool.id}_name`} fallback={isRTL && tool.name_ar ? tool.name_ar : tool.name} className="text-sm md:text-base font-semibold text-foreground leading-tight" />
-                    <EditableText as="span" page="home" section="aio_tools" contentKey={`${tool.id}_competitor`} fallback={tool.competitor} className="text-xs text-muted-foreground" />
-                    <span className="mt-auto text-sm font-bold text-destructive/80">{formatPrice(tool.effectivePrice)}</span>
+                    <EditableText as="span" page="home" section="aio_tools" contentKey={`${tool.id}_competitor`} fallback={tool.competitor} className="text-xs text-muted-foreground mt-auto" />
                   </motion.div>
                 );
               })}
@@ -148,13 +136,6 @@ const AllInOneSection = () => {
           )}
         </AnimatePresence>
 
-        <AnimatePresence>
-          {!absorbed && (
-            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-center text-muted-foreground mt-8 text-sm">
-              💸 {t("aio.costNote").replace("{{total}}", formatPrice(totalPrice, false))}
-            </motion.p>
-          )}
-        </AnimatePresence>
       </div>
     </section>
   );
