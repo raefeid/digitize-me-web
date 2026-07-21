@@ -236,8 +236,8 @@ export const translations: TranslationMap = {
 
     // All-in-One
     "aio.badge": "All-in-One Platform",
-    "aio.title": "The Power of $10,000/mo Software for a Fraction of the Cost",
-    "aio.desc": "You shouldn't have to overpay to get top-tier document management. Compare the true market value of our built-in features against our simple, all-in-one pricing.",
+    "aio.title": "$10,000 Worth of Software. Included.",
+    "aio.desc": "No separate subscriptions, no surprise add-ons - everything's built into one simple plan.",
     "aio.without": "Without Digitize me",
     "aio.with": "With Digitize me",
     "aio.scan": "Scanning",
@@ -498,8 +498,8 @@ export const translations: TranslationMap = {
 
     // All-in-One
     "aio.badge": "منصة شاملة",
-    "aio.title": "قوة برامج بقيمة ١٠,٠٠٠ دولار شهريًا بجزء بسيط من التكلفة",
-    "aio.desc": "لا يجب أن تدفع أكثر للحصول على إدارة مستندات من الطراز الأول. قارن القيمة السوقية الحقيقية لميزاتنا المدمجة مع أسعارنا الشاملة البسيطة.",
+    "aio.title": "برامج بقيمة ١٠,٠٠٠ دولار. متضمنة.",
+    "aio.desc": "لا اشتراكات منفصلة، لا إضافات مفاجئة - كل شيء مدمج في خطة واحدة بسيطة.",
     "aio.without": "بدون Digitize me",
     "aio.with": "مع Digitize me",
     "aio.scan": "المسح",
