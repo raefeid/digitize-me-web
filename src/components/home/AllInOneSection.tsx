@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { icons, Check } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
@@ -47,22 +47,7 @@ const AllInOneSection = () => {
   const { data: toolsData } = useAioTools();
   const tools: AioTool[] = toolsData ?? DEFAULT_AIO_TOOLS;
 
-  // Per-tool inline text overrides (name + competitor) by addressing each row's stable `id`
-  // — admins can either edit inline OR via the panel.
-  const resolvedTools = tools.map((tool) => ({
-    ...tool,
-    displayName: getToolContent(`${tool.id}_name`, isRTL && tool.name_ar ? tool.name_ar : tool.name),
-    displayCompetitor: getToolContent(`${tool.id}_competitor`, tool.competitor),
-  }));
-
-  // Recompute scatter positions whenever the tool count changes.
-  const positions = useMemo(() => computePositions(resolvedTools.length), [resolvedTools.length]);
-
-  // Canvas height adapts to the number of rows so taller lists don't get clipped.
-  const canvasHeight = useMemo(() => {
-    const rows = Math.ceil(resolvedTools.length / 4) || 1;
-    return Math.max(320, rows * 160 + 80);
-  }, [resolvedTools.length]);
+  const resolvedTools = tools;
 
   return (
     <section className="section-padding bg-muted/20 overflow-hidden" aria-label="All in One Platform">
