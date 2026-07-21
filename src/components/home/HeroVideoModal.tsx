@@ -83,11 +83,13 @@ const HeroVideoModal = () => {
               >
                 <X size={20} />
               </button>
-              <iframe
-                src={`${EMBED_URL}?autoplay=1`}
+              <video
+                ref={videoRef}
+                src={VIDEO_URL}
                 className="w-full h-full"
-                allow="autoplay; encrypted-media; fullscreen"
-                allowFullScreen
+                controls
+                playsInline
+                preload="auto"
                 title="DigitizeMe product video"
               />
             </motion.div>
