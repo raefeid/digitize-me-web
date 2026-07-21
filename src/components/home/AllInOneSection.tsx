@@ -7,30 +7,6 @@ import EditableText from "@/components/cms/EditableText";
 import { useAioTools, DEFAULT_AIO_TOOLS, type AioTool } from "@/hooks/useAioTools";
 import logo from "@/assets/digitizeme-logo.png";
 
-/**
- * Lay out N tools in a centered grid around the absolute origin (0,0).
- * Used by the "scattered" view so the canvas adapts to any tool count
- * (the section was previously hardcoded for exactly 12).
- *
- * - 1-4 tools  → single row
- * - 5-8 tools  → 4 columns × 2 rows
- * - 9+ tools   → 4 columns × ceil(N/4) rows
- */
-const computePositions = (count: number): { x: number; y: number }[] => {
-  if (count === 0) return [];
-  const cols = count <= 4 ? count : 4;
-  const rows = Math.ceil(count / cols);
-  const colGap = 160;
-  const rowGap = 145;
-  const xOffset = -((cols - 1) * colGap) / 2;
-  const yOffset = 0;
-  return Array.from({ length: count }, (_, i) => {
-    const c = i % cols;
-    const r = Math.floor(i / cols);
-    return { x: xOffset + c * colGap, y: yOffset + r * rowGap };
-  });
-};
-
 /** Resolve a Lucide icon by name, falling back to a generic check icon. */
 const resolveIcon = (name: string) => {
   const Icon = (icons as Record<string, React.ComponentType<{ size?: number; className?: string }>>)[name];
@@ -40,7 +16,6 @@ const resolveIcon = (name: string) => {
 const AllInOneSection = () => {
   const { t, isRTL } = useLanguage();
   const { getContent } = useSiteContent("home", "allinone");
-  const { getContent: getToolContent } = useSiteContent("home", "aio_tools");
   const [absorbed, setAbsorbed] = useState(false);
 
   // Pull the admin-managed tool list (falls back to defaults until query resolves).
