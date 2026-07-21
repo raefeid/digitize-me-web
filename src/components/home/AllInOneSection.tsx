@@ -42,26 +42,18 @@ const AllInOneSection = () => {
   const { getContent } = useSiteContent("home", "allinone");
   const { getContent: getToolContent } = useSiteContent("home", "aio_tools");
   const [absorbed, setAbsorbed] = useState(false);
-  const { region } = useGeo({ respectLanguageOverride: false });
 
   // Pull the admin-managed tool list (falls back to defaults until query resolves).
   const { data: toolsData } = useAioTools();
   const tools: AioTool[] = toolsData ?? DEFAULT_AIO_TOOLS;
 
-  // Per-tool inline text overrides (name + competitor) and price overrides keep working
-  // by addressing each row's stable `id` — admins can either edit inline OR via the panel.
-  const resolvedTools = tools.map((tool) => {
-    const overridePrice = parseFloat(getToolContent(`${tool.id}_price`, ""));
-    return {
-      ...tool,
-      displayName: getToolContent(`${tool.id}_name`, isRTL && tool.name_ar ? tool.name_ar : tool.name),
-      displayCompetitor: getToolContent(`${tool.id}_competitor`, tool.competitor),
-      effectivePrice: !isNaN(overridePrice) && overridePrice > 0 ? overridePrice : tool.price,
-    };
-  });
-
-  const totalPrice = resolvedTools.reduce((sum, t) => sum + t.effectivePrice, 0);
-  const bundlePriceUsd = parseFloat(getContent("aio_bundle_price_usd", "99")) || 99;
+  // Per-tool inline text overrides (name + competitor) by addressing each row's stable `id`
+  // — admins can either edit inline OR via the panel.
+  const resolvedTools = tools.map((tool) => ({
+    ...tool,
+    displayName: getToolContent(`${tool.id}_name`, isRTL && tool.name_ar ? tool.name_ar : tool.name),
+    displayCompetitor: getToolContent(`${tool.id}_competitor`, tool.competitor),
+  }));
 
   // Recompute scatter positions whenever the tool count changes.
   const positions = useMemo(() => computePositions(resolvedTools.length), [resolvedTools.length]);
