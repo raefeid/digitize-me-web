@@ -21,7 +21,7 @@ export const translations: TranslationMap = {
     "hero.rotate1": "Digital Control",
     "hero.rotate2": "Smart Archives",
     "hero.rotate3": "AI Power",
-    "hero.desc": "AI-powered document digitization and management platform. Scan, extract, classify, and retrieve any document in seconds, in Arabic and English.",
+    "hero.desc": "AI-powered document digitization and management platform.\\nScan, extract, classify, and retrieve any document in seconds, in Arabic and English.",
     "hero.cta1": "Start Free Trial",
     "hero.cta2": "Book a Demo",
     "hero.search": 'Search documents... "contract 2024"',
@@ -236,7 +236,7 @@ export const translations: TranslationMap = {
 
     // All-in-One
     "aio.badge": "All-in-One Platform",
-    "aio.title": "$10,000 Worth of Software. Included.",
+    "aio.title": "Thousands of Dolors Worth of Software. Included.",
     "aio.desc": "No separate subscriptions, no surprise add-ons - everything's built into one simple plan.",
     "aio.without": "Without Digitize me",
     "aio.with": "With Digitize me",
