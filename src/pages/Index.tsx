@@ -138,7 +138,7 @@ const Index = () => {
               contentKey="hero_desc"
               fallback={t("hero.desc")}
               multiline
-              className="block text-sm sm:text-base md:text-lg text-muted-foreground max-w-3xl mx-auto"
+              className="block text-sm sm:text-base md:text-lg text-muted-foreground max-w-3xl mx-auto whitespace-pre-line"
              rich />
             <motion.div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center pt-2" initial="hidden" animate="visible" variants={fadeUp} custom={3}>
               <CtaButton ctaKey="hero_primary" size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 px-8">
