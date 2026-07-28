@@ -43,14 +43,10 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const [industriesOpen, setIndustriesOpen] = useState(false);
-  const [productOpen, setProductOpen] = useState(false);
-  const [featuresFlyoutOpen, setFeaturesFlyoutOpen] = useState(false);
   const [mobileOpenIds, setMobileOpenIds] = useState<string[]>([]);
   const langRef = useRef<HTMLDivElement>(null);
   const industriesRef = useRef<HTMLDivElement>(null);
-  const productRef = useRef<HTMLDivElement>(null);
   const industriesTimeout = useRef<ReturnType<typeof setTimeout>>();
-  const productTimeout = useRef<ReturnType<typeof setTimeout>>();
   const location = useLocation();
   const navigate = useNavigate();
   const { t, lang, setLang, isRTL } = useLanguage();
