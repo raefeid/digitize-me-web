@@ -445,6 +445,11 @@ export const translations: TranslationMap = {
     "product.diff.title": "ما يميز Digitize me",
     "product.cta.title": "شاهد Digitize me في العمل",
     "product.cta.desc": "احجز عرضًا توضيحيًا مخصصًا، وشاهد كيف تُحوّل منصة Digitize me سير عمل مستنداتك بالكامل.",
+    "product.integrations.badge": "التكاملات",
+    "product.integrations.title": "يتصل بالأدوات التي تستخدمها بالفعل",
+    "product.integrations.desc": "استورد وصدر إلى التخزين السحابي وتطبيقات الأعمال التي يعتمد عليها فريقك.",
+    "product.integrations.available": "متاح",
+    "product.integrations.coming": "قريبًا",
 
     // Pricing
     "pricing.badge": "الأسعار",
