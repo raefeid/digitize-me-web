@@ -2,49 +2,19 @@ import { motion } from "framer-motion";
 import { Scan, Brain, FolderOpen, Search } from "lucide-react";
 
 const steps = [
-  {
-    icon: Scan,
-    tile: "bg-gradient-to-br from-dm-coral to-dm-coral-light",
-    glow: "shadow-dm-coral/40",
-    ring: "border-dm-coral/40",
-    halo: "bg-dm-coral/20",
-  },
-  {
-    icon: Brain,
-    tile: "bg-gradient-to-br from-dm-navy to-dm-navy-light",
-    glow: "shadow-dm-navy/40",
-    ring: "border-dm-navy/40",
-    halo: "bg-dm-navy/20",
-  },
-  {
-    icon: FolderOpen,
-    tile: "bg-gradient-to-br from-dm-coral-light to-dm-navy-light",
-    glow: "shadow-dm-coral/30",
-    ring: "border-dm-coral-light/50",
-    halo: "bg-dm-coral-light/20",
-  },
-  {
-    icon: Search,
-    tile: "bg-gradient-to-br from-dm-navy-light to-dm-coral",
-    glow: "shadow-dm-navy/30",
-    ring: "border-dm-navy-light/50",
-    halo: "bg-dm-navy-light/20",
-  },
+  { icon: Scan, color: "bg-accent/15", iconColor: "text-accent" },
+  { icon: Brain, color: "bg-dm-navy/15", iconColor: "text-primary" },
+  { icon: FolderOpen, color: "bg-accent/10", iconColor: "text-accent" },
+  { icon: Search, color: "bg-dm-navy/10", iconColor: "text-primary" },
 ];
 
 const AnimatedWorkflow = () => {
   return (
     <div className="relative w-full max-w-2xl mx-auto py-8">
-      {/* Ambient colour wash */}
-      <div className="pointer-events-none absolute inset-0 -z-10 blur-3xl opacity-60">
-        <div className="absolute left-[5%] top-1/4 h-32 w-32 rounded-full bg-dm-coral/25" />
-        <div className="absolute right-[5%] bottom-1/4 h-32 w-32 rounded-full bg-dm-navy/25" />
-      </div>
-
       <div className="flex items-center justify-between relative">
         {/* Connecting line */}
         <motion.div
-          className="absolute top-1/2 left-[10%] right-[10%] h-1 rounded-full bg-gradient-to-r from-dm-coral via-dm-navy to-dm-coral-light -translate-y-1/2"
+          className="absolute top-1/2 left-[10%] right-[10%] h-0.5 bg-gradient-to-r from-accent/40 via-primary/30 to-accent/40 -translate-y-1/2"
           initial={{ scaleX: 0 }}
           whileInView={{ scaleX: 1 }}
           viewport={{ once: true }}
@@ -52,23 +22,11 @@ const AnimatedWorkflow = () => {
           style={{ transformOrigin: "left" }}
         />
 
-        {/* Travelling shimmer along the line */}
-        <motion.div
-          className="absolute top-1/2 left-[10%] right-[10%] h-1 rounded-full -translate-y-1/2 overflow-hidden"
-          aria-hidden
-        >
-          <motion.div
-            className="h-full w-1/3 bg-gradient-to-r from-transparent via-background/70 to-transparent"
-            animate={{ x: ["-100%", "300%"] }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", repeatDelay: 1 }}
-          />
-        </motion.div>
-
         {/* Animated data packet */}
         <motion.div
-          className="absolute top-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-dm-coral shadow-lg shadow-dm-coral/60 z-20 ring-4 ring-dm-coral/20"
+          className="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-accent shadow-lg shadow-accent/30 z-20"
           initial={{ left: "10%" }}
-          animate={{ left: ["10%", "90%"], scale: [1, 1.35, 1] }}
+          animate={{ left: ["10%", "90%"] }}
           transition={{
             duration: 3,
             repeat: Infinity,
@@ -88,32 +46,20 @@ const AnimatedWorkflow = () => {
               viewport={{ once: true }}
               transition={{ delay: 0.2 + i * 0.2, duration: 0.5 }}
             >
-              {/* Soft colour halo */}
               <motion.div
-                className={`absolute inset-0 w-16 h-16 md:w-20 md:h-20 rounded-2xl blur-xl ${step.halo}`}
-                animate={{ opacity: [0.4, 0.9, 0.4], scale: [0.95, 1.15, 0.95] }}
-                transition={{ duration: 3, repeat: Infinity, delay: i * 0.4 }}
-              />
-
-              <motion.div
-                className={`relative w-16 h-16 md:w-20 md:h-20 rounded-2xl ${step.tile} flex items-center justify-center shadow-lg ${step.glow}`}
-                whileHover={{ scale: 1.12, y: -6, rotate: -3 }}
-                animate={{ y: [0, -4, 0] }}
-                transition={{
-                  y: { duration: 3.5, repeat: Infinity, delay: i * 0.35, ease: "easeInOut" },
-                  type: "spring",
-                  stiffness: 300,
-                }}
+                className={`w-16 h-16 md:w-20 md:h-20 rounded-2xl ${step.color} flex items-center justify-center shadow-sm border border-border/50 bg-card`}
+                whileHover={{ scale: 1.1, y: -4 }}
+                transition={{ type: "spring", stiffness: 300 }}
               >
-                <Icon size={28} className="text-primary-foreground drop-shadow" />
+                <Icon size={28} className={step.iconColor} />
               </motion.div>
 
               {/* Pulse ring */}
               <motion.div
-                className={`absolute inset-0 w-16 h-16 md:w-20 md:h-20 rounded-2xl border-2 ${step.ring}`}
+                className={`absolute inset-0 w-16 h-16 md:w-20 md:h-20 rounded-2xl border-2 ${step.iconColor.replace("text-", "border-")}/20`}
                 animate={{
-                  scale: [1, 1.35, 1],
-                  opacity: [0.7, 0, 0.7],
+                  scale: [1, 1.3, 1],
+                  opacity: [0.3, 0, 0.3],
                 }}
                 transition={{
                   duration: 2.5,
@@ -128,6 +74,5 @@ const AnimatedWorkflow = () => {
     </div>
   );
 };
-
 
 export default AnimatedWorkflow;
