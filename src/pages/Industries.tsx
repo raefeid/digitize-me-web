@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import { Link, useParams } from "react-router-dom";
 import { ArrowRight, CheckCircle, Scale, DollarSign, Truck, Building2, Stethoscope, GraduationCap, Factory, HardHat, Landmark, ShoppingBag, Droplets, Briefcase, ShieldCheck, LucideIcon } from "lucide-react";
 import IndustryIllustration from "@/components/industries/IndustryIllustration";
+import LawFirmHeroAnimation from "@/components/industries/LawFirmHeroAnimation";
+
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/layout/Layout";
 import SEOHead from "@/components/SEOHead";
@@ -286,6 +288,8 @@ export const IndustryDetail = () => {
   const semanticIndustryH1 = lang === "ar"
     ? `نظام إدارة المستندات لقطاع ${industry.name}`
     : `Document Management System for ${industry.name}`;
+  const isLawFirms = slug === "law-firms";
+
 
   return (
     <Layout>
@@ -378,8 +382,22 @@ export const IndustryDetail = () => {
         );
       })()}
       <section className="section-padding bg-gradient-to-b from-dm-navy-light to-background">
-        <div className="container-max max-w-4xl mx-auto grid md:grid-cols-2 gap-8 items-center">
-          <div>
+        <div className="container-max max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className={`hidden md:block ${isLawFirms ? "md:order-1" : "md:order-2"}`}
+          >
+            {isLawFirms ? (
+              <LawFirmHeroAnimation />
+            ) : (
+              <EditableImage page={`industry_${slug}`} slotKey="hero_illustration" alt={industry.name}>
+                <IndustryIllustration slug={slug || ""} />
+              </EditableImage>
+            )}
+          </motion.div>
+          <div className={isLawFirms ? "md:order-2" : "md:order-1"}>
             <h1 className="sr-only">{semanticIndustryH1}</h1>
             <motion.div className="flex items-center gap-3 mb-4" initial="hidden" animate="visible" variants={fadeUp} custom={0}>
               <EditableIcon page="industries" slotKey={`detail_${slug}_icon`} size={32}>
@@ -387,11 +405,13 @@ export const IndustryDetail = () => {
               </EditableIcon>
               <span className="text-accent font-semibold text-sm uppercase tracking-wider">{landing.heroEyebrow}</span>
             </motion.div>
-            <EditableText as="h2" page={`industry_${slug}`} section="hero" contentKey="headline" fallback={industry.headline} className="text-3xl md:text-5xl font-bold text-foreground mb-6 block" rich />
-            <EditableText as="p" page={`industry_${slug}`} section="hero" contentKey="description" fallback={industry.description} multiline className="text-lg text-muted-foreground mb-8" rich />
-            <p className="text-sm md:text-base text-muted-foreground mb-6 max-w-2xl">
-              {landing.heroSupporting}
-            </p>
+            <EditableText as="h2" page={`industry_${slug}`} section="hero" contentKey="headline" fallback={industry.headline} className={`font-bold text-foreground mb-5 block text-balance ${isLawFirms ? "text-4xl md:text-6xl leading-[1.12] pb-1" : "text-3xl md:text-5xl"}`} rich />
+            <EditableText as="p" page={`industry_${slug}`} section="hero" contentKey="description" fallback={industry.description} multiline className={`text-muted-foreground mb-8 ${isLawFirms ? "text-base md:text-lg max-w-xl line-clamp-3" : "text-lg"}`} rich />
+            {!isLawFirms && (
+              <p className="text-sm md:text-base text-muted-foreground mb-6 max-w-2xl">
+                {landing.heroSupporting}
+              </p>
+            )}
             <div className="flex flex-wrap gap-2 mb-8">
               {landing.keywordPillars.map((keyword) => (
                 <span key={keyword} className="inline-flex px-3 py-1 rounded-full border border-accent/20 bg-accent/10 text-accent text-xs font-medium">
@@ -404,24 +424,22 @@ export const IndustryDetail = () => {
                 <EditableText page={`industry_${slug}`} section="hero" contentKey="cta_demo_label" fallback={t("common.bookDemo")} />
                 <ArrowRight size={16} className={isRTL ? "mr-2 rotate-180" : "ml-2"} />
               </CtaButton>
-              <CtaButton
-                ctaKey={`industries_detail_hero_pricing_${slug}`}
-                customLocation={`Industry detail (${slug}) — Hero View pricing`}
-                variant="outline"
-                defaultStyle={{ variant: "outline" }}
-                defaultTo="/pricing"
-              >
-                <EditableText page={`industry_${slug}`} section="hero" contentKey="cta_pricing_label" fallback={t("common.viewPricing")} />
-              </CtaButton>
+              {!isLawFirms && (
+                <CtaButton
+                  ctaKey={`industries_detail_hero_pricing_${slug}`}
+                  customLocation={`Industry detail (${slug}) — Hero View pricing`}
+                  variant="outline"
+                  defaultStyle={{ variant: "outline" }}
+                  defaultTo="/pricing"
+                >
+                  <EditableText page={`industry_${slug}`} section="hero" contentKey="cta_pricing_label" fallback={t("common.viewPricing")} />
+                </CtaButton>
+              )}
             </motion.div>
           </div>
-          <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, delay: 0.2 }} className="hidden md:block">
-            <EditableImage page={`industry_${slug}`} slotKey="hero_illustration" alt={industry.name}>
-              <IndustryIllustration slug={slug || ""} />
-            </EditableImage>
-          </motion.div>
         </div>
       </section>
+
 
       <section className="py-12 bg-muted/30 border-y border-border">
         <div className="container-max px-4 sm:px-6 lg:px-8">
