@@ -146,7 +146,7 @@
   }
 
   .container-max {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    @apply w-full max-w-[88rem] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12;
   }
 
   .section-stack {
