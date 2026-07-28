@@ -152,7 +152,7 @@ export const translations: TranslationMap = {
 
     // Product Page
     "product.badge": "Product Overview",
-    "product.title": "The Complete Document Digitization Ecosystem",
+    "product.title": "The Complete Document Digitization Ecosystem\n\n",
     "product.desc": "Combining cloud software and on-ground expertise, Digitize me enables organizations to scan, extract, classify, store, and manage documents with AI-powered intelligence, in Arabic and English.",
     "product.ai.badge": "AI & OCR Engine",
     "product.ai.title": "Bilingual AI That Reads Your Documents",
