@@ -299,113 +299,51 @@ const Navbar = () => {
                     </Link>
 
                     {productOpen && (
-                      <div className={`absolute top-full mt-3 ${isRTL ? "right-0" : "left-1/2 -translate-x-1/2"} bg-card/95 backdrop-blur-xl border border-border/60 rounded-[1.5rem] shadow-[0_22px_50px_hsl(var(--foreground)/0.12)] py-3 px-3 z-50 w-[320px] animate-in fade-in-0 zoom-in-95 duration-150`}>
-                        {/* Product Overview */}
+                      <div className={`absolute top-full mt-3 ${isRTL ? "right-0" : "left-1/2 -translate-x-1/2"} bg-card/95 backdrop-blur-xl border border-border/60 rounded-2xl shadow-[0_22px_50px_hsl(var(--foreground)/0.12)] py-2 px-2 z-50 w-[210px] animate-in fade-in-0 zoom-in-95 duration-150`}>
                         <Link
                           to={localizeInternalPath("/product", lang)}
                           onClick={() => { setProductOpen(false); setFeaturesFlyoutOpen(false); }}
-                          className={`flex items-start gap-3 px-3 py-3 rounded-xl transition-all group ${
+                          className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors ${
                             location.pathname === "/product" || location.pathname === "/ar/product"
-                              ? "bg-accent/10 text-accent"
-                              : "text-muted-foreground hover:bg-muted/80 hover:text-foreground"
+                              ? "text-accent bg-accent/10 font-medium"
+                              : "text-muted-foreground hover:text-foreground hover:bg-muted/80"
                           }`}
-                          onMouseEnter={() => setFeaturesFlyoutOpen(false)}
                         >
-                          <div className="shrink-0 w-9 h-9 rounded-lg flex items-center justify-center bg-muted group-hover:bg-accent/10 transition-colors">
-                            <Sparkles className="w-4 h-4 text-accent" />
-                          </div>
-                          <div className="min-w-0 flex-1">
-                            <p className="text-sm font-semibold">{t("nav.product")}</p>
-                            <p className="text-xs text-muted-foreground line-clamp-1 mt-0.5">
-                              {isRTL ? "نظرة عامة على المنصة" : "Platform overview"}
-                            </p>
-                          </div>
+                          {isRTL ? "نظرة عامة" : "Overview"}
                         </Link>
 
-                        {/* Features — expands to the right */}
                         {publishedFeatures.length > 0 && (
-                          <div
-                            className="relative"
-                            onMouseEnter={handleFeaturesFlyoutEnter}
-                            onMouseLeave={handleFeaturesFlyoutLeave}
-                          >
+                          <>
+                            <div className="mx-3 my-1.5 h-px bg-border/60" />
+                            <p className="px-3 pb-1.5 text-[0.7rem] font-semibold uppercase tracking-wider text-muted-foreground">
+                              {isRTL ? "الميزات" : "Features"}
+                            </p>
+                            {publishedFeatures.map((f) => {
+                              const title = (lang === "ar" && f.hero_title_ar) || f.hero_title;
+                              const active = location.pathname === `/features/${f.slug}`;
+                              return (
+                                <Link
+                                  key={f.id}
+                                  to={`/features/${f.slug}`}
+                                  onClick={() => { setProductOpen(false); setFeaturesFlyoutOpen(false); }}
+                                  className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors ${
+                                    active ? "text-accent bg-accent/10 font-medium" : "text-muted-foreground hover:text-foreground hover:bg-muted/80"
+                                  }`}
+                                >
+                                  <FeatureIcon name={f.icon} className="w-3.5 h-3.5 text-accent/70" />
+                                  <span className="truncate">{title}</span>
+                                </Link>
+                              );
+                            })}
                             <Link
                               to={localizeInternalPath("/features", lang)}
                               onClick={() => { setProductOpen(false); setFeaturesFlyoutOpen(false); }}
-                              className={`flex items-center gap-3 px-3 py-3 rounded-xl transition-all group ${
-                                location.pathname.startsWith("/features") || featuresFlyoutOpen
-                                  ? "bg-accent/10 text-accent"
-                                  : "text-muted-foreground hover:bg-muted/80 hover:text-foreground"
-                              }`}
-                              aria-haspopup="true"
-                              aria-expanded={featuresFlyoutOpen}
+                              className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-accent hover:bg-accent/10 transition-colors font-medium"
                             >
-                              <div className="shrink-0 w-9 h-9 rounded-lg flex items-center justify-center bg-muted group-hover:bg-accent/10 transition-colors">
-                                <Layers className="w-4 h-4 text-accent" />
-                              </div>
-                              <div className="min-w-0 flex-1">
-                                <p className="text-sm font-semibold">{isRTL ? "الميزات" : "Features"}</p>
-                                <p className="text-xs text-muted-foreground line-clamp-1 mt-0.5">
-                                  {isRTL ? "استكشف كل الميزات" : "Explore all features"}
-                                </p>
-                              </div>
-                              {isRTL ? (
-                                <ChevronLeft size={16} className="shrink-0 opacity-70" />
-                              ) : (
-                                <ChevronRight size={16} className="shrink-0 opacity-70" />
-                              )}
+                              {isRTL ? "كل الميزات" : "View all features"}
                             </Link>
-
-                            {featuresFlyoutOpen && (
-                              <div
-                                className={`absolute top-0 ${isRTL ? "right-full mr-2" : "left-full ml-2"} bg-card/95 backdrop-blur-xl border border-border/60 rounded-[1.5rem] shadow-[0_22px_50px_hsl(var(--foreground)/0.12)] py-3 px-3 z-50 w-[340px] max-h-[70vh] overflow-y-auto animate-in fade-in-0 zoom-in-95 duration-150`}
-                              >
-                                <div className="flex items-center justify-between mb-2 px-1">
-                                  <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                                    {isRTL ? "الميزات" : "Features"}
-                                  </p>
-                                  <Link
-                                    to={localizeInternalPath("/features", lang)}
-                                    onClick={() => { setProductOpen(false); setFeaturesFlyoutOpen(false); }}
-                                    className="text-xs text-accent hover:underline font-medium"
-                                  >
-                                    {isRTL ? "كل الميزات →" : "View all →"}
-                                  </Link>
-                                </div>
-                                <div className="grid grid-cols-1 gap-0.5">
-                                  {publishedFeatures.map((f) => {
-                                    const title = (lang === "ar" && f.hero_title_ar) || f.hero_title;
-                                    const desc = (lang === "ar" && f.hero_desc_ar) || f.hero_desc;
-                                    const active = location.pathname === `/features/${f.slug}`;
-                                    return (
-                                      <Link
-                                        key={f.id}
-                                        to={`/features/${f.slug}`}
-                                        onClick={() => { setProductOpen(false); setFeaturesFlyoutOpen(false); }}
-                                        className={`flex items-start gap-3 px-3 py-2.5 rounded-xl transition-all group ${
-                                          active ? "bg-accent/10 text-accent" : "text-muted-foreground hover:bg-muted/80 hover:text-foreground"
-                                        }`}
-                                      >
-                                        <div className={`shrink-0 w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${
-                                          active ? "bg-accent/15" : "bg-muted group-hover:bg-accent/10"
-                                        }`}>
-                                          <FeatureIcon name={f.icon} className="w-4 h-4 text-accent" />
-                                        </div>
-                                        <div className="min-w-0 flex-1">
-                                          <p className="text-sm font-semibold truncate">{title}</p>
-                                          {desc && (
-                                            <p className="text-xs text-muted-foreground line-clamp-1 mt-0.5">{desc}</p>
-                                          )}
-                                        </div>
-                                      </Link>
-                                    );
-                                  })}
-                                </div>
-                              </div>
-                            )}
-                          </div>
+                          </>
                         )}
-
                       </div>
                     )}
                   </div>
