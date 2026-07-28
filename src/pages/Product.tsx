@@ -218,19 +218,15 @@ const Product = () => {
       {/* Delivery Models */}
       <section className="section-padding bg-background">
         <div className="container-max">
-          <div className="grid md:grid-cols-2 gap-10 items-center mb-12">
-            <div>
-              <EditableText page="product" section="delivery" contentKey="product_delivery_badge" fallback={t("product.delivery.badge")} className="text-accent font-semibold text-sm uppercase tracking-wider" />
-              <EditableText as="h2" page="product" section="delivery" contentKey="product_delivery_title" fallback={t("product.delivery.title")} className="text-3xl md:text-4xl font-bold text-foreground mt-2 mb-4 block" rich />
-            </div>
-            <EditableImage page="product" slotKey="delivery_image" alt="Deployment">
-              <AnimatedDeployment />
-            </EditableImage>
+          <div className="max-w-3xl mx-auto text-center mb-12">
+            <EditableText page="product" section="delivery" contentKey="product_delivery_badge" fallback={t("product.delivery.badge")} className="text-accent font-semibold text-sm uppercase tracking-wider" />
+            <EditableText as="h2" page="product" section="delivery" contentKey="product_delivery_title" fallback={t("product.delivery.title")} className="text-3xl md:text-5xl font-bold text-foreground mt-2 mb-4 block" rich />
           </div>
           <EditableCardGrid
             page="product"
             gridKey="delivery_models"
-            className="grid md:grid-cols-2 gap-8"
+            className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto"
+
             seeds={[
               { key: "saas", icon: Cloud, title: getContent("product_saas_title", t("product.saas.title")), desc: getContent("product_saas_desc", t("product.saas.desc")) },
               { key: "onpremise", icon: Server, title: getContent("product_onprem_title", t("product.onprem.title")), desc: getContent("product_onprem_desc", t("product.onprem.desc")) },
