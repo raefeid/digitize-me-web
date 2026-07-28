@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { FileText, LucideIcon } from "lucide-react";
 import balanceScale from "@/assets/balance-scale.json";
 import calculator from "@/assets/calculator.json";
+import deliveryTime from "@/assets/delivery-time.json";
 
 const FILE_COUNT = 9;
 
@@ -31,14 +32,14 @@ interface Props {
   /** Use the animated scales-of-justice Lottie instead of a static icon. */
   useLottie?: boolean;
   /** Named Lottie animation to render at the core instead of a static icon. */
-  lottie?: "scales" | "calculator";
+  lottie?: "scales" | "calculator" | "delivery";
 }
 
 /**
  * Shared industry hero visual: a large industry icon core with document
  * cards orbiting behind it in calm circles.
  */
-const LOTTIES = { scales: balanceScale, calculator } as const;
+const LOTTIES = { scales: balanceScale, calculator, delivery: deliveryTime } as const;
 
 const IndustryHeroAnimation = ({ icon: Icon, useLottie, lottie }: Props) => {
   const animationData = lottie ? LOTTIES[lottie] : useLottie ? balanceScale : null;

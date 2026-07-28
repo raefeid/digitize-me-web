@@ -388,7 +388,7 @@ export const IndustryDetail = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="hidden md:block md:order-1"
           >
-            <IndustryHeroAnimation icon={industryEn.icon} useLottie={isLawFirms} lottie={slug === "accounting" ? "calculator" : undefined} />
+            <IndustryHeroAnimation icon={industryEn.icon} useLottie={isLawFirms} lottie={slug === "accounting" ? "calculator" : slug === "logistics" ? "delivery" : undefined} />
           </motion.div>
           <div className="md:order-2">
             <h1 className="sr-only">{semanticIndustryH1}</h1>
