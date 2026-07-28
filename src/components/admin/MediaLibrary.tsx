@@ -94,7 +94,7 @@ const MediaLibrary = () => {
       if (f.path.includes("/")) {
         const parts = f.path.split("/");
         parts.pop();
-        // accumulate nested folders e.g. integrations, integrations/logos
+        // accumulate nested folders e.g. blog, blog/logos
         let acc = "";
         for (const p of parts) {
           acc = acc ? `${acc}/${p}` : p;

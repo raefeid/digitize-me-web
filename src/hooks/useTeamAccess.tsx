@@ -20,7 +20,7 @@ export const TEAM_ROLES = [
   {
     value: "seo_manager",
     label: "SEO Manager",
-    description: "Can edit SEO meta tags, sitemap, robots and integrations.",
+    description: "Can edit SEO meta tags, sitemap, robots and tracking scripts.",
   },
   {
     value: "blog_author",
