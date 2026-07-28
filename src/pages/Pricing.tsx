@@ -322,18 +322,18 @@ const Pricing = () => {
                   <div className="mb-5 min-h-[180px] md:min-h-[200px] xl:min-h-[220px] flex flex-col">
                     <h3 className="text-xl xl:text-[1.35rem] font-bold text-foreground leading-tight">{plan.name}</h3>
                     <div className="flex flex-wrap gap-1.5 mt-2.5 mb-3">
-                      {plan.description
-                        .split(/[·.]/)
-                        .map((part) => part.trim())
-                        .filter(Boolean)
-                        .map((part, i) => (
+                      {(() => {
+                        const bullets = plan.description.split("·").map((p) => p.trim()).filter(Boolean);
+                        const parts = bullets.length > 1 ? bullets : plan.description.split(". ").map((p) => p.trim()).filter(Boolean);
+                        return parts.map((part, i) => (
                           <span
                             key={i}
                             className="inline-block text-[11px] md:text-xs font-medium text-muted-foreground bg-muted/60 border border-border/60 rounded-md px-2 py-1 leading-tight"
                           >
                             {part}
                           </span>
-                        ))}
+                        ));
+                      })()}
                     </div>
                     {(() => {
                       const promo = rpWithPromo(plan.key, cmPlans);
