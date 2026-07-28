@@ -7,7 +7,6 @@ import EditableText from "@/components/cms/EditableText";
 import { Button } from "@/components/ui/button";
 import { useLanguage, Language } from "@/i18n/LanguageContext";
 import { useDynamicIndustries } from "@/hooks/useDynamicIndustries";
-import { useFeatures } from "@/hooks/useFeatures";
 import { useAuth } from "@/hooks/useAuth";
 import logoFallback from "@/assets/digitizeme-logo-light.png";
 import { useBrandingAsset } from "@/hooks/useBranding";
@@ -43,14 +42,10 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const [industriesOpen, setIndustriesOpen] = useState(false);
-  const [productOpen, setProductOpen] = useState(false);
-  const [featuresFlyoutOpen, setFeaturesFlyoutOpen] = useState(false);
   const [mobileOpenIds, setMobileOpenIds] = useState<string[]>([]);
   const langRef = useRef<HTMLDivElement>(null);
   const industriesRef = useRef<HTMLDivElement>(null);
-  const productRef = useRef<HTMLDivElement>(null);
   const industriesTimeout = useRef<ReturnType<typeof setTimeout>>();
-  const productTimeout = useRef<ReturnType<typeof setTimeout>>();
   const location = useLocation();
   const navigate = useNavigate();
   const { t, lang, setLang, isRTL } = useLanguage();
@@ -59,8 +54,6 @@ const Navbar = () => {
   // Show "Log out" only when the signed-in user holds the customer role.
   const showCustomerSignedIn = !!user && isCustomer;
   const { publishedList: industriesData, getName: getCustomIndustryName } = useDynamicIndustries();
-  const { data: featuresData } = useFeatures();
-  const publishedFeatures = (featuresData ?? []).filter((f) => f.published);
   const logo = useBrandingAsset("logo_navbar", logoFallback);
   const { data: navbarItems } = useNavItems("navbar");
   const { data: customPages } = useCustomPages({ includeDrafts: false });
@@ -89,11 +82,11 @@ const Navbar = () => {
   // Note: "Home" is intentionally omitted — clicking the logo returns home.
   // Features live inside the Product dropdown; Blog lives in footer.
   const defaultNavLinks = [
-    { label: t("nav.product"), href: "/product", dropdown: "product" as const, external: false, newTab: false },
+    { label: t("nav.product"), href: "/product", dropdown: null as any, external: false, newTab: false },
     { label: t("nav.industries"), href: "/industries", dropdown: "industries" as const, external: false, newTab: false },
-    { label: t("nav.pricing"), href: "/pricing", dropdown: null, external: false, newTab: false },
-    { label: isRTL ? "من نحن" : t("nav.about"), href: "/about", dropdown: null, external: false, newTab: false },
-    { label: t("nav.contact"), href: "/contact", dropdown: null, external: false, newTab: false },
+    { label: t("nav.pricing"), href: "/pricing", dropdown: null as any, external: false, newTab: false },
+    { label: isRTL ? "من نحن" : t("nav.about"), href: "/about", dropdown: null as any, external: false, newTab: false },
+    { label: t("nav.contact"), href: "/contact", dropdown: null as any, external: false, newTab: false },
   ];
 
   const cmsNavLinks = customNavTopLevel
@@ -137,18 +130,6 @@ const Navbar = () => {
         newTab: false,
         iconName: industry.icon?.displayName ?? industry.icon?.name ?? null,
       }));
-    }
-
-    if (parentHref === "/product") {
-      const featureChildren: MobileNavNode[] = publishedFeatures.map((feature) => ({
-        id: `${parentId}-feature-${feature.id}`,
-        label: (lang === "ar" && feature.hero_title_ar) || feature.hero_title,
-        href: `/features/${feature.slug}`,
-        external: false,
-        newTab: false,
-        iconName: feature.icon,
-      }));
-      return featureChildren;
     }
 
     return [];
@@ -216,31 +197,18 @@ const Navbar = () => {
     const handleClick = (e: MouseEvent) => {
       if (langRef.current && !langRef.current.contains(e.target as Node)) setLangOpen(false);
       if (industriesRef.current && !industriesRef.current.contains(e.target as Node)) setIndustriesOpen(false);
-      if (productRef.current && !productRef.current.contains(e.target as Node)) setProductOpen(false);
     };
     document.addEventListener("mousedown", handleClick);
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
 
-  const handleEnter = (which: "industries" | "product") => {
-    if (which === "industries") {
-      clearTimeout(industriesTimeout.current);
-      setIndustriesOpen(true);
-    } else {
-      clearTimeout(productTimeout.current);
-      setProductOpen(true);
-    }
+  const handleEnter = () => {
+    clearTimeout(industriesTimeout.current);
+    setIndustriesOpen(true);
   };
 
-  const handleLeave = (which: "industries" | "product") => {
-    if (which === "industries") {
-      industriesTimeout.current = setTimeout(() => setIndustriesOpen(false), 200);
-    } else {
-      productTimeout.current = setTimeout(() => {
-        setProductOpen(false);
-        setFeaturesFlyoutOpen(false);
-      }, 200);
-    }
+  const handleLeave = () => {
+    industriesTimeout.current = setTimeout(() => setIndustriesOpen(false), 200);
   };
 
   const handleLanguageChange = (nextLang: Language) => {
@@ -268,87 +236,14 @@ const Navbar = () => {
           <div className="hidden xl:flex flex-1 min-w-0 justify-center px-2">
             <div className="flex items-center gap-0.5 xl:gap-0.5 2xl:gap-1 bg-muted/60 rounded-[1.15rem] px-1 xl:px-1.5 2xl:px-2 py-1.5 border border-border/40 max-w-full">
             {navLinks.map((link) => {
-              if (link.dropdown === "product") {
-                return (
-                  <div
-                    key={link.href}
-                    className="relative"
-                    ref={productRef}
-                    onMouseEnter={() => handleEnter("product")}
-                    onMouseLeave={() => handleLeave("product")}
-                  >
-                    <Link
-                      to={link.href}
-                      className={`flex items-center gap-1 xl:gap-1.5 px-2.5 xl:px-3 2xl:px-4 py-2 rounded-xl text-[0.95rem] 2xl:text-sm font-medium transition-all duration-200 whitespace-nowrap ${
-                        location.pathname.startsWith("/product") || location.pathname.startsWith("/features")
-                          ? "text-accent bg-card shadow-[0_4px_12px_hsl(var(--foreground)/0.06)]"
-                          : "text-muted-foreground hover:text-foreground hover:bg-card/80"
-                      }`}
-                    >
-                      {link.label}
-                      <ChevronDown size={13} className={`transition-transform duration-200 ${productOpen ? "rotate-180" : ""}`} />
-                    </Link>
-
-                    {productOpen && (
-                      <div className={`absolute top-full mt-3 ${isRTL ? "right-0" : "left-1/2 -translate-x-1/2"} bg-card/95 backdrop-blur-xl border border-border/60 rounded-2xl shadow-[0_22px_50px_hsl(var(--foreground)/0.12)] py-2 px-2 z-50 w-[210px] animate-in fade-in-0 zoom-in-95 duration-150`}>
-                        <Link
-                          to={localizeInternalPath("/product", lang)}
-                          onClick={() => { setProductOpen(false); setFeaturesFlyoutOpen(false); }}
-                          className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors ${
-                            location.pathname === "/product" || location.pathname === "/ar/product"
-                              ? "text-accent bg-accent/10 font-medium"
-                              : "text-muted-foreground hover:text-foreground hover:bg-muted/80"
-                          }`}
-                        >
-                          {isRTL ? "نظرة عامة" : "Overview"}
-                        </Link>
-
-                        {publishedFeatures.length > 0 && (
-                          <>
-                            <div className="mx-3 my-1.5 h-px bg-border/60" />
-                            <p className="px-3 pb-1.5 text-[0.7rem] font-semibold uppercase tracking-wider text-muted-foreground">
-                              {isRTL ? "الميزات" : "Features"}
-                            </p>
-                            {publishedFeatures.map((f) => {
-                              const title = (lang === "ar" && f.hero_title_ar) || f.hero_title;
-                              const active = location.pathname === `/features/${f.slug}`;
-                              return (
-                                <Link
-                                  key={f.id}
-                                  to={`/features/${f.slug}`}
-                                  onClick={() => { setProductOpen(false); setFeaturesFlyoutOpen(false); }}
-                                  className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors ${
-                                    active ? "text-accent bg-accent/10 font-medium" : "text-muted-foreground hover:text-foreground hover:bg-muted/80"
-                                  }`}
-                                >
-                                  <FeatureIcon name={f.icon} className="w-3.5 h-3.5 text-accent/70" />
-                                  <span className="truncate">{title}</span>
-                                </Link>
-                              );
-                            })}
-                            <Link
-                              to={localizeInternalPath("/features", lang)}
-                              onClick={() => { setProductOpen(false); setFeaturesFlyoutOpen(false); }}
-                              className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-accent hover:bg-accent/10 transition-colors font-medium"
-                            >
-                              {isRTL ? "كل الميزات" : "View all features"}
-                            </Link>
-                          </>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                );
-              }
-
               if (link.dropdown === "industries") {
                 return (
                   <div
                     key={link.href}
                     className="relative"
                     ref={industriesRef}
-                    onMouseEnter={() => handleEnter("industries")}
-                    onMouseLeave={() => handleLeave("industries")}
+                    onMouseEnter={handleEnter}
+                    onMouseLeave={handleLeave}
                   >
                     <Link
                       to={link.href}
@@ -398,11 +293,6 @@ const Navbar = () => {
                     )}
                   </div>
                 );
-              }
-
-              if (link.dropdown === "features" && publishedFeatures.length > 0) {
-                // Rendered inside the Product dropdown — not as a standalone pill.
-                return null;
               }
 
               const cls = `px-2.5 xl:px-3 2xl:px-4 py-2 rounded-xl text-[0.95rem] 2xl:text-sm font-medium transition-all duration-200 whitespace-nowrap ${
