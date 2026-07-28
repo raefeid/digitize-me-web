@@ -129,7 +129,10 @@ const LawFirmHeroAnimation = () => {
                     ? "border-accent bg-accent/20 shadow-[0_0_18px_hsl(var(--accent)/0.55)]"
                     : "border-border bg-card/90"
                 }`}
+                initial={{ rotate: 0 }}
+                whileInView={{ rotate: -360 }}
                 style={{ width: file.size + 12, height: file.size + 16 }}
+
                 animate={{
                   scale: isTarget ? 1.15 : 1,
                   opacity: isTarget || phase === "idle" ? 1 : 0.65,
