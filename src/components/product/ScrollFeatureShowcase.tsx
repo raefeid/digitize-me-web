@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import type { LucideIcon } from "lucide-react";
-import ocrLoop from "@/assets/ocr-engine-loop.mp4.asset.json";
+import productVideo from "@/assets/digitizeme-product.mp4.asset.json";
 
 export interface ShowcaseFeature {
   key: string;
@@ -23,40 +23,26 @@ const ScrollFeatureShowcase = ({ features }: Props) => {
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
-  // Boomerang playback: play forward, then rewind, then repeat.
+  // Seamless loop: cross-fade the last moments back into the start.
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
-    let reverse = false;
-    let raf = 0;
+    const FADE = 0.6;
 
-    const tick = () => {
-      if (reverse) {
-        video.currentTime = Math.max(0, video.currentTime - 0.033);
-        if (video.currentTime <= 0.05) {
-          reverse = false;
-          video.play().catch(() => {});
-        }
-      }
-      raf = requestAnimationFrame(tick);
-    };
-
-    const onEnded = () => {
-      reverse = true;
-      video.pause();
-    };
     const onTimeUpdate = () => {
-      if (!reverse && video.duration && video.currentTime >= video.duration - 0.08) onEnded();
+      const d = video.duration;
+      if (!d || Number.isNaN(d)) return;
+      const remaining = d - video.currentTime;
+      const t = video.currentTime;
+      const opacity =
+        remaining < FADE ? remaining / FADE : t < FADE ? Math.max(t / FADE, 0.15) : 1;
+      video.style.opacity = String(opacity);
     };
 
-    video.addEventListener("ended", onEnded);
     video.addEventListener("timeupdate", onTimeUpdate);
     video.play().catch(() => {});
-    raf = requestAnimationFrame(tick);
 
     return () => {
-      cancelAnimationFrame(raf);
-      video.removeEventListener("ended", onEnded);
       video.removeEventListener("timeupdate", onTimeUpdate);
     };
   }, []);
@@ -105,14 +91,16 @@ const ScrollFeatureShowcase = ({ features }: Props) => {
     <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
       {/* Visual — sticky on the left */}
       <div className="lg:sticky lg:top-28">
-        <div className="relative rounded-2xl overflow-hidden border border-border/60 shadow-xl bg-muted/20 aspect-[4/3]">
+        <div className="relative rounded-2xl overflow-hidden border border-border/60 shadow-xl bg-muted/20 aspect-video">
           <video
             ref={videoRef}
-            src={ocrLoop.url}
+            src={productVideo.url}
             muted
+            loop
             playsInline
             autoPlay
             preload="auto"
+            style={{ transition: "opacity 120ms linear" }}
             aria-label="AI document digitization animation"
             className="w-full h-full object-cover"
           />
