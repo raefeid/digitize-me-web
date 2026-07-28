@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Scale, FileText } from "lucide-react";
+import Lottie from "lottie-react";
+import { FileText } from "lucide-react";
+import balanceScale from "@/assets/balance-scale.json";
 
 const FILE_COUNT = 9;
 
@@ -17,7 +19,7 @@ const FILES: OrbitFile[] = Array.from({ length: FILE_COUNT }, (_, i) => {
   const ring = i % 3;
   return {
     id: i,
-    radius: 96 + ring * 46 + ((i * 13) % 17),
+    radius: 112 + ring * 44 + ((i * 13) % 17),
     duration: 14 + ring * 5 + ((i * 7) % 9),
     delay: (i * 1.7) % 12,
     tilt: (i * 40) % 360,
@@ -72,8 +74,8 @@ const LawFirmHeroAnimation = () => {
           key={ring}
           className="absolute left-1/2 top-1/2 rounded-full border border-accent/15"
           style={{
-            width: `${(96 + ring * 46) * 2}px`,
-            height: `${(96 + ring * 46) * 2}px`,
+            width: `${(112 + ring * 44) * 2}px`,
+            height: `${(112 + ring * 44) * 2}px`,
             transform: "translate(-50%, -50%)",
           }}
         />
@@ -154,17 +156,22 @@ const LawFirmHeroAnimation = () => {
 
       {/* core */}
       <motion.div
-        className="absolute left-1/2 top-1/2 flex h-24 w-24 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl border border-accent/30 bg-card shadow-lg"
+        className="absolute left-1/2 top-1/2 flex h-36 w-36 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-3xl border border-accent/30 bg-card shadow-lg"
         animate={{
-          scale: phase === "fetch" ? [1, 1.08, 1] : 1,
+          scale: phase === "fetch" ? [1, 1.06, 1] : 1,
           boxShadow:
             phase === "idle"
               ? "0 0 0 hsl(var(--accent)/0)"
-              : "0 0 34px hsl(var(--accent)/0.45)",
+              : "0 0 40px hsl(var(--accent)/0.45)",
         }}
         transition={{ duration: 0.8 }}
       >
-        <Scale size={44} className="text-accent" />
+        <Lottie
+          animationData={balanceScale}
+          loop
+          autoplay
+          className="h-28 w-28"
+        />
       </motion.div>
     </div>
   );
