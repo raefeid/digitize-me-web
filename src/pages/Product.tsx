@@ -151,17 +151,19 @@ const Product = () => {
             rich
           />
           <div className="mt-10 flex justify-center">
-            <CtaButton
-              ctaKey="product_cta_pricing"
-              size="lg"
-              className="group h-14 rounded-full bg-accent px-10 text-base font-semibold text-accent-foreground shadow-lg shadow-accent/25 transition-all hover:bg-accent/90 hover:shadow-xl hover:shadow-accent/30"
-            >
-              <EditableText page="product" section="hero" contentKey="hero_cta_pricing_label" fallback={t("common.viewPricing")} />
-              <ArrowRight
-                size={18}
-                className={isRTL ? "mr-2 rotate-180 transition-transform group-hover:-translate-x-1" : "ml-2 transition-transform group-hover:translate-x-1"}
-              />
-            </CtaButton>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }} transition={{ type: "spring", stiffness: 300, damping: 15 }}>
+              <CtaButton
+                ctaKey="product_cta_pricing"
+                size="lg"
+                className="group relative h-14 overflow-hidden rounded-full bg-gradient-to-r from-accent via-accent to-accent/90 px-10 text-base font-semibold text-accent-foreground shadow-[0_0_40px_-10px_hsl(var(--accent)/0.5)] transition-all duration-300 hover:shadow-[0_0_60px_-10px_hsl(var(--accent)/0.6)] animate-cta-shimmer"
+              >
+                <EditableText page="product" section="hero" contentKey="hero_cta_pricing_label" fallback={t("common.viewPricing")} />
+                <ArrowRight
+                  size={18}
+                  className={isRTL ? "mr-2 rotate-180 transition-transform duration-300 group-hover:-translate-x-1.5" : "ml-2 transition-transform duration-300 group-hover:translate-x-1.5"}
+                />
+              </CtaButton>
+            </motion.div>
           </div>
 
         </div>
