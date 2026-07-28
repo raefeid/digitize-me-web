@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import type { LucideIcon } from "lucide-react";
 import ocrLoop from "@/assets/ocr-engine-loop.mp4.asset.json";
 
