@@ -124,26 +124,34 @@ const LawFirmHeroAnimation = () => {
               style={{ translateX: "-50%", translateY: "-50%" }}
             >
               <motion.div
-                className={`flex items-center justify-center rounded-lg border shadow-sm backdrop-blur-sm ${
-                  isTarget
-                    ? "border-accent bg-accent/20 shadow-[0_0_18px_hsl(var(--accent)/0.55)]"
-                    : "border-border bg-card/90"
-                }`}
-                initial={{ rotate: 0 }}
-                whileInView={{ rotate: -360 }}
-                style={{ width: file.size + 12, height: file.size + 16 }}
-
-                animate={{
-                  scale: isTarget ? 1.15 : 1,
-                  opacity: isTarget || phase === "idle" ? 1 : 0.65,
+                animate={{ rotate: -360 }}
+                transition={{
+                  duration: file.duration,
+                  repeat: Infinity,
+                  ease: "linear",
+                  delay: -file.delay,
                 }}
-                transition={{ duration: 0.4 }}
               >
-                <FileText
-                  size={file.size * 0.5}
-                  className={isTarget ? "text-accent" : "text-muted-foreground"}
-                />
+                <motion.div
+                  className={`flex items-center justify-center rounded-lg border shadow-sm backdrop-blur-sm ${
+                    isTarget
+                      ? "border-accent bg-accent/20 shadow-[0_0_18px_hsl(var(--accent)/0.55)]"
+                      : "border-border bg-card/90"
+                  }`}
+                  style={{ width: file.size + 12, height: file.size + 16 }}
+                  animate={{
+                    scale: isTarget ? 1.15 : 1,
+                    opacity: isTarget || phase === "idle" ? 1 : 0.65,
+                  }}
+                  transition={{ duration: 0.4 }}
+                >
+                  <FileText
+                    size={file.size * 0.5}
+                    className={isTarget ? "text-accent" : "text-muted-foreground"}
+                  />
+                </motion.div>
               </motion.div>
+
             </motion.div>
           </motion.div>
         );
