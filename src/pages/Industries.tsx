@@ -423,7 +423,9 @@ export const IndustryDetail = () => {
 
       <section className="py-12 bg-muted/30 border-y border-border">
         <div className="container-max px-4 sm:px-6 lg:px-8">
+          <h2 className="sr-only">{`${industry.name}: ${t("industries.before")} / ${t("industries.after")}`}</h2>
           <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+
             <div className="rounded-xl border border-destructive/20 bg-destructive/5 p-6 text-center">
               <span className="text-sm font-semibold text-destructive uppercase tracking-wider">{t("industries.before")}</span>
               <p className="text-lg font-bold text-foreground mt-2 block">
