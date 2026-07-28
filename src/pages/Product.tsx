@@ -7,7 +7,7 @@ import SEOHead from "@/components/SEOHead";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useSiteContent } from "@/hooks/useSiteContent";
 
-import ocrLoop from "@/assets/ocr-engine-loop.mp4.asset.json";
+import ScrollFeatureShowcase from "@/components/product/ScrollFeatureShowcase";
 import AnimatedWorkflow from "@/components/product/AnimatedWorkflow";
 import AnimatedDeployment from "@/components/product/AnimatedDeployment";
 import AnimatedWhyDifferent from "@/components/product/AnimatedWhyDifferent";
