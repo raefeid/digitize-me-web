@@ -10,11 +10,19 @@
 // (from CMS), H1 presence (from page blocks/templates), duplicate detection.
 
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
+import { requireRole } from "../_shared/require-role.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
+
+const ALLOWED_ROLES = ["admin", "super_admin", "editor", "seo_manager"];
+const DEFAULT_BASE_URL = "https://www.digitizeme.ae";
+const ALLOWED_BASE_URLS = [
+  "https://digitizeme.ae",
+  "https://digitize-me-web.lovable.app",
+];
 
 type Issue = {
   severity: "error" | "warning" | "info";
