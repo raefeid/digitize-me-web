@@ -173,46 +173,12 @@ const Product = () => {
       {/* AI OCR */}
       <section id="ai-ocr" className="section-padding bg-background">
         <div className="container-max">
-          <div className="grid md:grid-cols-2 gap-10 lg:gap-14 items-center mb-12">
-            <div className="md:-ml-4 lg:-ml-10 xl:-ml-16">
-              <EditableText page="product" section="ai" contentKey="product_ai_badge" fallback={t("product.ai.badge")} className="text-accent font-semibold text-sm uppercase tracking-wider" />
-              <EditableText as="h2" page="product" section="ai" contentKey="product_ai_title" fallback={t("product.ai.title")} className="text-3xl md:text-4xl font-bold text-foreground mt-2 mb-4 block" rich />
-              <EditableText as="p" page="product" section="ai" contentKey="product_ai_desc" fallback={t("product.ai.desc")} multiline className="text-muted-foreground" rich />
-            </div>
-            <div className="relative rounded-2xl overflow-hidden border border-border/60 shadow-lg bg-muted/20">
-              <video
-                src={ocrLoop.url}
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="auto"
-                aria-label="AI document digitization animation"
-                className="w-full h-full object-cover"
-              />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-background/25 via-transparent to-accent/10" />
-            </div>
+          <div className="max-w-3xl mx-auto text-center mb-14">
+            <EditableText page="product" section="ai" contentKey="product_ai_badge" fallback={t("product.ai.badge")} className="text-accent font-semibold text-sm uppercase tracking-wider" />
+            <EditableText as="h2" page="product" section="ai" contentKey="product_ai_title" fallback={t("product.ai.title")} className="text-3xl md:text-5xl font-bold text-foreground mt-3 mb-4 block" rich />
+            <EditableText as="p" page="product" section="ai" contentKey="product_ai_desc" fallback={t("product.ai.desc")} multiline className="text-muted-foreground text-lg" rich />
           </div>
-          <EditableCardGrid
-            page="product"
-            gridKey="ai_features"
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
-            seeds={aiFeatures.map((f) => ({ key: f.key, icon: f.icon, title: f.title, desc: f.desc }))}
-            renderCard={({ index, icon, title, desc, animClass }) => (
-              <motion.div
-                className={`bg-card rounded-xl p-6 border border-border h-full ${animClass}`}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeUp}
-                custom={index}
-              >
-                <div className="mb-4 flex items-center">{icon}</div>
-                {title}
-                {desc}
-              </motion.div>
-            )}
-          />
+          <ScrollFeatureShowcase features={aiFeatures} />
         </div>
       </section>
 
