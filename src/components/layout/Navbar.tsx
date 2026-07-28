@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import * as LucideIcons from "lucide-react";
-import { Menu, X, Globe, ChevronDown, ChevronRight, ChevronLeft, Sparkles, LogIn, UserPlus, LogOut, Plug, Layers } from "lucide-react";
+import { Menu, X, Globe, ChevronDown, Sparkles, LogIn, UserPlus, LogOut, Plug } from "lucide-react";
 import CtaButton from "@/components/cms/CtaButton";
 import EditableText from "@/components/cms/EditableText";
 import { Button } from "@/components/ui/button";
@@ -51,7 +51,6 @@ const Navbar = () => {
   const productRef = useRef<HTMLDivElement>(null);
   const industriesTimeout = useRef<ReturnType<typeof setTimeout>>();
   const productTimeout = useRef<ReturnType<typeof setTimeout>>();
-  const featuresFlyoutTimeout = useRef<ReturnType<typeof setTimeout>>();
   const location = useLocation();
   const navigate = useNavigate();
   const { t, lang, setLang, isRTL } = useLanguage();
@@ -242,14 +241,6 @@ const Navbar = () => {
         setFeaturesFlyoutOpen(false);
       }, 200);
     }
-  };
-
-  const handleFeaturesFlyoutEnter = () => {
-    clearTimeout(featuresFlyoutTimeout.current);
-    setFeaturesFlyoutOpen(true);
-  };
-  const handleFeaturesFlyoutLeave = () => {
-    featuresFlyoutTimeout.current = setTimeout(() => setFeaturesFlyoutOpen(false), 180);
   };
 
   const handleLanguageChange = (nextLang: Language) => {
