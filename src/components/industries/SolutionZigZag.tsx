@@ -1,101 +1,92 @@
 import { motion } from "framer-motion";
-import { FileText, Search, Lock, Zap, CheckCircle } from "lucide-react";
+import searchVideo from "@/assets/search_feature.mp4.asset.json";
+import aichatVideo from "@/assets/aichat_feature.mp4.asset.json";
+import reportsVideo from "@/assets/reports_feature.mp4.asset.json";
 
 interface SolutionZigZagProps {
   heading: string;
   intro?: string;
   items: { solution: string; problem?: string }[];
+  /** Industry display name, used in the visual captions. */
+  industryName?: string;
 }
 
-/** Animated, looping visuals (GIF-like) rendered with motion + tokens. */
-const Visual = ({ index }: { index: number }) => {
-  const variant = index % 3;
+type FeatureKey = "search" | "aichat" | "reports";
 
+const FEATURES: Record<FeatureKey, { url: string; label: string; caption: (n: string) => string }> = {
+  search: {
+    url: searchVideo.url,
+    label: "Instant Search",
+    caption: (n) => `Find any ${n.toLowerCase()} document in seconds — Arabic or English.`,
+  },
+  aichat: {
+    url: aichatVideo.url,
+    label: "AI Assistant",
+    caption: (n) => `Ask questions across your ${n.toLowerCase()} archive and get sourced answers.`,
+  },
+  reports: {
+    url: reportsVideo.url,
+    label: "Reports & Insights",
+    caption: (n) => `Track ${n.toLowerCase()} activity, compliance and turnaround in live dashboards.`,
+  },
+};
+
+const KEYWORDS: Record<FeatureKey, RegExp> = {
+  search: /(search|find|retriev|locat|index|archiv|access)/i,
+  aichat: /(ai|chat|assistant|answer|extract|classif|ocr|scan|automat)/i,
+  reports: /(report|dashboard|analytic|audit|complian|track|insight|monitor)/i,
+};
+
+/** Assigns one of the three feature videos to each solution, avoiding repeats. */
+const assignFeatures = (items: { solution: string; problem?: string }[]): FeatureKey[] => {
+  const order: FeatureKey[] = ["search", "aichat", "reports"];
+  const used = new Set<FeatureKey>();
+  const result: FeatureKey[] = [];
+
+  items.forEach((item) => {
+    const text = `${item.solution} ${item.problem ?? ""}`;
+    const match = order.find((k) => !used.has(k) && KEYWORDS[k].test(text));
+    const chosen = match ?? order.find((k) => !used.has(k)) ?? order[result.length % 3];
+    used.add(chosen);
+    if (used.size === 3) used.clear();
+    result.push(chosen);
+  });
+
+  return result;
+};
+
+const FeatureVisual = ({ feature, industryName }: { feature: FeatureKey; industryName: string }) => {
+  const config = FEATURES[feature];
   return (
-    <div className="relative w-full aspect-[4/3] rounded-2xl border border-border bg-card overflow-hidden shadow-sm">
-      <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-primary/5" />
-
-      {variant === 0 && (
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="grid grid-cols-3 gap-3">
-            {Array.from({ length: 9 }).map((_, i) => (
-              <motion.div
-                key={i}
-                className="w-12 h-14 rounded-md bg-background border border-border flex items-center justify-center"
-                animate={{ opacity: [0.35, 1, 0.35] }}
-                transition={{ duration: 2.4, repeat: Infinity, delay: i * 0.15 }}
-              >
-                <FileText size={16} className="text-muted-foreground" />
-              </motion.div>
-            ))}
-          </div>
-          <motion.div
-            className="absolute left-0 right-0 h-16 bg-gradient-to-b from-transparent via-accent/25 to-transparent"
-            animate={{ y: ["-20%", "120%"] }}
-            transition={{ duration: 2.6, repeat: Infinity, ease: "linear" }}
-          />
+    <motion.div
+      className="group relative"
+      whileHover={{ scale: 1.02, y: -4 }}
+      transition={{ type: "spring", stiffness: 260, damping: 22 }}
+    >
+      <div className="absolute -inset-4 rounded-3xl bg-accent/10 blur-2xl opacity-70" aria-hidden />
+      <div className="relative rounded-2xl border border-border bg-card overflow-hidden shadow-lg">
+        <video
+          src={config.url}
+          className="w-full h-auto block"
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="metadata"
+          aria-label={`${config.label} — ${industryName}`}
+        />
+        <div className="px-4 py-3 border-t border-border bg-card">
+          <div className="text-xs font-semibold uppercase tracking-wider text-accent">{config.label}</div>
+          <p className="text-sm text-muted-foreground mt-1">{config.caption(industryName)}</p>
         </div>
-      )}
-
-      {variant === 1 && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 px-8">
-          <motion.div
-            className="w-full max-w-xs flex items-center gap-2 rounded-full border border-border bg-background px-4 py-2.5"
-            animate={{ boxShadow: ["0 0 0 0 hsl(var(--accent)/0)", "0 0 0 6px hsl(var(--accent)/0.12)", "0 0 0 0 hsl(var(--accent)/0)"] }}
-            transition={{ duration: 2.2, repeat: Infinity }}
-          >
-            <Search size={15} className="text-accent shrink-0" />
-            <motion.span
-              className="h-2 rounded-full bg-muted-foreground/30"
-              animate={{ width: ["10%", "70%", "10%"] }}
-              transition={{ duration: 2.8, repeat: Infinity }}
-            />
-          </motion.div>
-          {[0, 1, 2].map((i) => (
-            <motion.div
-              key={i}
-              className="w-full max-w-xs flex items-center gap-3 rounded-lg border border-border bg-background px-3 py-2.5"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: [0, 1, 1, 0], y: [8, 0, 0, -8] }}
-              transition={{ duration: 3, repeat: Infinity, delay: i * 0.35 }}
-            >
-              <CheckCircle size={15} className="text-accent shrink-0" />
-              <span className="h-2 flex-1 rounded-full bg-muted-foreground/20" />
-            </motion.div>
-          ))}
-        </div>
-      )}
-
-      {variant === 2 && (
-        <div className="absolute inset-0 flex items-center justify-center">
-          <motion.div
-            className="absolute w-40 h-40 rounded-full border border-accent/25"
-            animate={{ scale: [1, 1.35], opacity: [0.6, 0] }}
-            transition={{ duration: 2.4, repeat: Infinity }}
-          />
-          <motion.div
-            className="absolute w-40 h-40 rounded-full border border-accent/25"
-            animate={{ scale: [1, 1.35], opacity: [0.6, 0] }}
-            transition={{ duration: 2.4, repeat: Infinity, delay: 1.2 }}
-          />
-          <motion.div
-            className="relative z-10 w-20 h-20 rounded-2xl bg-primary/90 flex items-center justify-center"
-            animate={{ y: [0, -6, 0] }}
-            transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
-          >
-            {index % 2 === 0 ? (
-              <Lock size={28} className="text-primary-foreground" />
-            ) : (
-              <Zap size={28} className="text-primary-foreground" />
-            )}
-          </motion.div>
-        </div>
-      )}
-    </div>
+      </div>
+    </motion.div>
   );
 };
 
-const SolutionZigZag = ({ heading, intro, items }: SolutionZigZagProps) => {
+const SolutionZigZag = ({ heading, intro, items, industryName = "your" }: SolutionZigZagProps) => {
+  const features = assignFeatures(items);
+
   return (
     <section className="section-padding bg-background">
       <div className="container-max">
@@ -129,7 +120,7 @@ const SolutionZigZag = ({ heading, intro, items }: SolutionZigZagProps) => {
                   )}
                 </div>
                 <div className={flipped ? "lg:order-1" : "lg:order-2"}>
-                  <Visual index={i} />
+                  <FeatureVisual feature={features[i]} industryName={industryName} />
                 </div>
               </motion.div>
             );
