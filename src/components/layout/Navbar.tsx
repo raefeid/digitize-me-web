@@ -149,15 +149,7 @@ const Navbar = () => {
         newTab: false,
         iconName: feature.icon,
       }));
-      const integrationsChild: MobileNavNode = {
-        id: `${parentId}-integrations`,
-        label: t("nav.integrations") || (isRTL ? "التكاملات" : "Integrations"),
-        href: localizeInternalPath("/integrations", lang),
-        external: false,
-        newTab: false,
-        iconName: "Plug",
-      };
-      return [...featureChildren, integrationsChild];
+      return featureChildren;
     }
 
     return [];

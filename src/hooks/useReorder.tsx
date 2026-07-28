@@ -5,7 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
  * Generic sort_order persistence hook.
  *
  * Works for any table that has an integer `sort_order` column and an `id`
- * primary key — currently: integrations, features, testimonials, client_logos,
+ * primary key — currently: features, testimonials, client_logos,
  * personas, pricing_highlights, blog_posts, etc.
  *
  * Pass an array of `{ id, sort_order }` and the hook updates each row,
@@ -15,7 +15,6 @@ import { supabase } from "@/integrations/supabase/client";
  * row in parallel. For typical card lists (<50 items) this is fine.
  */
 type ReorderableTable =
-  | "integrations"
   | "features"
   | "testimonials"
   | "client_logos"
