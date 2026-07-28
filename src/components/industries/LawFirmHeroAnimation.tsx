@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Scale, FileText } from "lucide-react";
+import Lottie from "lottie-react";
+import { FileText } from "lucide-react";
+import balanceScale from "@/assets/balance-scale.json";
 
 const FILE_COUNT = 9;
 
