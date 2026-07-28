@@ -19,7 +19,7 @@ const FILES: OrbitFile[] = Array.from({ length: FILE_COUNT }, (_, i) => {
   const ring = i % 3;
   return {
     id: i,
-    radius: 112 + ring * 44 + ((i * 13) % 17),
+    radius: 150 + ring * 46 + ((i * 13) % 17),
     duration: 14 + ring * 5 + ((i * 7) % 9),
     delay: (i * 1.7) % 12,
     tilt: (i * 40) % 360,
@@ -62,7 +62,7 @@ const LawFirmHeroAnimation = () => {
 
   return (
     <div
-      className="relative mx-auto aspect-square w-full max-w-[460px] select-none"
+      className="relative mx-auto aspect-square w-full max-w-[560px] select-none"
       aria-hidden="true"
     >
       {/* ambient glow */}
@@ -74,8 +74,8 @@ const LawFirmHeroAnimation = () => {
           key={ring}
           className="absolute left-1/2 top-1/2 rounded-full border border-accent/15"
           style={{
-            width: `${(112 + ring * 44) * 2}px`,
-            height: `${(112 + ring * 44) * 2}px`,
+            width: `${(150 + ring * 46) * 2}px`,
+            height: `${(150 + ring * 46) * 2}px`,
             transform: "translate(-50%, -50%)",
           }}
         />
