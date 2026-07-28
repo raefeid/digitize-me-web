@@ -195,7 +195,7 @@ const Pricing = () => {
       />
 
       {/* Hero */}
-      <section className="section-padding bg-gradient-to-b from-dm-navy-light to-background">
+      <section className="px-4 sm:px-6 lg:px-8 pt-12 md:pt-16 lg:pt-20 pb-4 md:pb-6 lg:pb-8 bg-gradient-to-b from-dm-navy-light to-background">
         <div className="container-max text-center max-w-5xl mx-auto section-stack">
           <EditableText page="pricing" section="hero" contentKey="badge" fallback={t("pricing.badge")} className="text-accent font-semibold text-sm uppercase tracking-wider" />
           <EditableText as="h1" page="pricing" section="hero" contentKey="title" fallback={t("pricing.title")} className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mt-3 mb-2 block md:whitespace-nowrap" rich />
@@ -206,7 +206,7 @@ const Pricing = () => {
 
 
           {/* Billing Cycle Toggle */}
-          <motion.div className="flex flex-col items-center gap-4" initial="hidden" animate="visible" variants={fadeUp} custom={3}>
+          <motion.div className="flex flex-col items-center gap-3" initial="hidden" animate="visible" variants={fadeUp} custom={3}>
             <div className="inline-flex flex-wrap items-center justify-center bg-primary/80 rounded-full p-1 gap-1">
               <button
                 onClick={() => setBillingCycle("monthly")}
@@ -231,7 +231,7 @@ const Pricing = () => {
               </button>
             </div>
             {canPreviewGeoComparison && (
-            <div className="flex flex-col items-center gap-3 mt-3">
+            <div className="flex flex-col items-center gap-2 mt-2">
               <div className="inline-flex flex-wrap items-center justify-center gap-1 rounded-full border border-border bg-card p-1">
                 {GEO_PREVIEW_OPTIONS.map((option) => {
                   const active = effectiveRegion === option.key;
@@ -268,7 +268,7 @@ const Pricing = () => {
       </section>
 
       {/* Pricing Cards */}
-      <section className="section-padding bg-background -mt-8">
+      <section className="px-4 sm:px-6 lg:px-8 pt-2 md:pt-4 lg:pt-6 pb-12 md:pb-16 lg:pb-20 bg-background">
         <div className="container-max">
           <SortableGrid
             items={plans.map((plan) => ({ ...plan, id: plan.key }))}
@@ -319,9 +319,22 @@ const Pricing = () => {
                     ? "bg-card border-accent shadow-xl shadow-accent/10"
                     : "bg-card border-border shadow-md hover:-translate-y-1 hover:shadow-xl"
                 }`}>
-                  <div className="mb-5 min-h-[168px] xl:min-h-[184px] flex flex-col">
+                  <div className="mb-5 min-h-[180px] md:min-h-[200px] xl:min-h-[220px] flex flex-col">
                     <h3 className="text-xl xl:text-[1.35rem] font-bold text-foreground leading-tight">{plan.name}</h3>
-                    <p className="text-sm text-muted-foreground mt-1">{plan.description}</p>
+                    <div className="flex flex-wrap gap-1.5 mt-2.5 mb-3">
+                      {(() => {
+                        const bullets = plan.description.split("·").map((p) => p.trim()).filter(Boolean);
+                        const parts = bullets.length > 1 ? bullets : plan.description.split(". ").map((p) => p.trim()).filter(Boolean);
+                        return parts.map((part, i) => (
+                          <span
+                            key={i}
+                            className="inline-block text-[11px] md:text-xs font-medium text-muted-foreground bg-muted/60 border border-border/60 rounded-md px-2 py-1 leading-tight"
+                          >
+                            {part}
+                          </span>
+                        ));
+                      })()}
+                    </div>
                     {(() => {
                       const promo = rpWithPromo(plan.key, cmPlans);
                       const showPromo = promo && promo.original && promo.label && !promo.contactOnly;
@@ -400,16 +413,16 @@ const Pricing = () => {
 
                   <div className="border-t border-border mb-6" />
 
-                  <p className="text-xs font-semibold text-muted-foreground/60 uppercase tracking-wider mb-4">
+                  <p className="text-xs font-semibold text-muted-foreground/60 uppercase tracking-wider mb-3">
                     {l("Included in plan", "يشمل الخطة", "Inclus dans le plan")}
                   </p>
-                  <ul className="space-y-3 flex-1">
+                  <ul className="space-y-2.5 flex-1">
                     {plan.features.map((feature, fi) => (
-                      <li key={`${feature.name}-${fi}`} className="flex items-start gap-2.5 text-sm">
+                      <li key={`${feature.name}-${fi}`} className="flex items-start gap-2 text-sm leading-snug">
                         {feature.included ? (
-                          <CheckCircle size={16} className="text-accent mt-0.5 shrink-0" />
+                          <CheckCircle size={14} className="text-accent mt-0.5 shrink-0" />
                         ) : (
-                          <X size={16} className="text-muted-foreground/30 mt-0.5 shrink-0" />
+                          <X size={14} className="text-muted-foreground/30 mt-0.5 shrink-0" />
                         )}
                         <span className={feature.included ? "text-foreground/80" : "text-muted-foreground/40"}>
                           {feature.name}
