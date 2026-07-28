@@ -183,6 +183,8 @@ const SiteChatbot = () => {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+    // Don't auto-open on phones — the panel would cover the whole screen.
+    if (window.matchMedia("(max-width: 767px)").matches) return;
     if (sessionStorage.getItem("site-chatbot-auto-opened") === "1") return;
     const t = setTimeout(() => {
       setOpen(true);
@@ -190,6 +192,7 @@ const SiteChatbot = () => {
     }, 1500);
     return () => clearTimeout(t);
   }, []);
+
 
   useEffect(() => () => {
     if (timerRef.current) clearTimeout(timerRef.current);
