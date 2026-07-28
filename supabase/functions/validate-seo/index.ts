@@ -10,11 +10,19 @@
 // (from CMS), H1 presence (from page blocks/templates), duplicate detection.
 
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
+import { requireRole } from "../_shared/require-role.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
+
+const ALLOWED_ROLES = ["admin", "super_admin", "editor", "seo_manager"];
+const DEFAULT_BASE_URL = "https://www.digitizeme.ae";
+const ALLOWED_BASE_URLS = [
+  "https://digitizeme.ae",
+  "https://digitize-me-web.lovable.app",
+];
 
 type Issue = {
   severity: "error" | "warning" | "info";
@@ -161,6 +169,9 @@ async function auditRoute(
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
 
+  const auth = await requireRole(req, ALLOWED_ROLES, corsHeaders);
+  if (auth.response) return auth.response;
+
   try {
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
     const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
@@ -169,7 +180,7 @@ Deno.serve(async (req) => {
     const body = await req.json().catch(() => ({}));
     const requestedBase = (body?.baseUrl as string | undefined)?.trim();
 
-    // Resolve base URL: explicit param > admin override > production default
+    // Resolve base URL: admin-configured value or production default.
     const { data: cfg } = await supabase
       .from("site_content")
       .select("value")
@@ -178,7 +189,37 @@ Deno.serve(async (req) => {
       .eq("content_key", "site_url")
       .maybeSingle();
 
-    const baseUrl = (requestedBase || cfg?.value?.trim() || "https://www.digitizeme.ae").replace(/\/$/, "");
+    const configuredBase = (cfg?.value?.trim() || DEFAULT_BASE_URL).replace(/\/$/, "");
+
+    // SSRF guard: only allow the site's own configured/allow-listed origins.
+    const allowedOrigins = new Set(
+      [configuredBase, DEFAULT_BASE_URL, ...ALLOWED_BASE_URLS].map((u) =>
+        u.replace(/\/$/, "").toLowerCase()
+      ),
+    );
+
+    let baseUrl = configuredBase;
+    if (requestedBase) {
+      const normalized = requestedBase.replace(/\/$/, "");
+      let origin = "";
+      try {
+        const parsed = new URL(normalized);
+        if (parsed.protocol !== "https:" && parsed.protocol !== "http:") throw new Error("bad protocol");
+        origin = parsed.origin;
+      } catch {
+        return new Response(
+          JSON.stringify({ success: false, error: "Invalid baseUrl" }),
+          { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } },
+        );
+      }
+      if (!allowedOrigins.has(origin.toLowerCase())) {
+        return new Response(
+          JSON.stringify({ success: false, error: "baseUrl is not an allowed site origin" }),
+          { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } },
+        );
+      }
+      baseUrl = origin;
+    }
 
     // Pull published industry slugs
     const { data: customIndustries } = await supabase

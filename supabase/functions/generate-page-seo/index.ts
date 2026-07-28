@@ -1,12 +1,18 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { requireRole } from "../_shared/require-role.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
+const ALLOWED_ROLES = ["admin", "super_admin", "editor", "seo_manager"];
+
 serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
+
+  const auth = await requireRole(req, ALLOWED_ROLES, corsHeaders);
+  if (auth.response) return auth.response;
 
   try {
     const { title, slug, blocks } = await req.json();

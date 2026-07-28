@@ -1,0 +1,1 @@
+DROP POLICY IF EXISTS "Public can read CMS images" ON storage.objects;
