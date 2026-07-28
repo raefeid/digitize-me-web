@@ -88,7 +88,7 @@ const Navbar = () => {
 
   // Fallback shown only when nav_items table is empty (first run).
   // Note: "Home" is intentionally omitted — clicking the logo returns home.
-  // Features & Integrations live inside the Product dropdown; Blog lives in footer.
+  // Features live inside the Product dropdown; Blog lives in footer.
   const defaultNavLinks = [
     { label: t("nav.product"), href: "/product", dropdown: "product" as const, external: false, newTab: false },
     { label: t("nav.industries"), href: "/industries", dropdown: "industries" as const, external: false, newTab: false },
@@ -116,8 +116,8 @@ const Navbar = () => {
       };
     });
 
-  // Hide Features, Integrations and Blog from top-level — Features & Integrations live inside Product; Blog lives in footer.
-  const topLevelBlacklist = new Set(["/features", "/integrations", "/blog", "/ar/features", "/ar/integrations", "/ar/blog"]);
+  // Hide Features and Blog from top-level — Features live inside Product; Blog lives in footer.
+  const topLevelBlacklist = new Set(["/features", "/blog", "/ar/features", "/ar/blog"]);
   const baseNavLinks = (cmsNavLinks.length > 0 ? cmsNavLinks : defaultNavLinks).filter((l) => !topLevelBlacklist.has(l.href));
   const hasAbout = baseNavLinks.some((l) => l.href === "/about");
   const navLinks = hasAbout ? baseNavLinks : [...baseNavLinks, defaultNavLinks.find((l) => l.href === "/about")!];
@@ -289,7 +289,7 @@ const Navbar = () => {
                     <Link
                       to={link.href}
                       className={`flex items-center gap-1 xl:gap-1.5 px-2.5 xl:px-3 2xl:px-4 py-2 rounded-xl text-[0.95rem] 2xl:text-sm font-medium transition-all duration-200 whitespace-nowrap ${
-                        location.pathname.startsWith("/product") || location.pathname.startsWith("/features") || location.pathname.startsWith("/integrations")
+                        location.pathname.startsWith("/product") || location.pathname.startsWith("/features")
                           ? "text-accent bg-card shadow-[0_4px_12px_hsl(var(--foreground)/0.06)]"
                           : "text-muted-foreground hover:text-foreground hover:bg-card/80"
                       }`}
@@ -406,27 +406,6 @@ const Navbar = () => {
                           </div>
                         )}
 
-                        {/* Integrations */}
-                        <Link
-                          to={localizeInternalPath("/integrations", lang)}
-                          onClick={() => { setProductOpen(false); setFeaturesFlyoutOpen(false); }}
-                          onMouseEnter={() => setFeaturesFlyoutOpen(false)}
-                          className={`flex items-start gap-3 px-3 py-3 rounded-xl transition-all group ${
-                            location.pathname.startsWith("/integrations")
-                              ? "bg-accent/10 text-accent"
-                              : "text-muted-foreground hover:bg-muted/80 hover:text-foreground"
-                          }`}
-                        >
-                          <div className="shrink-0 w-9 h-9 rounded-lg flex items-center justify-center bg-muted group-hover:bg-accent/10 transition-colors">
-                            <Plug className="w-4 h-4 text-accent" />
-                          </div>
-                          <div className="min-w-0 flex-1">
-                            <p className="text-sm font-semibold">{t("nav.integrations")}</p>
-                            <p className="text-xs text-muted-foreground line-clamp-1 mt-0.5">
-                              {isRTL ? "الاتصال بأدواتك المفضلة" : "Connect to your favorite tools"}
-                            </p>
-                          </div>
-                        </Link>
                       </div>
                     )}
                   </div>

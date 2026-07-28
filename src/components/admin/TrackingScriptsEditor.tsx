@@ -204,7 +204,7 @@ const TrackingScriptsEditor = () => {
         });
       }
       toast({
-        title: "Integrations saved",
+        title: "Tracking scripts saved",
         description: "Reload any open page to see the new tags fire.",
       });
       setDirty(false);
@@ -220,7 +220,7 @@ const TrackingScriptsEditor = () => {
   if (isLoading) {
     return (
       <div className="flex items-center gap-2 text-muted-foreground p-8">
-        <Loader2 className="animate-spin" size={16} /> Loading integrations…
+        <Loader2 className="animate-spin" size={16} /> Loading tracking scripts…
       </div>
     );
   }
