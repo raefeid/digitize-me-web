@@ -247,8 +247,9 @@ const Index = () => {
             {/* RIGHT half — orbit background + 3x2 industry tile grid */}
             <div className="relative w-full">
               {/* Decorative orbit behind tiles */}
-              <div aria-hidden className="pointer-events-none absolute inset-0 flex items-center justify-center">
-                <div className="relative w-[110%] max-w-[520px] aspect-square opacity-60">
+              <div aria-hidden className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden">
+                <div className="relative w-full max-w-[520px] aspect-square opacity-60">
+
                   <motion.div
                     className="absolute inset-0 rounded-full border border-accent/15"
                     animate={{ rotate: 360 }}
