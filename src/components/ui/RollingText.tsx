@@ -20,7 +20,7 @@ function DigitColumn({
   const digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   return (
-    <div className="relative h-[1em] w-[0.62em] overflow-hidden inline-flex align-bottom">
+    <div className="relative h-[1em] min-w-[0.65em] overflow-hidden inline-flex align-bottom">
       <motion.div
         className="absolute top-0 left-0 w-full flex flex-col"
         initial={{ y: "0%" }}
@@ -33,7 +33,7 @@ function DigitColumn({
         {digits.map((d) => (
           <div
             key={d}
-            className="h-[10em] flex items-center justify-center leading-none"
+            className="h-[1em] flex items-center justify-center leading-none"
           >
             {d}
           </div>
