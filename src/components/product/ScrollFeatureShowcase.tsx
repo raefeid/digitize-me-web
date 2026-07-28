@@ -91,21 +91,31 @@ const ScrollFeatureShowcase = ({ features }: Props) => {
     <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
       {/* Visual — sticky on the left */}
       <div className="lg:sticky lg:top-28">
-        <div className="relative rounded-2xl overflow-hidden border border-border/60 shadow-xl bg-muted/20 aspect-video">
-          <video
-            ref={videoRef}
-            src={productVideo.url}
-            muted
-            loop
-            playsInline
-            autoPlay
-            preload="auto"
-            style={{ transition: "opacity 120ms linear" }}
-            aria-label="AI document digitization animation"
-            className="w-full h-full object-cover"
-          />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-background/30 via-transparent to-accent/10" />
+        <div className="group relative">
+          {/* ambient accent glow behind the frame */}
+          <div className="pointer-events-none absolute -inset-6 rounded-[2rem] bg-accent/20 blur-3xl opacity-60 transition-opacity duration-500 group-hover:opacity-90" />
+          {/* gradient border ring */}
+          <div className="relative rounded-[1.75rem] bg-gradient-to-br from-accent/50 via-border/40 to-accent/20 p-[1.5px] shadow-[0_24px_60px_-20px_hsl(var(--accent)/0.45)] transition-transform duration-500 ease-out will-change-transform group-hover:-translate-y-1.5 group-hover:scale-[1.015]">
+            <div className="relative overflow-hidden rounded-[1.65rem] bg-background aspect-video">
+              <video
+                ref={videoRef}
+                src={productVideo.url}
+                muted
+                loop
+                playsInline
+                autoPlay
+                preload="auto"
+                style={{ transition: "opacity 120ms linear" }}
+                aria-label="AI document digitization animation"
+                className="w-full h-full object-cover"
+              />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-background/25 via-transparent to-accent/10" />
+              {/* soft top sheen */}
+              <div className="pointer-events-none absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-foreground/5 to-transparent" />
+            </div>
+          </div>
         </div>
+
 
         {/* Progress dots */}
         <div className="hidden lg:flex gap-2 mt-5 justify-center">
