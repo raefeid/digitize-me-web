@@ -79,25 +79,6 @@ const LawFirmHeroAnimation = () => {
         />
       ))}
 
-      {/* retrieval beam */}
-      <motion.div
-        className="absolute left-1/2 top-1/2 origin-left"
-        style={{ rotate: target.tilt }}
-        animate={{ rotate: target.tilt }}
-        transition={{ duration: 0.5 }}
-      >
-        <motion.div
-          className="h-[2px] rounded-full bg-gradient-to-r from-accent via-accent/70 to-transparent shadow-[0_0_12px_hsl(var(--accent)/0.8)]"
-          initial={{ width: 0, opacity: 0 }}
-          animate={
-            phase === "idle"
-              ? { width: 0, opacity: 0 }
-              : { width: target.radius, opacity: 1 }
-          }
-          transition={{ duration: 0.6, ease: "easeOut" }}
-        />
-      </motion.div>
-
       {/* orbiting files */}
       {FILES.map((file) => {
         const isTarget = file.id === targetId && phase !== "idle";
@@ -114,6 +95,19 @@ const LawFirmHeroAnimation = () => {
               delay: -file.delay,
             }}
           >
+            {/* retrieval beam — rides the target file's orbit so it always aims at it */}
+            {isTarget && (
+              <motion.div
+                className="absolute left-0 top-0 h-[2px] origin-left -translate-y-1/2 rounded-full bg-gradient-to-r from-accent via-accent/70 to-accent shadow-[0_0_12px_hsl(var(--accent)/0.8)]"
+                initial={{ width: 0, opacity: 0 }}
+                animate={{
+                  width: phase === "fetch" ? 0 : file.radius,
+                  opacity: 1,
+                }}
+                exit={{ width: 0, opacity: 0 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+              />
+            )}
             <motion.div
               className="absolute"
               animate={{
@@ -123,6 +117,7 @@ const LawFirmHeroAnimation = () => {
               transition={{ duration: 0.9, ease: "easeInOut" }}
               style={{ translateX: "-50%", translateY: "-50%" }}
             >
+
               <motion.div
                 animate={{ rotate: -360 }}
                 transition={{
