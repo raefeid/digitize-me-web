@@ -9,7 +9,7 @@ import { useSiteContent } from "@/hooks/useSiteContent";
 
 import ScrollFeatureShowcase from "@/components/product/ScrollFeatureShowcase";
 import AnimatedWorkflow from "@/components/product/AnimatedWorkflow";
-import AnimatedDeployment from "@/components/product/AnimatedDeployment";
+
 import AnimatedWhyDifferent from "@/components/product/AnimatedWhyDifferent";
 import EditableText from "@/components/cms/EditableText";
 import EditableImage from "@/components/cms/EditableImage";
@@ -218,19 +218,15 @@ const Product = () => {
       {/* Delivery Models */}
       <section className="section-padding bg-background">
         <div className="container-max">
-          <div className="grid md:grid-cols-2 gap-10 items-center mb-12">
-            <div>
-              <EditableText page="product" section="delivery" contentKey="product_delivery_badge" fallback={t("product.delivery.badge")} className="text-accent font-semibold text-sm uppercase tracking-wider" />
-              <EditableText as="h2" page="product" section="delivery" contentKey="product_delivery_title" fallback={t("product.delivery.title")} className="text-3xl md:text-4xl font-bold text-foreground mt-2 mb-4 block" rich />
-            </div>
-            <EditableImage page="product" slotKey="delivery_image" alt="Deployment">
-              <AnimatedDeployment />
-            </EditableImage>
+          <div className="max-w-3xl mx-auto text-center mb-12">
+            <EditableText page="product" section="delivery" contentKey="product_delivery_badge" fallback={t("product.delivery.badge")} className="text-accent font-semibold text-sm uppercase tracking-wider" />
+            <EditableText as="h2" page="product" section="delivery" contentKey="product_delivery_title" fallback={t("product.delivery.title")} className="text-3xl md:text-5xl font-bold text-foreground mt-2 mb-4 block" rich />
           </div>
           <EditableCardGrid
             page="product"
             gridKey="delivery_models"
-            className="grid md:grid-cols-2 gap-8"
+            className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto"
+
             seeds={[
               { key: "saas", icon: Cloud, title: getContent("product_saas_title", t("product.saas.title")), desc: getContent("product_saas_desc", t("product.saas.desc")) },
               { key: "onpremise", icon: Server, title: getContent("product_onprem_title", t("product.onprem.title")), desc: getContent("product_onprem_desc", t("product.onprem.desc")) },
@@ -242,22 +238,23 @@ const Product = () => {
               const ctaLabel = id === "saas" ? t("product.seePlans") : t("product.contactSales");
 
               return (
-                <motion.div id={id === "onpremise" ? "on-premise" : id} className={`rounded-2xl border border-border bg-card p-8 h-full ${animClass}`} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={index}>
-                  <div className="mb-4 flex items-center">{icon}</div>
+                <motion.div id={id === "onpremise" ? "on-premise" : id} className={`rounded-2xl border border-border bg-card p-10 md:p-12 h-full flex flex-col ${animClass}`} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={index}>
+                  <div className="mb-5 flex items-center">{icon}</div>
                   {title}
-                  <div className="mb-6">{desc}</div>
-                  <ul className="space-y-3 mb-6">
+                  <div className="mb-8 text-base">{desc}</div>
+                  <ul className="space-y-4 mb-8 flex-1">
                     {feats.map((item, i) => (
-                      <li key={`${id}-${i}`} className="flex items-center gap-2 text-sm text-foreground">
-                        <CheckCircle size={16} className="text-accent shrink-0" />
+                      <li key={`${id}-${i}`} className="flex items-center gap-2 text-base text-foreground">
+                        <CheckCircle size={18} className="text-accent shrink-0" />
                         <EditableText page="product" section={listSection} contentKey={`${id === "saas" ? "saas" : "onprem"}_feat${i + 1}`} fallback={item} />
                       </li>
                     ))}
                   </ul>
-                  <CtaButton ctaKey={ctaKey} variant={id === "saas" ? undefined : "outline"} className={id === "saas" ? "bg-accent text-accent-foreground hover:bg-accent/90" : undefined}>
+                  <CtaButton ctaKey={ctaKey} size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 w-full">
                     <EditableText page="product" section="delivery" contentKey={`${id}_cta_label`} fallback={ctaLabel} />
                     <ArrowRight size={16} className={isRTL ? "mr-2 rotate-180" : "ml-2"} />
                   </CtaButton>
+
                 </motion.div>
               );
             }}
