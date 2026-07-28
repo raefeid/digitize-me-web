@@ -19,12 +19,11 @@ const BlogPageEditor = lazy(() => import("@/components/admin/BlogPageEditor"));
 const NotFoundPageEditor = lazy(() => import("@/components/admin/NotFoundPageEditor"));
 const PrivacyPageEditor = lazy(() => import("@/components/admin/PrivacyPageEditor"));
 const TermsPageEditor = lazy(() => import("@/components/admin/TermsPageEditor"));
-const IntegrationsPageEditor = lazy(() => import("@/components/admin/IntegrationsPageEditor"));
+
 const FooterEditor = lazy(() => import("@/components/admin/FooterEditor"));
 const SeoEditor = lazy(() => import("@/components/admin/SeoEditor"));
 const SitemapRobotsEditor = lazy(() => import("@/components/admin/SitemapRobotsEditor"));
-const IntegrationsEditor = lazy(() => import("@/components/admin/IntegrationsEditor"));
-const IntegrationsManager = lazy(() => import("@/components/admin/IntegrationsManager"));
+const TrackingScriptsEditor = lazy(() => import("@/components/admin/TrackingScriptsEditor"));
 const CtaActionsEditor = lazy(() => import("@/components/admin/CtaActionsEditor"));
 const SectionRevealsPanel = lazy(() => import("@/components/admin/SectionRevealsPanel"));
 const TeamAccessPanel = lazy(() => import("@/components/admin/TeamAccessPanel"));
@@ -88,7 +87,7 @@ const Admin = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const queryClient = useQueryClient();
-  const [tab, setTab] = useState<"dashboard" | "posts" | "categories" | "content" | "pricing" | "media" | "home" | "seo" | "sitemap" | "integrations" | "integrations_list" | "ctas" | "ctas_audit" | "reveals" | "team" | "promotions" | "branding" | "testimonials" | "client_logos" | "leads" | "customers" | "pricing_highlights" | "features" | "pages" | "navigation" | "auth_buttons" | "auth_pages" | "help" | "page_contact" | "page_product" | "page_pricing" | "page_industries" | "page_features" | "page_blog" | "page_integrations" | "page_404" | "page_privacy" | "page_terms" | "page_about" | "page_footer">("dashboard");
+  const [tab, setTab] = useState<"dashboard" | "posts" | "categories" | "content" | "pricing" | "media" | "home" | "seo" | "sitemap" | "tracking" | "ctas" | "ctas_audit" | "reveals" | "team" | "promotions" | "branding" | "testimonials" | "client_logos" | "leads" | "customers" | "pricing_highlights" | "features" | "pages" | "navigation" | "auth_buttons" | "auth_pages" | "help" | "page_contact" | "page_product" | "page_pricing" | "page_industries" | "page_features" | "page_blog" | "page_404" | "page_privacy" | "page_terms" | "page_about" | "page_footer">("dashboard");
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [postForm, setPostForm] = useState<PostForm>(emptyPost);
   const [catForm, setCatForm] = useState<CategoryForm>(emptyCategory);
