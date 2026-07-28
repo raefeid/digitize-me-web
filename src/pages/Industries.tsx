@@ -286,6 +286,8 @@ export const IndustryDetail = () => {
   const semanticIndustryH1 = lang === "ar"
     ? `نظام إدارة المستندات لقطاع ${industry.name}`
     : `Document Management System for ${industry.name}`;
+  const isLawFirms = slug === "law-firms";
+
 
   return (
     <Layout>
