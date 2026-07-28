@@ -7,7 +7,6 @@ import EditableText from "@/components/cms/EditableText";
 import { Button } from "@/components/ui/button";
 import { useLanguage, Language } from "@/i18n/LanguageContext";
 import { useDynamicIndustries } from "@/hooks/useDynamicIndustries";
-import { useFeatures } from "@/hooks/useFeatures";
 import { useAuth } from "@/hooks/useAuth";
 import logoFallback from "@/assets/digitizeme-logo-light.png";
 import { useBrandingAsset } from "@/hooks/useBranding";
