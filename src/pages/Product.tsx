@@ -135,22 +135,40 @@ const Product = () => {
       />
 
       {/* Hero */}
-      <section className="section-padding bg-gradient-to-b from-dm-navy-light to-background">
-        <div className="container-max">
-          <div className="grid md:grid-cols-2 gap-10 lg:gap-12 items-center">
-            <div className={isRTL ? "md:order-2" : ""}>
-              <EditableText page="product" section="hero" contentKey="product_badge" fallback={t("product.badge")} className="text-accent font-semibold text-sm uppercase tracking-wider" />
-              <EditableText as="h1" page="product" section="hero" contentKey="product_title" fallback={t("product.title")} className="text-4xl md:text-5xl font-bold text-foreground mt-3 mb-4 block" rich />
-              <EditableText as="p" page="product" section="hero" contentKey="product_desc" fallback={t("product.desc")} multiline className="text-base md:text-lg text-muted-foreground max-w-2xl" rich />
-            </div>
-            <motion.div className={isRTL ? "md:order-1" : ""} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.4, duration: 0.6 }}>
-              <EditableImage page="product" slotKey="hero_dashboard" alt="Dashboard">
-                <AnimatedDashboard />
-              </EditableImage>
-            </motion.div>
+      <section className="relative overflow-hidden bg-gradient-to-b from-dm-navy-light via-accent/5 to-background px-4 py-20 md:py-28">
+        <div aria-hidden className="pointer-events-none absolute -top-32 left-1/2 h-80 w-[42rem] -translate-x-1/2 rounded-full bg-accent/20 blur-3xl" />
+        <div className="relative mx-auto w-full max-w-5xl text-center">
+          <EditableText
+            as="h1"
+            page="product"
+            section="hero"
+            contentKey="product_title"
+            fallback={t("product.title")}
+            className="gradient-text block text-4xl font-bold leading-[1.15] tracking-tight sm:text-5xl md:text-6xl lg:text-[4.25rem]"
+            rich
+          />
+          <EditableText
+            as="p"
+            page="product"
+            section="hero"
+            contentKey="product_desc"
+            fallback={t("product.desc")}
+            multiline
+            className="mx-auto mt-6 max-w-3xl text-lg text-muted-foreground md:text-xl"
+            rich
+          />
+          <div className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <CtaButton ctaKey="product_cta_demo" size="lg" className="bg-accent px-8 text-accent-foreground hover:bg-accent/90">
+              <EditableText page="product" section="hero" contentKey="hero_cta_demo_label" fallback={t("common.bookDemo")} />
+              <ArrowRight size={16} className={isRTL ? "mr-2 rotate-180" : "ml-2"} />
+            </CtaButton>
+            <CtaButton ctaKey="product_cta_pricing" size="lg" variant="outline" className="px-8">
+              <EditableText page="product" section="hero" contentKey="hero_cta_pricing_label" fallback={t("common.viewPricing")} />
+            </CtaButton>
           </div>
         </div>
       </section>
+
 
       {/* AI OCR */}
       <section id="ai-ocr" className="section-padding bg-background">
