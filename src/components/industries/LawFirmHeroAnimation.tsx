@@ -156,21 +156,15 @@ const LawFirmHeroAnimation = () => {
 
       {/* core */}
       <motion.div
-        className="absolute left-1/2 top-1/2 flex h-36 w-36 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-3xl border border-accent/30 bg-card shadow-lg"
-        animate={{
-          scale: phase === "fetch" ? [1, 1.06, 1] : 1,
-          boxShadow:
-            phase === "idle"
-              ? "0 0 0 hsl(var(--accent)/0)"
-              : "0 0 40px hsl(var(--accent)/0.45)",
-        }}
+        className="absolute left-1/2 top-1/2 flex h-56 w-56 -translate-x-1/2 -translate-y-1/2 items-center justify-center"
+        animate={{ scale: phase === "fetch" ? [1, 1.05, 1] : 1 }}
         transition={{ duration: 0.8 }}
       >
         <Lottie
           animationData={balanceScale}
-          loop
+          loop={false}
           autoplay
-          className="h-28 w-28"
+          className="h-full w-full"
         />
       </motion.div>
     </div>
