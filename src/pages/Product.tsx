@@ -275,18 +275,22 @@ const Product = () => {
             seeds={diffs.map((d) => ({ key: d.key, icon: d.icon, title: d.title, desc: d.desc }))}
             renderCard={({ index, icon, title, desc, animClass }) => (
               <motion.div
-                className={`text-center p-8 h-full rounded-2xl border border-border bg-card lg:col-span-2 ${index >= 3 ? "lg:col-span-3" : ""} ${animClass}`}
+                className={`flex flex-col items-center text-center p-8 h-full rounded-2xl border border-border bg-card lg:col-span-2 ${index >= 3 ? "lg:col-span-3" : ""} ${animClass}`}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
                 variants={fadeUp}
                 custom={index}
               >
-                <div className="icon-chip w-14 h-14 mx-auto mb-4">
+                <div className="icon-chip w-16 h-16 mx-auto mb-6 flex items-center justify-center">
                   {icon}
                 </div>
-                {title}
-                {desc}
+                <div className="text-xl md:text-2xl font-bold text-foreground mb-3 leading-tight">
+                  {title}
+                </div>
+                <div className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-sm">
+                  {desc}
+                </div>
               </motion.div>
             )}
           />
