@@ -235,13 +235,13 @@ const TrackingScriptsEditor = () => {
           <Tag size={20} />
         </div>
         <div className="flex-1">
-          <h3 className="font-semibold text-foreground">Tracking & analytics integrations</h3>
+          <h3 className="font-semibold text-foreground">Tracking & analytics scripts</h3>
           <p className="text-sm text-muted-foreground mt-1">
             Paste your IDs below and hit <strong>Save</strong>. The matching scripts will be loaded on every page automatically — no code changes needed. Leave any field empty to disable that tag.
           </p>
           <div className="text-xs text-muted-foreground mt-2">
             <CheckCircle2 size={12} className="inline -mt-0.5 mr-1 text-emerald-500" />
-            {filledCount} of {ALL_FIELDS.length} integrations configured
+            {filledCount} of {ALL_FIELDS.length} scripts configured
           </div>
         </div>
       </div>
