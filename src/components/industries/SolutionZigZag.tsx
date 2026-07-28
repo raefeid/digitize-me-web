@@ -117,13 +117,13 @@ const SolutionZigZag = ({ heading, intro, items }: SolutionZigZagProps) => {
                 transition={{ duration: 0.55, ease: "easeOut" }}
               >
                 <div className={flipped ? "lg:order-2" : "lg:order-1"}>
-                  <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-accent mb-4">
+                  <span className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-accent mb-4">
                     <span className="w-6 h-px bg-accent" />
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-3 text-balance">{item.solution}</h3>
+                  <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-4 text-balance">{item.solution}</h3>
                   {item.problem && (
-                    <p className="text-base text-muted-foreground leading-relaxed">
+                    <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed">
                       Today: {item.problem}.
                     </p>
                   )}
