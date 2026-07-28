@@ -150,15 +150,20 @@ const Product = () => {
             className="mx-auto mt-6 max-w-3xl text-lg text-muted-foreground md:text-xl"
             rich
           />
-          <div className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <CtaButton ctaKey="product_cta_demo" size="lg" className="bg-accent px-8 text-accent-foreground hover:bg-accent/90">
-              <EditableText page="product" section="hero" contentKey="hero_cta_demo_label" fallback={t("common.bookDemo")} />
-              <ArrowRight size={16} className={isRTL ? "mr-2 rotate-180" : "ml-2"} />
-            </CtaButton>
-            <CtaButton ctaKey="product_cta_pricing" size="lg" variant="outline" className="px-8">
+          <div className="mt-10 flex justify-center">
+            <CtaButton
+              ctaKey="product_cta_pricing"
+              size="lg"
+              className="group h-14 rounded-full bg-accent px-10 text-base font-semibold text-accent-foreground shadow-lg shadow-accent/25 transition-all hover:bg-accent/90 hover:shadow-xl hover:shadow-accent/30"
+            >
               <EditableText page="product" section="hero" contentKey="hero_cta_pricing_label" fallback={t("common.viewPricing")} />
+              <ArrowRight
+                size={18}
+                className={isRTL ? "mr-2 rotate-180 transition-transform group-hover:-translate-x-1" : "ml-2 transition-transform group-hover:translate-x-1"}
+              />
             </CtaButton>
           </div>
+
         </div>
       </section>
 
