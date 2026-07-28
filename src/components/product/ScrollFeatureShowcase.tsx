@@ -79,8 +79,6 @@ const ScrollFeatureShowcase = ({ features }: Props) => {
     return () => observer.disconnect();
   }, [features.length]);
 
-  const ActiveIcon = features[active]?.icon;
-
   return (
     <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
       {/* Visual — sticky on the left */}
