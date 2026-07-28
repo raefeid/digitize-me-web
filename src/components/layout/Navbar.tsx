@@ -212,31 +212,18 @@ const Navbar = () => {
     const handleClick = (e: MouseEvent) => {
       if (langRef.current && !langRef.current.contains(e.target as Node)) setLangOpen(false);
       if (industriesRef.current && !industriesRef.current.contains(e.target as Node)) setIndustriesOpen(false);
-      if (productRef.current && !productRef.current.contains(e.target as Node)) setProductOpen(false);
     };
     document.addEventListener("mousedown", handleClick);
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
 
-  const handleEnter = (which: "industries" | "product") => {
-    if (which === "industries") {
-      clearTimeout(industriesTimeout.current);
-      setIndustriesOpen(true);
-    } else {
-      clearTimeout(productTimeout.current);
-      setProductOpen(true);
-    }
+  const handleEnter = () => {
+    clearTimeout(industriesTimeout.current);
+    setIndustriesOpen(true);
   };
 
-  const handleLeave = (which: "industries" | "product") => {
-    if (which === "industries") {
-      industriesTimeout.current = setTimeout(() => setIndustriesOpen(false), 200);
-    } else {
-      productTimeout.current = setTimeout(() => {
-        setProductOpen(false);
-        setFeaturesFlyoutOpen(false);
-      }, 200);
-    }
+  const handleLeave = () => {
+    industriesTimeout.current = setTimeout(() => setIndustriesOpen(false), 200);
   };
 
   const handleLanguageChange = (nextLang: Language) => {
