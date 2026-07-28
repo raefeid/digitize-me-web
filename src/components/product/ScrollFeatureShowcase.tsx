@@ -97,29 +97,6 @@ const ScrollFeatureShowcase = ({ features }: Props) => {
             className="w-full h-full object-cover"
           />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-background/30 via-transparent to-accent/10" />
-
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={features[active]?.key}
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.35 }}
-              className="absolute left-5 right-5 bottom-5 rounded-xl border border-border/60 bg-background/85 backdrop-blur-sm px-5 py-4 flex items-center gap-4 shadow-lg"
-            >
-              {ActiveIcon && (
-                <span className="shrink-0 h-10 w-10 rounded-lg bg-accent/10 text-accent flex items-center justify-center">
-                  <ActiveIcon className="h-5 w-5" />
-                </span>
-              )}
-              <div className="min-w-0">
-                <p className="text-xs uppercase tracking-wider text-accent font-semibold">
-                  {String(active + 1).padStart(2, "0")} / {String(features.length).padStart(2, "0")}
-                </p>
-                <p className="font-semibold text-foreground truncate">{features[active]?.title}</p>
-              </div>
-            </motion.div>
-          </AnimatePresence>
         </div>
 
         {/* Progress dots */}
