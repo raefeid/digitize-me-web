@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Link, useParams } from "react-router-dom";
 import { ArrowRight, CheckCircle, Scale, DollarSign, Truck, Building2, Stethoscope, GraduationCap, Factory, HardHat, Landmark, ShoppingBag, Droplets, Briefcase, ShieldCheck, LucideIcon } from "lucide-react";
 import IndustryIllustration from "@/components/industries/IndustryIllustration";
-import LawFirmHeroAnimation from "@/components/industries/LawFirmHeroAnimation";
+import IndustryHeroAnimation from "@/components/industries/IndustryHeroAnimation";
 import { RollingText } from "@/components/ui/RollingText";
 
 import { Button } from "@/components/ui/button";
