@@ -85,7 +85,7 @@ const Navbar = () => {
   // Note: "Home" is intentionally omitted — clicking the logo returns home.
   // Features live inside the Product dropdown; Blog lives in footer.
   const defaultNavLinks = [
-    { label: t("nav.product"), href: "/product", dropdown: "product" as const, external: false, newTab: false },
+    { label: t("nav.product"), href: "/product", dropdown: null as const, external: false, newTab: false },
     { label: t("nav.industries"), href: "/industries", dropdown: "industries" as const, external: false, newTab: false },
     { label: t("nav.pricing"), href: "/pricing", dropdown: null, external: false, newTab: false },
     { label: isRTL ? "من نحن" : t("nav.about"), href: "/about", dropdown: null, external: false, newTab: false },
