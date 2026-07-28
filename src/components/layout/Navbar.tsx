@@ -295,11 +295,6 @@ const Navbar = () => {
                 );
               }
 
-              if (link.dropdown === "features" && publishedFeatures.length > 0) {
-                // Rendered inside the Product dropdown — not as a standalone pill.
-                return null;
-              }
-
               const cls = `px-2.5 xl:px-3 2xl:px-4 py-2 rounded-xl text-[0.95rem] 2xl:text-sm font-medium transition-all duration-200 whitespace-nowrap ${
                 location.pathname === link.href
                   ? "text-accent bg-card shadow-[0_4px_12px_hsl(var(--foreground)/0.06)]"
