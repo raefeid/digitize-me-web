@@ -76,13 +76,6 @@ const Product = () => {
     "Dedicated support team",
   ];
 
-  const diffs = [
-    { key: "diff_ai", icon: Brain, title: "AI-Powered", desc: "Advanced AI for automatic data extraction, classification, and intelligent search." },
-    { key: "diff_secure", icon: Lock, title: "Locally Secured", desc: "Enterprise-grade security with local data infrastructure." },
-    { key: "diff_mobile", icon: Smartphone, title: "Mobile Ready", desc: "Access documents from any device, anywhere, anytime." },
-    { key: "diff_versions", icon: RefreshCw, title: "Version Control", desc: "Track every change with full audit trail and history." },
-    { key: "diff_integrate", icon: Zap, title: "Enterprise Integration", desc: "Seamlessly integrates with various ERP, CRM, HIS, and HR enterprise systems." },
-  ];
   const productIndustryLinks = industryLinkItems.slice(0, 6);
 
   return (
@@ -262,41 +255,6 @@ const Product = () => {
         </div>
       </section>
 
-      {/* Why Different */}
-      <section className="section-padding bg-muted/30">
-        <div className="container-max">
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <EditableText as="h2" page="product" section="diff" contentKey="product_diff_title" fallback={t("product.diff.title")} className="text-3xl md:text-5xl font-bold text-foreground mb-4 block" rich />
-          </div>
-          <EditableCardGrid
-            page="product"
-            gridKey="diffs"
-            className="grid sm:grid-cols-2 lg:grid-cols-6 gap-6 max-w-6xl mx-auto"
-            seeds={diffs.map((d) => ({ key: d.key, icon: d.icon, title: d.title, desc: d.desc }))}
-            renderCard={({ index, icon, title, desc, animClass }) => (
-              <motion.div
-                className={`flex flex-col items-center text-center p-8 h-full rounded-2xl border border-border bg-card lg:col-span-2 ${index >= 3 ? "lg:col-span-3" : ""} ${animClass}`}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeUp}
-                custom={index}
-              >
-                <div className="icon-chip w-16 h-16 mx-auto mb-6 flex items-center justify-center">
-                  {icon}
-                </div>
-                <div className="text-xl md:text-2xl font-bold text-foreground mb-3 leading-tight">
-                  {title}
-                </div>
-                <div className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-sm">
-                  {desc}
-                </div>
-              </motion.div>
-            )}
-          />
-
-        </div>
-      </section>
 
       {/* Custom admin-added blocks */}
       <CustomBlocksRenderer page="product" />
