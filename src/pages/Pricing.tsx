@@ -196,12 +196,13 @@ const Pricing = () => {
 
       {/* Hero */}
       <section className="section-padding bg-gradient-to-b from-dm-navy-light to-background">
-        <div className="container-max text-center max-w-3xl mx-auto section-stack">
+        <div className="container-max text-center max-w-5xl mx-auto section-stack">
           <EditableText page="pricing" section="hero" contentKey="badge" fallback={t("pricing.badge")} className="text-accent font-semibold text-sm uppercase tracking-wider" />
-          <EditableText as="h1" page="pricing" section="hero" contentKey="title" fallback={t("pricing.title")} className="text-4xl md:text-5xl font-bold text-foreground mt-3 mb-2 block" rich />
-          <EditableText as="p" page="pricing" section="hero" contentKey="description" fallback={t("pricing.desc")} multiline className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto" rich />
+          <EditableText as="h1" page="pricing" section="hero" contentKey="title" fallback={t("pricing.title")} className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mt-3 mb-2 block md:whitespace-nowrap" rich />
+          <EditableText as="p" page="pricing" section="hero" contentKey="description" fallback={t("pricing.desc")} multiline className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto whitespace-pre-line" rich />
 
-          <div className="flex justify-center pt-2"><UAEHostingBadge /></div>
+          <div className="flex justify-center pt-2"><UAEHostingBadge className="text-sm md:text-base px-4 py-2 gap-2.5 [&_svg]:w-[18px] [&_svg]:h-[18px]" /></div>
+
 
 
           {/* Billing Cycle Toggle */}
