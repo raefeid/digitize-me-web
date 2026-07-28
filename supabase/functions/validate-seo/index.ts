@@ -161,6 +161,9 @@ async function auditRoute(
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
 
+  const auth = await requireRole(req, ALLOWED_ROLES, corsHeaders);
+  if (auth.response) return auth.response;
+
   try {
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
     const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
@@ -169,7 +172,7 @@ Deno.serve(async (req) => {
     const body = await req.json().catch(() => ({}));
     const requestedBase = (body?.baseUrl as string | undefined)?.trim();
 
-    // Resolve base URL: explicit param > admin override > production default
+    // Resolve base URL: admin-configured value or production default.
     const { data: cfg } = await supabase
       .from("site_content")
       .select("value")
@@ -178,7 +181,37 @@ Deno.serve(async (req) => {
       .eq("content_key", "site_url")
       .maybeSingle();
 
-    const baseUrl = (requestedBase || cfg?.value?.trim() || "https://www.digitizeme.ae").replace(/\/$/, "");
+    const configuredBase = (cfg?.value?.trim() || DEFAULT_BASE_URL).replace(/\/$/, "");
+
+    // SSRF guard: only allow the site's own configured/allow-listed origins.
+    const allowedOrigins = new Set(
+      [configuredBase, DEFAULT_BASE_URL, ...ALLOWED_BASE_URLS].map((u) =>
+        u.replace(/\/$/, "").toLowerCase()
+      ),
+    );
+
+    let baseUrl = configuredBase;
+    if (requestedBase) {
+      const normalized = requestedBase.replace(/\/$/, "");
+      let origin = "";
+      try {
+        const parsed = new URL(normalized);
+        if (parsed.protocol !== "https:" && parsed.protocol !== "http:") throw new Error("bad protocol");
+        origin = parsed.origin;
+      } catch {
+        return new Response(
+          JSON.stringify({ success: false, error: "Invalid baseUrl" }),
+          { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } },
+        );
+      }
+      if (!allowedOrigins.has(origin.toLowerCase())) {
+        return new Response(
+          JSON.stringify({ success: false, error: "baseUrl is not an allowed site origin" }),
+          { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } },
+        );
+      }
+      baseUrl = origin;
+    }
 
     // Pull published industry slugs
     const { data: customIndustries } = await supabase
