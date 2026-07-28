@@ -201,7 +201,7 @@ const Index = () => {
       {/* 4. How It Works */}
       <section className="section-padding bg-background" aria-label="Document Processing Workflow">
         <div className="container-max">
-          <div className="text-center max-w-2xl mx-auto mb-10">
+          <div className="text-center max-w-3xl mx-auto mb-10">
             <EditableText page="home" section="home" contentKey="workflow_badge" fallback={t("workflow.badge")} className="text-accent font-semibold text-sm uppercase tracking-wider" />
             <EditableText as="h2" page="home" section="home" contentKey="workflow_title" fallback={t("workflow.title")} className="text-2xl md:text-3xl font-bold text-foreground mt-2 mb-3"  rich />
             <EditableText as="p" page="home" section="home" contentKey="workflow_desc" fallback={t("workflow.desc")} multiline className="text-muted-foreground"  rich />

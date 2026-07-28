@@ -71,7 +71,7 @@ const TestimonialsProofSection = () => {
       className="section-padding bg-gradient-to-b from-background via-muted/20 to-background"
     >
       <div className="container-max">
-        <div className="text-center max-w-2xl mx-auto mb-12">
+        <div className="text-center max-w-3xl mx-auto mb-12">
           <span className="text-accent font-semibold text-sm uppercase tracking-wider">
             {isRTL ? "دليل من العملاء" : "Proof from our customers"}
           </span>

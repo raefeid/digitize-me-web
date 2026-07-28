@@ -27,7 +27,7 @@ const AllInOneSection = () => {
   return (
     <section className="section-padding bg-muted/20 overflow-hidden" aria-label="All in One Platform">
       <div className="container-max">
-        <div className="text-center max-w-2xl mx-auto mb-12">
+        <div className="text-center max-w-3xl mx-auto mb-12">
           <span className="text-accent font-semibold text-sm uppercase tracking-wider">{getContent("aio_badge", t("aio.badge"))}</span>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mt-2 mb-4">{getContent("aio_title", t("aio.title"))}</h2>
           <p className="text-muted-foreground">{getContent("aio_desc", t("aio.desc"))}</p>
