@@ -10,7 +10,7 @@ import { useSiteContent } from "@/hooks/useSiteContent";
 import ScrollFeatureShowcase from "@/components/product/ScrollFeatureShowcase";
 import AnimatedWorkflow from "@/components/product/AnimatedWorkflow";
 
-import AnimatedWhyDifferent from "@/components/product/AnimatedWhyDifferent";
+
 import EditableText from "@/components/cms/EditableText";
 import EditableImage from "@/components/cms/EditableImage";
 import EditableIcon from "@/components/cms/EditableIcon";
@@ -265,22 +265,24 @@ const Product = () => {
       {/* Why Different */}
       <section className="section-padding bg-muted/30">
         <div className="container-max">
-          <div className="grid md:grid-cols-2 gap-10 items-center mb-12">
-            <EditableImage page="product" slotKey="diff_image" alt="Why different">
-              <AnimatedWhyDifferent />
-            </EditableImage>
-            <div>
-              <EditableText as="h2" page="product" section="diff" contentKey="product_diff_title" fallback={t("product.diff.title")} className="text-3xl md:text-4xl font-bold text-foreground mb-4 block" rich />
-            </div>
+          <div className="max-w-3xl mx-auto text-center mb-12">
+            <EditableText as="h2" page="product" section="diff" contentKey="product_diff_title" fallback={t("product.diff.title")} className="text-3xl md:text-5xl font-bold text-foreground mb-4 block" rich />
           </div>
           <EditableCardGrid
             page="product"
             gridKey="diffs"
-            className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
+            className="grid sm:grid-cols-2 lg:grid-cols-6 gap-6 max-w-6xl mx-auto"
             seeds={diffs.map((d) => ({ key: d.key, icon: d.icon, title: d.title, desc: d.desc }))}
             renderCard={({ index, icon, title, desc, animClass }) => (
-              <motion.div className={`text-center p-6 h-full ${animClass}`} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={index}>
-                <div className="icon-chip w-12 h-12 mx-auto mb-4">
+              <motion.div
+                className={`text-center p-8 h-full rounded-2xl border border-border bg-card lg:col-span-2 ${index >= 3 ? "lg:col-span-3" : ""} ${animClass}`}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={fadeUp}
+                custom={index}
+              >
+                <div className="icon-chip w-14 h-14 mx-auto mb-4">
                   {icon}
                 </div>
                 {title}
@@ -288,6 +290,7 @@ const Product = () => {
               </motion.div>
             )}
           />
+
         </div>
       </section>
 
