@@ -28,6 +28,8 @@ import IndustryFaqSection from "@/components/industries/IndustryFaqSection";
 import IndustryFeaturesGrid from "@/components/industries/IndustryFeaturesGrid";
 import IndustryTestimonials from "@/components/industries/IndustryTestimonials";
 import RelatedIndustries from "@/components/industries/RelatedIndustries";
+import SolutionZigZag from "@/components/industries/SolutionZigZag";
+
 import { buildIndustrySeo, buildIndustryFaqs, buildIndustryLandingContent, buildIndustryStructuredData } from "@/lib/industrySeo";
 import { useEditMode } from "@/components/cms/EditModeContext";
 import { useAuth } from "@/hooks/useAuth";
@@ -448,58 +450,15 @@ export const IndustryDetail = () => {
         </div>
       </section>
 
-      <section className="section-padding bg-background">
-        <div className="container-max">
-          <div className="grid md:grid-cols-2 gap-12">
-            <div>
-              <h2 className="text-2xl font-bold text-foreground mb-3">{landing.challengeHeading}</h2>
-              <p className="text-sm text-muted-foreground mb-6">{landing.challengeIntro}</p>
-              <EditableList
-                page={`industry_${slug}`}
-                listKey="pain_points"
-                seeds={industry.painPoints.map((pain, i) => ({ key: `pain_${i}`, text: pain }))}
-                renderItem={({ index, text }) => (
-                  <motion.div
-                    className="flex items-start gap-3"
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    variants={fadeUp}
-                    custom={index}
-                  >
-                    <div className="w-6 h-6 rounded-full bg-destructive/10 flex items-center justify-center mt-0.5 shrink-0">
-                      <span className="text-xs font-bold text-destructive">{index + 1}</span>
-                    </div>
-                    <div className="text-sm text-muted-foreground flex-1 min-w-0">{text}</div>
-                  </motion.div>
-                )}
-              />
-            </div>
-            <div>
-              <h2 className="text-2xl font-bold text-foreground mb-3">{landing.solutionHeading}</h2>
-              <p className="text-sm text-muted-foreground mb-6">{landing.solutionIntro}</p>
-              <EditableList
-                page={`industry_${slug}`}
-                listKey="solutions"
-                seeds={industry.solutions.map((solution, i) => ({ key: `sol_${i}`, text: solution }))}
-                renderItem={({ index, text }) => (
-                  <motion.div
-                    className="flex items-start gap-3"
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    variants={fadeUp}
-                    custom={index}
-                  >
-                    <CheckCircle size={18} className="text-accent mt-0.5 shrink-0" />
-                    <div className="text-sm text-foreground flex-1 min-w-0">{text}</div>
-                  </motion.div>
-                )}
-              />
-            </div>
-          </div>
-        </div>
-      </section>
+      <SolutionZigZag
+        heading={landing.solutionHeading}
+        intro={landing.solutionIntro}
+        items={industry.solutions.map((solution, i) => ({
+          solution,
+          problem: industry.painPoints[i],
+        }))}
+      />
+
 
       <section className="section-padding bg-muted/30">
         <div className="container-max">
