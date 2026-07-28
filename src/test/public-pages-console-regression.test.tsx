@@ -116,7 +116,7 @@ const PUBLIC_ROUTES = [
   "/",
   "/product",
   "/industries",
-  "/integrations",
+  
   "/pricing",
   "/contact",
   "/features",

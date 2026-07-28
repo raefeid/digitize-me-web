@@ -35,7 +35,7 @@ describe("buildBreadcrumbs", () => {
 });
 
 describe("defaultServiceForPage", () => {
-  it.each(["home", "product", "industries", "features", "integrations"])(
+  it.each(["home", "product", "industries", "features"])(
     "returns a Service schema for %s",
     (key) => {
       expect(defaultServiceForPage(key, "en")).not.toBeNull();

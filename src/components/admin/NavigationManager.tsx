@@ -22,7 +22,7 @@ const BUILT_IN_ROUTES = [
   { label: "Product", path: "/product" },
   { label: "Features", path: "/features" },
   { label: "Industries", path: "/industries" },
-  { label: "Integrations", path: "/integrations" },
+  
   { label: "Pricing", path: "/pricing" },
   { label: "Blog", path: "/blog" },
   { label: "Contact", path: "/contact" },

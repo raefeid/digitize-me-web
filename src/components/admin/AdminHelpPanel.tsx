@@ -156,26 +156,6 @@ const TOPICS: Topic[] = [
     ],
   },
   {
-    id: "integrations",
-    icon: Plug,
-    title: "Add or hide an integration",
-    summary: "The /integrations page is fully data-driven from the Integrations editor.",
-    body: [
-      {
-        text: "Open “Integrations page” from the dashboard. Each card on the public page corresponds to one row here.",
-      },
-      {
-        heading: "Per integration",
-        text: "",
-        bullets: [
-          "Edit name, description, logo, category and link",
-          "Toggle visibility without deleting (useful for partners that pause)",
-          "Reorder cards by dragging in the list",
-        ],
-      },
-    ],
-  },
-  {
     id: "pages",
     icon: FileBox,
     title: "Build a new page",
