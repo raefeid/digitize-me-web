@@ -6,7 +6,7 @@ export const translations: TranslationMap = {
     "nav.home": "Home",
     "nav.product": "Product",
     "nav.industries": "Industries",
-    "nav.integrations": "Integrations",
+    
     "nav.pricing": "Pricing",
     "nav.contact": "Contact",
     "nav.about": "About",
@@ -268,7 +268,7 @@ export const translations: TranslationMap = {
     "nav.home": "الرئيسية",
     "nav.product": "المنتج",
     "nav.industries": "القطاعات",
-    "nav.integrations": "التكاملات",
+    
     "nav.pricing": "الأسعار",
     "nav.contact": "تواصل معنا",
     "nav.about": "من نحن",

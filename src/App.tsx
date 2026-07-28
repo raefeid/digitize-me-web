@@ -21,7 +21,7 @@ const Index = lazy(() => import("./pages/Index.tsx"));
 const Product = lazy(() => import("./pages/Product.tsx"));
 const Industries = lazy(() => import("./pages/Industries.tsx"));
 const IndustryDetail = lazy(() => import("./pages/Industries.tsx").then((m) => ({ default: m.IndustryDetail })));
-const Integrations = lazy(() => import("./pages/Integrations.tsx"));
+
 const Pricing = lazy(() => import("./pages/Pricing.tsx"));
 const Contact = lazy(() => import("./pages/Contact.tsx"));
 const NotFound = lazy(() => import("./pages/NotFound.tsx"));
