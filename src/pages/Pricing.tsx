@@ -319,9 +319,22 @@ const Pricing = () => {
                     ? "bg-card border-accent shadow-xl shadow-accent/10"
                     : "bg-card border-border shadow-md hover:-translate-y-1 hover:shadow-xl"
                 }`}>
-                  <div className="mb-5 min-h-[168px] xl:min-h-[184px] flex flex-col">
+                  <div className="mb-5 min-h-[180px] md:min-h-[200px] xl:min-h-[220px] flex flex-col">
                     <h3 className="text-xl xl:text-[1.35rem] font-bold text-foreground leading-tight">{plan.name}</h3>
-                    <p className="text-sm text-muted-foreground mt-1">{plan.description}</p>
+                    <div className="flex flex-wrap gap-1.5 mt-2.5 mb-3">
+                      {plan.description
+                        .split(/[·.]/)
+                        .map((part) => part.trim())
+                        .filter(Boolean)
+                        .map((part, i) => (
+                          <span
+                            key={i}
+                            className="inline-block text-[11px] md:text-xs font-medium text-muted-foreground bg-muted/60 border border-border/60 rounded-md px-2 py-1 leading-tight"
+                          >
+                            {part}
+                          </span>
+                        ))}
+                    </div>
                     {(() => {
                       const promo = rpWithPromo(plan.key, cmPlans);
                       const showPromo = promo && promo.original && promo.label && !promo.contactOnly;
