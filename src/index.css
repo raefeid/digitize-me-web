@@ -230,3 +230,17 @@
   animation: marquee-x linear infinite;
   will-change: transform;
 }
+
+@keyframes cta-shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+.animate-cta-shimmer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, hsl(var(--accent-foreground) / 0.2), transparent);
+  animation: cta-shimmer 2.5s infinite;
+  pointer-events: none;
+}
