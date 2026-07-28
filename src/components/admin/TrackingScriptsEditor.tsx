@@ -144,7 +144,7 @@ const groups: Array<{ title: string; description: string; fields: Field[] }> = [
 
 const ALL_FIELDS = groups.flatMap((g) => g.fields);
 
-const IntegrationsEditor = () => {
+const TrackingScriptsEditor = () => {
   const { items, isLoading } = useSiteContent("integrations", "tracking");
   const saveContent = useSaveContent();
   const { toast } = useToast();
@@ -319,11 +319,11 @@ const IntegrationsEditor = () => {
           ) : (
             <Save size={14} />
           )}
-          Save integrations
+          Save tracking settings
         </Button>
       </div>
     </div>
   );
 };
 
-export default IntegrationsEditor;
+export default TrackingScriptsEditor;
