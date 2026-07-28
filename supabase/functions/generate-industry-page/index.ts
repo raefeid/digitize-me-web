@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { requireRole } from "../_shared/require-role.ts";
 
 /**
  * Generates a full SEO landing page for a single industry using Lovable AI.
