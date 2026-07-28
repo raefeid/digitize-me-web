@@ -72,7 +72,7 @@ const AllInOneSection = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="relative w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5"
+              className="relative w-full grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5"
             >
               {resolvedTools.map((tool, i) => {
                 const Icon = resolveIcon(tool.icon);
@@ -82,13 +82,16 @@ const AllInOneSection = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.45, delay: i * 0.04, type: "spring", stiffness: 140, damping: 18 }}
-                    className="group rounded-2xl border border-border bg-card p-5 md:p-6 shadow-sm hover:shadow-md hover:border-accent/30 hover:-translate-y-0.5 transition-all flex flex-col items-center text-center gap-2 min-h-[170px]"
+                    className="group rounded-2xl border border-border bg-card p-3 sm:p-5 md:p-6 shadow-sm hover:shadow-md hover:border-accent/30 hover:-translate-y-0.5 transition-all flex flex-row sm:flex-col items-center text-left sm:text-center gap-3 sm:gap-2 sm:min-h-[170px]"
                   >
-                    <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-accent/10 text-accent flex items-center justify-center group-hover:bg-accent group-hover:text-accent-foreground transition-colors">
-                      <Icon size={26} />
+                    <div className="w-10 h-10 sm:w-14 sm:h-14 md:w-16 md:h-16 shrink-0 rounded-xl sm:rounded-2xl bg-accent/10 text-accent flex items-center justify-center group-hover:bg-accent group-hover:text-accent-foreground transition-colors">
+                      <Icon size={20} className="sm:hidden" />
+                      <Icon size={26} className="hidden sm:block" />
                     </div>
-                    <EditableText as="span" page="home" section="aio_tools" contentKey={`${tool.id}_name`} fallback={isRTL && tool.name_ar ? tool.name_ar : tool.name} className="text-sm md:text-base font-semibold text-foreground leading-tight" />
-                    <EditableText as="span" page="home" section="aio_tools" contentKey={`${tool.id}_competitor`} fallback={tool.competitor} className="text-xs text-muted-foreground mt-auto" />
+                    <div className="flex flex-col sm:items-center sm:contents min-w-0">
+                      <EditableText as="span" page="home" section="aio_tools" contentKey={`${tool.id}_name`} fallback={isRTL && tool.name_ar ? tool.name_ar : tool.name} className="text-sm md:text-base font-semibold text-foreground leading-tight" />
+                      <EditableText as="span" page="home" section="aio_tools" contentKey={`${tool.id}_competitor`} fallback={tool.competitor} className="text-xs text-muted-foreground sm:mt-auto" />
+                    </div>
                   </motion.div>
                 );
               })}
