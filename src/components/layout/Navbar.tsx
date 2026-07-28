@@ -54,8 +54,6 @@ const Navbar = () => {
   // Show "Log out" only when the signed-in user holds the customer role.
   const showCustomerSignedIn = !!user && isCustomer;
   const { publishedList: industriesData, getName: getCustomIndustryName } = useDynamicIndustries();
-  const { data: featuresData } = useFeatures();
-  const publishedFeatures = (featuresData ?? []).filter((f) => f.published);
   const logo = useBrandingAsset("logo_navbar", logoFallback);
   const { data: navbarItems } = useNavItems("navbar");
   const { data: customPages } = useCustomPages({ includeDrafts: false });
