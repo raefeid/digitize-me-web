@@ -61,23 +61,45 @@ const ScrollFeatureShowcase = ({ features }: Props) => {
     };
   }, []);
 
-  // Track which USP is centered in the viewport.
+  // Track which USP is closest to the viewport centre (scroll-driven, no jitter).
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible) {
-          const idx = itemRefs.current.indexOf(visible.target as HTMLDivElement);
-          if (idx !== -1) setActive(idx);
+    let raf = 0;
+    let last = -1;
+
+    const compute = () => {
+      raf = 0;
+      const centre = window.innerHeight / 2;
+      let best = 0;
+      let bestDist = Infinity;
+      itemRefs.current.forEach((el, i) => {
+        if (!el) return;
+        const r = el.getBoundingClientRect();
+        const dist = Math.abs(r.top + r.height / 2 - centre);
+        if (dist < bestDist) {
+          bestDist = dist;
+          best = i;
         }
-      },
-      { rootMargin: "-45% 0px -45% 0px", threshold: [0, 0.5, 1] },
-    );
-    itemRefs.current.forEach((el) => el && observer.observe(el));
-    return () => observer.disconnect();
+      });
+      if (best !== last) {
+        last = best;
+        setActive(best);
+      }
+    };
+
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(compute);
+    };
+
+    compute();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      if (raf) cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, [features.length]);
+
 
   return (
     <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
