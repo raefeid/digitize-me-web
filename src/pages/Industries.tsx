@@ -28,6 +28,8 @@ import IndustryFaqSection from "@/components/industries/IndustryFaqSection";
 import IndustryFeaturesGrid from "@/components/industries/IndustryFeaturesGrid";
 import IndustryTestimonials from "@/components/industries/IndustryTestimonials";
 import RelatedIndustries from "@/components/industries/RelatedIndustries";
+import SolutionZigZag from "@/components/industries/SolutionZigZag";
+
 import { buildIndustrySeo, buildIndustryFaqs, buildIndustryLandingContent, buildIndustryStructuredData } from "@/lib/industrySeo";
 import { useEditMode } from "@/components/cms/EditModeContext";
 import { useAuth } from "@/hooks/useAuth";
