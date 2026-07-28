@@ -447,11 +447,25 @@ export const IndustryDetail = () => {
           <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
             <div className="rounded-xl border border-destructive/20 bg-destructive/5 p-6 text-center">
               <span className="text-sm font-semibold text-destructive uppercase tracking-wider">{t("industries.before")}</span>
-              <EditableText as="p" page={`industry_${slug}`} section="ba" contentKey="before" fallback={industry.beforeAfter.before} className="text-lg font-bold text-foreground mt-2 block" rich />
+              <p className="text-lg font-bold text-foreground mt-2 block">
+                <RollingText
+                  text={industry.beforeAfter.before}
+                  className="text-lg font-bold text-foreground"
+                  numberClassName="text-3xl font-extrabold text-destructive mx-1"
+                  duration={2.2}
+                />
+              </p>
             </div>
             <div className="rounded-xl border border-accent/20 bg-accent/5 p-6 text-center">
               <span className="text-sm font-semibold text-accent uppercase tracking-wider">{t("industries.after")}</span>
-              <EditableText as="p" page={`industry_${slug}`} section="ba" contentKey="after" fallback={industry.beforeAfter.after} className="text-lg font-bold text-foreground mt-2 block" rich />
+              <p className="text-lg font-bold text-foreground mt-2 block">
+                <RollingText
+                  text={industry.beforeAfter.after}
+                  className="text-lg font-bold text-foreground"
+                  numberClassName="text-3xl font-extrabold text-accent mx-1"
+                  duration={2.2}
+                />
+              </p>
             </div>
           </div>
         </div>
