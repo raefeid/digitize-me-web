@@ -2,6 +2,7 @@ import Lottie from "lottie-react";
 import { motion } from "framer-motion";
 import { FileText, LucideIcon } from "lucide-react";
 import balanceScale from "@/assets/balance-scale.json";
+import calculator from "@/assets/calculator.json";
 
 const FILE_COUNT = 9;
 
@@ -29,13 +30,20 @@ interface Props {
   icon?: LucideIcon;
   /** Use the animated scales-of-justice Lottie instead of a static icon. */
   useLottie?: boolean;
+  /** Named Lottie animation to render at the core instead of a static icon. */
+  lottie?: "scales" | "calculator";
 }
 
 /**
  * Shared industry hero visual: a large industry icon core with document
  * cards orbiting behind it in calm circles.
  */
-const IndustryHeroAnimation = ({ icon: Icon, useLottie }: Props) => (
+const LOTTIES = { scales: balanceScale, calculator } as const;
+
+const IndustryHeroAnimation = ({ icon: Icon, useLottie, lottie }: Props) => {
+  const animationData = lottie ? LOTTIES[lottie] : useLottie ? balanceScale : null;
+
+  return (
   <div
     className="relative mx-auto aspect-square w-full max-w-[560px] select-none"
     aria-hidden="true"
@@ -98,8 +106,8 @@ const IndustryHeroAnimation = ({ icon: Icon, useLottie }: Props) => (
 
     {/* core — in front of the orbiting papers */}
     <div className="absolute left-1/2 top-1/2 z-20 flex h-80 w-80 -translate-x-1/2 -translate-y-1/2 items-center justify-center">
-      {useLottie ? (
-        <Lottie animationData={balanceScale} loop={false} autoplay className="h-full w-full" />
+      {animationData ? (
+        <Lottie animationData={animationData} loop={false} autoplay className="h-full w-full" />
       ) : Icon ? (
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
@@ -112,6 +120,7 @@ const IndustryHeroAnimation = ({ icon: Icon, useLottie }: Props) => (
       ) : null}
     </div>
   </div>
-);
+  );
+};
 
 export default IndustryHeroAnimation;
