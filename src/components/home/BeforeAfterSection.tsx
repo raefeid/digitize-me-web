@@ -41,7 +41,7 @@ const BeforeAfterSection = () => {
   return (
     <section aria-label="Before After Comparison" className="section-padding bg-background">
       <div className="container-max">
-        <div className="text-center max-w-2xl mx-auto mb-10">
+        <div className="text-center max-w-3xl mx-auto mb-10">
           <span className="text-accent font-semibold text-sm uppercase tracking-wider">{getContent("ba_badge", t("ba.badge"))}</span>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mt-2 mb-4">{getContent("ba_title", t("ba.title"))}</h2>
         </div>
@@ -60,7 +60,7 @@ const BeforeAfterSection = () => {
         </div>
 
         {/* Dashboard */}
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <motion.div className="rounded-2xl border bg-card p-6 md:p-8 shadow-lg overflow-hidden" animate={{ borderColor: isDigitize ? "hsl(142 71% 45% / 0.3)" : "hsl(0 84% 60% / 0.2)" }} transition={{ duration: 0.4 }}>
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">

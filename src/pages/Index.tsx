@@ -118,7 +118,7 @@ const Index = () => {
       <section className="section-padding relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-dm-navy-light via-background to-dm-coral-light opacity-50" />
         <div className="container-max relative">
-          <div className="max-w-4xl mx-auto text-center section-stack">
+          <div className="max-w-5xl mx-auto text-center section-stack">
             <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0}>
               <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-medium mb-2 md:mb-3">
                 <Languages size={16} />
@@ -150,7 +150,7 @@ const Index = () => {
               </CtaButton>
             </motion.div>
           </div>
-          <motion.div className="mt-12 max-w-5xl mx-auto" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 0.7 }}>
+          <motion.div className="mt-12 max-w-6xl mx-auto" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 0.7 }}>
             <HeroVideoModal />
           </motion.div>
         </div>
@@ -201,7 +201,7 @@ const Index = () => {
       {/* 4. How It Works */}
       <section className="section-padding bg-background" aria-label="Document Processing Workflow">
         <div className="container-max">
-          <div className="text-center max-w-2xl mx-auto mb-10">
+          <div className="text-center max-w-3xl mx-auto mb-10">
             <EditableText page="home" section="home" contentKey="workflow_badge" fallback={t("workflow.badge")} className="text-accent font-semibold text-sm uppercase tracking-wider" />
             <EditableText as="h2" page="home" section="home" contentKey="workflow_title" fallback={t("workflow.title")} className="text-2xl md:text-3xl font-bold text-foreground mt-2 mb-3"  rich />
             <EditableText as="p" page="home" section="home" contentKey="workflow_desc" fallback={t("workflow.desc")} multiline className="text-muted-foreground"  rich />

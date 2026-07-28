@@ -19,7 +19,7 @@ const TestimonialsSection = () => {
   return (
     <section className="section-padding bg-gradient-to-b from-background to-muted/20">
       <div className="container-max">
-        <div className="text-center max-w-2xl mx-auto mb-12">
+        <div className="text-center max-w-3xl mx-auto mb-12">
           <EditableText
             page="home"
             section="testimonials"
@@ -52,7 +52,7 @@ const TestimonialsSection = () => {
           />
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
           {published.slice(0, 6).map((t, i) => (
             <motion.figure
               key={t.id}

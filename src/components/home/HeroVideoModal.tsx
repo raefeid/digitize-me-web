@@ -36,7 +36,7 @@ const HeroVideoModal = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4, duration: 0.6 }}
         whileHover={{ scale: 1.01 }}
-        className="group relative block w-full max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-2xl border border-border bg-gradient-to-br from-dm-navy-light via-card to-dm-coral-light aspect-video"
+        className="group relative block w-full max-w-6xl mx-auto rounded-2xl overflow-hidden shadow-2xl border border-border bg-gradient-to-br from-dm-navy-light via-card to-dm-coral-light aspect-video"
         aria-label={isRTL ? "شغل فيديو المنتج" : "Play product video"}
       >
         <div className="absolute inset-0 flex items-center justify-center">
