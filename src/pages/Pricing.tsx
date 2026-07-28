@@ -413,16 +413,16 @@ const Pricing = () => {
 
                   <div className="border-t border-border mb-6" />
 
-                  <p className="text-xs font-semibold text-muted-foreground/60 uppercase tracking-wider mb-4">
+                  <p className="text-xs font-semibold text-muted-foreground/60 uppercase tracking-wider mb-3">
                     {l("Included in plan", "يشمل الخطة", "Inclus dans le plan")}
                   </p>
-                  <ul className="space-y-3 flex-1">
+                  <ul className="space-y-2.5 flex-1">
                     {plan.features.map((feature, fi) => (
-                      <li key={`${feature.name}-${fi}`} className="flex items-start gap-2.5 text-sm">
+                      <li key={`${feature.name}-${fi}`} className="flex items-start gap-2 text-sm leading-snug">
                         {feature.included ? (
-                          <CheckCircle size={16} className="text-accent mt-0.5 shrink-0" />
+                          <CheckCircle size={14} className="text-accent mt-0.5 shrink-0" />
                         ) : (
-                          <X size={16} className="text-muted-foreground/30 mt-0.5 shrink-0" />
+                          <X size={14} className="text-muted-foreground/30 mt-0.5 shrink-0" />
                         )}
                         <span className={feature.included ? "text-foreground/80" : "text-muted-foreground/40"}>
                           {feature.name}
