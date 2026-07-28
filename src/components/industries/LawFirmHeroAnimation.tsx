@@ -26,7 +26,7 @@ const FILES: OrbitFile[] = Array.from({ length: FILE_COUNT }, (_, i) => {
 
 /**
  * Law-firm hero visual: a scales-of-justice core (plays once on load) with
- * case files orbiting it in calm circles.
+ * case files orbiting in front of it in calm circles.
  */
 const LawFirmHeroAnimation = () => (
   <div
@@ -36,11 +36,21 @@ const LawFirmHeroAnimation = () => (
     {/* ambient glow */}
     <div className="absolute inset-0 rounded-full bg-accent/10 blur-3xl" />
 
+    {/* core — sits behind the orbiting papers */}
+    <div className="absolute left-1/2 top-1/2 z-0 flex h-80 w-80 -translate-x-1/2 -translate-y-1/2 items-center justify-center">
+      <Lottie
+        animationData={balanceScale}
+        loop={false}
+        autoplay
+        className="h-full w-full"
+      />
+    </div>
+
     {/* orbit rings */}
     {[0, 1, 2].map((ring) => (
       <div
         key={ring}
-        className="absolute left-1/2 top-1/2 rounded-full border border-accent/15"
+        className="absolute left-1/2 top-1/2 z-0 rounded-full border border-accent/15"
         style={{
           width: `${(150 + ring * 46) * 2}px`,
           height: `${(150 + ring * 46) * 2}px`,
@@ -49,11 +59,11 @@ const LawFirmHeroAnimation = () => (
       />
     ))}
 
-    {/* orbiting files */}
+    {/* orbiting files — rendered last so they float in front */}
     {FILES.map((file) => (
       <motion.div
         key={file.id}
-        className="absolute left-1/2 top-1/2"
+        className="absolute left-1/2 top-1/2 z-10"
         style={{ width: 0, height: 0 }}
         animate={{ rotate: 360 }}
         transition={{
@@ -88,16 +98,6 @@ const LawFirmHeroAnimation = () => (
         </div>
       </motion.div>
     ))}
-
-    {/* core */}
-    <div className="absolute left-1/2 top-1/2 flex h-80 w-80 -translate-x-1/2 -translate-y-1/2 items-center justify-center">
-      <Lottie
-        animationData={balanceScale}
-        loop={false}
-        autoplay
-        className="h-full w-full"
-      />
-    </div>
   </div>
 );
 
