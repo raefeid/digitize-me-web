@@ -56,7 +56,7 @@ const LawFirmHeroAnimation = () => {
     };
   }, []);
 
-  const target = FILES[targetId];
+  
 
   return (
     <div
