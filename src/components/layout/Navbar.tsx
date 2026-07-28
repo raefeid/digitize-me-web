@@ -135,18 +135,6 @@ const Navbar = () => {
       }));
     }
 
-    if (parentHref === "/product") {
-      const featureChildren: MobileNavNode[] = publishedFeatures.map((feature) => ({
-        id: `${parentId}-feature-${feature.id}`,
-        label: (lang === "ar" && feature.hero_title_ar) || feature.hero_title,
-        href: `/features/${feature.slug}`,
-        external: false,
-        newTab: false,
-        iconName: feature.icon,
-      }));
-      return featureChildren;
-    }
-
     return [];
   };
 
