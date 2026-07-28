@@ -187,7 +187,7 @@ export const translations: TranslationMap = {
     // Pricing
     "pricing.badge": "Pricing",
     "pricing.title": "Choose the Right Plan for Your Business",
-    "pricing.desc": "Start free, upgrade as you grow. All plans include unlimited document scanning and cloud security.",
+    "pricing.desc": "Start free, upgrade as you grow.\nAll plans include unlimited document scanning and cloud security.",
     "pricing.entry": "Entry Edition",
     "pricing.entry.desc": "For startups & small teams getting organized",
     "pricing.business": "Business Edition",
@@ -454,7 +454,7 @@ export const translations: TranslationMap = {
     // Pricing
     "pricing.badge": "الأسعار",
     "pricing.title": "اختر الخطة المناسبة لعملك",
-    "pricing.desc": "ابدأ مجانًا وترقَّ مع نمو عملك. جميع الخطط تشمل مسح غير محدود للمستندات وأمان سحابي.",
+    "pricing.desc": "ابدأ مجانًا وترقَّ مع نمو عملك.\nجميع الخطط تشمل مسح غير محدود للمستندات وأمان سحابي.",
     "pricing.entry": "الإصدار الأساسي",
     "pricing.entry.desc": "للشركات الناشئة والفرق الصغيرة التي تبدأ بالتنظيم",
     "pricing.business": "إصدار الأعمال",
