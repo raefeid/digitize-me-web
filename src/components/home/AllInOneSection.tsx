@@ -72,7 +72,7 @@ const AllInOneSection = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="relative w-full grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5"
+              className="relative w-full grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5"
             >
               {resolvedTools.map((tool, i) => {
                 const Icon = resolveIcon(tool.icon);
