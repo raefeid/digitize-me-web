@@ -18,8 +18,13 @@ const corsHeaders = {
 
 const uid = () => Math.random().toString(36).slice(2, 10);
 
+const ALLOWED_ROLES = ["admin", "super_admin", "editor", "seo_manager"];
+
 serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
+
+  const auth = await requireRole(req, ALLOWED_ROLES, corsHeaders);
+  if (auth.response) return auth.response;
 
   try {
     const { industry } = await req.json();
