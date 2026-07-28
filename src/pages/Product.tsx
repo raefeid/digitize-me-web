@@ -6,7 +6,7 @@ import Layout from "@/components/layout/Layout";
 import SEOHead from "@/components/SEOHead";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useSiteContent } from "@/hooks/useSiteContent";
-import AnimatedDashboard from "@/components/product/AnimatedDashboard";
+
 import AnimatedOCREngine from "@/components/product/AnimatedOCREngine";
 import AnimatedWorkflow from "@/components/product/AnimatedWorkflow";
 import AnimatedDeployment from "@/components/product/AnimatedDeployment";
