@@ -455,6 +455,7 @@ export const IndustryDetail = () => {
       <SolutionZigZag
         heading={landing.solutionHeading}
         intro={landing.solutionIntro}
+        industryName={industry.name}
         items={industry.solutions.map((solution, i) => ({
           solution,
           problem: industry.painPoints[i],
