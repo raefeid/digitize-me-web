@@ -89,7 +89,7 @@ const TOPICS: Topic[] = [
         heading: "Tips",
         text: "",
         bullets: [
-          "Use the folder filter to keep things tidy (e.g. blog, hero, logos)."
+          "Use the folder filter to keep things tidy (e.g. blog, hero, logos).",
           "Each file shows a recommendation badge — green means the size and dimensions are good for the web.",
           "Click “CSV” to download an inventory of every uploaded file (useful for audits and handovers).",
           "Use the copy-URL button to grab the public link for a file you want to paste somewhere.",
