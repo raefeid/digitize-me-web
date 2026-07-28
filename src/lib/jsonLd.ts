@@ -88,7 +88,6 @@ const BREADCRUMB_LABELS: Record<string, { en: string; ar: string }> = {
   contact: { en: "Contact", ar: "اتصل بنا" },
   about: { en: "About", ar: "من نحن" },
   features: { en: "Features", ar: "المميزات" },
-  integrations: { en: "Integrations", ar: "التكاملات" },
   blog: { en: "Blog", ar: "المدونة" },
   privacy: { en: "Privacy", ar: "الخصوصية" },
   terms: { en: "Terms", ar: "الشروط" },
@@ -306,7 +305,7 @@ export const defaultServiceForPage = (
   pageKey: string,
   lang: Lang,
 ): ServiceSchemaInput | null => {
-  const SERVICE_PAGES = new Set(["home", "product", "industries", "features", "integrations"]);
+  const SERVICE_PAGES = new Set(["home", "product", "industries", "features"]);
   if (!SERVICE_PAGES.has(pageKey)) return null;
 
   if (lang === "ar") {

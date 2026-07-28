@@ -144,7 +144,7 @@ const groups: Array<{ title: string; description: string; fields: Field[] }> = [
 
 const ALL_FIELDS = groups.flatMap((g) => g.fields);
 
-const IntegrationsEditor = () => {
+const TrackingScriptsEditor = () => {
   const { items, isLoading } = useSiteContent("integrations", "tracking");
   const saveContent = useSaveContent();
   const { toast } = useToast();
@@ -204,7 +204,7 @@ const IntegrationsEditor = () => {
         });
       }
       toast({
-        title: "Integrations saved",
+        title: "Tracking scripts saved",
         description: "Reload any open page to see the new tags fire.",
       });
       setDirty(false);
@@ -220,7 +220,7 @@ const IntegrationsEditor = () => {
   if (isLoading) {
     return (
       <div className="flex items-center gap-2 text-muted-foreground p-8">
-        <Loader2 className="animate-spin" size={16} /> Loading integrations…
+        <Loader2 className="animate-spin" size={16} /> Loading tracking scripts…
       </div>
     );
   }
@@ -235,13 +235,13 @@ const IntegrationsEditor = () => {
           <Tag size={20} />
         </div>
         <div className="flex-1">
-          <h3 className="font-semibold text-foreground">Tracking & analytics integrations</h3>
+          <h3 className="font-semibold text-foreground">Tracking & analytics scripts</h3>
           <p className="text-sm text-muted-foreground mt-1">
             Paste your IDs below and hit <strong>Save</strong>. The matching scripts will be loaded on every page automatically — no code changes needed. Leave any field empty to disable that tag.
           </p>
           <div className="text-xs text-muted-foreground mt-2">
             <CheckCircle2 size={12} className="inline -mt-0.5 mr-1 text-emerald-500" />
-            {filledCount} of {ALL_FIELDS.length} integrations configured
+            {filledCount} of {ALL_FIELDS.length} scripts configured
           </div>
         </div>
       </div>
@@ -319,11 +319,11 @@ const IntegrationsEditor = () => {
           ) : (
             <Save size={14} />
           )}
-          Save integrations
+          Save tracking settings
         </Button>
       </div>
     </div>
   );
 };
 
-export default IntegrationsEditor;
+export default TrackingScriptsEditor;

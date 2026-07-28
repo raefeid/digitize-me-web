@@ -78,7 +78,7 @@ const KB: KBEntry[] = [
       "We integrate directly with Google Drive, OneDrive, and SharePoint — plus SAP, Salesforce, and more. No migration needed: keep your files where they are and we index them in place.",
     answer_ar:
       "نتكامل مباشرة مع Google Drive و OneDrive و SharePoint، بالإضافة إلى SAP و Salesforce وغيرها. لا حاجة للترحيل — اترك ملفاتك في مكانها ونقوم بفهرستها.",
-    link: { label_en: "See integrations", label_ar: "عرض التكاملات", to: "/integrations" },
+    link: { label_en: "See product", label_ar: "عرض المنتج", to: "/product" },
   },
   {
     keywords: ["ocr", "scan", "scanning", "arabic", "bilingual", "مسح", "عربي"],

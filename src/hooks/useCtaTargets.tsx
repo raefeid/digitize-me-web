@@ -59,12 +59,6 @@ export const CTA_REGISTRY: CtaDefinition[] = [
   // Features index page
   { key: "features_index_secondary", location: "Features — Final CTA (See pricing)", defaultKind: "link", defaultValue: "/pricing" },
   { key: "lead_cta_features_index", location: "Features — Final CTA lead capture (Talk to sales)", defaultKind: "link", defaultValue: "" },
-  // Integrations page
-  { key: "integrations_demo", location: "Integrations — Hero Book a Demo", defaultKind: "link", defaultValue: "/contact" },
-  { key: "integrations_api", location: "Integrations — Request API access", defaultKind: "link", defaultValue: "/contact" },
-  { key: "integrations_api_docs", location: "Integrations — View API docs", defaultKind: "link", defaultValue: "/contact" },
-  { key: "integrations_cta_trial", location: "Integrations — Final CTA Start Trial", defaultKind: "link", defaultValue: "/pricing" },
-  { key: "integrations_cta_demo", location: "Integrations — Final CTA Book Demo", defaultKind: "link", defaultValue: "/contact" },
   // Feature detail pages
   { key: "feature_cta_talk_to_sales", location: "Feature page — In-page CTA section (Talk to sales)", defaultKind: "link", defaultValue: "/contact" },
   { key: "feature_hero_primary", location: "Feature page — Hero primary CTA", defaultKind: "link", defaultValue: "/contact" },

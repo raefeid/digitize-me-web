@@ -45,7 +45,7 @@ const inferKindFromValue = (value: string): string => {
  *  - site_content (page=cta_styles)                — admin-overridden destinations
  *  - nav_items.target_route / external_url         — navbar & footer links
  *  - nav_auth_buttons.link                         — sign in / sign up buttons
- *  - integrations.cta_link                         — partner card links
+ *  - (removed) integrations table
  *  - features.cta_primary_link / cta_secondary_link
  *  - industry_seo_landing.cta_link
  *  - pricing_highlights.cta_link_override
@@ -106,15 +106,7 @@ const useCtaAuditFindings = () =>
         if (b.link) sources.push({ source: `nav_auth_buttons → ${b.button_key}`, kind: inferKindFromValue(b.link), value: b.link });
       }
 
-      // 4. integrations
-      const { data: integrations } = await supabase
-        .from("integrations")
-        .select("slug, cta_link");
-      for (const i of integrations ?? []) {
-        if (i.cta_link) sources.push({ source: `integrations → ${i.slug}`, kind: inferKindFromValue(i.cta_link), value: i.cta_link });
-      }
-
-      // 5. features
+      // 4. features
       const { data: features } = await supabase
         .from("features")
         .select("slug, cta_primary_link, cta_secondary_link");

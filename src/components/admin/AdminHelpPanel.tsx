@@ -89,7 +89,7 @@ const TOPICS: Topic[] = [
         heading: "Tips",
         text: "",
         bullets: [
-          "Use the folder filter to keep things tidy (e.g. integrations, hero, blog).",
+          "Use the folder filter to keep things tidy (e.g. blog, hero, logos).",
           "Each file shows a recommendation badge — green means the size and dimensions are good for the web.",
           "Click “CSV” to download an inventory of every uploaded file (useful for audits and handovers).",
           "Use the copy-URL button to grab the public link for a file you want to paste somewhere.",
@@ -151,26 +151,6 @@ const TOPICS: Topic[] = [
         bullets: [
           "Always set an end date — promotions hide automatically when expired.",
           "Use the Arabic field too — bilingual visitors notice when only one language updates.",
-        ],
-      },
-    ],
-  },
-  {
-    id: "integrations",
-    icon: Plug,
-    title: "Add or hide an integration",
-    summary: "The /integrations page is fully data-driven from the Integrations editor.",
-    body: [
-      {
-        text: "Open “Integrations page” from the dashboard. Each card on the public page corresponds to one row here.",
-      },
-      {
-        heading: "Per integration",
-        text: "",
-        bullets: [
-          "Edit name, description, logo, category and link",
-          "Toggle visibility without deleting (useful for partners that pause)",
-          "Reorder cards by dragging in the list",
         ],
       },
     ],

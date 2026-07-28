@@ -22,7 +22,7 @@ const slugify = (s: string) =>
   s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 
 const RESERVED_SLUGS = new Set([
-  "admin", "blog", "contact", "features", "industries", "integrations", "pricing",
+  "admin", "blog", "contact", "features", "industries", "pricing",
   "privacy", "product", "terms",
 ]);
 

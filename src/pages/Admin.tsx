@@ -19,12 +19,11 @@ const BlogPageEditor = lazy(() => import("@/components/admin/BlogPageEditor"));
 const NotFoundPageEditor = lazy(() => import("@/components/admin/NotFoundPageEditor"));
 const PrivacyPageEditor = lazy(() => import("@/components/admin/PrivacyPageEditor"));
 const TermsPageEditor = lazy(() => import("@/components/admin/TermsPageEditor"));
-const IntegrationsPageEditor = lazy(() => import("@/components/admin/IntegrationsPageEditor"));
+
 const FooterEditor = lazy(() => import("@/components/admin/FooterEditor"));
 const SeoEditor = lazy(() => import("@/components/admin/SeoEditor"));
 const SitemapRobotsEditor = lazy(() => import("@/components/admin/SitemapRobotsEditor"));
-const IntegrationsEditor = lazy(() => import("@/components/admin/IntegrationsEditor"));
-const IntegrationsManager = lazy(() => import("@/components/admin/IntegrationsManager"));
+const TrackingScriptsEditor = lazy(() => import("@/components/admin/TrackingScriptsEditor"));
 const CtaActionsEditor = lazy(() => import("@/components/admin/CtaActionsEditor"));
 const SectionRevealsPanel = lazy(() => import("@/components/admin/SectionRevealsPanel"));
 const TeamAccessPanel = lazy(() => import("@/components/admin/TeamAccessPanel"));
@@ -88,7 +87,7 @@ const Admin = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const queryClient = useQueryClient();
-  const [tab, setTab] = useState<"dashboard" | "posts" | "categories" | "content" | "pricing" | "media" | "home" | "seo" | "sitemap" | "integrations" | "integrations_list" | "ctas" | "ctas_audit" | "reveals" | "team" | "promotions" | "branding" | "testimonials" | "client_logos" | "leads" | "customers" | "pricing_highlights" | "features" | "pages" | "navigation" | "auth_buttons" | "auth_pages" | "help" | "page_contact" | "page_product" | "page_pricing" | "page_industries" | "page_features" | "page_blog" | "page_integrations" | "page_404" | "page_privacy" | "page_terms" | "page_about" | "page_footer">("dashboard");
+  const [tab, setTab] = useState<"dashboard" | "posts" | "categories" | "content" | "pricing" | "media" | "home" | "seo" | "sitemap" | "tracking" | "ctas" | "ctas_audit" | "reveals" | "team" | "promotions" | "branding" | "testimonials" | "client_logos" | "leads" | "customers" | "pricing_highlights" | "features" | "pages" | "navigation" | "auth_buttons" | "auth_pages" | "help" | "page_contact" | "page_product" | "page_pricing" | "page_industries" | "page_features" | "page_blog" | "page_404" | "page_privacy" | "page_terms" | "page_about" | "page_footer">("dashboard");
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [postForm, setPostForm] = useState<PostForm>(emptyPost);
   const [catForm, setCatForm] = useState<CategoryForm>(emptyCategory);
@@ -251,7 +250,7 @@ const Admin = () => {
             </Button>
             <span className="text-muted-foreground/50">/</span>
             <span className="text-sm font-semibold text-foreground capitalize">
-              {tab === "content" ? "Site Content (advanced)" : tab === "home" ? "Home Page (advanced)" : tab === "seo" ? "SEO & Meta tags" : tab === "sitemap" ? "Sitemap & robots.txt" : tab === "integrations" ? "Tracking & integrations" : tab === "integrations_list" ? "Integrations page" : tab === "ctas" ? "Buttons & links" : tab === "ctas_audit" ? "Link audit" : tab === "reveals" ? "Section animations" : tab === "team" ? "Team access" : tab === "promotions" ? "Promotions" : tab === "branding" ? "Branding & logos" : tab === "testimonials" ? "Testimonials" : tab === "client_logos" ? "Client logos" : tab === "leads" ? "Leads" : tab === "customers" ? "Customer accounts" : tab === "pricing_highlights" ? "Pricing highlights" : tab === "features" ? "Feature pages" : tab === "auth_pages" ? "Sign in / Sign up pages" : tab === "help" ? "Admin help" : tab === "page_contact" ? "Contact page" : tab === "page_product" ? "Product page" : tab === "page_pricing" ? "Pricing page" : tab === "page_industries" ? "Industries page" : tab === "page_features" ? "Features index page" : tab === "page_blog" ? "Blog page" : tab === "page_integrations" ? "Integrations page" : tab === "page_404" ? "404 page" : tab === "page_privacy" ? "Privacy Policy" : tab === "page_terms" ? "Terms of Service" : tab === "page_about" ? "About page" : tab === "page_footer" ? "Footer" : tab}
+              {tab === "content" ? "Site Content (advanced)" : tab === "home" ? "Home Page (advanced)" : tab === "seo" ? "SEO & Meta tags" : tab === "sitemap" ? "Sitemap & robots.txt" : tab === "tracking" ? "Tracking scripts" : tab === "ctas" ? "Buttons & links" : tab === "ctas_audit" ? "Link audit" : tab === "reveals" ? "Section animations" : tab === "team" ? "Team access" : tab === "promotions" ? "Promotions" : tab === "branding" ? "Branding & logos" : tab === "testimonials" ? "Testimonials" : tab === "client_logos" ? "Client logos" : tab === "leads" ? "Leads" : tab === "customers" ? "Customer accounts" : tab === "pricing_highlights" ? "Pricing highlights" : tab === "features" ? "Feature pages" : tab === "auth_pages" ? "Sign in / Sign up pages" : tab === "help" ? "Admin help" : tab === "page_contact" ? "Contact page" : tab === "page_product" ? "Product page" : tab === "page_pricing" ? "Pricing page" : tab === "page_industries" ? "Industries page" : tab === "page_features" ? "Features index page" : tab === "page_blog" ? "Blog page" : tab === "page_404" ? "404 page" : tab === "page_privacy" ? "Privacy Policy" : tab === "page_terms" ? "Terms of Service" : tab === "page_about" ? "About page" : tab === "page_footer" ? "Footer" : tab}
             </span>
           </div>
         )}
@@ -317,8 +316,7 @@ const Admin = () => {
                 { icon: Wand2, title: "Section animations", desc: "Pick how each page section reveals on scroll", target: "reveals" as const, color: "text-fuchsia-500", show: can("reveals") },
                 { icon: Search, title: "SEO & Meta tags", desc: "Titles, descriptions, keywords, alt text", target: "seo" as const, color: "text-orange-500", show: can("seo") },
                 { icon: FileCode, title: "Sitemap & robots", desc: "Auto sitemap.xml & crawler rules", target: "sitemap" as const, color: "text-cyan-500", show: can("sitemap") },
-                { icon: Tag, title: "Tracking & integrations", desc: "GA4, GTM, Search Console, pixels", target: "integrations" as const, color: "text-pink-500", show: can("integrations") },
-                { icon: Plug, title: "Integrations page", desc: "Partner cards — edit page text on /integrations?edit=1", target: "integrations_list" as const, color: "text-teal-500", show: can("integrations") },
+                { icon: Tag, title: "Tracking scripts", desc: "GA4, GTM, Search Console, pixels", target: "tracking" as const, color: "text-pink-500", show: can("integrations") },
                 { icon: ImageIcon, title: "Media library", desc: "Uploaded images", target: "media" as const, color: "text-purple-500", show: can("media") },
               ]
                 .filter((c) => c.show)
@@ -381,7 +379,6 @@ const Admin = () => {
                     { title: "Contact page", desc: "Hero, contact info, form labels", target: "page_contact" as const },
                     { title: "About page", desc: "Hero, story, founder & UAE trust copy", target: "page_about" as const },
                     { title: "Blog page", desc: "Hero & UI labels", target: "page_blog" as const },
-                    { title: "Integrations page", desc: "Hero, sections, CTA and search labels", target: "page_integrations" as const },
                     { title: "404 page", desc: "Not-found copy & buttons", target: "page_404" as const },
                     { title: "Privacy Policy", desc: "Full legal body (rich text)", target: "page_privacy" as const },
                     { title: "Terms of Service", desc: "Full legal body (rich text)", target: "page_terms" as const },
@@ -770,11 +767,8 @@ const Admin = () => {
         {/* Sitemap & robots.txt */}
         {tab === "sitemap" && <SitemapRobotsEditor />}
 
-        {/* Tracking & integrations */}
-        {tab === "integrations" && <IntegrationsEditor />}
-
-        {/* Integrations page (cards) */}
-        {tab === "integrations_list" && <IntegrationsManager />}
+        {/* Tracking scripts */}
+        {tab === "tracking" && <TrackingScriptsEditor />}
 
         {/* CTA buttons & links */}
         {tab === "ctas" && <CtaActionsEditor />}
@@ -812,7 +806,6 @@ const Admin = () => {
         {tab === "page_industries" && <IndustriesPageEditor />}
         {tab === "page_features" && <FeaturesPageEditor />}
         {tab === "page_blog" && <BlogPageEditor />}
-        {tab === "page_integrations" && <IntegrationsPageEditor />}
         {tab === "page_404" && <NotFoundPageEditor />}
         {tab === "page_privacy" && <PrivacyPageEditor />}
         {tab === "page_terms" && <TermsPageEditor />}

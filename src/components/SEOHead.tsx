@@ -34,7 +34,7 @@ interface SEOHeadProps {
   /** Page-level Product info — emitted as Product schema (e.g. /pricing) */
   product?: ProductSchemaInput;
   /** Page-level Service info — emitted as Service schema. Auto-filled for
-   * SaaS pages (home, /product, /industries, /features, /integrations) when
+   * SaaS pages (home, /product, /industries, /features) when
    * not explicitly provided. Pass `null` to suppress the auto-emission. */
   service?: ServiceSchemaInput | null;
   /** Page-level Article info — emitted as Article schema (e.g. blog posts) */

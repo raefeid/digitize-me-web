@@ -33,7 +33,7 @@ const PAGES = [
   { id: "industries", label: "Industries" },
   { id: "features", label: "Features" },
   { id: "blog", label: "Blog" },
-  { id: "integrations", label: "Integrations" },
+  
   { id: "privacy", label: "Privacy Policy" },
   { id: "terms", label: "Terms of Service" },
   { id: "not_found", label: "404 Page" },
