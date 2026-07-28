@@ -215,6 +215,9 @@ const Product = () => {
         </div>
       </section>
 
+      {/* Integrations */}
+      <IntegrationsSection />
+
       {/* Delivery Models */}
       <section className="section-padding bg-background">
         <div className="container-max">
