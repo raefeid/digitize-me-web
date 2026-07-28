@@ -77,7 +77,7 @@ const AppRoutes = () => (
         <Route path="/ar/industries" element={<Industries />} />
         <Route path="/industries/:slug" element={<IndustryDetail />} />
         <Route path="/ar/industries/:slug" element={<IndustryDetail />} />
-        <Route path="/integrations" element={<Integrations />} />
+        
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/ar/pricing" element={<Pricing />} />
         <Route path="/contact" element={<Contact />} />
