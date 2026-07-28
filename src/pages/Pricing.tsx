@@ -195,7 +195,7 @@ const Pricing = () => {
       />
 
       {/* Hero */}
-      <section className="section-padding bg-gradient-to-b from-dm-navy-light to-background">
+      <section className="px-4 sm:px-6 lg:px-8 pt-12 md:pt-16 lg:pt-20 pb-4 md:pb-6 lg:pb-8 bg-gradient-to-b from-dm-navy-light to-background">
         <div className="container-max text-center max-w-5xl mx-auto section-stack">
           <EditableText page="pricing" section="hero" contentKey="badge" fallback={t("pricing.badge")} className="text-accent font-semibold text-sm uppercase tracking-wider" />
           <EditableText as="h1" page="pricing" section="hero" contentKey="title" fallback={t("pricing.title")} className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mt-3 mb-2 block md:whitespace-nowrap" rich />
@@ -206,7 +206,7 @@ const Pricing = () => {
 
 
           {/* Billing Cycle Toggle */}
-          <motion.div className="flex flex-col items-center gap-4" initial="hidden" animate="visible" variants={fadeUp} custom={3}>
+          <motion.div className="flex flex-col items-center gap-3" initial="hidden" animate="visible" variants={fadeUp} custom={3}>
             <div className="inline-flex flex-wrap items-center justify-center bg-primary/80 rounded-full p-1 gap-1">
               <button
                 onClick={() => setBillingCycle("monthly")}
@@ -231,7 +231,7 @@ const Pricing = () => {
               </button>
             </div>
             {canPreviewGeoComparison && (
-            <div className="flex flex-col items-center gap-3 mt-3">
+            <div className="flex flex-col items-center gap-2 mt-2">
               <div className="inline-flex flex-wrap items-center justify-center gap-1 rounded-full border border-border bg-card p-1">
                 {GEO_PREVIEW_OPTIONS.map((option) => {
                   const active = effectiveRegion === option.key;
@@ -268,7 +268,7 @@ const Pricing = () => {
       </section>
 
       {/* Pricing Cards */}
-      <section className="section-padding bg-background -mt-8">
+      <section className="px-4 sm:px-6 lg:px-8 pt-2 md:pt-4 lg:pt-6 pb-12 md:pb-16 lg:pb-20 bg-background">
         <div className="container-max">
           <SortableGrid
             items={plans.map((plan) => ({ ...plan, id: plan.key }))}
