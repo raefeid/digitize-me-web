@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import Lottie from "lottie-react";
+import { motion } from "framer-motion";
 import { FileText } from "lucide-react";
 import balanceScale from "@/assets/balance-scale.json";
 
@@ -11,7 +10,6 @@ interface OrbitFile {
   radius: number;
   duration: number;
   delay: number;
-  tilt: number;
   size: number;
 }
 
@@ -20,76 +18,59 @@ const FILES: OrbitFile[] = Array.from({ length: FILE_COUNT }, (_, i) => {
   return {
     id: i,
     radius: 150 + ring * 46 + ((i * 13) % 17),
-    duration: 14 + ring * 5 + ((i * 7) % 9),
+    duration: 26 + ring * 6 + ((i * 7) % 9),
     delay: (i * 1.7) % 12,
-    tilt: (i * 40) % 360,
     size: ring === 0 ? 34 : ring === 1 ? 30 : 26,
   };
 });
 
 /**
- * Law-firm hero visual: a scales-of-justice core with case files orbiting in
- * random circles. Periodically a retrieval beam extends from the core, locks
- * onto one file and pulls it in — the "find any document in seconds" idea.
+ * Law-firm hero visual: a scales-of-justice core (plays once on load) with
+ * case files orbiting it in calm circles.
  */
-const LawFirmHeroAnimation = () => {
-  const [targetId, setTargetId] = useState(0);
-  const [phase, setPhase] = useState<"idle" | "beam" | "fetch">("idle");
+const LawFirmHeroAnimation = () => (
+  <div
+    className="relative mx-auto aspect-square w-full max-w-[560px] select-none"
+    aria-hidden="true"
+  >
+    {/* ambient glow */}
+    <div className="absolute inset-0 rounded-full bg-accent/10 blur-3xl" />
 
-  useEffect(() => {
-    let cancelled = false;
-    const run = async () => {
-      while (!cancelled) {
-        await new Promise((r) => setTimeout(r, 1400));
-        if (cancelled) return;
-        setTargetId(Math.floor(Math.random() * FILE_COUNT));
-        setPhase("beam");
-        await new Promise((r) => setTimeout(r, 900));
-        if (cancelled) return;
-        setPhase("fetch");
-        await new Promise((r) => setTimeout(r, 1600));
-        if (cancelled) return;
-        setPhase("idle");
-      }
-    };
-    run();
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+    {/* orbit rings */}
+    {[0, 1, 2].map((ring) => (
+      <div
+        key={ring}
+        className="absolute left-1/2 top-1/2 rounded-full border border-accent/15"
+        style={{
+          width: `${(150 + ring * 46) * 2}px`,
+          height: `${(150 + ring * 46) * 2}px`,
+          transform: "translate(-50%, -50%)",
+        }}
+      />
+    ))}
 
-  
-
-  return (
-    <div
-      className="relative mx-auto aspect-square w-full max-w-[560px] select-none"
-      aria-hidden="true"
-    >
-      {/* ambient glow */}
-      <div className="absolute inset-0 rounded-full bg-accent/10 blur-3xl" />
-
-      {/* orbit rings */}
-      {[0, 1, 2].map((ring) => (
+    {/* orbiting files */}
+    {FILES.map((file) => (
+      <motion.div
+        key={file.id}
+        className="absolute left-1/2 top-1/2"
+        style={{ width: 0, height: 0 }}
+        animate={{ rotate: 360 }}
+        transition={{
+          duration: file.duration,
+          repeat: Infinity,
+          ease: "linear",
+          delay: -file.delay,
+        }}
+      >
         <div
-          key={ring}
-          className="absolute left-1/2 top-1/2 rounded-full border border-accent/15"
+          className="absolute"
           style={{
-            width: `${(150 + ring * 46) * 2}px`,
-            height: `${(150 + ring * 46) * 2}px`,
-            transform: "translate(-50%, -50%)",
+            transform: `translate(${file.radius}px, 0) translate(-50%, -50%)`,
           }}
-        />
-      ))}
-
-      {/* orbiting files */}
-      {FILES.map((file) => {
-        const isTarget = file.id === targetId && phase !== "idle";
-        return (
+        >
           <motion.div
-            key={file.id}
-            className="absolute left-1/2 top-1/2"
-            style={{ width: 0, height: 0 }}
-            animate={{ rotate: 360 }}
+            animate={{ rotate: -360 }}
             transition={{
               duration: file.duration,
               repeat: Infinity,
@@ -97,78 +78,27 @@ const LawFirmHeroAnimation = () => {
               delay: -file.delay,
             }}
           >
-            {/* retrieval beam — rides the target file's orbit so it always aims at it */}
-            {isTarget && (
-              <motion.div
-                className="absolute left-0 top-0 h-[2px] origin-left -translate-y-1/2 rounded-full bg-gradient-to-r from-accent via-accent/70 to-accent shadow-[0_0_12px_hsl(var(--accent)/0.8)]"
-                initial={{ width: 0, opacity: 0 }}
-                animate={{
-                  width: phase === "fetch" ? 0 : file.radius,
-                  opacity: 1,
-                }}
-                exit={{ width: 0, opacity: 0 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-              />
-            )}
-            <motion.div
-              className="absolute"
-              animate={{
-                x: isTarget && phase === "fetch" ? 0 : file.radius,
-                y: 0,
-              }}
-              transition={{ duration: 0.9, ease: "easeInOut" }}
-              style={{ translateX: "-50%", translateY: "-50%" }}
+            <div
+              className="flex items-center justify-center rounded-lg border border-border bg-card/90 shadow-sm backdrop-blur-sm"
+              style={{ width: file.size + 12, height: file.size + 16 }}
             >
-
-              <motion.div
-                animate={{ rotate: -360 }}
-                transition={{
-                  duration: file.duration,
-                  repeat: Infinity,
-                  ease: "linear",
-                  delay: -file.delay,
-                }}
-              >
-                <motion.div
-                  className={`flex items-center justify-center rounded-lg border shadow-sm backdrop-blur-sm ${
-                    isTarget
-                      ? "border-accent bg-accent/20 shadow-[0_0_18px_hsl(var(--accent)/0.55)]"
-                      : "border-border bg-card/90"
-                  }`}
-                  style={{ width: file.size + 12, height: file.size + 16 }}
-                  animate={{
-                    scale: isTarget ? 1.15 : 1,
-                    opacity: isTarget || phase === "idle" ? 1 : 0.65,
-                  }}
-                  transition={{ duration: 0.4 }}
-                >
-                  <FileText
-                    size={file.size * 0.5}
-                    className={isTarget ? "text-accent" : "text-muted-foreground"}
-                  />
-                </motion.div>
-              </motion.div>
-
-            </motion.div>
+              <FileText size={file.size * 0.5} className="text-muted-foreground" />
+            </div>
           </motion.div>
-        );
-      })}
-
-      {/* core */}
-      <motion.div
-        className="absolute left-1/2 top-1/2 flex h-56 w-56 -translate-x-1/2 -translate-y-1/2 items-center justify-center"
-        animate={{ scale: phase === "fetch" ? [1, 1.05, 1] : 1 }}
-        transition={{ duration: 0.8 }}
-      >
-        <Lottie
-          animationData={balanceScale}
-          loop={false}
-          autoplay
-          className="h-full w-full"
-        />
+        </div>
       </motion.div>
+    ))}
+
+    {/* core */}
+    <div className="absolute left-1/2 top-1/2 flex h-60 w-60 -translate-x-1/2 -translate-y-1/2 items-center justify-center">
+      <Lottie
+        animationData={balanceScale}
+        loop={false}
+        autoplay
+        className="h-full w-full"
+      />
     </div>
-  );
-};
+  </div>
+);
 
 export default LawFirmHeroAnimation;
