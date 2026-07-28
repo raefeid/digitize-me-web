@@ -90,7 +90,7 @@ const LawFirmHeroAnimation = () => (
     ))}
 
     {/* core */}
-    <div className="absolute left-1/2 top-1/2 flex h-60 w-60 -translate-x-1/2 -translate-y-1/2 items-center justify-center">
+    <div className="absolute left-1/2 top-1/2 flex h-80 w-80 -translate-x-1/2 -translate-y-1/2 items-center justify-center">
       <Lottie
         animationData={balanceScale}
         loop={false}
