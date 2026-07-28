@@ -9,7 +9,7 @@ import { useSiteContent } from "@/hooks/useSiteContent";
 
 import ScrollFeatureShowcase from "@/components/product/ScrollFeatureShowcase";
 import AnimatedWorkflow from "@/components/product/AnimatedWorkflow";
-
+import IntegrationsSection from "@/components/product/IntegrationsSection";
 
 import EditableText from "@/components/cms/EditableText";
 import EditableImage from "@/components/cms/EditableImage";
