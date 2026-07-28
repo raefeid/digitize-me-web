@@ -137,7 +137,7 @@ const Product = () => {
             section="hero"
             contentKey="product_title"
             fallback={t("product.title")}
-            className="gradient-text block text-4xl font-bold leading-[1.15] tracking-tight sm:text-5xl md:text-6xl lg:text-[4.25rem]"
+            className="gradient-text mx-auto block max-w-4xl text-balance text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl md:text-6xl lg:text-[4.25rem]"
             rich
           />
           <EditableText
