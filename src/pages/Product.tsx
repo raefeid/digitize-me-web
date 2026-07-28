@@ -355,14 +355,11 @@ const Product = () => {
       {/* CTA */}
       <section className="section-padding bg-primary text-primary-foreground">
         <div className="container-max text-center">
-          <EditableText as="h2" page="product" section="cta" contentKey="product_cta_title" fallback={t("product.cta.title")} className="text-3xl md:text-4xl font-bold mb-4 block" rich />
+          <EditableText as="h2" page="product" section="cta" contentKey="product_cta_title" fallback={t("product.cta.title")} className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 block" rich />
           <EditableText as="p" page="product" section="cta" contentKey="product_cta_desc" fallback={t("product.cta.desc")} multiline className="text-primary-foreground/70 max-w-xl mx-auto mb-8" rich />
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex justify-center">
             <CtaButton ctaKey="product_cta_demo" size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 px-8">
               <EditableText page="product" section="cta" contentKey="cta_demo_label" fallback={t("common.bookDemo")} />
-            </CtaButton>
-            <CtaButton ctaKey="product_cta_pricing" size="lg" variant="outline" className="bg-white border-white text-primary hover:bg-white/90 px-8">
-              <EditableText page="product" section="cta" contentKey="cta_pricing_label" fallback={t("common.viewPricing")} />
             </CtaButton>
           </div>
         </div>
