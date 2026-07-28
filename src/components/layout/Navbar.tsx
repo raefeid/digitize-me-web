@@ -251,87 +251,14 @@ const Navbar = () => {
           <div className="hidden xl:flex flex-1 min-w-0 justify-center px-2">
             <div className="flex items-center gap-0.5 xl:gap-0.5 2xl:gap-1 bg-muted/60 rounded-[1.15rem] px-1 xl:px-1.5 2xl:px-2 py-1.5 border border-border/40 max-w-full">
             {navLinks.map((link) => {
-              if (link.dropdown === "product") {
-                return (
-                  <div
-                    key={link.href}
-                    className="relative"
-                    ref={productRef}
-                    onMouseEnter={() => handleEnter("product")}
-                    onMouseLeave={() => handleLeave("product")}
-                  >
-                    <Link
-                      to={link.href}
-                      className={`flex items-center gap-1 xl:gap-1.5 px-2.5 xl:px-3 2xl:px-4 py-2 rounded-xl text-[0.95rem] 2xl:text-sm font-medium transition-all duration-200 whitespace-nowrap ${
-                        location.pathname.startsWith("/product") || location.pathname.startsWith("/features")
-                          ? "text-accent bg-card shadow-[0_4px_12px_hsl(var(--foreground)/0.06)]"
-                          : "text-muted-foreground hover:text-foreground hover:bg-card/80"
-                      }`}
-                    >
-                      {link.label}
-                      <ChevronDown size={13} className={`transition-transform duration-200 ${productOpen ? "rotate-180" : ""}`} />
-                    </Link>
-
-                    {productOpen && (
-                      <div className={`absolute top-full mt-3 ${isRTL ? "right-0" : "left-1/2 -translate-x-1/2"} bg-card/95 backdrop-blur-xl border border-border/60 rounded-2xl shadow-[0_22px_50px_hsl(var(--foreground)/0.12)] py-2 px-2 z-50 w-[210px] animate-in fade-in-0 zoom-in-95 duration-150`}>
-                        <Link
-                          to={localizeInternalPath("/product", lang)}
-                          onClick={() => { setProductOpen(false); setFeaturesFlyoutOpen(false); }}
-                          className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors ${
-                            location.pathname === "/product" || location.pathname === "/ar/product"
-                              ? "text-accent bg-accent/10 font-medium"
-                              : "text-muted-foreground hover:text-foreground hover:bg-muted/80"
-                          }`}
-                        >
-                          {isRTL ? "نظرة عامة" : "Overview"}
-                        </Link>
-
-                        {publishedFeatures.length > 0 && (
-                          <>
-                            <div className="mx-3 my-1.5 h-px bg-border/60" />
-                            <p className="px-3 pb-1.5 text-[0.7rem] font-semibold uppercase tracking-wider text-muted-foreground">
-                              {isRTL ? "الميزات" : "Features"}
-                            </p>
-                            {publishedFeatures.map((f) => {
-                              const title = (lang === "ar" && f.hero_title_ar) || f.hero_title;
-                              const active = location.pathname === `/features/${f.slug}`;
-                              return (
-                                <Link
-                                  key={f.id}
-                                  to={`/features/${f.slug}`}
-                                  onClick={() => { setProductOpen(false); setFeaturesFlyoutOpen(false); }}
-                                  className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors ${
-                                    active ? "text-accent bg-accent/10 font-medium" : "text-muted-foreground hover:text-foreground hover:bg-muted/80"
-                                  }`}
-                                >
-                                  <FeatureIcon name={f.icon} className="w-3.5 h-3.5 text-accent/70" />
-                                  <span className="truncate">{title}</span>
-                                </Link>
-                              );
-                            })}
-                            <Link
-                              to={localizeInternalPath("/features", lang)}
-                              onClick={() => { setProductOpen(false); setFeaturesFlyoutOpen(false); }}
-                              className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-accent hover:bg-accent/10 transition-colors font-medium"
-                            >
-                              {isRTL ? "كل الميزات" : "View all features"}
-                            </Link>
-                          </>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                );
-              }
-
               if (link.dropdown === "industries") {
                 return (
                   <div
                     key={link.href}
                     className="relative"
                     ref={industriesRef}
-                    onMouseEnter={() => handleEnter("industries")}
-                    onMouseLeave={() => handleLeave("industries")}
+                    onMouseEnter={handleEnter}
+                    onMouseLeave={handleLeave}
                   >
                     <Link
                       to={link.href}
