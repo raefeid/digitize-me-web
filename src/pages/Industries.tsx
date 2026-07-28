@@ -1,8 +1,7 @@
 import { motion } from "framer-motion";
 import { Link, useParams } from "react-router-dom";
 import { ArrowRight, CheckCircle, Scale, DollarSign, Truck, Building2, Stethoscope, GraduationCap, Factory, HardHat, Landmark, ShoppingBag, Droplets, Briefcase, ShieldCheck, LucideIcon } from "lucide-react";
-import IndustryIllustration from "@/components/industries/IndustryIllustration";
-import LawFirmHeroAnimation from "@/components/industries/LawFirmHeroAnimation";
+import IndustryHeroAnimation from "@/components/industries/IndustryHeroAnimation";
 import { RollingText } from "@/components/ui/RollingText";
 
 import { Button } from "@/components/ui/button";
@@ -11,7 +10,6 @@ import SEOHead from "@/components/SEOHead";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { industryTranslationsAr } from "@/i18n/industryTranslations";
 import EditableText from "@/components/cms/EditableText";
-import EditableImage from "@/components/cms/EditableImage";
 import EditableIcon from "@/components/cms/EditableIcon";
 import CtaButton from "@/components/cms/CtaButton";
 import EditableCardGrid from "@/components/cms/EditableCardGrid";
@@ -388,17 +386,11 @@ export const IndustryDetail = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className={`hidden md:block ${isLawFirms ? "md:order-1" : "md:order-2"}`}
+            className="hidden md:block md:order-1"
           >
-            {isLawFirms ? (
-              <LawFirmHeroAnimation />
-            ) : (
-              <EditableImage page={`industry_${slug}`} slotKey="hero_illustration" alt={industry.name}>
-                <IndustryIllustration slug={slug || ""} />
-              </EditableImage>
-            )}
+            <IndustryHeroAnimation icon={industryEn.icon} useLottie={isLawFirms} />
           </motion.div>
-          <div className={isLawFirms ? "md:order-2" : "md:order-1"}>
+          <div className="md:order-2">
             <h1 className="sr-only">{semanticIndustryH1}</h1>
             <motion.div className="flex items-center gap-3 mb-4" initial="hidden" animate="visible" variants={fadeUp} custom={0}>
               <EditableIcon page="industries" slotKey={`detail_${slug}_icon`} size={32}>
@@ -406,13 +398,8 @@ export const IndustryDetail = () => {
               </EditableIcon>
               <span className="text-accent font-semibold text-sm uppercase tracking-wider">{landing.heroEyebrow}</span>
             </motion.div>
-            <EditableText as="h2" page={`industry_${slug}`} section="hero" contentKey="headline" fallback={industry.headline} className={`font-bold text-foreground mb-5 block text-balance ${isLawFirms ? "text-4xl md:text-6xl leading-[1.12] pb-1" : "text-3xl md:text-5xl"}`} rich />
-            <EditableText as="p" page={`industry_${slug}`} section="hero" contentKey="description" fallback={industry.description} multiline className={`text-muted-foreground mb-8 ${isLawFirms ? "text-base md:text-lg max-w-xl line-clamp-3" : "text-lg"}`} rich />
-            {!isLawFirms && (
-              <p className="text-sm md:text-base text-muted-foreground mb-6 max-w-2xl">
-                {landing.heroSupporting}
-              </p>
-            )}
+            <EditableText as="h2" page={`industry_${slug}`} section="hero" contentKey="headline" fallback={industry.headline} className="font-bold text-foreground mb-5 block text-balance text-4xl md:text-6xl leading-[1.12] pb-1" rich />
+            <EditableText as="p" page={`industry_${slug}`} section="hero" contentKey="description" fallback={industry.description} multiline className="text-muted-foreground mb-8 text-base md:text-lg max-w-xl line-clamp-3" rich />
             <div className="flex flex-wrap gap-2 mb-8">
               {landing.keywordPillars.map((keyword) => (
                 <span key={keyword} className="inline-flex px-3 py-1 rounded-full border border-accent/20 bg-accent/10 text-accent text-xs font-medium">
@@ -425,18 +412,8 @@ export const IndustryDetail = () => {
                 <EditableText page={`industry_${slug}`} section="hero" contentKey="cta_demo_label" fallback={t("common.bookDemo")} />
                 <ArrowRight size={16} className={isRTL ? "mr-2 rotate-180" : "ml-2"} />
               </CtaButton>
-              {!isLawFirms && (
-                <CtaButton
-                  ctaKey={`industries_detail_hero_pricing_${slug}`}
-                  customLocation={`Industry detail (${slug}) — Hero View pricing`}
-                  variant="outline"
-                  defaultStyle={{ variant: "outline" }}
-                  defaultTo="/pricing"
-                >
-                  <EditableText page={`industry_${slug}`} section="hero" contentKey="cta_pricing_label" fallback={t("common.viewPricing")} />
-                </CtaButton>
-              )}
             </motion.div>
+
           </div>
         </div>
       </section>
