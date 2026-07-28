@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { Link, useParams } from "react-router-dom";
 import { ArrowRight, CheckCircle, Scale, DollarSign, Truck, Building2, Stethoscope, GraduationCap, Factory, HardHat, Landmark, ShoppingBag, Droplets, Briefcase, ShieldCheck, LucideIcon } from "lucide-react";
-import IndustryIllustration from "@/components/industries/IndustryIllustration";
 import IndustryHeroAnimation from "@/components/industries/IndustryHeroAnimation";
 import { RollingText } from "@/components/ui/RollingText";
 
@@ -11,7 +10,6 @@ import SEOHead from "@/components/SEOHead";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { industryTranslationsAr } from "@/i18n/industryTranslations";
 import EditableText from "@/components/cms/EditableText";
-import EditableImage from "@/components/cms/EditableImage";
 import EditableIcon from "@/components/cms/EditableIcon";
 import CtaButton from "@/components/cms/CtaButton";
 import EditableCardGrid from "@/components/cms/EditableCardGrid";
