@@ -12,7 +12,7 @@ import EditModeBar from "@/components/cms/EditModeBar";
 import FormatToolbar from "@/components/cms/FormatToolbar";
 import { PromotionsHost } from "@/components/promotions/PromotionsHost";
 import { GeoProvider } from "@/hooks/useGeoLocation";
-import { Suspense, lazy, useEffect } from "react";
+import { Suspense, lazy, useLayoutEffect } from "react";
 import LaunchOverlay from "@/components/transitions/LaunchOverlay";
 
 const queryClient = new QueryClient();
@@ -51,11 +51,12 @@ const ChatbotMount = () => {
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
-  useEffect(() => {
-    window.scrollTo(0, 0);
+  useLayoutEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior });
   }, [pathname]);
   return null;
 };
+
 
 const TrackingLoader = () => {
   useTrackingScripts();
