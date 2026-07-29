@@ -120,7 +120,11 @@
 
   html {
     overflow-x: hidden;
+    /* Always reserve the vertical scrollbar gutter so short pages (and the
+       lazy-route loading fallback) don't shift content sideways on navigation. */
+    scrollbar-gutter: stable;
   }
+
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
