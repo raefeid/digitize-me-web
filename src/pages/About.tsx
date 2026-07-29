@@ -59,7 +59,11 @@ const About = () => {
               page="about"
               section="hero"
               contentKey="title"
-              fallback={isRTL ? "عن Digitize me." : "About Digitize me."}
+              fallback={
+                isRTL
+                  ? "ثلاثة عقود من ذكاء المستندات. مصمّمة للإمارات."
+                  : "Three Decades of Document Intelligence. Built for the UAE."
+              }
               className="text-5xl md:text-6xl lg:text-7xl font-bold text-foreground mt-4 mb-6 block leading-[1.05]"
               rich
             />
