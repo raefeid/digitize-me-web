@@ -56,7 +56,7 @@ const AboutOffices = () => {
             page="about"
             section="offices"
             contentKey="title"
-            fallback={isRTL ? "قريبون منك — على الأرض" : "Close to you, on the ground"}
+            fallback={isRTL ? "حضور محلي. خبرة إقليمية." : "Local Presence. Regional Expertise."}
             className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mt-3 block leading-tight"
             rich
           />
