@@ -24,7 +24,11 @@ const ClientLogosCarousel = () => {
         page="home"
         section="client_logos"
         contentKey="label"
-        fallback={isRTL ? "شركات تثق بنا" : "Companies that trust us"}
+        fallback={
+          isRTL
+            ? "موثوق من الحكومات والمؤسسات والشركات في دول الخليج"
+            : "Trusted by Governments, Enterprises and Businesses Across the GCC"
+        }
         className="block text-center text-sm text-foreground/70 font-semibold uppercase tracking-[0.2em] mb-8"
       />
       <div className="relative">
