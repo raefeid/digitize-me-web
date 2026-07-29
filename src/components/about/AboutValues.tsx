@@ -47,8 +47,8 @@ const VALUES = [
   {
     slot: "v5",
     Icon: Users,
-    titleEn: "Family",
-    titleAr: "العائلة",
+    titleEn: "Long-Term Partnerships",
+    titleAr: "شراكات طويلة الأمد",
     descEn:
       "Three decades, one regional team. Clients stay with us for years because the people behind the platform stay too.",
     descAr:
