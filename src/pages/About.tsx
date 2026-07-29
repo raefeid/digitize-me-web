@@ -33,21 +33,21 @@ const About = () => {
         pageKey="about"
       />
 
-      {/* Hero */}
+      {/* Hero — statement led */}
       <section className="section-padding bg-gradient-to-b from-dm-navy-light to-background">
         <div className="container-max">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="max-w-3xl"
+            className="max-w-4xl"
           >
             <EditableText
               as="span"
               page="about"
               section="hero"
               contentKey="eyebrow"
-              fallback={isRTL ? "من نحن" : "About Digitize me"}
+              fallback={isRTL ? "من نحن ولماذا نحن هنا." : "Who we are and why we're here."}
               className="text-accent font-semibold text-sm uppercase tracking-wider"
             />
             <EditableText
@@ -55,12 +55,8 @@ const About = () => {
               page="about"
               section="hero"
               contentKey="title"
-              fallback={
-                isRTL
-                  ? "نحوّل الورق إلى ذكاء — منذ أكثر من ٣٠ عامًا"
-                  : "Turning paper into intelligence — for 30+ years"
-              }
-              className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mt-3 mb-6 block leading-tight"
+              fallback={isRTL ? "عن Digitize me." : "About Digitize me."}
+              className="text-5xl md:text-6xl lg:text-7xl font-bold text-foreground mt-4 mb-6 block leading-[1.05]"
               rich
             />
             <EditableText
@@ -70,10 +66,10 @@ const About = () => {
               contentKey="desc"
               fallback={
                 isRTL
-                  ? "Digitize me هو ثمرة عقود من خبرة مجموعتنا في إدارة المستندات المؤسسية والتحول الرقمي عبر الشرق الأوسط — مغلّفة الآن في منصة SaaS مدعومة بالذكاء الاصطناعي ومستضافة في الإمارات."
-                  : "Digitize me is the product of decades of regional expertise in enterprise document management and digital transformation — now packaged into an AI-powered SaaS platform, hosted in the UAE."
+                  ? "تساعد Digitize me المؤسسات على تحويل الورق إلى معرفة قابلة للبحث والاستخدام بالذكاء الاصطناعي."
+                  : "Digitize me helps organizations turn paper archives into searchable, usable intelligence with AI."
               }
-              className="text-lg md:text-xl text-muted-foreground mb-8"
+              className="text-xl md:text-2xl text-muted-foreground max-w-3xl mb-8"
               rich
               multiline
             />
@@ -97,9 +93,24 @@ const About = () => {
         </div>
       </section>
 
+      {/* Values */}
+      <AboutValues />
+
+      {/* Our story */}
       <StoryTimeline />
+
+      {/* Our founders */}
       <FoundersMessage />
+
+      {/* Our customers */}
+      <ClientLogosCarousel />
+
+      {/* Our offices */}
+      <AboutOffices />
       <UAETrustBlock />
+
+      {/* In the news */}
+      <AboutNews />
 
       {/* CTA footer */}
       <section className="section-padding bg-primary text-primary-foreground">
@@ -109,7 +120,7 @@ const About = () => {
             page="about"
             section="cta"
             contentKey="title"
-            fallback={isRTL ? "هل أنت جاهز لرؤية Digitize me يعمل؟" : "Ready to see Digitize me in action?"}
+            fallback={isRTL ? "اكتشف ما يمكن أن تقدّمه Digitize me لك" : "Discover what Digitize me can do for you"}
             className="text-3xl md:text-4xl font-bold mb-4 block"
             rich
           />
@@ -142,6 +153,7 @@ const About = () => {
           </CtaButton>
         </div>
       </section>
+
     </Layout>
   );
 };
