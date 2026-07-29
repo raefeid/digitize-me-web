@@ -12,7 +12,7 @@ import EditModeBar from "@/components/cms/EditModeBar";
 import FormatToolbar from "@/components/cms/FormatToolbar";
 import { PromotionsHost } from "@/components/promotions/PromotionsHost";
 import { GeoProvider } from "@/hooks/useGeoLocation";
-import { Suspense, lazy, useEffect } from "react";
+import { Suspense, lazy, useLayoutEffect } from "react";
 import LaunchOverlay from "@/components/transitions/LaunchOverlay";
 
 const queryClient = new QueryClient();
