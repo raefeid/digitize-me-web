@@ -10,6 +10,10 @@ import StoryTimeline from "@/components/about/StoryTimeline";
 import FoundersMessage from "@/components/about/FoundersMessage";
 import UAETrustBlock from "@/components/about/UAETrustBlock";
 import UAEHostingBadge from "@/components/common/UAEHostingBadge";
+import AboutValues from "@/components/about/AboutValues";
+import AboutOffices from "@/components/about/AboutOffices";
+import AboutNews from "@/components/about/AboutNews";
+import ClientLogosCarousel from "@/components/home/ClientLogosCarousel";
 
 const About = () => {
   const { isRTL } = useLanguage();
