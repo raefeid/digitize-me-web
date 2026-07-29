@@ -15,8 +15,8 @@ const MILESTONES: Milestone[] = [
   {
     key: "m1",
     year: "1993",
-    titleEn: "The group is founded",
-    titleAr: "تأسيس المجموعة",
+    titleEn: "Establishing the Foundation",
+    titleAr: "إرساء الأساس",
     descEn:
       "Our parent group begins operations in the Middle East with a focus on imaging, digital capture and enterprise content management.",
     descAr:
@@ -25,8 +25,8 @@ const MILESTONES: Milestone[] = [
   {
     key: "m2",
     year: "2002",
-    titleEn: "Regional expansion",
-    titleAr: "التوسع الإقليمي",
+    titleEn: "Expanding Across the GCC",
+    titleAr: "التوسع في دول الخليج",
     descEn:
       "Offices open across the GCC. We start delivering ECM, archiving and workflow projects for banks, government and enterprise clients.",
     descAr:
@@ -35,8 +35,8 @@ const MILESTONES: Milestone[] = [
   {
     key: "m3",
     year: "2012",
-    titleEn: "Digital transformation practice",
-    titleAr: "ممارسة التحول الرقمي",
+    titleEn: "Advancing Enterprise Information Management",
+    titleAr: "تطوير إدارة معلومات المؤسسات",
     descEn:
       "We formalize a dedicated digital transformation practice — combining bilingual OCR, BPM and consulting for document-heavy industries.",
     descAr:
@@ -45,8 +45,8 @@ const MILESTONES: Milestone[] = [
   {
     key: "m4",
     year: "2020",
-    titleEn: "Digitize me is born",
-    titleAr: "إطلاق Digitize me",
+    titleEn: "From Enterprise Expertise to SaaS Innovation",
+    titleAr: "من خبرة المؤسسات إلى ابتكار SaaS",
     descEn:
       "After 25+ years of enterprise projects, we package the platform as a SaaS product: Digitize me — purpose-built for Arabic & English document workflows.",
     descAr:
@@ -55,8 +55,8 @@ const MILESTONES: Milestone[] = [
   {
     key: "m5",
     year: "2023",
-    titleEn: "UAE cloud rollout",
-    titleAr: "إطلاق السحابة في الإمارات",
+    titleEn: "Strengthening Regional Trust",
+    titleAr: "تعزيز الثقة الإقليمية",
     descEn:
       "We move the SaaS infrastructure to UAE-hosted cloud regions — ensuring data residency, low latency and full regional compliance.",
     descAr:
@@ -65,8 +65,8 @@ const MILESTONES: Milestone[] = [
   {
     key: "m6",
     year: "Today",
-    titleEn: "Trusted across the region",
-    titleAr: "موثوق في جميع أنحاء المنطقة",
+    titleEn: "Built on Experience. Focused on the Future.",
+    titleAr: "مبنيّ على الخبرة. موجّه نحو المستقبل.",
     descEn:
       "30+ years of group expertise, hundreds of customers across the GCC, and a roadmap that keeps pushing AI-powered document automation forward.",
     descAr:
@@ -93,7 +93,7 @@ const StoryTimeline = () => {
             page="about"
             section="story"
             contentKey="title"
-            fallback={isRTL ? "أكثر من ٣٠ عامًا من التحول الرقمي" : "30+ years of digital transformation"}
+            fallback={isRTL ? "ثلاثة عقود من الريادة في إدارة المستندات" : "Three Decades of Regional Document Expertise"}
             className="text-3xl md:text-4xl font-bold text-foreground mt-3 mb-4 block"
             rich
           />

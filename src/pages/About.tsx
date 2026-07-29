@@ -59,7 +59,11 @@ const About = () => {
               page="about"
               section="hero"
               contentKey="title"
-              fallback={isRTL ? "عن Digitize me." : "About Digitize me."}
+              fallback={
+                isRTL
+                  ? "ثلاثة عقود من ذكاء المستندات. مصمّمة للإمارات."
+                  : "Three Decades of Document Intelligence. Built for the UAE."
+              }
               className="text-5xl md:text-6xl lg:text-7xl font-bold text-foreground mt-4 mb-6 block leading-[1.05]"
               rich
             />
@@ -70,8 +74,8 @@ const About = () => {
               contentKey="desc"
               fallback={
                 isRTL
-                  ? "تساعد Digitize me المؤسسات على تحويل الورق إلى معرفة قابلة للبحث والاستخدام بالذكاء الاصطناعي."
-                  : "Digitize me helps organizations turn paper archives into searchable, usable intelligence with AI."
+                  ? "لأكثر من ثلاثة عقود، ساعدنا الجهات الحكومية والمؤسسات والقطاعات الخاضعة للتنظيم على إدارة المعلومات على نطاق واسع. تنقل Digitize me هذه الخبرة إلى منصة سحابية مبنية لأعمال الإمارات اليوم."
+                  : "For over three decades, we've helped governments, enterprises and regulated industries manage information at scale. Digitize me brings that expertise into a cloud platform built for today's UAE businesses."
               }
               className="text-xl md:text-2xl text-muted-foreground max-w-3xl mb-8"
               rich

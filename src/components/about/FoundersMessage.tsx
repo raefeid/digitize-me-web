@@ -60,8 +60,8 @@ const FoundersMessage = () => {
               contentKey="heading"
               fallback={
                 isRTL
-                  ? "نبني المنصة التي كنا نتمناها قبل ٣٠ عامًا"
-                  : "Building the platform we wished existed 30 years ago"
+                  ? "ثلاثة عقود من التعلّم. منصة واحدة."
+                  : "Three Decades of Learning. One Platform."
               }
               className="text-3xl md:text-4xl font-bold text-foreground mt-3 mb-6 block"
               rich
@@ -74,8 +74,8 @@ const FoundersMessage = () => {
               contentKey="message"
               fallback={
                 isRTL
-                  ? "لأكثر من ثلاثة عقود، رأينا مؤسسات المنطقة وهي تكافح مع جبال من الورق وأنظمة لا تتحدث العربية بطلاقة. Digitize me هو حصيلة كل ما تعلمناه: منصة ذكاء اصطناعي مبنية في الإمارات، تفهم لغتنا، وتحترم بياناتنا، وتُسرّع أعمالنا. شكرًا لثقتكم — ما زالت أفضل فصولنا قادمة."
-                  : "For more than three decades we've watched organizations across the region wrestle with paper mountains and systems that don't speak Arabic fluently. Digitize me is everything we've learned, distilled into one platform: AI built in the UAE, fluent in our language, respectful of our data, and obsessive about speed. Thank you for trusting us — our best chapters are still ahead."
+                  ? "على مدى أكثر من ثلاثة عقود، عملنا مع جهات حكومية ومؤسسات وقطاعات خاضعة للتنظيم في المنطقة. التحدي الحقيقي لم يكن الورق يومًا، بل تشتّت المعلومات: سجلات موزّعة بين أنظمة وفرق ومواقع، ومتطلبات امتثال لا تحتمل التأخير. Digitize me هي خلاصة تلك الخبرة — منصة تجمع المعلومات في مكان واحد، وتدعم التميّز التشغيلي، وتحترم متطلبات الامتثال وإقامة البيانات في المنطقة. شكرًا لثقتكم — ما زالت أفضل فصولنا قادمة."
+                  : "For more than three decades we have worked alongside governments, enterprises and regulated industries across the region. The real challenge was never paper — it was fragmented information: records scattered across systems, teams and locations, with compliance obligations that leave no room for delay. Digitize me is the distillation of that experience: one platform that brings information together, supports operational excellence, and respects the compliance and data residency requirements of this region. Thank you for trusting us — our best chapters are still ahead."
               }
               className="text-lg text-muted-foreground leading-relaxed"
               rich
