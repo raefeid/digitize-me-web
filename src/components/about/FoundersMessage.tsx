@@ -60,8 +60,8 @@ const FoundersMessage = () => {
               contentKey="heading"
               fallback={
                 isRTL
-                  ? "نبني المنصة التي كنا نتمناها قبل ٣٠ عامًا"
-                  : "Building the platform we wished existed 30 years ago"
+                  ? "ثلاثة عقود من التعلّم. منصة واحدة."
+                  : "Three Decades of Learning. One Platform."
               }
               className="text-3xl md:text-4xl font-bold text-foreground mt-3 mb-6 block"
               rich
