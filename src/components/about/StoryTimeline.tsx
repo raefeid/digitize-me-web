@@ -121,9 +121,9 @@ const StoryTimeline = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.4, delay: i * 0.05 }}
-              className="ms-6"
+              className="relative ms-6"
             >
-              <span className="absolute -start-[10px] mt-1 w-5 h-5 rounded-full bg-accent ring-4 ring-background" />
+              <span className="absolute -start-[34px] top-1 w-5 h-5 rounded-full bg-accent ring-4 ring-background" />
               <EditableText
                 as="div"
                 page="about"
