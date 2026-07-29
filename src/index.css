@@ -119,7 +119,10 @@
   }
 
   html {
-    overflow-x: hidden;
+    /* `clip` (not `hidden`) prevents horizontal overflow WITHOUT creating a
+       scroll container — `hidden` silently breaks every `position: sticky`
+       descendant (e.g. the product page scroll showcase video). */
+    overflow-x: clip;
     /* Always reserve the vertical scrollbar gutter so short pages (and the
        lazy-route loading fallback) don't shift content sideways on navigation. */
     scrollbar-gutter: stable;
@@ -130,7 +133,7 @@
     @apply bg-background text-foreground font-sans antialiased;
     font-family: 'Plus Jakarta Sans', sans-serif;
     text-rendering: optimizeLegibility;
-    overflow-x: hidden;
+    overflow-x: clip;
     max-width: 100vw;
   }
 
