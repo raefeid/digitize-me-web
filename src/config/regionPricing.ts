@@ -22,40 +22,35 @@ export interface PlanPricing {
   DEFAULT: RegionPrice;
 }
 
-// SAR ≈ AED (1 AED ≈ 1.02 SAR), so we mirror AE pricing for SA by default.
-// Admins can override per-region from the Pricing editor.
-
-// Individual plans
-// Annual pricing per image: Starter AED 15,000/yr, Business AED 25,000/yr, Professional AED 50,000/yr.
-// `yearly` = per-month equivalent when billed annually; `monthly` = month-to-month.
+// Per-user SaaS pricing. Yearly = ~30% discount on the monthly per-user rate.
 export const individualPricing: Record<string, PlanPricing> = {
-  free: {
-    EG: { monthly: 0, yearly: 0 },
-    AE: { monthly: 0, yearly: 0 },
-    SA: { monthly: 0, yearly: 0 },
-    DEFAULT: { monthly: 0, yearly: 0 },
+  individual: {
+    EG: { monthly: 450, yearly: 315 },
+    AE: { monthly: 55, yearly: 39 },
+    SA: { monthly: 55, yearly: 39 },
+    DEFAULT: { monthly: 15, yearly: 11 },
   },
   starter: {
-    EG: { monthly: 11900, yearly: 10625 },
-    AE: { monthly: 1400, yearly: 1250 },
-    SA: { monthly: 1400, yearly: 1250 },
-    DEFAULT: { monthly: 341, yearly: 292 },
+    EG: { monthly: 600, yearly: 420 },
+    AE: { monthly: 73, yearly: 51 },
+    SA: { monthly: 73, yearly: 51 },
+    DEFAULT: { monthly: 20, yearly: 14 },
   },
-  sme: {
-    EG: { monthly: 19550, yearly: 17700 },
-    AE: { monthly: 2300, yearly: 2083 },
-    SA: { monthly: 2300, yearly: 2083 },
-    DEFAULT: { monthly: 568, yearly: 491 },
+  productivity: {
+    EG: { monthly: 900, yearly: 630 },
+    AE: { monthly: 110, yearly: 77 },
+    SA: { monthly: 110, yearly: 77 },
+    DEFAULT: { monthly: 30, yearly: 21 },
   },
-  enterprise: {
-    EG: { monthly: 38250, yearly: 35400 },
-    AE: { monthly: 4500, yearly: 4167 },
-    SA: { monthly: 4500, yearly: 4167 },
-    DEFAULT: { monthly: 1093, yearly: 985 },
+  professional: {
+    EG: { monthly: 1500, yearly: 1050 },
+    AE: { monthly: 184, yearly: 129 },
+    SA: { monthly: 184, yearly: 129 },
+    DEFAULT: { monthly: 50, yearly: 35 },
   },
 };
 
-// Business plans
+// Business plans (kept for other pages that still reference them)
 export const businessPricing: Record<string, PlanPricing> = {
   entry: {
     EG: { monthly: 2500, yearly: 1750 },

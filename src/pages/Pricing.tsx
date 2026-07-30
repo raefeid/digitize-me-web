@@ -187,9 +187,10 @@ const Pricing = () => {
           description:
             "AI-powered document management with Arabic & English OCR (99%+ accuracy). Free, SMEs, and Enterprise editions. SaaS or On-Premise.",
           offers: [
-            { name: "Individuals Edition", price: "0", priceCurrency: "AED" },
-            { name: "SMEs Edition", price: "299", priceCurrency: "AED" },
-            { name: "Enterprise Edition", price: "0", priceCurrency: "AED" },
+            { name: "Individual", price: "15", priceCurrency: "USD" },
+            { name: "Starter", price: "20", priceCurrency: "USD" },
+            { name: "Productivity Edition", price: "30", priceCurrency: "USD" },
+            { name: "Professional Edition", price: "50", priceCurrency: "USD" },
           ],
         }}
       />
@@ -381,12 +382,14 @@ const Pricing = () => {
                   {(() => {
                     const planCtaKey = `pricing_plan_cta_${plan.key}`;
                     const planCtaLocation = `Pricing — ${plan.name} plan button`;
-                    const fallbackLabel = ctaLabelOverride ?? t("pricing.contactSales");
+                    const isIndividual = plan.key === "individual";
+                    const fallbackLabel = ctaLabelOverride ?? (isIndividual ? t("pricing.startFree") : t("pricing.contactSales"));
+                    const fallbackTo = ctaLinkOverride ?? (isIndividual ? "https://fotofind.digitizeme.ae/" : "/contact");
                     return (
                       <CtaButton
                         ctaKey={planCtaKey}
                         customLocation={planCtaLocation}
-                        defaultTo={ctaLinkOverride ?? "/contact"}
+                        defaultTo={fallbackTo}
                         labelEditor={{
                           page: "pricing",
                           section: `plans_${plan.key}`,
