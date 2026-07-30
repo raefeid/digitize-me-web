@@ -72,7 +72,7 @@ export const DEFAULT_PRICING_PLANS: DefaultPricingPlan[] = [
       { name: "Document Chat — limited usage", name_ar: "محادثة المستندات — استخدام محدود", included: true },
       { name: "Self-serve onboarding", name_ar: "تأهيل ذاتي الخدمة", included: true },
       { name: "Email Support", name_ar: "دعم بالبريد الإلكتروني", included: true },
-      { name: "Knowledge Graph", name_ar: "الرسم البياني المعرفي", included: false },
+      { name: "Knowledge Graph", name_ar: "الرسم البياني المعرفي", included: true },
       { name: "High priority AI execution", name_ar: "أولوية عالية في تنفيذ الذكاء الاصطناعي", included: false },
     ],
   },
