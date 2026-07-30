@@ -384,25 +384,21 @@ const Pricing = () => {
                   {(() => {
                     const planCtaKey = `pricing_plan_cta_${plan.key}`;
                     const planCtaLocation = `Pricing — ${plan.name} plan button`;
-                    const isIndividual = plan.key === "individual";
-                    const fallbackLabel = ctaLabelOverride ?? (isIndividual ? t("pricing.startFree") : t("pricing.contactSales"));
-                    const fallbackTo = ctaLinkOverride ?? (isIndividual ? "https://fotofind.digitizeme.ae/" : "/contact");
+                    const fallbackLabel = ctaLabelOverride ?? t("pricing.startFree");
+                    const fallbackTo = ctaLinkOverride ?? "https://fotofind.digitizeme.ae/";
                     return (
                       <CtaButton
                         ctaKey={planCtaKey}
                         customLocation={planCtaLocation}
                         defaultTo={fallbackTo}
+                        defaultStyle={{ variant: "accent", color: "accent" }}
                         labelEditor={{
                           page: "pricing",
                           section: `plans_${plan.key}`,
                           contentKey: "cta_label",
                           fallback: fallbackLabel,
                         }}
-                        className={`w-full h-12 rounded-xl font-semibold text-base ${
-                          isPopular
-                            ? "bg-accent text-accent-foreground hover:bg-accent/90"
-                            : "bg-primary text-primary-foreground hover:bg-primary/90"
-                        }`}
+                        className="w-full h-12 rounded-xl font-bold text-base bg-accent text-accent-foreground hover:bg-accent/90 hover:shadow-lg hover:shadow-accent/25 transition-all duration-200"
                       >
                         <EditableText
                           page="pricing"
