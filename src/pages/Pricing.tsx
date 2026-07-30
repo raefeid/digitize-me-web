@@ -350,7 +350,8 @@ const Pricing = () => {
                         );
                       }
                       return (
-                        <div className="mt-4 flex-1 flex flex-col justify-end">
+                        <div className="mt-2 flex-1 flex flex-col justify-end">
+
                           {showPromo && (
                             <div className="flex items-center gap-2 mb-2 flex-wrap">
                               <span className="inline-flex items-center gap-1 bg-accent/15 text-accent text-[11px] font-bold uppercase tracking-wider px-2 py-1 rounded-full">
