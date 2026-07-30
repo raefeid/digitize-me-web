@@ -50,9 +50,8 @@ export const DEFAULT_PRICING_PLANS: DefaultPricingPlan[] = [
       { name: "Full-Text Search", name_ar: "بحث نصي كامل", included: true },
       { name: "Google Drive & OneDrive integration", name_ar: "تكامل Google Drive وOneDrive", included: true },
       { name: "Email Support", name_ar: "دعم بالبريد الإلكتروني", included: true },
-      { name: "Standard AI execution priority", name_ar: "أولوية قياسية في تنفيذ الذكاء الاصطناعي", included: true },
-      { name: "Doc Knowledge Graph", name_ar: "الرسم البياني المعرفي", included: false },
-      { name: "High Priority in AI Execution", name_ar: "أولوية عالية في تنفيذ الذكاء الاصطناعي", included: false },
+      { name: "Doc Knowledge Graph", name_ar: "الرسم البياني المعرفي", included: true },
+      { name: "High Priority in AI Execution", name_ar: "أولوية عالية في تنفيذ الذكاء الاصطناعي", included: true },
     ],
   },
   {
