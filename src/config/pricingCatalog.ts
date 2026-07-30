@@ -83,7 +83,7 @@ export const DEFAULT_PRICING_PLANS: DefaultPricingPlan[] = [
     description: "$30 per user/month",
     description_ar: "٣٠ دولار/مستخدم/شهر",
     visible: true,
-    highlighted: false,
+    highlighted: true,
     prices: individualPricing.productivity,
     features: [
       { name: "10 users minimum", name_ar: "١٠ مستخدمين كحد أدنى", included: true },
