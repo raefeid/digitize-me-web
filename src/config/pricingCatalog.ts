@@ -38,7 +38,7 @@ export const DEFAULT_PRICING_PLANS: DefaultPricingPlan[] = [
     description: "14-day free trial",
     description_ar: "تجربة مجانية ١٤ يوم",
     visible: true,
-    highlighted: true,
+    highlighted: false,
     prices: individualPricing.individual,
     features: [
       { name: "1 user", name_ar: "١ مستخدم", included: true },
@@ -83,7 +83,7 @@ export const DEFAULT_PRICING_PLANS: DefaultPricingPlan[] = [
     description: "$30 per user/month",
     description_ar: "٣٠ دولار/مستخدم/شهر",
     visible: true,
-    highlighted: false,
+    highlighted: true,
     prices: individualPricing.productivity,
     features: [
       { name: "10 users minimum", name_ar: "١٠ مستخدمين كحد أدنى", included: true },
