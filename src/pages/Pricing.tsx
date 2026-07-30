@@ -189,8 +189,9 @@ const Pricing = () => {
           offers: [
             { name: "Individual", price: "15", priceCurrency: "USD" },
             { name: "Starter", price: "100", priceCurrency: "USD" },
-            { name: "Productivity Edition", price: "300", priceCurrency: "USD" },
-            { name: "Professional Edition", price: "1000", priceCurrency: "USD" },
+            { name: "Productivity", price: "300", priceCurrency: "USD" },
+            { name: "Professional", price: "1000", priceCurrency: "USD" },
+
           ],
         }}
       />
@@ -416,23 +417,52 @@ const Pricing = () => {
 
                   <div className="border-t border-border mb-6" />
 
-                  <p className="text-xs font-semibold text-muted-foreground/60 uppercase tracking-wider mb-3">
-                    {l("Included in plan", "يشمل الخطة", "Inclus dans le plan")}
-                  </p>
-                  <ul className="space-y-2.5 flex-1">
-                    {plan.features.map((feature, fi) => (
-                      <li key={`${feature.name}-${fi}`} className="flex items-start gap-2 text-sm leading-snug">
-                        {feature.included ? (
-                          <CheckCircle size={14} className="text-accent mt-0.5 shrink-0" />
-                        ) : (
-                          <X size={14} className="text-muted-foreground/30 mt-0.5 shrink-0" />
+                  {(() => {
+                    const specs = plan.features.slice(0, 3);
+                    const rest = plan.features.slice(3);
+                    return (
+                      <>
+                        {specs.length > 0 && (
+                          <div className="grid grid-cols-3 gap-2 mb-5">
+                            {specs.map((s, si) => {
+                              const label = l(s.name, s.name_ar ?? "");
+                              const [value, ...unit] = label.split(" ");
+                              return (
+                                <div
+                                  key={`spec-${si}`}
+                                  className="rounded-xl bg-muted/50 border border-border/60 px-2 py-2.5 text-center"
+                                >
+                                  <div className="text-sm font-bold text-foreground leading-tight break-words">{value}</div>
+                                  <div className="text-[10px] uppercase tracking-wide text-muted-foreground leading-tight mt-0.5 break-words">
+                                    {unit.join(" ")}
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
                         )}
-                        <span className={`${feature.included ? "text-foreground/80" : "text-muted-foreground/40"} whitespace-pre-line`}>
-                          {l(feature.name, feature.name_ar ?? "")}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
+
+                        <p className="text-xs font-semibold text-muted-foreground/60 uppercase tracking-wider mb-3">
+                          {l("Included in plan", "يشمل الخطة", "Inclus dans le plan")}
+                        </p>
+                        <ul className="space-y-2.5 flex-1">
+                          {rest.map((feature, fi) => (
+                            <li key={`${feature.name}-${fi}`} className="flex items-start gap-2 text-sm leading-snug">
+                              {feature.included ? (
+                                <CheckCircle size={14} className="text-accent mt-0.5 shrink-0" />
+                              ) : (
+                                <X size={14} className="text-muted-foreground/30 mt-0.5 shrink-0" />
+                              )}
+                              <span className={`${feature.included ? "text-foreground/80" : "text-muted-foreground/40 line-through"}`}>
+                                {l(feature.name, feature.name_ar ?? "")}
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+                      </>
+                    );
+                  })()}
+
                 </div>
               </motion.div>
               );
