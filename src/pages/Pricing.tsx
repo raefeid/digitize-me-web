@@ -188,9 +188,9 @@ const Pricing = () => {
             "AI-powered document management with Arabic & English OCR (99%+ accuracy). Free, SMEs, and Enterprise editions. SaaS or On-Premise.",
           offers: [
             { name: "Individual", price: "15", priceCurrency: "USD" },
-            { name: "Starter", price: "20", priceCurrency: "USD" },
-            { name: "Productivity Edition", price: "30", priceCurrency: "USD" },
-            { name: "Professional Edition", price: "50", priceCurrency: "USD" },
+            { name: "Starter", price: "100", priceCurrency: "USD" },
+            { name: "Productivity Edition", price: "300", priceCurrency: "USD" },
+            { name: "Professional Edition", price: "1000", priceCurrency: "USD" },
           ],
         }}
       />
