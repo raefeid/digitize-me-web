@@ -22,7 +22,8 @@ export interface PlanPricing {
   DEFAULT: RegionPrice;
 }
 
-// Per-user SaaS pricing. Yearly = ~30% discount on the monthly per-user rate.
+// Per-user SaaS pricing. Prices shown are the total monthly minimum cost
+// (per-user rate × minimum users). Yearly = ~30% discount on the monthly total.
 export const individualPricing: Record<string, PlanPricing> = {
   individual: {
     EG: { monthly: 450, yearly: 315 },
@@ -31,22 +32,22 @@ export const individualPricing: Record<string, PlanPricing> = {
     DEFAULT: { monthly: 15, yearly: 11 },
   },
   starter: {
-    EG: { monthly: 600, yearly: 420 },
-    AE: { monthly: 73, yearly: 51 },
-    SA: { monthly: 73, yearly: 51 },
-    DEFAULT: { monthly: 20, yearly: 14 },
+    EG: { monthly: 3000, yearly: 2100 },
+    AE: { monthly: 365, yearly: 255 },
+    SA: { monthly: 365, yearly: 255 },
+    DEFAULT: { monthly: 100, yearly: 70 },
   },
   productivity: {
-    EG: { monthly: 900, yearly: 630 },
-    AE: { monthly: 110, yearly: 77 },
-    SA: { monthly: 110, yearly: 77 },
-    DEFAULT: { monthly: 30, yearly: 21 },
+    EG: { monthly: 9000, yearly: 6300 },
+    AE: { monthly: 1100, yearly: 770 },
+    SA: { monthly: 1100, yearly: 770 },
+    DEFAULT: { monthly: 300, yearly: 210 },
   },
   professional: {
-    EG: { monthly: 1500, yearly: 1050 },
-    AE: { monthly: 184, yearly: 129 },
-    SA: { monthly: 184, yearly: 129 },
-    DEFAULT: { monthly: 50, yearly: 35 },
+    EG: { monthly: 30000, yearly: 21000 },
+    AE: { monthly: 3680, yearly: 2580 },
+    SA: { monthly: 3680, yearly: 2580 },
+    DEFAULT: { monthly: 1000, yearly: 700 },
   },
 };
 
