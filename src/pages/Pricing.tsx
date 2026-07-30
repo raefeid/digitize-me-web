@@ -321,7 +321,7 @@ const Pricing = () => {
                     ? "bg-card border-accent shadow-xl shadow-accent/10"
                     : "bg-card border-border shadow-md hover:-translate-y-1 hover:shadow-xl"
                 }`}>
-                  <div className="mb-5 min-h-[180px] md:min-h-[200px] xl:min-h-[220px] flex flex-col">
+                  <div className="mb-4 min-h-[110px] md:min-h-[120px] flex flex-col">
                     <h3 className="text-xl xl:text-[1.35rem] font-bold text-foreground leading-tight">{plan.name}</h3>
                     <div className="flex flex-wrap gap-1.5 mt-2.5 mb-3">
                       {(() => {
@@ -342,7 +342,7 @@ const Pricing = () => {
                       const showPromo = promo && promo.original && promo.label && !promo.contactOnly;
                       if (promo.contactOnly) {
                         return (
-                          <div className="mt-4 flex-1 flex flex-col justify-end">
+                          <div className="mt-2 flex-1 flex flex-col justify-end">
                             <div className="text-[1.5rem] xl:text-[1.65rem] font-bold text-foreground leading-tight">
                               {l("Contact us for pricing", "تواصل معنا للأسعار", "Nous contacter")}
                             </div>
@@ -350,7 +350,8 @@ const Pricing = () => {
                         );
                       }
                       return (
-                        <div className="mt-4 flex-1 flex flex-col justify-end">
+                        <div className="mt-2 flex-1 flex flex-col justify-end">
+
                           {showPromo && (
                             <div className="flex items-center gap-2 mb-2 flex-wrap">
                               <span className="inline-flex items-center gap-1 bg-accent/15 text-accent text-[11px] font-bold uppercase tracking-wider px-2 py-1 rounded-full">
@@ -379,7 +380,7 @@ const Pricing = () => {
                     })()}
                   </div>
 
-                  <div className="mb-8 mt-auto">
+                  <div className="mb-6 mt-auto">
                   {(() => {
                     const planCtaKey = `pricing_plan_cta_${plan.key}`;
                     const planCtaLocation = `Pricing — ${plan.name} plan button`;
