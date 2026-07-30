@@ -321,7 +321,7 @@ const Pricing = () => {
                     ? "bg-card border-accent shadow-xl shadow-accent/10"
                     : "bg-card border-border shadow-md hover:-translate-y-1 hover:shadow-xl"
                 }`}>
-                  <div className="mb-5 min-h-[180px] md:min-h-[200px] xl:min-h-[220px] flex flex-col">
+                  <div className="mb-4 min-h-[110px] md:min-h-[120px] flex flex-col">
                     <h3 className="text-xl xl:text-[1.35rem] font-bold text-foreground leading-tight">{plan.name}</h3>
                     <div className="flex flex-wrap gap-1.5 mt-2.5 mb-3">
                       {(() => {
