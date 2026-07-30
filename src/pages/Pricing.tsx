@@ -342,7 +342,7 @@ const Pricing = () => {
                       const showPromo = promo && promo.original && promo.label && !promo.contactOnly;
                       if (promo.contactOnly) {
                         return (
-                          <div className="mt-4 flex-1 flex flex-col justify-end">
+                          <div className="mt-2 flex-1 flex flex-col justify-end">
                             <div className="text-[1.5rem] xl:text-[1.65rem] font-bold text-foreground leading-tight">
                               {l("Contact us for pricing", "تواصل معنا للأسعار", "Nous contacter")}
                             </div>
@@ -380,7 +380,7 @@ const Pricing = () => {
                     })()}
                   </div>
 
-                  <div className="mb-8 mt-auto">
+                  <div className="mb-6 mt-auto">
                   {(() => {
                     const planCtaKey = `pricing_plan_cta_${plan.key}`;
                     const planCtaLocation = `Pricing — ${plan.name} plan button`;
