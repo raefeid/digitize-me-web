@@ -427,8 +427,8 @@ const Pricing = () => {
                         ) : (
                           <X size={14} className="text-muted-foreground/30 mt-0.5 shrink-0" />
                         )}
-                        <span className={feature.included ? "text-foreground/80" : "text-muted-foreground/40"}>
-                          {feature.name}
+                        <span className={`${feature.included ? "text-foreground/80" : "text-muted-foreground/40"} whitespace-pre-line`}>
+                          {l(feature.name, feature.name_ar ?? "")}
                         </span>
                       </li>
                     ))}

@@ -39,7 +39,7 @@ export interface CmsPromo {
 
 export interface CmsPricingPlan extends PricingPlanCatalogItem {
   pricing: PlanPricing;
-  features: { name: string; included: boolean }[];
+  features: { name: string; name_ar?: string; included: boolean }[];
   promo: CmsPromo | null;
 }
 
@@ -104,7 +104,8 @@ export const useCmsPricing = (regionOverride?: Region) => {
         return !targets || targets.length === 0 || targets.includes(activeRegion);
       })
       .map((f) => ({
-        name: lang === "ar" && f.name_ar ? f.name_ar : f.name,
+        name: f.name,
+        name_ar: f.name_ar,
         included: f.included,
       }));
   };
@@ -147,7 +148,7 @@ export const useCmsPricing = (regionOverride?: Region) => {
       localizeFeatures(parseFeatures(`individual_${plan.key}`)) ??
         localizeFeatures(DEFAULT_PRICING_PLAN_MAP[plan.key]?.features ?? null),
     ]),
-  ) as Record<string, { name: string; included: boolean }[] | null>;
+  ) as Record<string, { name: string; name_ar?: string; included: boolean }[] | null>;
 
   const promos = Object.fromEntries(
     catalog.map((plan) => [plan.key, localizePromo(parsePromo(`individual_${plan.key}`))]),
