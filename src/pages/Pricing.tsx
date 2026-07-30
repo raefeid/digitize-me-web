@@ -189,8 +189,9 @@ const Pricing = () => {
           offers: [
             { name: "Individual", price: "15", priceCurrency: "USD" },
             { name: "Starter", price: "100", priceCurrency: "USD" },
-            { name: "Productivity Edition", price: "300", priceCurrency: "USD" },
-            { name: "Professional Edition", price: "1000", priceCurrency: "USD" },
+            { name: "Productivity", price: "300", priceCurrency: "USD" },
+            { name: "Professional", price: "1000", priceCurrency: "USD" },
+
           ],
         }}
       />
