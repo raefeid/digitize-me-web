@@ -420,25 +420,25 @@ const Pricing = () => {
                     return (
                       <>
                         {specs.length > 0 && (
-                          <div className="grid grid-cols-3 gap-2 mb-5">
+                          <div className="flex flex-col gap-2 sm:grid sm:grid-cols-3 mb-5">
                             {specs.map((s, si) => {
                               const label = l(s.name, s.name_ar ?? "");
                               const [value, ...unit] = label.split(" ");
                               return (
                                 <div
                                   key={`spec-${si}`}
-                                  className="rounded-xl bg-muted/50 border border-border/60 px-2 py-2.5 text-center"
+                                  className="rounded-xl bg-muted/50 border border-border/60 px-3 py-2 flex items-center justify-between gap-2 sm:block sm:px-2 sm:py-2.5 sm:text-center"
                                 >
-                                  <div className="text-sm font-bold text-foreground leading-tight break-normal">{value}</div>
-                                  <div className="text-[9px] uppercase tracking-tighter text-muted-foreground leading-tight mt-0.5 break-normal hyphens-none [overflow-wrap:normal] [word-break:keep-all]">
+                                  <div className="order-2 sm:order-none text-sm font-bold text-foreground leading-tight">{value}</div>
+                                  <div className="order-1 sm:order-none text-[11px] sm:text-[9px] uppercase tracking-tight sm:tracking-tighter text-muted-foreground leading-tight sm:mt-0.5 hyphens-none [overflow-wrap:normal] [word-break:keep-all]">
                                     {unit.join(" ")}
                                   </div>
-
                                 </div>
                               );
                             })}
                           </div>
                         )}
+
 
                         <p className="text-xs font-semibold text-muted-foreground/60 uppercase tracking-wider mb-3">
                           {l("Included in plan", "يشمل الخطة", "Inclus dans le plan")}
