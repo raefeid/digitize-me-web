@@ -53,7 +53,7 @@ const SHARED_FEATURES: Omit<PricingPlanFeature, "included">[] = [
 
 /** Per-tier included flags for the shared checklist features (same order as above). */
 const FEATURE_FLAGS: Record<string, boolean[]> = {
-  individual:  [true,  true,  false, true,  true,  false, true,  false, false, false, false, false],
+  individual:  [true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true ],
   starter:     [true,  true,  true,  true,  true,  true,  true,  true,  false, false, false, false],
   productivity:[true,  true,  true,  true,  true,  true,  true,  true,  false, true,  true,  true ],
   professional:[true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true ],
