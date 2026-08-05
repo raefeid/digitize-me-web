@@ -97,7 +97,7 @@ export const DEFAULT_PRICING_PLANS: DefaultPricingPlan[] = [
       { name: "Knowledge Graph", name_ar: "الرسم البياني المعرفي", included: true },
       { name: "Guided onboarding", name_ar: "تأهيل موجه", included: true },
       { name: "Priority email support", name_ar: "دعم بالبريد الإلكتروني ذو أولوية", included: true },
-      { name: "High priority AI execution", name_ar: "أولوية عالية في تنفيذ الذكاء الاصطناعي", included: false },
+      { name: "High priority AI execution", name_ar: "أولوية عالية في تنفيذ الذكاء الاصطناعي", included: true },
     ],
   },
   {
