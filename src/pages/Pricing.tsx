@@ -304,41 +304,27 @@ const Pricing = () => {
               >
                 {dragHandle}
                 {isPopular && (
-                  <motion.div
-                    className="absolute -inset-3 rounded-[2rem] bg-accent/15 blur-2xl z-0 pointer-events-none"
-                    animate={{ opacity: [0.35, 0.6, 0.35], scale: [1, 1.02, 1] }}
-                    transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                  />
+                  <div className="absolute -inset-3 rounded-[2rem] bg-accent/20 blur-2xl z-0 pointer-events-none" />
                 )}
 
                 {isPopular && (
                   <div className="absolute -top-5 left-1/2 -translate-x-1/2 z-20">
-                    <motion.span
-                      className="inline-flex items-center gap-1.5 px-5 py-1.5 rounded-full bg-accent text-accent-foreground text-xs font-bold uppercase tracking-wider shadow-lg"
-                      animate={{ y: [0, -2, 0] }}
-                      transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                    >
+                    <span className="inline-flex items-center gap-1.5 px-5 py-1.5 rounded-full bg-accent text-accent-foreground text-xs font-bold uppercase tracking-wider shadow-lg">
                       <Sparkles size={14} />
                       {badgeLabel}
-                    </motion.span>
+                    </span>
                   </div>
                 )}
 
                 <div className={`relative z-10 h-full rounded-2xl border p-5 md:p-6 xl:p-5 flex flex-col flex-1 transition-all duration-300 overflow-hidden ${
                   isPopular
-                    ? "bg-card border-accent shadow-xl shadow-accent/10"
+                    ? "bg-card border-accent shadow-[0_0_30px_-6px_hsl(var(--accent)/0.45)]"
                     : "bg-card border-border shadow-md hover:-translate-y-1 hover:shadow-xl"
                 }`}>
                   {isPopular && (
-                    <>
-                      {/* Top accent bar */}
-                      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-0.5 rounded-b-full bg-accent shadow-[0_0_12px_hsl(var(--accent)/0.5)]" />
-                      {/* Subtle shimmer sweep */}
-                      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                        <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-transparent via-white/5 to-transparent -skew-x-12 animate-[shimmer_8s_linear_infinite]" />
-                      </div>
-                    </>
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-0.5 rounded-b-full bg-accent shadow-[0_0_12px_hsl(var(--accent)/0.5)]" />
                   )}
+
                   <div className="mb-4 min-h-[110px] md:min-h-[120px] flex flex-col">
                     <h3 className="text-xl xl:text-[1.35rem] font-bold text-foreground leading-tight">{plan.name}</h3>
                     <div className="flex flex-wrap gap-1.5 mt-2.5 mb-3">
