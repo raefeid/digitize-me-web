@@ -430,7 +430,7 @@ const Pricing = () => {
                                   className="rounded-xl bg-muted/50 border border-border/60 px-2 py-2.5 text-center"
                                 >
                                   <div className="text-sm font-bold text-foreground leading-tight break-normal">{value}</div>
-                                  <div className="text-[10px] uppercase tracking-normal text-muted-foreground leading-tight mt-0.5 break-normal hyphens-none [overflow-wrap:normal]">
+                                  <div className="text-[9px] uppercase tracking-tighter text-muted-foreground leading-tight mt-0.5 break-normal hyphens-none [overflow-wrap:normal] [word-break:keep-all]">
                                     {unit.join(" ")}
                                   </div>
 
