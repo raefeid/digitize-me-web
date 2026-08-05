@@ -1,0 +1,1 @@
+insert into public.client_logos (company_name, logo_url, sort_order, published) values ('Dubai Municipality', '/__l5e/assets-v1/b834a07c-d1ed-4d9d-950a-986a16e518ad/dubai-municipality.png', 50, true);
