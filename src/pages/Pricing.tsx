@@ -429,10 +429,11 @@ const Pricing = () => {
                                   key={`spec-${si}`}
                                   className="rounded-xl bg-muted/50 border border-border/60 px-2 py-2.5 text-center"
                                 >
-                                  <div className="text-sm font-bold text-foreground leading-tight break-words">{value}</div>
-                                  <div className="text-[10px] uppercase tracking-wide text-muted-foreground leading-tight mt-0.5 break-words">
+                                  <div className="text-sm font-bold text-foreground leading-tight break-normal">{value}</div>
+                                  <div className="text-[10px] uppercase tracking-normal text-muted-foreground leading-tight mt-0.5 break-normal hyphens-none [overflow-wrap:normal]">
                                     {unit.join(" ")}
                                   </div>
+
                                 </div>
                               );
                             })}
