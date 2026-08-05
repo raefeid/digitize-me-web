@@ -172,7 +172,7 @@ export const translations: TranslationMap = {
     "product.saas.title": "SaaS Platform",
     "product.saas.desc": "Subscription-based cloud platform. No IT setup required. Perfect for freelancers, SMEs, and departments.",
     "product.onprem.title": "On-Premise Managed Service",
-    "product.onprem.desc": "Full-cycle digital transformation managed by Fotopia's expert team. Ideal for enterprises, governments, and banks.",
+    "product.onprem.desc": "Full-cycle digital transformation managed by Infasme's expert team. Ideal for enterprises, governments, and banks.",
     "product.seePlans": "See Plans",
     "product.contactSales": "Contact Sales",
     "product.diff.title": "What Makes Digitize me Different",
@@ -200,7 +200,7 @@ export const translations: TranslationMap = {
     "pricing.startFree": "Start Free",
     "pricing.contactSales": "Contact Sales",
     "pricing.onprem.title": "Need On-Premise Deployment?",
-    "pricing.onprem.desc": "For enterprises, government agencies, and banks that require on-premise infrastructure, we offer a fully managed digital transformation service by Fotopia Technologies' expert team.",
+    "pricing.onprem.desc": "For enterprises, government agencies, and banks that require on-premise infrastructure, we offer a fully managed digital transformation service by Infasme' expert team.",
     "pricing.onprem.cta": "Request Enterprise Quote",
     "pricing.faq": "Frequently Asked Questions",
 
@@ -235,7 +235,7 @@ export const translations: TranslationMap = {
     "footer.industries": "Industries",
     "footer.allIndustries": "All Industries",
     "footer.contact": "Contact",
-    "footer.rights": "Digitize me by Fotopia Technologies. All rights reserved.",
+    "footer.rights": "Digitize me by Infasme. All rights reserved.",
     "footer.privacy": "Privacy Policy",
     "footer.terms": "Terms of Service",
 
@@ -439,7 +439,7 @@ export const translations: TranslationMap = {
     "product.saas.title": "المنصة السحابية",
     "product.saas.desc": "منصة سحابية بالاشتراك. لا حاجة لإعداد تقني. مثالية للمحترفين المستقلين والمؤسسات الصغيرة والأقسام.",
     "product.onprem.title": "الخدمة المدارة محليًا",
-    "product.onprem.desc": "خدمة تحول رقمي شاملة بإدارة فريق خبراء فوتوبيا. مثالية للمؤسسات الكبرى والحكومات والبنوك.",
+    "product.onprem.desc": "خدمة تحول رقمي شاملة بإدارة فريق خبراء إنفاسمي. مثالية للمؤسسات الكبرى والحكومات والبنوك.",
     "product.seePlans": "عرض الخطط",
     "product.contactSales": "تواصل مع المبيعات",
     "product.diff.title": "ما يميز Digitize me",
@@ -467,7 +467,7 @@ export const translations: TranslationMap = {
     "pricing.startFree": "ابدأ مجانًا",
     "pricing.contactSales": "تواصل مع المبيعات",
     "pricing.onprem.title": "تحتاج تثبيتًا محليًا؟",
-    "pricing.onprem.desc": "للمؤسسات والجهات الحكومية والبنوك التي تحتاج بنية تحتية محلية، نقدم خدمة تحول رقمي مُدارة بالكامل من فريق خبراء فوتوبيا.",
+    "pricing.onprem.desc": "للمؤسسات والجهات الحكومية والبنوك التي تحتاج بنية تحتية محلية، نقدم خدمة تحول رقمي مُدارة بالكامل من فريق خبراء إنفاسمي.",
     "pricing.onprem.cta": "اطلب عرض أسعار للمؤسسات",
     "pricing.faq": "الأسئلة الشائعة",
 
@@ -502,7 +502,7 @@ export const translations: TranslationMap = {
     "footer.industries": "القطاعات",
     "footer.allIndustries": "جميع القطاعات",
     "footer.contact": "اتصل بنا",
-    "footer.rights": "Digitize me من فوتوبيا تكنولوجيز. جميع الحقوق محفوظة.",
+    "footer.rights": "Digitize me من إنفاسمي تكنولوجيز. جميع الحقوق محفوظة.",
     "footer.privacy": "سياسة الخصوصية",
     "footer.terms": "شروط الخدمة",
 
