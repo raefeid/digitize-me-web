@@ -304,16 +304,35 @@ const Pricing = () => {
               >
                 {dragHandle}
                 {isPopular && (
-                  <div className="absolute -inset-[2px] rounded-2xl bg-gradient-to-b from-accent to-accent/50 z-0" />
+                  <motion.div
+                    className="absolute -inset-[2px] rounded-2xl z-0 overflow-hidden"
+                    style={{
+                      background:
+                        "conic-gradient(from 0deg, hsl(var(--accent)), hsl(var(--accent)/0.3), hsl(var(--accent)), hsl(var(--accent)/0.3), hsl(var(--accent)))",
+                    }}
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+                  />
+                )}
+                {isPopular && (
+                  <motion.div
+                    className="absolute -inset-[2px] rounded-2xl z-0 pointer-events-none"
+                    animate={{ boxShadow: "0 0 25px 2px hsl(var(--accent)/0.35)" }}
+                    transition={{ duration: 2, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
+                  />
                 )}
 
                 {isPopular && (
-                  <div className="absolute -top-5 left-1/2 -translate-x-1/2 z-20">
+                  <motion.div
+                    className="absolute -top-5 left-1/2 -translate-x-1/2 z-20"
+                    animate={{ y: [0, -3, 0] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                  >
                     <span className="inline-flex items-center gap-1.5 px-5 py-1.5 rounded-full bg-accent text-accent-foreground text-xs font-bold uppercase tracking-wider shadow-lg">
                       <Sparkles size={14} />
                       {badgeLabel}
                     </span>
-                  </div>
+                  </motion.div>
                 )}
 
                 <div className={`relative z-10 h-full rounded-2xl border p-5 md:p-6 xl:p-5 flex flex-col flex-1 transition-all duration-300 ${
