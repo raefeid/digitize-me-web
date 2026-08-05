@@ -324,11 +324,21 @@ const Pricing = () => {
                   </div>
                 )}
 
-                <div className={`relative z-10 h-full rounded-2xl border p-5 md:p-6 xl:p-5 flex flex-col flex-1 transition-all duration-300 ${
+                <div className={`relative z-10 h-full rounded-2xl border p-5 md:p-6 xl:p-5 flex flex-col flex-1 transition-all duration-300 overflow-hidden ${
                   isPopular
                     ? "bg-card border-accent shadow-xl shadow-accent/10"
                     : "bg-card border-border shadow-md hover:-translate-y-1 hover:shadow-xl"
                 }`}>
+                  {isPopular && (
+                    <>
+                      {/* Top accent bar */}
+                      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-0.5 rounded-b-full bg-accent shadow-[0_0_12px_hsl(var(--accent)/0.5)]" />
+                      {/* Subtle shimmer sweep */}
+                      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                        <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-transparent via-white/5 to-transparent -skew-x-12 animate-[shimmer_8s_linear_infinite]" />
+                      </div>
+                    </>
+                  )}
                   <div className="mb-4 min-h-[110px] md:min-h-[120px] flex flex-col">
                     <h3 className="text-xl xl:text-[1.35rem] font-bold text-foreground leading-tight">{plan.name}</h3>
                     <div className="flex flex-wrap gap-1.5 mt-2.5 mb-3">
