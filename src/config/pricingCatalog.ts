@@ -30,6 +30,46 @@ export const EMPTY_PLAN_PRICING: PlanPricing = {
   DEFAULT: { monthly: 0, yearly: 0 },
 };
 
+/**
+ * Canonical checklist features shared across every tier.
+ * The first 3 entries per plan are "spec strip" values (users, storage, docs)
+ * and are plan-specific. The remaining entries are the same feature names
+ * for all plans — only the `included` boolean differs per tier.
+ */
+const SHARED_FEATURES: Omit<PricingPlanFeature, "included">[] = [
+  { name: "AI-Powered OCR", name_ar: "التعرف الضوئي بالذكاء الاصطناعي" },
+  { name: "Auto Classification", name_ar: "تصنيف تلقائي" },
+  { name: "Auto Indexing", name_ar: "فهرسة تلقائية" },
+  { name: "Full-Text Search", name_ar: "بحث نصي كامل" },
+  { name: "Document Chat", name_ar: "محادثة المستندات" },
+  { name: "Summarization", name_ar: "تلخيص" },
+  { name: "Knowledge Graph", name_ar: "الرسم البياني المعرفي" },
+  { name: "Document Workspace", name_ar: "مساحة عمل المستندات" },
+  { name: "Multi-repository Integration", name_ar: "تكامل مستودعات متعددة" },
+  { name: "High Priority AI Execution", name_ar: "أولوية عالية في تنفيذ الذكاء الاصطناعي" },
+  { name: "Guided Onboarding", name_ar: "تأهيل موجه" },
+  { name: "Priority Support", name_ar: "دعم ذو أولوية" },
+];
+
+/** Per-tier included flags for the shared checklist features (same order as above). */
+const FEATURE_FLAGS: Record<string, boolean[]> = {
+  individual:  [true,  true,  false, true,  true,  false, true,  false, false, false, false, false],
+  starter:     [true,  true,  true,  true,  true,  true,  true,  true,  false, false, false, false],
+  productivity:[true,  true,  true,  true,  true,  true,  true,  true,  false, true,  true,  true ],
+  professional:[true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true ],
+};
+
+const buildFeatures = (
+  planKey: string,
+  specs: PricingPlanFeature[],
+): PricingPlanFeature[] => {
+  const flags = FEATURE_FLAGS[planKey];
+  return [
+    ...specs,
+    ...SHARED_FEATURES.map((f, i) => ({ ...f, included: flags[i] })),
+  ];
+};
+
 export const DEFAULT_PRICING_PLANS: DefaultPricingPlan[] = [
   {
     key: "individual",
@@ -40,89 +80,56 @@ export const DEFAULT_PRICING_PLANS: DefaultPricingPlan[] = [
     visible: true,
     highlighted: false,
     prices: individualPricing.individual,
-    features: [
+    features: buildFeatures("individual", [
       { name: "1 user", name_ar: "١ مستخدم", included: true },
       { name: "50 GB storage", name_ar: "٥٠ جيجا تخزين", included: true },
       { name: "Unlimited document intelligence", name_ar: "ذكاء مستندات غير محدود", included: true },
-      { name: "AI-Powered OCR", name_ar: "التعرف الضوئي بالذكاء الاصطناعي", included: true },
-      { name: "Automatic Classification", name_ar: "تصنيف تلقائي", included: true },
-      { name: "Document Chat", name_ar: "محادثة المستندات", included: true },
-      { name: "Full-Text Search", name_ar: "بحث نصي كامل", included: true },
-      { name: "Knowledge Graph", name_ar: "الرسم البياني المعرفي", included: true },
-      { name: "Email Support", name_ar: "دعم بالبريد الإلكتروني", included: true },
-    ],
+    ]),
   },
   {
     key: "starter",
     name: "Starter",
     name_ar: "البداية",
-    description: "$20/month",
+    description: "$20/mo",
     description_ar: "٢٠ دولار/شهر",
     visible: true,
     highlighted: false,
     prices: individualPricing.starter,
-    features: [
+    features: buildFeatures("starter", [
       { name: "5 users", name_ar: "٥ مستخدمين", included: true },
       { name: "250 GB shared storage", name_ar: "٢٥٠ جيجا تخزين مشترك", included: true },
       { name: "25,000 document intelligence", name_ar: "٢٥٬٠٠٠ ذكاء مستندات", included: true },
-      { name: "Doc Workspace", name_ar: "مساحة عمل المستندات", included: true },
-      { name: "Auto Classification", name_ar: "تصنيف تلقائي", included: true },
-      { name: "Auto Indexing", name_ar: "فهرسة تلقائية", included: true },
-      { name: "Summarization", name_ar: "تلخيص", included: true },
-      { name: "Document Chat — limited usage", name_ar: "محادثة المستندات — استخدام محدود", included: true },
-      { name: "Self-serve onboarding", name_ar: "تأهيل ذاتي الخدمة", included: true },
-      { name: "Email Support", name_ar: "دعم بالبريد الإلكتروني", included: true },
-      { name: "Knowledge Graph", name_ar: "الرسم البياني المعرفي", included: true },
-      { name: "High priority AI execution", name_ar: "أولوية عالية في تنفيذ الذكاء الاصطناعي", included: false },
-    ],
+    ]),
   },
   {
     key: "productivity",
     name: "Productivity",
     name_ar: "الإنتاجية",
-    description: "$30/month",
+    description: "$30/mo",
     description_ar: "٣٠ دولار/شهر",
     visible: true,
     highlighted: true,
     prices: individualPricing.productivity,
-    features: [
+    features: buildFeatures("productivity", [
       { name: "10 users", name_ar: "١٠ مستخدمين", included: true },
       { name: "1 TB shared storage", name_ar: "١ تيرا تخزين مشترك", included: true },
       { name: "50,000 document intelligence", name_ar: "٥٠٬٠٠٠ ذكاء مستندات", included: true },
-      { name: "Doc Workspace", name_ar: "مساحة عمل المستندات", included: true },
-      { name: "Auto Classification", name_ar: "تصنيف تلقائي", included: true },
-      { name: "Auto Indexing", name_ar: "فهرسة تلقائية", included: true },
-      { name: "Summarization", name_ar: "تلخيص", included: true },
-      { name: "Document Chat — medium usage", name_ar: "محادثة المستندات — استخدام متوسط", included: true },
-      { name: "Knowledge Graph", name_ar: "الرسم البياني المعرفي", included: true },
-      { name: "Guided onboarding", name_ar: "تأهيل موجه", included: true },
-      { name: "Priority email support", name_ar: "دعم بالبريد الإلكتروني ذو أولوية", included: true },
-      { name: "High priority AI execution", name_ar: "أولوية عالية في تنفيذ الذكاء الاصطناعي", included: true },
-    ],
+    ]),
   },
   {
     key: "professional",
     name: "Professional",
     name_ar: "المحترفين",
-    description: "$50/month",
+    description: "$50/mo",
     description_ar: "٥٠ دولار/شهر",
     visible: true,
     highlighted: false,
     prices: individualPricing.professional,
-    features: [
+    features: buildFeatures("professional", [
       { name: "20 users", name_ar: "٢٠ مستخدمًا", included: true },
       { name: "2 TB shared storage", name_ar: "٢ تيرا تخزين مشترك", included: true },
       { name: "500,000 document intelligence", name_ar: "٥٠٠٬٠٠٠ ذكاء مستندات", included: true },
-      { name: "Doc Workspace", name_ar: "مساحة عمل المستندات", included: true },
-      { name: "Auto Classification", name_ar: "تصنيف تلقائي", included: true },
-      { name: "Auto Indexing", name_ar: "فهرسة تلقائية", included: true },
-      { name: "Summarization", name_ar: "تلخيص", included: true },
-      { name: "Document Chat — high usage", name_ar: "محادثة المستندات — استخدام مرتفع", included: true },
-      { name: "Knowledge Graph", name_ar: "الرسم البياني المعرفي", included: true },
-      { name: "Multi-repository integration", name_ar: "تكامل مستودعات متعددة", included: true },
-      { name: "Dedicated onboarding", name_ar: "تأهيل مخصص", included: true },
-      { name: "Premium support — highest AI execution priority", name_ar: "دعم مميز — أعلى أولوية لتنفيذ الذكاء الاصطناعي", included: true },
-    ],
+    ]),
   },
 ];
 
