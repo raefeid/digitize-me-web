@@ -1,0 +1,1 @@
+INSERT INTO public.client_logos (company_name, logo_url, sort_order, published) VALUES ('easybank', '/__l5e/assets-v1/54aeb4bc-dc9a-408e-ad26-bc1fcc2397da/easybank.png', 90, true);
