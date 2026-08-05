@@ -5,7 +5,7 @@ import { useSiteContent } from "@/hooks/useSiteContent";
 import EditableText from "@/components/cms/EditableText";
 import EditableLink from "@/components/cms/EditableLink";
 import logoFallback from "@/assets/digitizeme-logo-dark.png";
-import fotopiaLogoFallback from "@/assets/fotopia-logo.png";
+import infasmeLogoAsset from "@/assets/infasme-logo-new.webp.asset.json";
 import { useBrandingAsset } from "@/hooks/useBranding";
 import { useNavItems, navItemHref } from "@/hooks/useNavItems";
 import { useCustomPages } from "@/hooks/useCustomPages";
@@ -16,7 +16,7 @@ const Footer = () => {
   const { t, isRTL, lang } = useLanguage();
   const { getContent } = useSiteContent("footer");
   const logo = useBrandingAsset("logo_footer", logoFallback);
-  const fotopiaLogo = useBrandingAsset("logo_powered_by", fotopiaLogoFallback);
+  const infasmeLogo = useBrandingAsset("logo_powered_by", infasmeLogoAsset.url);
   const { data: footerItems } = useNavItems("footer");
   const { data: customPages } = useCustomPages({ includeDrafts: false });
   const pagesById = (customPages ?? []).reduce<Record<string, { slug: string }>>((acc, p) => {
@@ -47,7 +47,7 @@ const Footer = () => {
             <EditableText as="p" page="footer" section="brand" contentKey="desc" fallback={t("footer.desc")} multiline className="text-primary-foreground/70 text-sm leading-relaxed" rich />
             <div className="flex items-center gap-2 pt-2 flex-wrap">
               <EditableText as="span" page="footer" section="brand" contentKey="poweredBy" fallback={t("footer.poweredBy")} className="text-xs text-primary-foreground/50" />
-              <img src={fotopiaLogo} alt="Fotopia Technologies" className="h-10 md:h-12 w-auto opacity-80" loading="lazy" />
+              <img src={infasmeLogo} alt="Infasme" className="h-10 md:h-12 w-auto opacity-80" loading="lazy" />
             </div>
           </div>
 

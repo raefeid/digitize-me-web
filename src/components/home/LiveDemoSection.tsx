@@ -8,7 +8,7 @@ type DemoStage = "idle" | "uploading" | "scanning" | "extracted";
 const extractionResults: Record<string, { fields: { label: string; labelAr: string; value: string; valueAr: string }[] }> = {
   invoice: {
     fields: [
-      { label: "Vendor", value: "Fotopia Technologies LLC", labelAr: "المورد", valueAr: "فوتوبيا تكنولوجيز ش.ذ.م.م" },
+      { label: "Vendor", value: "Infasme LLC", labelAr: "المورد", valueAr: "إنفاسمي ش.ذ.م.م" },
       { label: "Invoice #", value: "INV-2024-0847", labelAr: "رقم الفاتورة", valueAr: "INV-2024-0847" },
       { label: "Amount", value: "AED 12,500.00", labelAr: "المبلغ", valueAr: "١٢,٥٠٠.٠٠ د.إ" },
       { label: "Date", value: "March 15, 2024", labelAr: "التاريخ", valueAr: "١٥ مارس ٢٠٢٤" },
