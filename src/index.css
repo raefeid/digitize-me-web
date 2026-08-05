@@ -250,6 +250,11 @@
   100% { transform: translateX(350%) skewX(-12deg); }
 }
 
+@keyframes cta-shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
 .animate-cta-shimmer::before {
   content: "";
   position: absolute;
