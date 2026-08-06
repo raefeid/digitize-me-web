@@ -118,7 +118,7 @@ const Index = () => {
       />
 
       {/* 1. Hero */}
-      <section className="relative overflow-hidden min-h-[100svh] flex flex-col justify-center pt-24 pb-40 md:pt-28 md:pb-48">
+      <section className="relative overflow-hidden min-h-[100svh] flex flex-col justify-start pt-28 pb-16 md:pt-32 md:pb-20">
         <HeroBackdrop index={heroWordIndex} />
         <div className="container-max relative w-full">
           <div className={`max-w-2xl section-stack ${isRTL ? "text-right ml-auto" : "text-left mr-auto"}`}>
