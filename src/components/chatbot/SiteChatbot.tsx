@@ -287,12 +287,30 @@ const SiteChatbot = () => {
 
   return (
     <>
+      {/* Nudge bubble — "I'm here to help" */}
+      <AnimatePresence>
+        {nudge && !open && (
+          <motion.button
+            key="nudge"
+            initial={{ opacity: 0, y: 8, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 8, scale: 0.95 }}
+            onClick={() => { setNudge(false); setOpen(true); }}
+            dir={isRTL ? "rtl" : "ltr"}
+            className={`fixed bottom-24 ${isRTL ? "left-6" : "right-6"} z-[60] max-w-[16rem] text-start rounded-2xl bg-card border border-border shadow-xl px-4 py-3 text-sm text-foreground hover:border-accent transition-colors`}
+          >
+            {isAr ? "أنا هنا للمساعدة — اسألني أي شيء عن DigitizeMe." : "Need a hand? I'm here — ask me anything about DigitizeMe."}
+          </motion.button>
+        )}
+      </AnimatePresence>
+
       {/* Launcher */}
       <button
-        onClick={() => setOpen((o) => !o)}
+        onClick={() => { setNudge(false); setOpen((o) => !o); }}
         aria-label={isAr ? "افتح المحادثة" : "Open chat"}
-        className={`fixed bottom-6 ${isRTL ? "left-6" : "right-6"} z-[60] h-14 w-14 rounded-full bg-[#FF5A5F] text-white shadow-lg hover:scale-105 transition-transform flex items-center justify-center`}
+        className={`fixed bottom-6 ${isRTL ? "left-6" : "right-6"} z-[60] h-14 w-14 rounded-full bg-[#FF5A5F] text-white shadow-lg hover:scale-105 transition-transform flex items-center justify-center ${nudge && !open ? "animate-pulse ring-4 ring-[#FF5A5F]/30 shadow-[0_0_30px_hsl(var(--accent)/0.6)]" : ""}`}
       >
+
         <AnimatePresence mode="wait">
           {open ? (
             <motion.span key="x" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }}>
