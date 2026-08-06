@@ -71,6 +71,9 @@ const HeroBackdrop = ({ index }: HeroBackdropProps) => {
           WebkitMaskImage: "radial-gradient(circle at 75% 50%, black, transparent 75%)",
         }}
       />
+
+      {/* Bottom fade so the hero blends seamlessly into the next section */}
+      <div className="absolute inset-x-0 bottom-0 h-40 md:h-56 bg-gradient-to-b from-transparent via-background/80 to-background" />
     </div>
   );
 };
