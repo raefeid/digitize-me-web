@@ -22,8 +22,8 @@ export const translations: TranslationMap = {
     "hero.rotate2": "Smart Archives",
     "hero.rotate3": "AI Power",
     "hero.desc": "AI-powered document digitization and management platform.\nScan, extract, classify, and retrieve any document in seconds,\nin Arabic and English.",
-    "hero.cta1": "Request a Free Demo & Explore",
-    "hero.cta2": "Book a Demo",
+    "hero.cta1": "Start Free",
+    "hero.cta2": "Request a Free Demo & Explore",
     "hero.search": 'Search documents... "contract 2024"',
 
     // Stats
@@ -289,8 +289,8 @@ export const translations: TranslationMap = {
     "hero.rotate2": "الأرشفة الذكية",
     "hero.rotate3": "قوة الذكاء الاصطناعي",
     "hero.desc": "منصة رقمنة وإدارة المستندات المدعومة بالذكاء الاصطناعي. امسح واستخرج وصنّف واسترجع أي مستند في ثوانٍ، بالعربية والإنجليزية.",
-    "hero.cta1": "اطلب عرضًا توضيحيًا مجانيًا واستكشف",
-    "hero.cta2": "احجز عرضًا توضيحيًا",
+    "hero.cta1": "ابدأ مجانًا",
+    "hero.cta2": "اطلب عرضًا توضيحيًا مجانيًا واستكشف",
     "hero.search": 'ابحث في المستندات... "عقد 2024"',
 
     // Stats
