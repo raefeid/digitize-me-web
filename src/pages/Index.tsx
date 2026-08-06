@@ -128,11 +128,11 @@ const Index = () => {
                 <EditableText page="home" section="home" contentKey="hero_badge" fallback={t("hero.badge")} />
               </span>
             </motion.div>
-            <motion.h1 className={`flex flex-col text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-3 md:mb-4 ${isRTL ? "items-end leading-[1.5] pb-2" : "items-start leading-[1.05]"}`} initial="hidden" animate="visible" variants={fadeUp} custom={1}>
-              <span className="block">
+            <motion.h1 className={`text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-3 md:mb-4 ${isRTL ? "text-right leading-[1.5] pb-2" : "text-left leading-[1.15]"}`} initial="hidden" animate="visible" variants={fadeUp} custom={1}>
+              <span className="inline">
                 <EditableText page="home" section="home" contentKey="hero_title" fallback={t("hero.title1")} rich />
-              </span>
-              <RotatingHeroWord words={rotatingWords} className="block" onIndexChange={setHeroWordIndex} />
+              </span>{" "}
+              <RotatingHeroWord words={rotatingWords} className="inline" onIndexChange={setHeroWordIndex} />
             </motion.h1>
             <EditableText
               as="p"
