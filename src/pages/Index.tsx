@@ -150,14 +150,20 @@ const Index = () => {
               </CtaButton>
             </motion.div>
           </div>
-          <motion.div className="mt-12 max-w-6xl mx-auto" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 0.7 }}>
-            <HeroVideoModal />
-          </motion.div>
         </div>
       </section>
 
       {/* 1b. Bilingual OCR interactive feature */}
       <BilingualOCRHero />
+
+      {/* 1c. Hero video */}
+      <section className="pb-12 md:pb-16">
+        <div className="container-max">
+          <motion.div className="max-w-6xl mx-auto" initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}>
+            <HeroVideoModal />
+          </motion.div>
+        </div>
+      </section>
 
       {/* 2. Trusted By */}
       <ClientLogosCarousel />
