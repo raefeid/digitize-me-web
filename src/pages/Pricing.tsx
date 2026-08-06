@@ -294,7 +294,7 @@ const Pricing = () => {
               return (
               <motion.div
                 className={`relative w-full min-w-0 rounded-2xl flex flex-col overflow-visible ${
-                  isPopular ? "mt-0 md:-mt-4" : ""
+                  isPopular ? "mt-6 md:mt-2 xl:-mt-2" : ""
                 }`}
                 initial="hidden"
                 whileInView="visible"
@@ -308,15 +308,15 @@ const Pricing = () => {
                 )}
 
                 {isPopular && (
-                  <div className="absolute -top-5 left-1/2 -translate-x-1/2 z-20">
-                    <span className="inline-flex items-center gap-1.5 px-5 py-1.5 rounded-full bg-accent text-accent-foreground text-xs font-bold uppercase tracking-wider shadow-lg">
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-20 w-max max-w-[92%]">
+                    <span className="inline-flex items-center gap-1.5 whitespace-nowrap px-4 py-1.5 rounded-full bg-accent text-accent-foreground text-[11px] md:text-xs font-bold uppercase tracking-wider shadow-lg">
                       <Sparkles size={14} />
                       {badgeLabel}
                     </span>
                   </div>
                 )}
 
-                <div className={`relative z-10 h-full rounded-2xl border p-5 md:p-6 xl:p-5 flex flex-col flex-1 transition-all duration-300 overflow-hidden ${
+                <div className={`relative z-10 h-full rounded-2xl border p-5 md:p-6 xl:p-5 ${isPopular ? "pt-8 md:pt-9" : ""} flex flex-col flex-1 transition-all duration-300 overflow-hidden ${
                   isPopular
                     ? "bg-card border-accent shadow-[0_0_30px_-6px_hsl(var(--accent)/0.45)]"
                     : "bg-card border-border shadow-md hover:-translate-y-1 hover:shadow-xl"
@@ -325,9 +325,10 @@ const Pricing = () => {
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-0.5 rounded-b-full bg-accent shadow-[0_0_12px_hsl(var(--accent)/0.5)]" />
                   )}
 
-                  <div className="mb-4 min-h-[110px] md:min-h-[120px] flex flex-col">
+                  <div className="mb-4 flex flex-col">
                     <h3 className="text-xl xl:text-[1.35rem] font-bold text-foreground leading-tight">{plan.name}</h3>
-                    <div className="flex flex-wrap gap-1.5 mt-2.5 mb-3">
+                    {plan.description?.trim() && (
+                    <div className="flex flex-wrap gap-1.5 mt-2.5">
                       {(() => {
                         const bullets = plan.description.split("·").map((p) => p.trim()).filter(Boolean);
                         const parts = bullets.length > 1 ? bullets : plan.description.split(". ").map((p) => p.trim()).filter(Boolean);
@@ -341,12 +342,13 @@ const Pricing = () => {
                         ));
                       })()}
                     </div>
+                    )}
                     {(() => {
                       const promo = rpWithPromo(plan.key, cmPlans);
                       const showPromo = promo && promo.original && promo.label && !promo.contactOnly;
                       if (promo.contactOnly) {
                         return (
-                          <div className="mt-2 flex-1 flex flex-col justify-end">
+                          <div className="mt-2 flex flex-col justify-end">
                             <div className="text-[1.5rem] xl:text-[1.65rem] font-bold text-foreground leading-tight">
                               {l("Contact us for pricing", "تواصل معنا للأسعار", "Nous contacter")}
                             </div>
@@ -354,7 +356,7 @@ const Pricing = () => {
                         );
                       }
                       return (
-                        <div className="mt-2 flex-1 flex flex-col justify-end">
+                        <div className="mt-2 flex flex-col justify-end">
 
                           {showPromo && (
                             <div className="flex items-center gap-2 mb-2 flex-wrap">
