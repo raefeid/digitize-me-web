@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Globe, Clock, CheckCircle, ArrowRight, Scan, Languages, Building2, Scale, Stethoscope, Landmark, DollarSign } from "lucide-react";
@@ -15,6 +16,7 @@ import AnimatedSearchPreview from "@/components/home/AnimatedSearchPreview";
 import BilingualOCRHero from "@/components/home/BilingualOCRHero";
 
 import RotatingHeroWord from "@/components/home/RotatingHeroWord";
+import HeroBackdrop from "@/components/home/HeroBackdrop";
 
 import UAEHostingBadge from "@/components/common/UAEHostingBadge";
 import ClientLogosCarousel from "@/components/home/ClientLogosCarousel";
@@ -44,6 +46,7 @@ const fadeUp = {
 };
 
 const Index = () => {
+  const [heroWordIndex, setHeroWordIndex] = useState(0);
   const { t, isRTL } = useLanguage();
   const { getContent } = useSiteContent("home");
   const { getContent: getFaq } = useSiteContent("home", "faqs");
