@@ -308,8 +308,8 @@ const Pricing = () => {
                 )}
 
                 {isPopular && (
-                  <div className="absolute -top-5 left-1/2 -translate-x-1/2 z-20">
-                    <span className="inline-flex items-center gap-1.5 px-5 py-1.5 rounded-full bg-accent text-accent-foreground text-xs font-bold uppercase tracking-wider shadow-lg">
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-20 w-max max-w-[92%]">
+                    <span className="inline-flex items-center gap-1.5 whitespace-nowrap px-4 py-1.5 rounded-full bg-accent text-accent-foreground text-[11px] md:text-xs font-bold uppercase tracking-wider shadow-lg">
                       <Sparkles size={14} />
                       {badgeLabel}
                     </span>
