@@ -37,7 +37,6 @@ export const EMPTY_PLAN_PRICING: PlanPricing = {
  * for all plans — only the `included` boolean differs per tier.
  */
 const SHARED_FEATURES: Omit<PricingPlanFeature, "included">[] = [
-  { name: "AI-Powered OCR", name_ar: "التعرف الضوئي بالذكاء الاصطناعي" },
   { name: "Auto Classification", name_ar: "تصنيف تلقائي" },
   { name: "Auto Indexing", name_ar: "فهرسة تلقائية" },
   { name: "Full-Text Search", name_ar: "بحث نصي كامل" },
@@ -53,10 +52,10 @@ const SHARED_FEATURES: Omit<PricingPlanFeature, "included">[] = [
 
 /** Per-tier included flags for the shared checklist features (same order as above). */
 const FEATURE_FLAGS: Record<string, boolean[]> = {
-  individual:  [true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true ],
-  starter:     [true,  true,  true,  true,  true,  true,  true,  true,  false, false, false, false],
-  productivity:[true,  true,  true,  true,  true,  true,  true,  true,  false, true,  true,  true ],
-  professional:[true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true ],
+  individual:  [true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true ],
+  starter:     [true,  true,  true,  true,  true,  true,  true,  false, false, false, false],
+  productivity:[true,  true,  true,  true,  true,  true,  true,  false, true,  true,  true ],
+  professional:[true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true ],
 };
 
 const buildFeatures = (
