@@ -118,9 +118,9 @@ const Index = () => {
       />
 
       {/* 1. Hero */}
-      <section className="section-padding relative overflow-hidden">
+      <section className="relative overflow-hidden min-h-[100svh] flex items-center pt-28 pb-16 md:pt-32 md:pb-20">
         <HeroBackdrop index={heroWordIndex} />
-        <div className="container-max relative">
+        <div className="container-max relative w-full">
           <div className={`max-w-2xl section-stack ${isRTL ? "text-right ml-auto" : "text-left mr-auto"}`}>
             <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0}>
               <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-medium mb-2 md:mb-3">
