@@ -44,8 +44,10 @@ const HeroBackdrop = ({ index }: HeroBackdropProps) => {
         />
       </AnimatePresence>
 
-      {/* Readability wash so the left-side copy always stays legible */}
-      <div className="absolute inset-0 bg-gradient-to-r from-background via-background/70 to-transparent" />
+      {/* Readability washes — horizontal on wide screens, vertical on small ones */}
+      <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent md:via-background/70" />
+      <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-background/20 to-background/60 md:from-background/40 md:via-transparent md:to-background/30" />
+
 
       {/* Soft moving glow orb */}
       <AnimatePresence mode="sync">
