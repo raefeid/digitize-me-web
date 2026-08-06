@@ -23,7 +23,7 @@ export const translations: TranslationMap = {
     "hero.rotate3": "AI Power",
     "hero.desc": "AI-powered document digitization and management platform.\nScan, extract, classify, and retrieve any document in seconds,\nin Arabic and English.",
     "hero.cta1": "Start Free",
-    "hero.cta2": "Request a Free Demo & Explore",
+    "hero.cta2": "Request a Free Demo",
     "hero.search": 'Search documents... "contract 2024"',
 
     // Stats
