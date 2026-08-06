@@ -28,7 +28,7 @@ const RotatingHeroWord = ({ words, className, onIndexChange }: RotatingHeroWordP
     <span ref={rootRef} className={cn("relative inline overflow-visible", className)}>
       <motion.span
         key={words[index]}
-        className="gradient-text inline-block"
+        className="gradient-text inline-block pb-[0.15em] -mb-[0.15em] align-baseline"
         initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
         animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
         transition={{ duration: 0.4 }}
