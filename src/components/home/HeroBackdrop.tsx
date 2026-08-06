@@ -1,5 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { FileText, ShieldCheck, Sparkles, Search, FolderLock, Cpu } from "lucide-react";
+import digitalControlAsset from "@/assets/hero/hero-digital-control.jpg.asset.json";
+import smartArchivesAsset from "@/assets/hero/hero-smart-archives.jpg.asset.json";
+import aiPowerAsset from "@/assets/hero/hero-ai-power.jpg.asset.json";
 
 interface HeroBackdropProps {
   /** Index of the currently shown rotating hero word (0..2) */
@@ -9,21 +11,18 @@ interface HeroBackdropProps {
 const scenes = [
   {
     // Digital Control
-    tint: "from-dm-navy-light/70 via-background to-background",
-    glow: "hsl(var(--primary) / 0.28)",
-    icons: [FileText, ShieldCheck, Cpu],
+    image: digitalControlAsset.url,
+    glow: "hsl(var(--primary) / 0.22)",
   },
   {
     // Smart Archives
-    tint: "from-background via-background to-dm-navy-light/70",
-    glow: "hsl(var(--accent) / 0.22)",
-    icons: [FolderLock, Search, FileText],
+    image: smartArchivesAsset.url,
+    glow: "hsl(var(--accent) / 0.18)",
   },
   {
     // AI Power
-    tint: "from-dm-coral-light/60 via-background to-dm-navy-light/60",
-    glow: "hsl(var(--accent) / 0.3)",
-    icons: [Sparkles, Cpu, Search],
+    image: aiPowerAsset.url,
+    glow: "hsl(var(--accent) / 0.26)",
   },
 ];
 
@@ -32,18 +31,23 @@ const HeroBackdrop = ({ index }: HeroBackdropProps) => {
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+      {/* Cross-fading photographic backdrop */}
       <AnimatePresence mode="sync">
         <motion.div
-          key={`tint-${index}`}
-          className={`absolute inset-0 bg-gradient-to-br ${scene.tint}`}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.9 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1.1, ease: "easeInOut" }}
+          key={`img-${index}`}
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${scene.image})` }}
+          initial={{ opacity: 0, scale: 1.06 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 1.02 }}
+          transition={{ duration: 1.2, ease: "easeInOut" }}
         />
       </AnimatePresence>
 
-      {/* Soft moving glow orb, sits behind the visual cluster */}
+      {/* Readability wash so the left-side copy always stays legible */}
+      <div className="absolute inset-0 bg-gradient-to-r from-background via-background/70 to-transparent" />
+
+      {/* Soft moving glow orb */}
       <AnimatePresence mode="sync">
         <motion.div
           key={`glow-${index}`}
@@ -58,7 +62,7 @@ const HeroBackdrop = ({ index }: HeroBackdropProps) => {
 
       {/* Grid texture */}
       <div
-        className="absolute inset-0 opacity-[0.06]"
+        className="absolute inset-0 opacity-[0.05]"
         style={{
           backgroundImage:
             "linear-gradient(to right, hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(to bottom, hsl(var(--foreground)) 1px, transparent 1px)",
@@ -67,41 +71,6 @@ const HeroBackdrop = ({ index }: HeroBackdropProps) => {
           WebkitMaskImage: "radial-gradient(circle at 75% 50%, black, transparent 75%)",
         }}
       />
-
-      {/* Floating cards cluster (right side) */}
-      <div className="absolute inset-y-0 right-0 hidden w-1/2 items-center justify-center lg:flex">
-        <div className="relative h-[26rem] w-[26rem]">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={`cluster-${index}`}
-              className="absolute inset-0"
-              initial={{ opacity: 0, scale: 0.94, rotate: -3 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              exit={{ opacity: 0, scale: 1.05, rotate: 3 }}
-              transition={{ duration: 0.7, ease: "easeOut" }}
-            >
-              {scene.icons.map((Icon, i) => {
-                const positions = [
-                  { top: "6%", left: "12%" },
-                  { top: "38%", left: "52%" },
-                  { top: "70%", left: "18%" },
-                ];
-                return (
-                  <motion.div
-                    key={i}
-                    className="absolute flex h-24 w-24 items-center justify-center rounded-2xl border border-border/60 bg-card/60 backdrop-blur-md shadow-lg"
-                    style={positions[i]}
-                    animate={{ y: [0, -14, 0] }}
-                    transition={{ duration: 5 + i, repeat: Infinity, ease: "easeInOut", delay: i * 0.4 }}
-                  >
-                    <Icon className="h-9 w-9 text-accent" strokeWidth={1.5} />
-                  </motion.div>
-                );
-              })}
-            </motion.div>
-          </AnimatePresence>
-        </div>
-      </div>
     </div>
   );
 };
