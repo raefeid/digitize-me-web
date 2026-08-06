@@ -181,17 +181,69 @@ const SiteChatbot = () => {
     if (open) setTimeout(() => inputRef.current?.focus(), 100);
   }, [open]);
 
+  const [nudge, setNudge] = useState(false);
+
+  // Show a gentle "I'm here to help" nudge when the visitor looks lost:
+  // lots of scrolling, back-and-forth direction changes, long idle time,
+  // or exit intent. Never auto-opens the panel.
   useEffect(() => {
     if (typeof window === "undefined") return;
-    // Don't auto-open on phones — the panel would cover the whole screen.
-    if (window.matchMedia("(max-width: 767px)").matches) return;
-    if (sessionStorage.getItem("site-chatbot-auto-opened") === "1") return;
-    const t = setTimeout(() => {
-      setOpen(true);
-      sessionStorage.setItem("site-chatbot-auto-opened", "1");
-    }, 1500);
-    return () => clearTimeout(t);
-  }, []);
+    if (open) return;
+    if (sessionStorage.getItem("site-chatbot-nudged") === "1") return;
+
+    let lastY = window.scrollY;
+    let lastDir = 0;
+    let flips = 0;
+    let distance = 0;
+    let idleTimer: ReturnType<typeof setTimeout> | null = null;
+
+    const trigger = () => {
+      if (sessionStorage.getItem("site-chatbot-nudged") === "1") return;
+      sessionStorage.setItem("site-chatbot-nudged", "1");
+      setNudge(true);
+      cleanup();
+      setTimeout(() => setNudge(false), 12000);
+    };
+
+    const resetIdle = () => {
+      if (idleTimer) clearTimeout(idleTimer);
+      idleTimer = setTimeout(trigger, 45000);
+    };
+
+    const onScroll = () => {
+      const y = window.scrollY;
+      const dy = y - lastY;
+      if (Math.abs(dy) < 4) return;
+      const dir = dy > 0 ? 1 : -1;
+      if (lastDir !== 0 && dir !== lastDir) flips += 1;
+      lastDir = dir;
+      distance += Math.abs(dy);
+      lastY = y;
+      resetIdle();
+      if (flips >= 4 || distance > window.innerHeight * 4) trigger();
+    };
+
+    const onLeave = (e: MouseEvent) => {
+      if (e.clientY <= 0) trigger();
+    };
+
+    const cleanup = () => {
+      window.removeEventListener("scroll", onScroll);
+      document.removeEventListener("mouseleave", onLeave);
+      window.removeEventListener("mousemove", resetIdle);
+      window.removeEventListener("keydown", resetIdle);
+      if (idleTimer) clearTimeout(idleTimer);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    document.addEventListener("mouseleave", onLeave);
+    window.addEventListener("mousemove", resetIdle, { passive: true });
+    window.addEventListener("keydown", resetIdle);
+    resetIdle();
+
+    return cleanup;
+  }, [open]);
+
 
 
   useEffect(() => () => {
@@ -235,12 +287,30 @@ const SiteChatbot = () => {
 
   return (
     <>
+      {/* Nudge bubble — "I'm here to help" */}
+      <AnimatePresence>
+        {nudge && !open && (
+          <motion.button
+            key="nudge"
+            initial={{ opacity: 0, y: 8, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 8, scale: 0.95 }}
+            onClick={() => { setNudge(false); setOpen(true); }}
+            dir={isRTL ? "rtl" : "ltr"}
+            className={`fixed bottom-24 ${isRTL ? "left-6" : "right-6"} z-[60] max-w-[16rem] text-start rounded-2xl bg-card border border-border shadow-xl px-4 py-3 text-sm text-foreground hover:border-accent transition-colors`}
+          >
+            {isAr ? "أنا هنا للمساعدة — اسألني أي شيء عن DigitizeMe." : "Need a hand? I'm here — ask me anything about DigitizeMe."}
+          </motion.button>
+        )}
+      </AnimatePresence>
+
       {/* Launcher */}
       <button
-        onClick={() => setOpen((o) => !o)}
+        onClick={() => { setNudge(false); setOpen((o) => !o); }}
         aria-label={isAr ? "افتح المحادثة" : "Open chat"}
-        className={`fixed bottom-6 ${isRTL ? "left-6" : "right-6"} z-[60] h-14 w-14 rounded-full bg-[#FF5A5F] text-white shadow-lg hover:scale-105 transition-transform flex items-center justify-center`}
+        className={`fixed bottom-6 ${isRTL ? "left-6" : "right-6"} z-[60] h-14 w-14 rounded-full bg-[#FF5A5F] text-white shadow-lg hover:scale-105 transition-transform flex items-center justify-center ${nudge && !open ? "animate-pulse ring-4 ring-[#FF5A5F]/30 shadow-[0_0_30px_hsl(var(--accent)/0.6)]" : ""}`}
       >
+
         <AnimatePresence mode="wait">
           {open ? (
             <motion.span key="x" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }}>
