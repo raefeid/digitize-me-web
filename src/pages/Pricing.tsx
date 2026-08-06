@@ -419,12 +419,13 @@ const Pricing = () => {
                   <div className="border-t border-border mb-6" />
 
                   {(() => {
-                    const specs = plan.features.slice(0, 3);
-                    const rest = plan.features.slice(3);
+                    const specs = plan.features.slice(0, 2);
+                    const rest = plan.features.slice(2);
                     return (
                       <>
                         {specs.length > 0 && (
-                          <div className="flex flex-col gap-2 sm:grid sm:grid-cols-3 mb-5">
+                          <div className="flex flex-col gap-2 sm:grid sm:grid-cols-2 mb-5">
+
                             {specs.map((s, si) => {
                               const label = l(s.name, s.name_ar ?? "");
                               const [value, ...unit] = label.split(" ");
