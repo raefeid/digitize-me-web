@@ -5,9 +5,10 @@ import { cn } from "@/lib/utils";
 interface RotatingHeroWordProps {
   words: string[];
   className?: string;
+  onIndexChange?: (index: number) => void;
 }
 
-const RotatingHeroWord = ({ words, className }: RotatingHeroWordProps) => {
+const RotatingHeroWord = ({ words, className, onIndexChange }: RotatingHeroWordProps) => {
   const [index, setIndex] = useState(0);
   const rootRef = useRef<HTMLSpanElement>(null);
 
@@ -17,6 +18,11 @@ const RotatingHeroWord = ({ words, className }: RotatingHeroWordProps) => {
     }, 2500);
     return () => clearInterval(interval);
   }, [words.length]);
+
+  useEffect(() => {
+    onIndexChange?.(index);
+  }, [index, onIndexChange]);
+
 
   return (
     <span ref={rootRef} className={cn("relative overflow-visible pb-3 leading-[1.5]", className)}>

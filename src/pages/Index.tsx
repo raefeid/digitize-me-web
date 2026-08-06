@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Globe, Clock, CheckCircle, ArrowRight, Scan, Languages, Building2, Scale, Stethoscope, Landmark, DollarSign } from "lucide-react";
@@ -15,6 +16,7 @@ import AnimatedSearchPreview from "@/components/home/AnimatedSearchPreview";
 import BilingualOCRHero from "@/components/home/BilingualOCRHero";
 
 import RotatingHeroWord from "@/components/home/RotatingHeroWord";
+import HeroBackdrop from "@/components/home/HeroBackdrop";
 
 import UAEHostingBadge from "@/components/common/UAEHostingBadge";
 import ClientLogosCarousel from "@/components/home/ClientLogosCarousel";
@@ -44,6 +46,7 @@ const fadeUp = {
 };
 
 const Index = () => {
+  const [heroWordIndex, setHeroWordIndex] = useState(0);
   const { t, isRTL } = useLanguage();
   const { getContent } = useSiteContent("home");
   const { getContent: getFaq } = useSiteContent("home", "faqs");
@@ -116,20 +119,20 @@ const Index = () => {
 
       {/* 1. Hero */}
       <section className="section-padding relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-dm-navy-light via-background to-dm-coral-light opacity-50" />
+        <HeroBackdrop index={heroWordIndex} />
         <div className="container-max relative">
-          <div className="max-w-5xl mx-auto text-center section-stack">
+          <div className={`max-w-2xl section-stack ${isRTL ? "text-right ml-auto" : "text-left mr-auto"}`}>
             <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0}>
               <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-medium mb-2 md:mb-3">
                 <Languages size={16} />
                 <EditableText page="home" section="home" contentKey="hero_badge" fallback={t("hero.badge")} />
               </span>
             </motion.div>
-            <motion.h1 className={`flex flex-col items-center text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-3 md:mb-4 ${isRTL ? "leading-[1.5] pb-2" : "leading-[1.05]"}`} initial="hidden" animate="visible" variants={fadeUp} custom={1}>
+            <motion.h1 className={`flex flex-col text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-3 md:mb-4 ${isRTL ? "items-end leading-[1.5] pb-2" : "items-start leading-[1.05]"}`} initial="hidden" animate="visible" variants={fadeUp} custom={1}>
               <span className="block">
                 <EditableText page="home" section="home" contentKey="hero_title" fallback={t("hero.title1")} rich />
               </span>
-              <RotatingHeroWord words={rotatingWords} className="block" />
+              <RotatingHeroWord words={rotatingWords} className="block" onIndexChange={setHeroWordIndex} />
             </motion.h1>
             <EditableText
               as="p"
@@ -138,9 +141,9 @@ const Index = () => {
               contentKey="hero_desc"
               fallback={t("hero.desc")}
               multiline
-              className="block text-sm sm:text-base md:text-lg text-muted-foreground max-w-3xl mx-auto whitespace-pre-line"
+              className="block text-sm sm:text-base md:text-lg text-muted-foreground max-w-xl whitespace-pre-line"
              rich />
-            <motion.div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center pt-2" initial="hidden" animate="visible" variants={fadeUp} custom={3}>
+            <motion.div className={`flex flex-col sm:flex-row gap-3 md:gap-4 pt-2 ${isRTL ? "sm:justify-end" : "sm:justify-start"}`} initial="hidden" animate="visible" variants={fadeUp} custom={3}>
               <CtaButton ctaKey="hero_primary" size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 px-8">
                 <EditableText page="home" section="home" contentKey="hero_cta1" fallback={t("hero.cta1")} />
                 <ArrowRight size={18} className={isRTL ? "mr-2 rotate-180" : "ml-2"} />
@@ -152,6 +155,7 @@ const Index = () => {
           </div>
         </div>
       </section>
+
 
       {/* 1b. Bilingual OCR interactive feature */}
       <BilingualOCRHero />
