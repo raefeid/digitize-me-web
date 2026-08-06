@@ -181,17 +181,69 @@ const SiteChatbot = () => {
     if (open) setTimeout(() => inputRef.current?.focus(), 100);
   }, [open]);
 
+  const [nudge, setNudge] = useState(false);
+
+  // Show a gentle "I'm here to help" nudge when the visitor looks lost:
+  // lots of scrolling, back-and-forth direction changes, long idle time,
+  // or exit intent. Never auto-opens the panel.
   useEffect(() => {
     if (typeof window === "undefined") return;
-    // Don't auto-open on phones — the panel would cover the whole screen.
-    if (window.matchMedia("(max-width: 767px)").matches) return;
-    if (sessionStorage.getItem("site-chatbot-auto-opened") === "1") return;
-    const t = setTimeout(() => {
-      setOpen(true);
-      sessionStorage.setItem("site-chatbot-auto-opened", "1");
-    }, 1500);
-    return () => clearTimeout(t);
-  }, []);
+    if (open) return;
+    if (sessionStorage.getItem("site-chatbot-nudged") === "1") return;
+
+    let lastY = window.scrollY;
+    let lastDir = 0;
+    let flips = 0;
+    let distance = 0;
+    let idleTimer: ReturnType<typeof setTimeout> | null = null;
+
+    const trigger = () => {
+      if (sessionStorage.getItem("site-chatbot-nudged") === "1") return;
+      sessionStorage.setItem("site-chatbot-nudged", "1");
+      setNudge(true);
+      cleanup();
+      setTimeout(() => setNudge(false), 12000);
+    };
+
+    const resetIdle = () => {
+      if (idleTimer) clearTimeout(idleTimer);
+      idleTimer = setTimeout(trigger, 45000);
+    };
+
+    const onScroll = () => {
+      const y = window.scrollY;
+      const dy = y - lastY;
+      if (Math.abs(dy) < 4) return;
+      const dir = dy > 0 ? 1 : -1;
+      if (lastDir !== 0 && dir !== lastDir) flips += 1;
+      lastDir = dir;
+      distance += Math.abs(dy);
+      lastY = y;
+      resetIdle();
+      if (flips >= 4 || distance > window.innerHeight * 4) trigger();
+    };
+
+    const onLeave = (e: MouseEvent) => {
+      if (e.clientY <= 0) trigger();
+    };
+
+    const cleanup = () => {
+      window.removeEventListener("scroll", onScroll);
+      document.removeEventListener("mouseleave", onLeave);
+      window.removeEventListener("mousemove", resetIdle);
+      window.removeEventListener("keydown", resetIdle);
+      if (idleTimer) clearTimeout(idleTimer);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    document.addEventListener("mouseleave", onLeave);
+    window.addEventListener("mousemove", resetIdle, { passive: true });
+    window.addEventListener("keydown", resetIdle);
+    resetIdle();
+
+    return cleanup;
+  }, [open]);
+
 
 
   useEffect(() => () => {
