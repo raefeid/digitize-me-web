@@ -83,22 +83,20 @@ export const DEFAULT_PRICING_PLANS: DefaultPricingPlan[] = [
     features: buildFeatures("individual", [
       { name: "1 user", name_ar: "١ مستخدم", included: true },
       { name: "50 GB storage", name_ar: "٥٠ جيجا تخزين", included: true },
-      { name: "Unlimited document intelligence", name_ar: "ذكاء مستندات غير محدود", included: true },
     ]),
   },
   {
     key: "starter",
-    name: "Starter",
-    name_ar: "البداية",
+    name: "Work Group",
+    name_ar: "مجموعة العمل",
     description: "",
     description_ar: "",
     visible: true,
     highlighted: false,
     prices: individualPricing.starter,
     features: buildFeatures("starter", [
-      { name: "5 users", name_ar: "٥ مستخدمين", included: true },
+      { name: "3 users", name_ar: "٣ مستخدمين", included: true },
       { name: "250 GB shared storage", name_ar: "٢٥٠ جيجا تخزين مشترك", included: true },
-      { name: "25,000 document intelligence", name_ar: "٢٥٬٠٠٠ ذكاء مستندات", included: true },
     ]),
   },
   {
@@ -112,8 +110,7 @@ export const DEFAULT_PRICING_PLANS: DefaultPricingPlan[] = [
     prices: individualPricing.productivity,
     features: buildFeatures("productivity", [
       { name: "10 users", name_ar: "١٠ مستخدمين", included: true },
-      { name: "1 TB shared storage", name_ar: "١ تيرا تخزين مشترك", included: true },
-      { name: "50,000 document intelligence", name_ar: "٥٠٬٠٠٠ ذكاء مستندات", included: true },
+      { name: "2 TB shared storage", name_ar: "٢ تيرا تخزين مشترك", included: true },
     ]),
   },
   {
@@ -127,8 +124,7 @@ export const DEFAULT_PRICING_PLANS: DefaultPricingPlan[] = [
     prices: individualPricing.professional,
     features: buildFeatures("professional", [
       { name: "20 users", name_ar: "٢٠ مستخدمًا", included: true },
-      { name: "2 TB shared storage", name_ar: "٢ تيرا تخزين مشترك", included: true },
-      { name: "500,000 document intelligence", name_ar: "٥٠٠٬٠٠٠ ذكاء مستندات", included: true },
+      { name: "5 TB shared storage", name_ar: "٥ تيرا تخزين مشترك", included: true },
     ]),
   },
 ];
