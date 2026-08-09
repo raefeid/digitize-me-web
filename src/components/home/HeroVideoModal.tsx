@@ -41,17 +41,23 @@ const HeroVideoModal = () => {
         className="group relative block w-full max-w-6xl mx-auto rounded-2xl overflow-hidden shadow-2xl border border-border aspect-video bg-black"
         aria-label={isRTL ? "شغل فيديو المنتج" : "Play product video"}
       >
-        {/* Live video preview — muted, looping, no controls; poster ensures it never shows black */}
+        {/* Static poster image — always visible as the preview frame */}
+        <img
+          src={POSTER_URL}
+          alt={isRTL ? "معاينة فيديو المنتج" : "Product video preview"}
+          className="absolute inset-0 w-full h-full object-cover"
+          loading="eager"
+        />
+
+        {/* Live muted video preview layered on top of the poster */}
         <video
           src={VIDEO_URL}
-          poster={POSTER_URL}
           muted
           loop
           playsInline
           autoPlay
           preload="auto"
-          className="absolute inset-0 w-full h-full object-cover opacity-90 transition-opacity duration-500 group-hover:opacity-100"
-          style={{ backgroundImage: `url(${POSTER_URL})`, backgroundSize: "cover", backgroundPosition: "center" }}
+          className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-700 group-hover:opacity-100"
         />
 
         {/* Subtle vignette so the play button pops */}
