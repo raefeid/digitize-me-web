@@ -244,11 +244,6 @@ const Index = () => {
               <EditableText page="home" section="home" contentKey="industries_badge" fallback={t("industries.badge")} className="text-accent font-semibold text-sm uppercase tracking-wider" />
               <EditableText as="h2" page="home" section="home" contentKey="industries_title" fallback={t("industries.title")} className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mt-2 mb-4"  rich />
               <EditableText as="p" page="home" section="home" contentKey="industries_desc" fallback={t("industries.desc")} multiline className="text-muted-foreground text-base md:text-lg"  rich />
-              <div className="mt-6 flex justify-center lg:justify-start">
-                <CtaButton ctaKey="home_industries_viewall" variant="outline" defaultStyle={{ variant: "outline" }}>
-                  {t("industries.viewAll")} <ArrowRight size={16} className={isRTL ? "mr-2 rotate-180" : "ml-2"} />
-                </CtaButton>
-              </div>
             </div>
 
             {/* RIGHT half — orbit background + 3x2 industry tile grid */}
