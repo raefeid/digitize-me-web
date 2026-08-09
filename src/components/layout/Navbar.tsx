@@ -495,6 +495,7 @@ const MobileNavItem = ({
   onToggle,
   onNavigate,
   depth = 0,
+  transparentMode = false,
 }: {
   item: MobileNavNode;
   locationPath: string;
@@ -502,14 +503,19 @@ const MobileNavItem = ({
   onToggle: (id: string) => void;
   onNavigate: () => void;
   depth?: number;
+  transparentMode?: boolean;
 }) => {
   const hasChildren = !!item.children?.length;
   const isOpen = openIds.includes(item.id);
   const isActive = locationPath === item.href || locationPath.startsWith(`${item.href}/`);
-  const icon = item.iconName ? <FeatureIcon name={item.iconName} className="w-3.5 h-3.5 text-accent/60 shrink-0" /> : null;
-  const itemClass = `w-full flex items-center ${hasChildren ? "justify-between" : ""} gap-2 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${
-    isActive ? "text-accent bg-accent/10" : "text-foreground/70 hover:text-foreground hover:bg-muted/50"
-  }`;
+  const icon = item.iconName ? <FeatureIcon name={item.iconName} className={cn("w-3.5 h-3.5 shrink-0", transparentMode ? "text-accent/80" : "text-accent/60")} /> : null;
+  const itemClass = cn(
+    "w-full flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors",
+    hasChildren && "justify-between",
+    transparentMode
+      ? isActive ? "text-accent bg-accent/10" : "text-white/80 hover:text-white hover:bg-white/10"
+      : isActive ? "text-accent bg-accent/10" : "text-foreground/70 hover:text-foreground hover:bg-muted/50"
+  );
 
   return (
     <div>
