@@ -80,16 +80,17 @@ const BilingualOCRHero = forwardRef<HTMLElement, Record<string, never>>((_, ref)
     <section
       ref={ref}
       aria-label="Bilingual Arabic & English OCR demo"
-      className="section-padding pt-20 md:pt-28 bg-gradient-to-b from-background via-muted/20 to-background relative overflow-hidden"
+      className="section-padding pt-40 md:pt-52 bg-gradient-to-b from-background via-muted/20 to-background relative overflow-hidden"
     >
-      {/* Soft top halo that continues the hero's fade into this section */}
+      {/* Continues the hero: solid navy at the seam, easing down into the page background */}
       <div
-        className="absolute inset-x-0 top-0 h-40 md:h-56 pointer-events-none"
+        className="absolute inset-x-0 top-0 h-40 md:h-56 pointer-events-none z-10"
         style={{
           backgroundImage:
-            "radial-gradient(80% 100% at 50% 0%, hsl(var(--accent) / 0.07), transparent 70%)",
+            "linear-gradient(to bottom, hsl(var(--hero-navy)) 0%, hsl(var(--hero-navy) / 0.92) 18%, hsl(var(--hero-navy) / 0.7) 36%, hsl(var(--hero-navy) / 0.42) 55%, hsl(var(--hero-navy) / 0.18) 74%, hsl(var(--hero-navy) / 0.05) 88%, transparent 100%)",
         }}
       />
+
 
       {/* Decorative grid */}
       <div
