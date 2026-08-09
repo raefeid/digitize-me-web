@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import digitalControlImage from "@/assets/hero/hero-digital-control.jpg.asset.json";
+import digitalControlImage from "@/assets/hero/digitizeme-hero-v2-2.jpg.asset.json";
 import smartArchivesImage from "@/assets/hero/digitizeme-smart-archives.jpg.asset.json";
 import aiPowerImage from "@/assets/hero/hero-ai-power-scene.jpg.asset.json";
 
