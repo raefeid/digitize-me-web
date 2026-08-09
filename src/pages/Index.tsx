@@ -123,17 +123,18 @@ const Index = () => {
         <div className="container-max relative w-full">
           <div className={`max-w-2xl section-stack ${isRTL ? "text-right ml-auto" : "text-left mr-auto"}`}>
             <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0}>
-              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-medium mb-2 md:mb-3">
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[hsl(var(--hero-on-navy)/0.12)] text-[hsl(var(--hero-on-navy))] text-sm font-medium mb-2 md:mb-3 backdrop-blur-sm border border-[hsl(var(--hero-on-navy)/0.18)]">
                 <Languages size={16} />
                 <EditableText page="home" section="home" contentKey="hero_badge" fallback={t("hero.badge")} />
               </span>
             </motion.div>
-            <motion.h1 className={`text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-3 md:mb-4 ${isRTL ? "text-right leading-[1.5] pb-2" : "text-left leading-[1.15]"}`} initial="hidden" animate="visible" variants={fadeUp} custom={1}>
+            <motion.h1 className={`text-4xl md:text-5xl lg:text-6xl font-bold text-[hsl(var(--hero-on-navy))] mb-3 md:mb-4 ${isRTL ? "text-right leading-[1.5] pb-2" : "text-left leading-[1.15]"}`} initial="hidden" animate="visible" variants={fadeUp} custom={1}>
               <span className="inline">
                 <EditableText page="home" section="home" contentKey="hero_title" fallback={t("hero.title1")} rich />
               </span>{" "}
               <RotatingHeroWord words={rotatingWords} className="inline" onIndexChange={setHeroWordIndex} />
             </motion.h1>
+            <div className={`h-[3px] w-14 rounded-full bg-accent mb-4 ${isRTL ? "ml-0 mr-auto" : "mr-auto"}`} />
             <EditableText
               as="p"
               page="home"
@@ -141,8 +142,9 @@ const Index = () => {
               contentKey="hero_desc"
               fallback={t("hero.desc")}
               multiline
-              className="block text-sm sm:text-base md:text-lg text-muted-foreground max-w-xl whitespace-pre-line"
+              className="block text-sm sm:text-base md:text-lg text-[hsl(var(--hero-on-navy)/0.78)] max-w-xl whitespace-pre-line"
              rich />
+
             <motion.div className={`flex flex-col sm:flex-row gap-3 md:gap-4 pt-2 ${isRTL ? "sm:justify-end" : "sm:justify-start"}`} initial="hidden" animate="visible" variants={fadeUp} custom={3}>
               <CtaButton ctaKey="hero_primary" size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 px-8">
                 <EditableText page="home" section="home" contentKey="hero_cta1" fallback={t("hero.cta1")} />
