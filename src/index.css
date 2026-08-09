@@ -187,6 +187,14 @@
     @apply bg-clip-text text-transparent bg-gradient-to-r from-[hsl(var(--dm-navy))] to-[hsl(var(--dm-coral))];
   }
 
+  /* High-impact navbar text over photographic hero backgrounds */
+  .nav-text-shadow {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45), 0 2px 8px rgba(0, 0, 0, 0.25);
+  }
+  .nav-text-shadow-strong {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55), 0 4px 14px rgba(0, 0, 0, 0.35);
+  }
+
   html[dir="rtl"] .nav-auth-en,
   html[dir="ltr"] .nav-auth-ar {
     display: none;

@@ -255,7 +255,7 @@ const Navbar = () => {
             <div className={cn(
               "flex items-center gap-0.5 xl:gap-0.5 2xl:gap-1 rounded-[1.15rem] px-1 xl:px-1.5 2xl:px-2 py-1.5 border max-w-full transition-all duration-300",
               transparentMode
-                ? "bg-white/10 border-white/10"
+                ? "bg-white/15 border-white/20 shadow-[0_8px_24px_rgba(0,0,0,0.18)]"
                 : "bg-muted/60 border-border/40"
             )}>
             {navLinks.map((link) => {
@@ -271,11 +271,11 @@ const Navbar = () => {
                     <Link
                       to={link.href}
                       className={cn(
-                        "flex items-center gap-1 xl:gap-1.5 px-2.5 xl:px-3 2xl:px-4 py-2 rounded-xl text-[0.95rem] 2xl:text-sm font-medium transition-all duration-200 whitespace-nowrap",
+                        "flex items-center gap-1 xl:gap-1.5 px-2.5 xl:px-3 2xl:px-4 py-2 rounded-xl text-[0.95rem] 2xl:text-sm font-semibold transition-all duration-200 whitespace-nowrap",
                         transparentMode
                           ? location.pathname.startsWith("/industries")
-                            ? "text-white bg-white/15 shadow-[0_4px_12px_hsl(var(--foreground)/0.06)]"
-                            : "text-white/80 hover:text-white hover:bg-white/10"
+                            ? "text-white bg-white/20 shadow-[0_4px_14px_rgba(0,0,0,0.25)] nav-text-shadow-strong"
+                            : "text-white hover:bg-white/15 nav-text-shadow"
                           : location.pathname.startsWith("/industries")
                             ? "text-accent bg-card shadow-[0_4px_12px_hsl(var(--foreground)/0.06)]"
                             : "text-muted-foreground hover:text-foreground hover:bg-card/80"
@@ -324,11 +324,11 @@ const Navbar = () => {
               }
 
               const cls = cn(
-                "px-2.5 xl:px-3 2xl:px-4 py-2 rounded-xl text-[0.95rem] 2xl:text-sm font-medium transition-all duration-200 whitespace-nowrap",
+                "px-2.5 xl:px-3 2xl:px-4 py-2 rounded-xl text-[0.95rem] 2xl:text-sm font-semibold transition-all duration-200 whitespace-nowrap",
                 transparentMode
                   ? location.pathname === link.href
-                    ? "text-white bg-white/15 shadow-[0_4px_12px_hsl(var(--foreground)/0.06)]"
-                    : "text-white/80 hover:text-white hover:bg-white/10"
+                    ? "text-white bg-white/20 shadow-[0_4px_14px_rgba(0,0,0,0.25)] nav-text-shadow-strong"
+                    : "text-white hover:bg-white/15 nav-text-shadow"
                   : location.pathname === link.href
                     ? "text-accent bg-card shadow-[0_4px_12px_hsl(var(--foreground)/0.06)]"
                     : "text-muted-foreground hover:text-foreground hover:bg-card/80"
@@ -381,7 +381,7 @@ const Navbar = () => {
                 className={cn(
                   "flex items-center gap-1 px-2.5 2xl:px-3 py-2 rounded-xl text-[0.95rem] 2xl:text-sm transition-all whitespace-nowrap h-10",
                   transparentMode
-                    ? "text-white/90 border-white/15 bg-white/10 hover:text-white hover:bg-white/15"
+                    ? "text-white border-white/20 bg-white/15 hover:bg-white/20 nav-text-shadow"
                     : "text-muted-foreground border border-border/40 bg-card hover:text-foreground hover:bg-muted/50"
                 )}
                 aria-label="Switch language"
@@ -404,7 +404,7 @@ const Navbar = () => {
                       className={cn(
                         "w-full flex items-center gap-2 px-3.5 py-2.5 text-sm transition-colors",
                         transparentMode
-                          ? lang === l.code ? "text-accent bg-accent/10 font-medium" : "text-white/80 hover:text-white hover:bg-white/10"
+                          ? lang === l.code ? "text-accent bg-accent/10 font-medium" : "text-white hover:bg-white/15 nav-text-shadow"
                           : lang === l.code ? "text-accent bg-accent/10 font-medium" : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
                       )}
                     >
@@ -422,7 +422,7 @@ const Navbar = () => {
             className={cn(
               "xl:hidden p-2.5 rounded-xl shrink-0 transition-all duration-300",
               transparentMode
-                ? "border-white/15 bg-white/10 text-white hover:bg-white/15"
+                ? "border-white/20 bg-white/15 text-white hover:bg-white/20 nav-text-shadow"
                 : "border border-border/40 bg-card text-foreground"
             )}
             onClick={() => setIsOpen(!isOpen)}
@@ -453,14 +453,14 @@ const Navbar = () => {
                 />
               ))}
               <div className="px-3 py-2 mt-1">
-                <p className={cn("text-xs mb-2 uppercase tracking-wider", transparentMode ? "text-white/60" : "text-muted-foreground")}>{t("nav.language")}</p>
+                <p className={cn("text-xs mb-2 uppercase tracking-wider", transparentMode ? "text-white/80" : "text-muted-foreground")}>{t("nav.language")}</p>
                 <div className="flex gap-2">
                   {languages.map((l) => (
                     <button key={l.code} onClick={() => { handleLanguageChange(l.code); setIsOpen(false); }}
                       className={cn(
-                        "flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium transition-colors",
+                        "flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-semibold transition-colors",
                         transparentMode
-                          ? lang === l.code ? "text-accent bg-accent/10" : "text-white/80 hover:text-white hover:bg-white/10"
+                          ? lang === l.code ? "text-accent bg-accent/10" : "text-white hover:bg-white/15 nav-text-shadow"
                           : lang === l.code ? "text-accent bg-accent/10" : "text-foreground/70 hover:text-foreground hover:bg-muted/50"
                       )}
                     >
@@ -510,10 +510,10 @@ const MobileNavItem = ({
   const isActive = locationPath === item.href || locationPath.startsWith(`${item.href}/`);
   const icon = item.iconName ? <FeatureIcon name={item.iconName} className={cn("w-3.5 h-3.5 shrink-0", transparentMode ? "text-accent/80" : "text-accent/60")} /> : null;
   const itemClass = cn(
-    "w-full flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors",
+    "w-full flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors",
     hasChildren && "justify-between",
     transparentMode
-      ? isActive ? "text-accent bg-accent/10" : "text-white/80 hover:text-white hover:bg-white/10"
+      ? isActive ? "text-accent bg-accent/10 nav-text-shadow" : "text-white hover:bg-white/15 nav-text-shadow"
       : isActive ? "text-accent bg-accent/10" : "text-foreground/70 hover:text-foreground hover:bg-muted/50"
   );
 
@@ -542,7 +542,7 @@ const MobileNavItem = ({
       {hasChildren && isOpen && (
         <div className={`mt-1 mb-2 flex flex-col gap-0.5 ${depth === 0 ? "ml-3 border-l-2 border-accent/20 pl-3" : "ml-4 pl-2"}`}>
           {(!item.external && !item.newTab) && (
-            <Link to={item.href} onClick={onNavigate} className={cn("px-3 py-2 rounded-lg text-sm font-medium transition-colors", transparentMode ? "text-accent hover:bg-white/10" : "text-accent hover:bg-accent/10")}>
+            <Link to={item.href} onClick={onNavigate} className={cn("px-3 py-2 rounded-lg text-sm font-semibold transition-colors", transparentMode ? "text-accent hover:bg-white/10 nav-text-shadow" : "text-accent hover:bg-accent/10")}>
               View {item.label}
             </Link>
           )}
