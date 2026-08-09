@@ -449,16 +449,20 @@ const Navbar = () => {
                   openIds={mobileOpenIds}
                   onToggle={toggleMobileNode}
                   onNavigate={() => setIsOpen(false)}
+                  transparentMode={transparentMode}
                 />
               ))}
               <div className="px-3 py-2 mt-1">
-                <p className="text-xs text-muted-foreground mb-2 uppercase tracking-wider">{t("nav.language")}</p>
+                <p className={cn("text-xs mb-2 uppercase tracking-wider", transparentMode ? "text-white/60" : "text-muted-foreground")}>{t("nav.language")}</p>
                 <div className="flex gap-2">
                   {languages.map((l) => (
                     <button key={l.code} onClick={() => { handleLanguageChange(l.code); setIsOpen(false); }}
-                      className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium transition-colors ${
-                        lang === l.code ? "text-accent bg-accent/10" : "text-foreground/70 hover:text-foreground hover:bg-muted/50"
-                      }`}
+                      className={cn(
+                        "flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium transition-colors",
+                        transparentMode
+                          ? lang === l.code ? "text-accent bg-accent/10" : "text-white/80 hover:text-white hover:bg-white/10"
+                          : lang === l.code ? "text-accent bg-accent/10" : "text-foreground/70 hover:text-foreground hover:bg-muted/50"
+                      )}
                     >
                       <span>{l.flag}</span>
                       <span>{l.label}</span>
