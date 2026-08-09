@@ -1,60 +1,45 @@
 import { motion, AnimatePresence } from "framer-motion";
-import digitalControlAsset from "@/assets/hero/hero-digital-control.jpg.asset.json";
-import smartArchivesAsset from "@/assets/hero/hero-smart-archives.jpg.asset.json";
-import aiPowerAsset from "@/assets/hero/hero-ai-power.jpg.asset.json";
+import bannerAsset from "@/assets/hero/hero-smart-archives-banner.png.asset.json";
 
 interface HeroBackdropProps {
   /** Index of the currently shown rotating hero word (0..2) */
   index: number;
 }
 
-const scenes = [
-  {
-    // Digital Control
-    image: digitalControlAsset.url,
-    glow: "hsl(var(--primary) / 0.22)",
-  },
-  {
-    // Smart Archives
-    image: smartArchivesAsset.url,
-    glow: "hsl(var(--accent) / 0.18)",
-  },
-  {
-    // AI Power
-    image: aiPowerAsset.url,
-    glow: "hsl(var(--accent) / 0.26)",
-  },
+/** Accent glow tint that shifts with the rotating hero word */
+const glows = [
+  "hsl(var(--primary) / 0.22)",
+  "hsl(var(--accent) / 0.18)",
+  "hsl(var(--accent) / 0.26)",
 ];
 
 const HeroBackdrop = ({ index }: HeroBackdropProps) => {
-  const scene = scenes[index % scenes.length];
+  const glow = glows[index % glows.length];
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-      {/* Cross-fading photographic backdrop */}
-      <AnimatePresence mode="sync">
-        <motion.div
-          key={`img-${index}`}
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${scene.image})` }}
-          initial={{ opacity: 0, scale: 1.06 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 1.02 }}
-          transition={{ duration: 1.2, ease: "easeInOut" }}
-        />
-      </AnimatePresence>
+      {/* Deep navy base so the left column always reads as a solid panel */}
+      <div className="absolute inset-0 bg-[hsl(var(--hero-navy))]" />
 
-      {/* Readability washes — horizontal on wide screens, vertical on small ones */}
-      <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent md:via-background/70" />
-      <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-background/20 to-background/60 md:from-background/40 md:via-transparent md:to-background/30" />
+      {/* Photographic banner, anchored right so the archive scene stays visible */}
+      <motion.div
+        className="absolute inset-0 bg-cover bg-right bg-no-repeat"
+        style={{ backgroundImage: `url(${bannerAsset.url})` }}
+        initial={{ opacity: 0, scale: 1.04 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1.4, ease: "easeOut" }}
+      />
 
+      {/* Left navy wash for copy legibility — vertical on small screens, horizontal on wide */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[hsl(var(--hero-navy))] via-[hsl(var(--hero-navy)/0.85)] to-[hsl(var(--hero-navy)/0.55)] md:bg-gradient-to-r md:from-[hsl(var(--hero-navy))] md:via-[hsl(var(--hero-navy)/0.92)] md:to-transparent" />
+      <div className="hidden md:block absolute inset-y-0 left-0 w-[58%] bg-[hsl(var(--hero-navy)/0.55)]" />
 
-      {/* Soft moving glow orb */}
+      {/* Soft moving glow orb tied to the rotating word */}
       <AnimatePresence mode="sync">
         <motion.div
           key={`glow-${index}`}
           className="absolute right-[-10%] top-1/2 h-[36rem] w-[36rem] -translate-y-1/2 rounded-full blur-3xl"
-          style={{ background: `radial-gradient(circle, ${scene.glow}, transparent 70%)` }}
+          style={{ background: `radial-gradient(circle, ${glow}, transparent 70%)` }}
           initial={{ opacity: 0, scale: 0.85 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 1.1 }}
@@ -62,20 +47,8 @@ const HeroBackdrop = ({ index }: HeroBackdropProps) => {
         />
       </AnimatePresence>
 
-      {/* Grid texture */}
-      <div
-        className="absolute inset-0 opacity-[0.05]"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(to bottom, hsl(var(--foreground)) 1px, transparent 1px)",
-          backgroundSize: "56px 56px",
-          maskImage: "radial-gradient(circle at 75% 50%, black, transparent 75%)",
-          WebkitMaskImage: "radial-gradient(circle at 75% 50%, black, transparent 75%)",
-        }}
-      />
-
       {/* Bottom fade so the hero blends seamlessly into the next section */}
-      <div className="absolute inset-x-0 bottom-0 h-40 md:h-56 bg-gradient-to-b from-transparent via-background/80 to-background" />
+      <div className="absolute inset-x-0 bottom-0 h-40 md:h-56 bg-gradient-to-b from-transparent via-background/70 to-background" />
     </div>
   );
 };

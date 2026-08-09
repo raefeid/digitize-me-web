@@ -45,6 +45,10 @@
     --dm-gray: 220 9% 46%;
     --dm-gray-light: 220 14% 96%;
 
+    /* Hero banner (deep navy photographic banner) */
+    --hero-navy: 217 62% 13%;
+    --hero-on-navy: 0 0% 100%;
+
     /* Status badge theme tokens (Available / Coming Soon / Custom).
        Wording is locked; colors are themed and brand-aligned. */
     --badge-available-bg: 142 72% 94%;
