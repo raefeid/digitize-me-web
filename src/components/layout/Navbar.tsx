@@ -44,6 +44,7 @@ const Navbar = () => {
   const [langOpen, setLangOpen] = useState(false);
   const [industriesOpen, setIndustriesOpen] = useState(false);
   const [mobileOpenIds, setMobileOpenIds] = useState<string[]>([]);
+  const [scrolled, setScrolled] = useState(false);
   const langRef = useRef<HTMLDivElement>(null);
   const industriesRef = useRef<HTMLDivElement>(null);
   const industriesTimeout = useRef<ReturnType<typeof setTimeout>>();
@@ -51,6 +52,10 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { t, lang, setLang, isRTL } = useLanguage();
   const { user, signOut, isCustomer } = useAuth();
+
+  // Transparent navbar only when at the top of the homepage hero.
+  const isHero = ["/", "/ar"].includes(location.pathname);
+  const transparentMode = isHero && !scrolled;
   // The navbar auth buttons are for CUSTOMERS only — admins use /admin-login separately.
   // Show "Log out" only when the signed-in user holds the customer role.
   const showCustomerSignedIn = !!user && isCustomer;
