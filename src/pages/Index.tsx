@@ -123,7 +123,7 @@ const Index = () => {
         <div className="container-max relative w-full">
           <div className={`max-w-3xl section-stack ${isRTL ? "text-right ml-auto" : "text-left mr-auto"}`}>
             <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0}>
-              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[hsl(var(--hero-on-navy)/0.12)] text-[hsl(var(--hero-on-navy))] text-sm font-medium mb-2 md:mb-3 backdrop-blur-sm border border-[hsl(var(--hero-on-navy)/0.18)]">
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[hsl(var(--hero-navy)/0.35)] text-[hsl(var(--hero-on-navy))] text-sm font-medium mb-2 md:mb-3 backdrop-blur-sm border border-[hsl(var(--hero-on-navy)/0.18)]">
                 <Languages size={16} />
                 <EditableText page="home" section="home" contentKey="hero_badge" fallback={t("hero.badge")} />
               </span>
