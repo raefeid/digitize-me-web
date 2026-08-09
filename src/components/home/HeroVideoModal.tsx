@@ -3,13 +3,15 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Play, X } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import promoVideo from "@/assets/digitizeme-promo-58s.mp4.asset.json";
+import promoPoster from "@/assets/hero/digitizeme-promo-poster.jpg.asset.json";
 
 /**
- * Hero brand video: shows a poster with play button; opens a fullscreen
- * modal with the self-hosted promo video.
+ * Hero brand video: shows a live muted preview with a polished play button;
+ * opens a fullscreen modal with the self-hosted promo video.
  * Video: DigitizeMe brand + walkthrough.
  */
 const VIDEO_URL = promoVideo.url;
+const POSTER_URL = promoPoster.url;
 
 const HeroVideoModal = () => {
   const { isRTL } = useLanguage();
