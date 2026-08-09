@@ -241,7 +241,7 @@ export const translations: TranslationMap = {
 
     // All-in-One
     "aio.badge": "All-in-One Platform",
-    "aio.title": "Thousands of Dolors Worth of Software. Included.",
+    "aio.title": "Thousands of Dollars Worth of Software. Included.",
     "aio.desc": "No separate subscriptions, no surprise add-ons - everything's built into one simple plan.",
     "aio.without": "Without Digitize me",
     "aio.with": "With Digitize me",
