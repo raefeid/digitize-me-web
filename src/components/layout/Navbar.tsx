@@ -453,7 +453,7 @@ const Navbar = () => {
                 />
               ))}
               <div className="px-3 py-2 mt-1">
-                <p className={cn("text-xs mb-2 uppercase tracking-wider", transparentMode ? "text-white/60" : "text-muted-foreground")}>{t("nav.language")}</p>
+                <p className={cn("text-xs mb-2 uppercase tracking-wider", transparentMode ? "text-white/80" : "text-muted-foreground")}>{t("nav.language")}</p>
                 <div className="flex gap-2">
                   {languages.map((l) => (
                     <button key={l.code} onClick={() => { handleLanguageChange(l.code); setIsOpen(false); }}
