@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import * as LucideIcons from "lucide-react";
 import { Menu, X, Globe, ChevronDown, Sparkles, LogOut } from "lucide-react";
+import { cn } from "@/lib/utils";
 import CtaButton from "@/components/cms/CtaButton";
 import EditableText from "@/components/cms/EditableText";
 import { Button } from "@/components/ui/button";
