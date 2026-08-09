@@ -22,14 +22,6 @@ const HeroBackdrop = () => {
         }}
       />
 
-      {/* Barely-there bottom fade for a smooth hand-off to the next section */}
-      <div
-        className="absolute inset-x-0 bottom-0 h-32 sm:h-40 md:h-52"
-        style={{
-          backgroundImage:
-            "linear-gradient(to bottom, hsl(var(--hero-navy) / 0) 0%, hsl(var(--hero-navy) / 0.03) 40%, hsl(var(--hero-navy) / 0.12) 70%, hsl(var(--hero-navy) / 0.35) 100%)",
-        }}
-      />
     </div>
   );
 };
