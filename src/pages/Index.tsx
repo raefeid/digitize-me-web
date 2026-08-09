@@ -51,6 +51,7 @@ const Index = () => {
   const { getContent } = useSiteContent("home");
   const { getContent: getFaq } = useSiteContent("home", "faqs");
   const { enabled: editMode } = useEditMode();
+  const [heroScene, setHeroScene] = useState(0);
 
   const stats = [
     { editKey: "stat_retrieval", value: getContent("stat_retrieval_value", "5s"), label: getContent("stat_retrieval_label", t("stats.retrieval")) },
