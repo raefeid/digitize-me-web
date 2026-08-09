@@ -323,11 +323,16 @@ const Navbar = () => {
                 );
               }
 
-              const cls = `px-2.5 xl:px-3 2xl:px-4 py-2 rounded-xl text-[0.95rem] 2xl:text-sm font-medium transition-all duration-200 whitespace-nowrap ${
-                location.pathname === link.href
-                  ? "text-accent bg-card shadow-[0_4px_12px_hsl(var(--foreground)/0.06)]"
-                  : "text-muted-foreground hover:text-foreground hover:bg-card/80"
-              }`;
+              const cls = cn(
+                "px-2.5 xl:px-3 2xl:px-4 py-2 rounded-xl text-[0.95rem] 2xl:text-sm font-medium transition-all duration-200 whitespace-nowrap",
+                transparentMode
+                  ? location.pathname === link.href
+                    ? "text-white bg-white/15 shadow-[0_4px_12px_hsl(var(--foreground)/0.06)]"
+                    : "text-white/80 hover:text-white hover:bg-white/10"
+                  : location.pathname === link.href
+                    ? "text-accent bg-card shadow-[0_4px_12px_hsl(var(--foreground)/0.06)]"
+                    : "text-muted-foreground hover:text-foreground hover:bg-card/80"
+              );
               if ((link as any).external || (link as any).newTab) {
                 return (
                   <a key={link.href} href={link.href} target={(link as any).newTab ? "_blank" : undefined} rel="noopener noreferrer" className={cls}>
