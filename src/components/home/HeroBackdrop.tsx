@@ -1,45 +1,51 @@
 import { motion, AnimatePresence } from "framer-motion";
-import bannerAsset from "@/assets/hero/hero-smart-archives-banner.png.asset.json";
+import digitalControl from "@/assets/hero/hero-digital-control.jpg.asset.json";
+import smartArchives from "@/assets/hero/hero-smart-archives.jpg.asset.json";
+import aiPower from "@/assets/hero/hero-ai-power-scene.jpg.asset.json";
 
 interface HeroBackdropProps {
   /** Index of the currently shown rotating hero word (0..2) */
   index: number;
 }
 
-/** Accent glow tint that shifts with the rotating hero word */
-const glows = [
-  "hsl(var(--primary) / 0.22)",
-  "hsl(var(--accent) / 0.18)",
-  "hsl(var(--accent) / 0.26)",
+/** Scenes matched to the rotating hero words: Digital Control / Smart Archives / AI Power */
+const scenes = [
+  { url: digitalControl.url, glow: "hsl(var(--primary) / 0.22)" },
+  { url: smartArchives.url, glow: "hsl(var(--accent) / 0.18)" },
+  { url: aiPower.url, glow: "hsl(var(--accent) / 0.28)" },
 ];
 
 const HeroBackdrop = ({ index }: HeroBackdropProps) => {
-  const glow = glows[index % glows.length];
+  const scene = scenes[index % scenes.length];
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
       {/* Deep navy base */}
       <div className="absolute inset-0 bg-[hsl(var(--hero-navy))]" />
 
-      {/* Full-bleed cinematic banner */}
-      <motion.div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${bannerAsset.url})` }}
-        initial={{ opacity: 0, scale: 1.08 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.8, ease: "easeOut" }}
-      />
+      {/* Cross-fading cinematic scene tied to the rotating word */}
+      <AnimatePresence mode="sync">
+        <motion.div
+          key={`scene-${index}`}
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${scene.url})` }}
+          initial={{ opacity: 0, scale: 1.06 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 1.02 }}
+          transition={{ opacity: { duration: 1.1, ease: "easeInOut" }, scale: { duration: 6, ease: "easeOut" } }}
+        />
+      </AnimatePresence>
 
       {/* Cinematic scrims: dark from the left for copy, soft top band under the navbar */}
       <div className="absolute inset-0 bg-gradient-to-r from-[hsl(var(--hero-navy)/0.92)] via-[hsl(var(--hero-navy)/0.6)] to-[hsl(var(--hero-navy)/0.15)]" />
-      <div className="absolute inset-0 bg-gradient-to-b from-[hsl(var(--hero-navy)/0.75)] via-transparent to-[hsl(var(--hero-navy)/0.55)]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[hsl(var(--hero-navy)/0.75)] via-transparent to-[hsl(var(--hero-navy)/0.7)]" />
 
       {/* Soft moving glow orb tied to the rotating word */}
       <AnimatePresence mode="sync">
         <motion.div
           key={`glow-${index}`}
           className="absolute right-[-10%] top-1/2 h-[36rem] w-[36rem] -translate-y-1/2 rounded-full blur-3xl"
-          style={{ background: `radial-gradient(circle, ${glow}, transparent 70%)` }}
+          style={{ background: `radial-gradient(circle, ${scene.glow}, transparent 70%)` }}
           initial={{ opacity: 0, scale: 0.85 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 1.1 }}
@@ -47,11 +53,18 @@ const HeroBackdrop = ({ index }: HeroBackdropProps) => {
         />
       </AnimatePresence>
 
-      {/* Bottom fade so the hero blends seamlessly into the next section */}
-      <div className="absolute inset-x-0 bottom-0 h-40 md:h-56 bg-gradient-to-b from-transparent via-background/70 to-background" />
+      {/* Long, multi-stop fade so the hero melts into the next section on every screen */}
+      <div
+        className="absolute inset-x-0 bottom-0 h-56 sm:h-72 md:h-96"
+        style={{
+          backgroundImage:
+            "linear-gradient(to bottom, hsl(var(--hero-navy) / 0) 0%, hsl(var(--hero-navy) / 0.55) 35%, hsl(var(--background) / 0.85) 78%, hsl(var(--background)) 100%)",
+        }}
+      />
+      {/* Hairline accent seam at the very bottom edge */}
+      <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
     </div>
   );
 };
-
 
 export default HeroBackdrop;
