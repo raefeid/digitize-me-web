@@ -53,14 +53,15 @@ const HeroBackdrop = ({ index }: HeroBackdropProps) => {
         />
       </AnimatePresence>
 
-      {/* Eased navy -> page background fade (many stops = no visible grey banding) */}
+      {/* Eased fade down to solid navy; the next section continues navy -> background */}
       <div
         className="absolute inset-x-0 bottom-0 h-44 sm:h-56 md:h-72"
         style={{
           backgroundImage:
-            "linear-gradient(to bottom, hsl(var(--hero-navy) / 0) 0%, hsl(var(--hero-navy) / 0.08) 14%, hsl(var(--hero-navy) / 0.22) 28%, hsl(var(--hero-navy) / 0.45) 44%, hsl(var(--hero-navy) / 0.7) 58%, hsl(var(--hero-navy) / 0.88) 70%, hsl(var(--hero-navy)) 82%, hsl(var(--background)) 100%)",
+            "linear-gradient(to bottom, hsl(var(--hero-navy) / 0) 0%, hsl(var(--hero-navy) / 0.1) 16%, hsl(var(--hero-navy) / 0.28) 32%, hsl(var(--hero-navy) / 0.52) 48%, hsl(var(--hero-navy) / 0.76) 66%, hsl(var(--hero-navy) / 0.93) 84%, hsl(var(--hero-navy)) 100%)",
         }}
       />
+
 
     </div>
   );
