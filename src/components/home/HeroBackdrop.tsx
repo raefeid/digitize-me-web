@@ -18,21 +18,21 @@ const HeroBackdrop = ({ index }: HeroBackdropProps) => {
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-      {/* Deep navy base so the left column always reads as a solid panel */}
+      {/* Deep navy base */}
       <div className="absolute inset-0 bg-[hsl(var(--hero-navy))]" />
 
-      {/* Photographic banner, anchored right so the archive scene stays visible */}
+      {/* Full-bleed cinematic banner */}
       <motion.div
-        className="absolute inset-0 bg-cover bg-right bg-no-repeat"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${bannerAsset.url})` }}
-        initial={{ opacity: 0, scale: 1.04 }}
+        initial={{ opacity: 0, scale: 1.08 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.4, ease: "easeOut" }}
+        transition={{ duration: 1.8, ease: "easeOut" }}
       />
 
-      {/* Left navy wash for copy legibility — vertical on small screens, horizontal on wide */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[hsl(var(--hero-navy))] via-[hsl(var(--hero-navy)/0.85)] to-[hsl(var(--hero-navy)/0.55)] md:bg-gradient-to-r md:from-[hsl(var(--hero-navy))] md:via-[hsl(var(--hero-navy)/0.92)] md:to-transparent" />
-      <div className="hidden md:block absolute inset-y-0 left-0 w-[58%] bg-[hsl(var(--hero-navy)/0.55)]" />
+      {/* Cinematic scrims: dark from the left for copy, soft top band under the navbar */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[hsl(var(--hero-navy)/0.92)] via-[hsl(var(--hero-navy)/0.6)] to-[hsl(var(--hero-navy)/0.15)]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[hsl(var(--hero-navy)/0.75)] via-transparent to-[hsl(var(--hero-navy)/0.55)]" />
 
       {/* Soft moving glow orb tied to the rotating word */}
       <AnimatePresence mode="sync">
@@ -52,5 +52,6 @@ const HeroBackdrop = ({ index }: HeroBackdropProps) => {
     </div>
   );
 };
+
 
 export default HeroBackdrop;

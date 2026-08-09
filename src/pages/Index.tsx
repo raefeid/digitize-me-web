@@ -121,14 +121,14 @@ const Index = () => {
       <section className="relative overflow-hidden -mt-20 md:-mt-24 min-h-[100svh] flex flex-col justify-center pt-32 pb-16 md:pt-36 md:pb-20">
         <HeroBackdrop index={heroWordIndex} />
         <div className="container-max relative w-full">
-          <div className={`max-w-2xl section-stack ${isRTL ? "text-right ml-auto" : "text-left mr-auto"}`}>
+          <div className={`max-w-3xl section-stack ${isRTL ? "text-right ml-auto" : "text-left mr-auto"}`}>
             <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0}>
               <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[hsl(var(--hero-on-navy)/0.12)] text-[hsl(var(--hero-on-navy))] text-sm font-medium mb-2 md:mb-3 backdrop-blur-sm border border-[hsl(var(--hero-on-navy)/0.18)]">
                 <Languages size={16} />
                 <EditableText page="home" section="home" contentKey="hero_badge" fallback={t("hero.badge")} />
               </span>
             </motion.div>
-            <motion.h1 className={`text-4xl md:text-5xl lg:text-6xl font-bold text-[hsl(var(--hero-on-navy))] mb-3 md:mb-4 ${isRTL ? "text-right leading-[1.5] pb-2" : "text-left leading-[1.15]"}`} initial="hidden" animate="visible" variants={fadeUp} custom={1}>
+            <motion.h1 className={`text-[2.5rem] sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-[hsl(var(--hero-on-navy))] drop-shadow-[0_2px_20px_hsl(var(--hero-navy)/0.6)] mb-3 md:mb-5 ${isRTL ? "text-right leading-[1.4] pb-2" : "text-left leading-[1.05]"}`} initial="hidden" animate="visible" variants={fadeUp} custom={1}>
               <span className="inline">
                 <EditableText page="home" section="home" contentKey="hero_title" fallback={t("hero.title1")} rich />
               </span>{" "}
@@ -142,16 +142,17 @@ const Index = () => {
               contentKey="hero_desc"
               fallback={t("hero.desc")}
               multiline
-              className="block text-sm sm:text-base md:text-lg text-[hsl(var(--hero-on-navy)/0.78)] max-w-xl whitespace-pre-line"
+              className="block text-base sm:text-lg md:text-xl text-[hsl(var(--hero-on-navy)/0.85)] max-w-2xl whitespace-pre-line"
              rich />
 
-            <motion.div className={`flex flex-col sm:flex-row gap-3 md:gap-4 pt-2 ${isRTL ? "sm:justify-end" : "sm:justify-start"}`} initial="hidden" animate="visible" variants={fadeUp} custom={3}>
-              <CtaButton ctaKey="hero_primary" size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 px-8">
+            <motion.div className={`flex flex-col sm:flex-row gap-3 md:gap-4 pt-4 ${isRTL ? "sm:justify-end" : "sm:justify-start"}`} initial="hidden" animate="visible" variants={fadeUp} custom={3}>
+              <CtaButton ctaKey="hero_primary" size="lg" className="rounded-full bg-accent text-accent-foreground hover:bg-accent/90 px-9 h-14 text-base shadow-[0_10px_40px_-12px_hsl(var(--accent)/0.7)]">
                 <EditableText page="home" section="home" contentKey="hero_cta1" fallback={t("hero.cta1")} />
                 <ArrowRight size={18} className={isRTL ? "mr-2 rotate-180" : "ml-2"} />
               </CtaButton>
             </motion.div>
           </div>
+
         </div>
       </section>
 
