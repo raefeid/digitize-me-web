@@ -1,17 +1,35 @@
-import { motion } from "framer-motion";
-import heroImage from "@/assets/hero/digitizeme-hero-v2.jpg.asset.json";
+import { motion, AnimatePresence } from "framer-motion";
+import digitalControlImage from "@/assets/hero/hero-digital-control.jpg.asset.json";
+import smartArchivesImage from "@/assets/hero/digitizeme-smart-archives.jpg.asset.json";
+import aiPowerImage from "@/assets/hero/hero-ai-power-scene.jpg.asset.json";
 
-const HeroBackdrop = () => {
+const SCENES = [
+  { name: "Digital Control", image: digitalControlImage.url },
+  { name: "Smart Archives", image: smartArchivesImage.url },
+  { name: "AI Power", image: aiPowerImage.url },
+];
+
+interface HeroBackdropProps {
+  activeScene?: number;
+}
+
+const HeroBackdrop = ({ activeScene = 0 }: HeroBackdropProps) => {
+  const sceneIndex = ((activeScene % SCENES.length) + SCENES.length) % SCENES.length;
+
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-      {/* Full-bleed hero image at 100% opacity — no cross-fade */}
-      <motion.div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${heroImage.url})` }}
-        initial={{ opacity: 0, scale: 1.04 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ opacity: { duration: 0.9, ease: "easeOut" }, scale: { duration: 8, ease: "easeOut" } }}
-      />
+      {/* Cross-fading scene images */}
+      <AnimatePresence mode="sync">
+        <motion.div
+          key={SCENES[sceneIndex].name}
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${SCENES[sceneIndex].image})` }}
+          initial={{ opacity: 0, scale: 1.04 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ opacity: { duration: 0.9, ease: "easeOut" }, scale: { duration: 8, ease: "easeOut" } }}
+        />
+      </AnimatePresence>
 
       {/* Minimal left-side scrim so the headline stays readable without dimming the photo */}
       <div
@@ -21,7 +39,6 @@ const HeroBackdrop = () => {
             "linear-gradient(to right, hsl(var(--hero-navy) / 0.28) 0%, hsl(var(--hero-navy) / 0.12) 55%, hsl(var(--hero-navy) / 0) 100%)",
         }}
       />
-
     </div>
   );
 };
