@@ -404,7 +404,7 @@ const Navbar = () => {
                       className={cn(
                         "w-full flex items-center gap-2 px-3.5 py-2.5 text-sm transition-colors",
                         transparentMode
-                          ? lang === l.code ? "text-accent bg-accent/10 font-medium" : "text-white/80 hover:text-white hover:bg-white/10"
+                          ? lang === l.code ? "text-accent bg-accent/10 font-medium" : "text-white hover:bg-white/15 text-shadow-nav"
                           : lang === l.code ? "text-accent bg-accent/10 font-medium" : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
                       )}
                     >
