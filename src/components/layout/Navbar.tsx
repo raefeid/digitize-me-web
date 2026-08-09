@@ -542,7 +542,7 @@ const MobileNavItem = ({
       {hasChildren && isOpen && (
         <div className={`mt-1 mb-2 flex flex-col gap-0.5 ${depth === 0 ? "ml-3 border-l-2 border-accent/20 pl-3" : "ml-4 pl-2"}`}>
           {(!item.external && !item.newTab) && (
-            <Link to={item.href} onClick={onNavigate} className={cn("px-3 py-2 rounded-lg text-sm font-semibold transition-colors", transparentMode ? "text-accent hover:bg-white/10 text-shadow-nav" : "text-accent hover:bg-accent/10")}>
+            <Link to={item.href} onClick={onNavigate} className={cn("px-3 py-2 rounded-lg text-sm font-semibold transition-colors", transparentMode ? "text-accent hover:bg-white/10 nav-text-shadow" : "text-accent hover:bg-accent/10")}>
               View {item.label}
             </Link>
           )}
