@@ -46,7 +46,7 @@ const fadeUp = {
 };
 
 const Index = () => {
-  const [heroWordIndex, setHeroWordIndex] = useState(0);
+  
   const { t, isRTL } = useLanguage();
   const { getContent } = useSiteContent("home");
   const { getContent: getFaq } = useSiteContent("home", "faqs");
