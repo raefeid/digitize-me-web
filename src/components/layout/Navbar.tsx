@@ -391,14 +391,22 @@ const Navbar = () => {
                 <ChevronDown size={12} className={`transition-transform ${langOpen ? "rotate-180" : ""}`} />
               </button>
               {langOpen && (
-                <div className="absolute top-full mt-3 right-0 bg-card/95 backdrop-blur-xl border border-border/60 rounded-[1.15rem] shadow-[0_18px_40px_hsl(var(--foreground)/0.12)] py-1.5 min-w-[150px] z-50">
+                <div className={cn(
+                  "absolute top-full mt-3 right-0 backdrop-blur-xl rounded-[1.15rem] py-1.5 min-w-[150px] z-50",
+                  transparentMode
+                    ? "bg-[hsl(var(--hero-navy)/0.9)] border border-white/10 shadow-[0_18px_40px_hsl(var(--hero-navy)/0.35)]"
+                    : "bg-card/95 border border-border/60 shadow-[0_18px_40px_hsl(var(--foreground)/0.12)]"
+                )}>
                   {languages.map((l) => (
                     <button
                       key={l.code}
                       onClick={() => { handleLanguageChange(l.code); setLangOpen(false); }}
-                        className={`w-full flex items-center gap-2 px-3.5 py-2.5 text-sm transition-colors ${
-                          lang === l.code ? "text-accent bg-accent/10 font-medium" : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-                      }`}
+                      className={cn(
+                        "w-full flex items-center gap-2 px-3.5 py-2.5 text-sm transition-colors",
+                        transparentMode
+                          ? lang === l.code ? "text-accent bg-accent/10 font-medium" : "text-white/80 hover:text-white hover:bg-white/10"
+                          : lang === l.code ? "text-accent bg-accent/10 font-medium" : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                      )}
                     >
                       <span>{l.flag}</span>
                       <span>{l.label}</span>
