@@ -53,16 +53,16 @@ const HeroBackdrop = ({ index }: HeroBackdropProps) => {
         />
       </AnimatePresence>
 
-      {/* Long, multi-stop fade so the hero melts into the next section on every screen */}
+      {/* Eased fade down to solid navy; the next section continues navy -> background */}
       <div
-        className="absolute inset-x-0 bottom-0 h-56 sm:h-72 md:h-96"
+        className="absolute inset-x-0 bottom-0 h-44 sm:h-56 md:h-72"
         style={{
           backgroundImage:
-            "linear-gradient(to bottom, hsl(var(--hero-navy) / 0) 0%, hsl(var(--hero-navy) / 0.55) 35%, hsl(var(--background) / 0.85) 78%, hsl(var(--background)) 100%)",
+            "linear-gradient(to bottom, hsl(var(--hero-navy) / 0) 0%, hsl(var(--hero-navy) / 0.1) 16%, hsl(var(--hero-navy) / 0.28) 32%, hsl(var(--hero-navy) / 0.52) 48%, hsl(var(--hero-navy) / 0.76) 66%, hsl(var(--hero-navy) / 0.93) 84%, hsl(var(--hero-navy)) 100%)",
         }}
       />
-      {/* Hairline accent seam at the very bottom edge */}
-      <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
+
+
     </div>
   );
 };
