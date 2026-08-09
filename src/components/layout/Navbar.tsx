@@ -460,7 +460,7 @@ const Navbar = () => {
                       className={cn(
                         "flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-semibold transition-colors",
                         transparentMode
-                          ? lang === l.code ? "text-accent bg-accent/10" : "text-white hover:bg-white/15 text-shadow-nav"
+                          ? lang === l.code ? "text-accent bg-accent/10" : "text-white hover:bg-white/15 nav-text-shadow"
                           : lang === l.code ? "text-accent bg-accent/10" : "text-foreground/70 hover:text-foreground hover:bg-muted/50"
                       )}
                     >
