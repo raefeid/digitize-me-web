@@ -52,10 +52,22 @@ const SHARED_FEATURES: Omit<PricingPlanFeature, "included">[] = [
 
 /** Per-tier included flags for the shared checklist features (same order as above). */
 const FEATURE_FLAGS: Record<string, boolean[]> = {
-  individual:  [true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true ],
-  starter:     [true,  true,  true,  true,  true,  true,  true,  false, false, false, false],
+  individual:  [true,  true,  true,  true,  true,  false, true,  true,  true,  true,  true ],
+  starter:     [true,  true,  true,  true,  true,  false, true,  false, true,  false, true ],
   productivity:[true,  true,  true,  true,  true,  true,  true,  false, true,  true,  true ],
   professional:[true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true ],
+};
+
+/** Per-tier label overrides for shared features (index -> { name, name_ar }). */
+const FEATURE_NAME_OVERRIDES: Record<string, Record<number, { name: string; name_ar?: string }>> = {
+  individual: {
+    8: { name: "Normal AI Execution", name_ar: "تنفيذ عادي للذكاء الاصطناعي" },
+    10: { name: "Email Support", name_ar: "دعم عبر البريد الإلكتروني" },
+  },
+  starter: {
+    8: { name: "Normal AI Execution", name_ar: "تنفيذ عادي للذكاء الاصطناعي" },
+    10: { name: "Email Support", name_ar: "دعم عبر البريد الإلكتروني" },
+  },
 };
 
 const buildFeatures = (
@@ -63,11 +75,13 @@ const buildFeatures = (
   specs: PricingPlanFeature[],
 ): PricingPlanFeature[] => {
   const flags = FEATURE_FLAGS[planKey];
+  const overrides = FEATURE_NAME_OVERRIDES[planKey] ?? {};
   return [
     ...specs,
-    ...SHARED_FEATURES.map((f, i) => ({ ...f, included: flags[i] })),
+    ...SHARED_FEATURES.map((f, i) => ({ ...f, ...(overrides[i] ?? {}), included: flags[i] })),
   ];
 };
+
 
 export const DEFAULT_PRICING_PLANS: DefaultPricingPlan[] = [
   {
