@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import digitalControlImage from "@/assets/hero/hero-digital-control.jpg.asset.json";
 import smartArchivesImage from "@/assets/hero/digitizeme-smart-archives.jpg.asset.json";
@@ -16,18 +17,29 @@ interface HeroBackdropProps {
 const HeroBackdrop = ({ activeScene = 0 }: HeroBackdropProps) => {
   const sceneIndex = ((activeScene % SCENES.length) + SCENES.length) % SCENES.length;
 
+  // Preload all scene images so transitions never flash a blank frame.
+  useEffect(() => {
+    SCENES.forEach((scene) => {
+      const img = new Image();
+      img.src = scene.image;
+    });
+  }, []);
+
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-      {/* Cross-fading scene images */}
+      {/* Cross-fading scene images with a cinematic Ken Burns crossfade */}
       <AnimatePresence mode="sync">
         <motion.div
           key={SCENES[sceneIndex].name}
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat will-change-transform"
           style={{ backgroundImage: `url(${SCENES[sceneIndex].image})` }}
-          initial={{ opacity: 0, scale: 1.04 }}
+          initial={{ opacity: 0, scale: 1.08 }}
           animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ opacity: { duration: 0.9, ease: "easeOut" }, scale: { duration: 8, ease: "easeOut" } }}
+          exit={{ opacity: 0, scale: 1.05 }}
+          transition={{
+            opacity: { duration: 1.2, ease: [0.4, 0, 0.2, 1] },
+            scale: { duration: 8, ease: [0.25, 0.1, 0.25, 1] },
+          }}
         />
       </AnimatePresence>
 
