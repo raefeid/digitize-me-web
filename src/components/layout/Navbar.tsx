@@ -418,14 +418,28 @@ const Navbar = () => {
           </div>
 
           {/* Mobile toggle */}
-          <button className="xl:hidden p-2.5 rounded-xl border border-border/40 bg-card text-foreground shrink-0" onClick={() => setIsOpen(!isOpen)} aria-label="Toggle menu">
+          <button
+            className={cn(
+              "xl:hidden p-2.5 rounded-xl shrink-0 transition-all duration-300",
+              transparentMode
+                ? "border-white/15 bg-white/10 text-white hover:bg-white/15"
+                : "border border-border/40 bg-card text-foreground"
+            )}
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle menu"
+          >
             {isOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
 
         {/* Mobile Nav */}
         {isOpen && (
-          <div className="xl:hidden mt-3 bg-card/95 backdrop-blur-xl border border-border/60 rounded-[1.5rem] shadow-[0_18px_40px_hsl(var(--foreground)/0.12)] p-4">
+          <div className={cn(
+            "xl:hidden mt-3 backdrop-blur-xl rounded-[1.5rem] p-4",
+            transparentMode
+              ? "bg-[hsl(var(--hero-navy)/0.92)] border border-white/10 shadow-[0_18px_40px_hsl(var(--hero-navy)/0.35)]"
+              : "bg-card/95 border border-border/60 shadow-[0_18px_40px_hsl(var(--foreground)/0.12)]"
+          )}>
             <div className="flex flex-col gap-1">
               {mobileNavTree.map((item) => (
                 <MobileNavItem
