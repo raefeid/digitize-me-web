@@ -381,7 +381,7 @@ const Navbar = () => {
                 className={cn(
                   "flex items-center gap-1 px-2.5 2xl:px-3 py-2 rounded-xl text-[0.95rem] 2xl:text-sm transition-all whitespace-nowrap h-10",
                   transparentMode
-                    ? "text-white border-white/20 bg-white/15 hover:bg-white/20 text-shadow-nav"
+                    ? "text-white border-white/20 bg-white/15 hover:bg-white/20 nav-text-shadow"
                     : "text-muted-foreground border border-border/40 bg-card hover:text-foreground hover:bg-muted/50"
                 )}
                 aria-label="Switch language"
