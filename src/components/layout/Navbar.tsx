@@ -255,7 +255,7 @@ const Navbar = () => {
             <div className={cn(
               "flex items-center gap-0.5 xl:gap-0.5 2xl:gap-1 rounded-[1.15rem] px-1 xl:px-1.5 2xl:px-2 py-1.5 border max-w-full transition-all duration-300",
               transparentMode
-                ? "bg-white/10 border-white/10"
+                ? "bg-white/15 border-white/20 shadow-[0_8px_24px_rgba(0,0,0,0.18)]"
                 : "bg-muted/60 border-border/40"
             )}>
             {navLinks.map((link) => {
