@@ -378,7 +378,12 @@ const Navbar = () => {
             <div className="relative" ref={langRef}>
               <button
                 onClick={() => setLangOpen(!langOpen)}
-                className="flex items-center gap-1 px-2.5 2xl:px-3 py-2 rounded-xl text-[0.95rem] 2xl:text-sm text-muted-foreground border border-border/40 bg-card hover:text-foreground hover:bg-muted/50 transition-all whitespace-nowrap h-10"
+                className={cn(
+                  "flex items-center gap-1 px-2.5 2xl:px-3 py-2 rounded-xl text-[0.95rem] 2xl:text-sm transition-all whitespace-nowrap h-10",
+                  transparentMode
+                    ? "text-white/90 border-white/15 bg-white/10 hover:text-white hover:bg-white/15"
+                    : "text-muted-foreground border border-border/40 bg-card hover:text-foreground hover:bg-muted/50"
+                )}
                 aria-label="Switch language"
               >
                 <Globe size={15} />
