@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import * as LucideIcons from "lucide-react";
 import { Menu, X, Globe, ChevronDown, Sparkles, LogOut } from "lucide-react";
+import { cn } from "@/lib/utils";
 import CtaButton from "@/components/cms/CtaButton";
 import EditableText from "@/components/cms/EditableText";
 import { Button } from "@/components/ui/button";
@@ -43,6 +44,7 @@ const Navbar = () => {
   const [langOpen, setLangOpen] = useState(false);
   const [industriesOpen, setIndustriesOpen] = useState(false);
   const [mobileOpenIds, setMobileOpenIds] = useState<string[]>([]);
+  const [scrolled, setScrolled] = useState(false);
   const langRef = useRef<HTMLDivElement>(null);
   const industriesRef = useRef<HTMLDivElement>(null);
   const industriesTimeout = useRef<ReturnType<typeof setTimeout>>();
@@ -50,6 +52,10 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { t, lang, setLang, isRTL } = useLanguage();
   const { user, signOut, isCustomer } = useAuth();
+
+  // Transparent navbar only when at the top of the homepage hero.
+  const isHero = ["/", "/ar"].includes(location.pathname);
+  const transparentMode = isHero && !scrolled;
   // The navbar auth buttons are for CUSTOMERS only — admins use /admin-login separately.
   // Show "Log out" only when the signed-in user holds the customer role.
   const showCustomerSignedIn = !!user && isCustomer;
@@ -202,6 +208,13 @@ const Navbar = () => {
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   const handleEnter = () => {
     clearTimeout(industriesTimeout.current);
     setIndustriesOpen(true);
@@ -226,7 +239,12 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50">
       <div className="container-max px-4 sm:px-6 lg:px-8 pt-3 md:pt-4">
-        <div className="flex items-center justify-between min-h-[60px] md:min-h-[72px] bg-card/95 backdrop-blur-xl border border-border/70 rounded-[1.75rem] px-4 md:px-6 lg:px-5 xl:px-4 2xl:px-7 shadow-[0_10px_30px_hsl(var(--foreground)/0.06)] gap-2 xl:gap-2 2xl:gap-3">
+        <div className={cn(
+          "flex items-center justify-between min-h-[60px] md:min-h-[72px] rounded-[1.75rem] px-4 md:px-6 lg:px-5 xl:px-4 2xl:px-7 gap-2 xl:gap-2 2xl:gap-3 transition-all duration-300",
+          transparentMode
+            ? "bg-transparent border-transparent shadow-none"
+            : "bg-card/95 backdrop-blur-xl border border-border/70 shadow-[0_10px_30px_hsl(var(--foreground)/0.06)]"
+        )}>
           {/* Logo */}
           <Link to={localizeInternalPath("/", lang)} className="flex items-center shrink-0 min-w-0">
             <img src={logo} alt="Digitize me" className="h-9 md:h-10 2xl:h-12 w-auto" />
@@ -234,7 +252,12 @@ const Navbar = () => {
 
           {/* Desktop Nav, center pill */}
           <div className="hidden xl:flex flex-1 min-w-0 justify-center px-2">
-            <div className="flex items-center gap-0.5 xl:gap-0.5 2xl:gap-1 bg-muted/60 rounded-[1.15rem] px-1 xl:px-1.5 2xl:px-2 py-1.5 border border-border/40 max-w-full">
+            <div className={cn(
+              "flex items-center gap-0.5 xl:gap-0.5 2xl:gap-1 rounded-[1.15rem] px-1 xl:px-1.5 2xl:px-2 py-1.5 border max-w-full transition-all duration-300",
+              transparentMode
+                ? "bg-white/10 border-white/10"
+                : "bg-muted/60 border-border/40"
+            )}>
             {navLinks.map((link) => {
               if (link.dropdown === "industries") {
                 return (
@@ -247,11 +270,16 @@ const Navbar = () => {
                   >
                     <Link
                       to={link.href}
-                        className={`flex items-center gap-1 xl:gap-1.5 px-2.5 xl:px-3 2xl:px-4 py-2 rounded-xl text-[0.95rem] 2xl:text-sm font-medium transition-all duration-200 whitespace-nowrap ${
-                        location.pathname.startsWith("/industries")
+                      className={cn(
+                        "flex items-center gap-1 xl:gap-1.5 px-2.5 xl:px-3 2xl:px-4 py-2 rounded-xl text-[0.95rem] 2xl:text-sm font-medium transition-all duration-200 whitespace-nowrap",
+                        transparentMode
+                          ? location.pathname.startsWith("/industries")
+                            ? "text-white bg-white/15 shadow-[0_4px_12px_hsl(var(--foreground)/0.06)]"
+                            : "text-white/80 hover:text-white hover:bg-white/10"
+                          : location.pathname.startsWith("/industries")
                             ? "text-accent bg-card shadow-[0_4px_12px_hsl(var(--foreground)/0.06)]"
                             : "text-muted-foreground hover:text-foreground hover:bg-card/80"
-                      }`}
+                      )}
                     >
                       {link.label}
                       <ChevronDown size={13} className={`transition-transform duration-200 ${industriesOpen ? "rotate-180" : ""}`} />
@@ -295,11 +323,16 @@ const Navbar = () => {
                 );
               }
 
-              const cls = `px-2.5 xl:px-3 2xl:px-4 py-2 rounded-xl text-[0.95rem] 2xl:text-sm font-medium transition-all duration-200 whitespace-nowrap ${
-                location.pathname === link.href
-                  ? "text-accent bg-card shadow-[0_4px_12px_hsl(var(--foreground)/0.06)]"
-                  : "text-muted-foreground hover:text-foreground hover:bg-card/80"
-              }`;
+              const cls = cn(
+                "px-2.5 xl:px-3 2xl:px-4 py-2 rounded-xl text-[0.95rem] 2xl:text-sm font-medium transition-all duration-200 whitespace-nowrap",
+                transparentMode
+                  ? location.pathname === link.href
+                    ? "text-white bg-white/15 shadow-[0_4px_12px_hsl(var(--foreground)/0.06)]"
+                    : "text-white/80 hover:text-white hover:bg-white/10"
+                  : location.pathname === link.href
+                    ? "text-accent bg-card shadow-[0_4px_12px_hsl(var(--foreground)/0.06)]"
+                    : "text-muted-foreground hover:text-foreground hover:bg-card/80"
+              );
               if ((link as any).external || (link as any).newTab) {
                 return (
                   <a key={link.href} href={link.href} target={(link as any).newTab ? "_blank" : undefined} rel="noopener noreferrer" className={cls}>
@@ -345,7 +378,12 @@ const Navbar = () => {
             <div className="relative" ref={langRef}>
               <button
                 onClick={() => setLangOpen(!langOpen)}
-                className="flex items-center gap-1 px-2.5 2xl:px-3 py-2 rounded-xl text-[0.95rem] 2xl:text-sm text-muted-foreground border border-border/40 bg-card hover:text-foreground hover:bg-muted/50 transition-all whitespace-nowrap h-10"
+                className={cn(
+                  "flex items-center gap-1 px-2.5 2xl:px-3 py-2 rounded-xl text-[0.95rem] 2xl:text-sm transition-all whitespace-nowrap h-10",
+                  transparentMode
+                    ? "text-white/90 border-white/15 bg-white/10 hover:text-white hover:bg-white/15"
+                    : "text-muted-foreground border border-border/40 bg-card hover:text-foreground hover:bg-muted/50"
+                )}
                 aria-label="Switch language"
               >
                 <Globe size={15} />
@@ -353,14 +391,22 @@ const Navbar = () => {
                 <ChevronDown size={12} className={`transition-transform ${langOpen ? "rotate-180" : ""}`} />
               </button>
               {langOpen && (
-                <div className="absolute top-full mt-3 right-0 bg-card/95 backdrop-blur-xl border border-border/60 rounded-[1.15rem] shadow-[0_18px_40px_hsl(var(--foreground)/0.12)] py-1.5 min-w-[150px] z-50">
+                <div className={cn(
+                  "absolute top-full mt-3 right-0 backdrop-blur-xl rounded-[1.15rem] py-1.5 min-w-[150px] z-50",
+                  transparentMode
+                    ? "bg-[hsl(var(--hero-navy)/0.9)] border border-white/10 shadow-[0_18px_40px_hsl(var(--hero-navy)/0.35)]"
+                    : "bg-card/95 border border-border/60 shadow-[0_18px_40px_hsl(var(--foreground)/0.12)]"
+                )}>
                   {languages.map((l) => (
                     <button
                       key={l.code}
                       onClick={() => { handleLanguageChange(l.code); setLangOpen(false); }}
-                        className={`w-full flex items-center gap-2 px-3.5 py-2.5 text-sm transition-colors ${
-                          lang === l.code ? "text-accent bg-accent/10 font-medium" : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-                      }`}
+                      className={cn(
+                        "w-full flex items-center gap-2 px-3.5 py-2.5 text-sm transition-colors",
+                        transparentMode
+                          ? lang === l.code ? "text-accent bg-accent/10 font-medium" : "text-white/80 hover:text-white hover:bg-white/10"
+                          : lang === l.code ? "text-accent bg-accent/10 font-medium" : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                      )}
                     >
                       <span>{l.flag}</span>
                       <span>{l.label}</span>
@@ -372,14 +418,28 @@ const Navbar = () => {
           </div>
 
           {/* Mobile toggle */}
-          <button className="xl:hidden p-2.5 rounded-xl border border-border/40 bg-card text-foreground shrink-0" onClick={() => setIsOpen(!isOpen)} aria-label="Toggle menu">
+          <button
+            className={cn(
+              "xl:hidden p-2.5 rounded-xl shrink-0 transition-all duration-300",
+              transparentMode
+                ? "border-white/15 bg-white/10 text-white hover:bg-white/15"
+                : "border border-border/40 bg-card text-foreground"
+            )}
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle menu"
+          >
             {isOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
 
         {/* Mobile Nav */}
         {isOpen && (
-          <div className="xl:hidden mt-3 bg-card/95 backdrop-blur-xl border border-border/60 rounded-[1.5rem] shadow-[0_18px_40px_hsl(var(--foreground)/0.12)] p-4">
+          <div className={cn(
+            "xl:hidden mt-3 backdrop-blur-xl rounded-[1.5rem] p-4",
+            transparentMode
+              ? "bg-[hsl(var(--hero-navy)/0.92)] border border-white/10 shadow-[0_18px_40px_hsl(var(--hero-navy)/0.35)]"
+              : "bg-card/95 border border-border/60 shadow-[0_18px_40px_hsl(var(--foreground)/0.12)]"
+          )}>
             <div className="flex flex-col gap-1">
               {mobileNavTree.map((item) => (
                 <MobileNavItem
@@ -389,16 +449,20 @@ const Navbar = () => {
                   openIds={mobileOpenIds}
                   onToggle={toggleMobileNode}
                   onNavigate={() => setIsOpen(false)}
+                  transparentMode={transparentMode}
                 />
               ))}
               <div className="px-3 py-2 mt-1">
-                <p className="text-xs text-muted-foreground mb-2 uppercase tracking-wider">{t("nav.language")}</p>
+                <p className={cn("text-xs mb-2 uppercase tracking-wider", transparentMode ? "text-white/60" : "text-muted-foreground")}>{t("nav.language")}</p>
                 <div className="flex gap-2">
                   {languages.map((l) => (
                     <button key={l.code} onClick={() => { handleLanguageChange(l.code); setIsOpen(false); }}
-                      className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium transition-colors ${
-                        lang === l.code ? "text-accent bg-accent/10" : "text-foreground/70 hover:text-foreground hover:bg-muted/50"
-                      }`}
+                      className={cn(
+                        "flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium transition-colors",
+                        transparentMode
+                          ? lang === l.code ? "text-accent bg-accent/10" : "text-white/80 hover:text-white hover:bg-white/10"
+                          : lang === l.code ? "text-accent bg-accent/10" : "text-foreground/70 hover:text-foreground hover:bg-muted/50"
+                      )}
                     >
                       <span>{l.flag}</span>
                       <span>{l.label}</span>
@@ -431,6 +495,7 @@ const MobileNavItem = ({
   onToggle,
   onNavigate,
   depth = 0,
+  transparentMode = false,
 }: {
   item: MobileNavNode;
   locationPath: string;
@@ -438,14 +503,19 @@ const MobileNavItem = ({
   onToggle: (id: string) => void;
   onNavigate: () => void;
   depth?: number;
+  transparentMode?: boolean;
 }) => {
   const hasChildren = !!item.children?.length;
   const isOpen = openIds.includes(item.id);
   const isActive = locationPath === item.href || locationPath.startsWith(`${item.href}/`);
-  const icon = item.iconName ? <FeatureIcon name={item.iconName} className="w-3.5 h-3.5 text-accent/60 shrink-0" /> : null;
-  const itemClass = `w-full flex items-center ${hasChildren ? "justify-between" : ""} gap-2 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${
-    isActive ? "text-accent bg-accent/10" : "text-foreground/70 hover:text-foreground hover:bg-muted/50"
-  }`;
+  const icon = item.iconName ? <FeatureIcon name={item.iconName} className={cn("w-3.5 h-3.5 shrink-0", transparentMode ? "text-accent/80" : "text-accent/60")} /> : null;
+  const itemClass = cn(
+    "w-full flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors",
+    hasChildren && "justify-between",
+    transparentMode
+      ? isActive ? "text-accent bg-accent/10" : "text-white/80 hover:text-white hover:bg-white/10"
+      : isActive ? "text-accent bg-accent/10" : "text-foreground/70 hover:text-foreground hover:bg-muted/50"
+  );
 
   return (
     <div>
@@ -472,7 +542,7 @@ const MobileNavItem = ({
       {hasChildren && isOpen && (
         <div className={`mt-1 mb-2 flex flex-col gap-0.5 ${depth === 0 ? "ml-3 border-l-2 border-accent/20 pl-3" : "ml-4 pl-2"}`}>
           {(!item.external && !item.newTab) && (
-            <Link to={item.href} onClick={onNavigate} className="px-3 py-2 rounded-lg text-sm font-medium text-accent hover:bg-accent/10 transition-colors">
+            <Link to={item.href} onClick={onNavigate} className={cn("px-3 py-2 rounded-lg text-sm font-medium transition-colors", transparentMode ? "text-accent hover:bg-white/10" : "text-accent hover:bg-accent/10")}>
               View {item.label}
             </Link>
           )}
@@ -485,6 +555,7 @@ const MobileNavItem = ({
               onToggle={onToggle}
               onNavigate={onNavigate}
               depth={depth + 1}
+              transparentMode={transparentMode}
             />
           ))}
         </div>
