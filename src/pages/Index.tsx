@@ -46,7 +46,7 @@ const fadeUp = {
 };
 
 const Index = () => {
-  const [heroWordIndex, setHeroWordIndex] = useState(0);
+  
   const { t, isRTL } = useLanguage();
   const { getContent } = useSiteContent("home");
   const { getContent: getFaq } = useSiteContent("home", "faqs");
@@ -119,11 +119,11 @@ const Index = () => {
 
       {/* 1. Hero */}
       <section className="relative overflow-hidden -mt-20 md:-mt-24 min-h-[100svh] flex flex-col justify-center pt-32 pb-16 md:pt-36 md:pb-20">
-        <HeroBackdrop index={heroWordIndex} />
+        <HeroBackdrop />
         <div className="container-max relative w-full">
           <div className={`max-w-3xl section-stack ${isRTL ? "text-right ml-auto" : "text-left mr-auto"}`}>
             <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0}>
-              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[hsl(var(--hero-on-navy)/0.12)] text-[hsl(var(--hero-on-navy))] text-sm font-medium mb-2 md:mb-3 backdrop-blur-sm border border-[hsl(var(--hero-on-navy)/0.18)]">
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[hsl(var(--hero-navy)/0.35)] text-[hsl(var(--hero-on-navy))] text-sm font-medium mb-2 md:mb-3 backdrop-blur-sm border border-[hsl(var(--hero-on-navy)/0.18)]">
                 <Languages size={16} />
                 <EditableText page="home" section="home" contentKey="hero_badge" fallback={t("hero.badge")} />
               </span>
@@ -132,7 +132,7 @@ const Index = () => {
               <span className="inline">
                 <EditableText page="home" section="home" contentKey="hero_title" fallback={t("hero.title1")} rich />
               </span>{" "}
-              <RotatingHeroWord words={rotatingWords} className="inline" onIndexChange={setHeroWordIndex} />
+              <RotatingHeroWord words={rotatingWords} className="inline" />
             </motion.h1>
             <div className={`h-[3px] w-14 rounded-full bg-accent mb-4 ${isRTL ? "ml-0 mr-auto" : "mr-auto"}`} />
             <EditableText
@@ -142,7 +142,7 @@ const Index = () => {
               contentKey="hero_desc"
               fallback={t("hero.desc")}
               multiline
-              className="block text-base sm:text-lg md:text-xl text-[hsl(var(--hero-on-navy)/0.85)] max-w-2xl whitespace-pre-line"
+              className="block text-base sm:text-lg md:text-xl text-[hsl(var(--hero-on-navy)/0.9)] max-w-2xl whitespace-pre-line drop-shadow-[0_1px_10px_hsl(var(--hero-navy)/0.55)]"
              rich />
 
             <motion.div className={`flex flex-col sm:flex-row gap-3 md:gap-4 pt-4 ${isRTL ? "sm:justify-end" : "sm:justify-start"}`} initial="hidden" animate="visible" variants={fadeUp} custom={3}>
