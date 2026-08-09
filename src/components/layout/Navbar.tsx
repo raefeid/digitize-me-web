@@ -413,7 +413,7 @@ const Navbar = () => {
                   onClick={(e) => { e.preventDefault(); setIsOpen(false); launchExternal("https://fotofind.digitizeme.ae/"); }}
                   className="w-full flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl text-sm font-semibold bg-accent text-accent-foreground hover:bg-accent/90"
                 >
-                  {isRTL ? "ابدأ مجانًا" : "Start Free"}
+                  {t("cta.start")}
                 </a>
             </div>
           </div>
