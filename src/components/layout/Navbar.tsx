@@ -327,8 +327,8 @@ const Navbar = () => {
                 "px-2.5 xl:px-3 2xl:px-4 py-2 rounded-xl text-[0.95rem] 2xl:text-sm font-semibold transition-all duration-200 whitespace-nowrap",
                 transparentMode
                   ? location.pathname === link.href
-                    ? "text-white bg-white/20 shadow-[0_4px_14px_rgba(0,0,0,0.25)] text-shadow-nav-strong"
-                    : "text-white hover:bg-white/15 text-shadow-nav"
+                    ? "text-[#ffffff] bg-white/20 shadow-[0_4px_14px_rgba(0,0,0,0.25)] text-shadow-nav-strong"
+                    : "text-[#ffffff] hover:bg-white/15 text-shadow-nav"
                   : location.pathname === link.href
                     ? "text-accent bg-card shadow-[0_4px_12px_hsl(var(--foreground)/0.06)]"
                     : "text-muted-foreground hover:text-foreground hover:bg-card/80"
