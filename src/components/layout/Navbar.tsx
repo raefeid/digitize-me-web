@@ -252,7 +252,12 @@ const Navbar = () => {
 
           {/* Desktop Nav, center pill */}
           <div className="hidden xl:flex flex-1 min-w-0 justify-center px-2">
-            <div className="flex items-center gap-0.5 xl:gap-0.5 2xl:gap-1 bg-muted/60 rounded-[1.15rem] px-1 xl:px-1.5 2xl:px-2 py-1.5 border border-border/40 max-w-full">
+            <div className={cn(
+              "flex items-center gap-0.5 xl:gap-0.5 2xl:gap-1 rounded-[1.15rem] px-1 xl:px-1.5 2xl:px-2 py-1.5 border max-w-full transition-all duration-300",
+              transparentMode
+                ? "bg-white/10 border-white/10"
+                : "bg-muted/60 border-border/40"
+            )}>
             {navLinks.map((link) => {
               if (link.dropdown === "industries") {
                 return (
