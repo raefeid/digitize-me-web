@@ -142,7 +142,7 @@ const Index = () => {
               contentKey="hero_desc"
               fallback={t("hero.desc")}
               multiline
-              className="block text-base sm:text-lg md:text-xl text-[hsl(var(--hero-on-navy)/0.85)] max-w-2xl whitespace-pre-line"
+              className="block text-base sm:text-lg md:text-xl text-[hsl(var(--hero-on-navy)/0.9)] max-w-2xl whitespace-pre-line drop-shadow-[0_1px_10px_hsl(var(--hero-navy)/0.55)]"
              rich />
 
             <motion.div className={`flex flex-col sm:flex-row gap-3 md:gap-4 pt-4 ${isRTL ? "sm:justify-end" : "sm:justify-start"}`} initial="hidden" animate="visible" variants={fadeUp} custom={3}>
