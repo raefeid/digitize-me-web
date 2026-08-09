@@ -270,11 +270,16 @@ const Navbar = () => {
                   >
                     <Link
                       to={link.href}
-                        className={`flex items-center gap-1 xl:gap-1.5 px-2.5 xl:px-3 2xl:px-4 py-2 rounded-xl text-[0.95rem] 2xl:text-sm font-medium transition-all duration-200 whitespace-nowrap ${
-                        location.pathname.startsWith("/industries")
+                      className={cn(
+                        "flex items-center gap-1 xl:gap-1.5 px-2.5 xl:px-3 2xl:px-4 py-2 rounded-xl text-[0.95rem] 2xl:text-sm font-medium transition-all duration-200 whitespace-nowrap",
+                        transparentMode
+                          ? location.pathname.startsWith("/industries")
+                            ? "text-white bg-white/15 shadow-[0_4px_12px_hsl(var(--foreground)/0.06)]"
+                            : "text-white/80 hover:text-white hover:bg-white/10"
+                          : location.pathname.startsWith("/industries")
                             ? "text-accent bg-card shadow-[0_4px_12px_hsl(var(--foreground)/0.06)]"
                             : "text-muted-foreground hover:text-foreground hover:bg-card/80"
-                      }`}
+                      )}
                     >
                       {link.label}
                       <ChevronDown size={13} className={`transition-transform duration-200 ${industriesOpen ? "rotate-180" : ""}`} />
