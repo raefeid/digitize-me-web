@@ -513,7 +513,7 @@ const MobileNavItem = ({
     "w-full flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors",
     hasChildren && "justify-between",
     transparentMode
-      ? isActive ? "text-accent bg-accent/10 text-shadow-nav" : "text-white hover:bg-white/15 text-shadow-nav"
+      ? isActive ? "text-accent bg-accent/10 nav-text-shadow" : "text-white hover:bg-white/15 nav-text-shadow"
       : isActive ? "text-accent bg-accent/10" : "text-foreground/70 hover:text-foreground hover:bg-muted/50"
   );
 
