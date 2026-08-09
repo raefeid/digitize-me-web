@@ -6,15 +6,21 @@ const HeroBackdrop = () => {
     <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
       {/* Full-bleed hero image at 100% opacity — no cross-fade */}
       <motion.div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${heroImage.url})` }}
+        className="absolute inset-0 bg-cover bg-no-repeat"
+        style={{ backgroundImage: `url(${heroImage.url})`, backgroundPosition: "30% center" }}
         initial={{ opacity: 0, scale: 1.04 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ opacity: { duration: 0.9, ease: "easeOut" }, scale: { duration: 8, ease: "easeOut" } }}
       />
 
-      {/* Minimal left-side scrim for headline legibility — photo stays fully visible */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[hsl(var(--hero-navy)/0.28)] via-[hsl(var(--hero-navy)/0.08)] to-transparent" />
+      {/* Localized left-side scrim so the copy stays readable without dimming the photo */}
+      <div
+        className="absolute inset-y-0 left-0 w-full sm:w-[70%] md:w-[55%]"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, hsl(var(--hero-navy) / 0.55) 0%, hsl(var(--hero-navy) / 0.32) 45%, hsl(var(--hero-navy) / 0) 100%)",
+        }}
+      />
 
       {/* Barely-there fade down to the next section */}
       <div
