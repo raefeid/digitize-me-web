@@ -132,7 +132,7 @@ const Index = () => {
               <span className="inline">
                 <EditableText page="home" section="home" contentKey="hero_title" fallback={t("hero.title1")} rich />
               </span>{" "}
-              <RotatingHeroWord words={rotatingWords} className="inline" onIndexChange={setHeroWordIndex} />
+              <RotatingHeroWord words={rotatingWords} className="inline" />
             </motion.h1>
             <div className={`h-[3px] w-14 rounded-full bg-accent mb-4 ${isRTL ? "ml-0 mr-auto" : "mr-auto"}`} />
             <EditableText
