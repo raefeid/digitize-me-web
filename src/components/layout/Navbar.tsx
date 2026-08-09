@@ -239,7 +239,12 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50">
       <div className="container-max px-4 sm:px-6 lg:px-8 pt-3 md:pt-4">
-        <div className="flex items-center justify-between min-h-[60px] md:min-h-[72px] bg-card/95 backdrop-blur-xl border border-border/70 rounded-[1.75rem] px-4 md:px-6 lg:px-5 xl:px-4 2xl:px-7 shadow-[0_10px_30px_hsl(var(--foreground)/0.06)] gap-2 xl:gap-2 2xl:gap-3">
+        <div className={cn(
+          "flex items-center justify-between min-h-[60px] md:min-h-[72px] rounded-[1.75rem] px-4 md:px-6 lg:px-5 xl:px-4 2xl:px-7 gap-2 xl:gap-2 2xl:gap-3 transition-all duration-300",
+          transparentMode
+            ? "bg-transparent border-transparent shadow-none"
+            : "bg-card/95 backdrop-blur-xl border border-border/70 shadow-[0_10px_30px_hsl(var(--foreground)/0.06)]"
+        )}>
           {/* Logo */}
           <Link to={localizeInternalPath("/", lang)} className="flex items-center shrink-0 min-w-0">
             <img src={logo} alt="Digitize me" className="h-9 md:h-10 2xl:h-12 w-auto" />
