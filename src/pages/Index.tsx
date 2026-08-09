@@ -120,7 +120,7 @@ const Index = () => {
 
       {/* 1. Hero */}
       <section className="relative overflow-hidden -mt-20 md:-mt-24 min-h-[100svh] flex flex-col justify-center pt-32 pb-16 md:pt-36 md:pb-20">
-        <HeroBackdrop />
+        <HeroBackdrop activeScene={heroScene} />
         <div className="container-max relative w-full">
           <div className={`max-w-3xl section-stack ${isRTL ? "text-right ml-auto" : "text-left mr-auto"}`}>
             <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0}>
@@ -133,7 +133,7 @@ const Index = () => {
               <span className="inline">
                 <EditableText page="home" section="home" contentKey="hero_title" fallback={t("hero.title1")} rich />
               </span>{" "}
-              <RotatingHeroWord words={rotatingWords} className="inline" />
+              <RotatingHeroWord words={rotatingWords} className="inline" onIndexChange={setHeroScene} />
             </motion.h1>
             <div className={`h-[3px] w-14 rounded-full bg-accent mb-4 ${isRTL ? "ml-0 mr-auto" : "mr-auto"}`} />
             <EditableText
