@@ -422,7 +422,7 @@ const Navbar = () => {
             className={cn(
               "xl:hidden p-2.5 rounded-xl shrink-0 transition-all duration-300",
               transparentMode
-                ? "border-white/15 bg-white/10 text-white hover:bg-white/15"
+                ? "border-white/20 bg-white/15 text-white hover:bg-white/20 text-shadow-nav"
                 : "border border-border/40 bg-card text-foreground"
             )}
             onClick={() => setIsOpen(!isOpen)}
