@@ -157,11 +157,11 @@ const Index = () => {
               contentKey="hero_desc"
               fallback={t("hero.desc")}
               multiline
-              className="block text-base sm:text-lg md:text-xl text-[hsl(var(--hero-on-navy)/0.95)] max-w-2xl whitespace-pre-line drop-shadow-[0_2px_14px_hsl(var(--hero-navy)/0.75)]"
+              className="block text-base sm:text-lg md:text-xl text-[hsl(var(--hero-on-navy)/0.95)] max-w-2xl whitespace-normal sm:whitespace-pre-line drop-shadow-[0_2px_14px_hsl(var(--hero-navy)/0.75)]"
              rich />
 
             <motion.div className={`flex flex-col sm:flex-row gap-3 md:gap-4 pt-4 ${isRTL ? "sm:justify-end" : "sm:justify-start"}`} initial="hidden" animate="visible" variants={fadeUp} custom={3}>
-              <CtaButton ctaKey="hero_primary" size="lg" className="rounded-full bg-accent text-accent-foreground hover:bg-accent/90 px-9 h-14 text-base shadow-[0_10px_40px_-12px_hsl(var(--accent)/0.7)]">
+              <CtaButton ctaKey="hero_primary" size="lg" className="w-full sm:w-auto rounded-full bg-accent text-accent-foreground hover:bg-accent/90 px-7 sm:px-9 h-14 text-base shadow-[0_10px_40px_-12px_hsl(var(--accent)/0.7)]">
                 <EditableText page="home" section="home" contentKey="hero_cta1" fallback={t("hero.cta1")} />
                 <ArrowRight size={18} className={isRTL ? "mr-2 rotate-180" : "ml-2"} />
               </CtaButton>

@@ -137,7 +137,7 @@ const Product = () => {
             section="hero"
             contentKey="product_title"
             fallback={t("product.title")}
-            className="gradient-text mx-auto block max-w-4xl text-balance pb-2 text-4xl font-bold leading-[1.25] tracking-tight sm:text-5xl md:text-6xl lg:text-[4.25rem]"
+            className="gradient-text mx-auto block max-w-4xl text-balance pb-2 text-[2.1rem] font-bold leading-[1.2] tracking-tight sm:text-5xl md:text-6xl lg:text-[4.25rem]"
             rich
           />
           <EditableText
@@ -147,15 +147,15 @@ const Product = () => {
             contentKey="product_desc"
             fallback={t("product.desc")}
             multiline
-            className="mx-auto mt-6 max-w-3xl text-lg text-muted-foreground md:text-xl"
+            className="mx-auto mt-4 max-w-3xl text-base text-muted-foreground sm:mt-6 sm:text-lg md:text-xl"
             rich
           />
-          <div className="mt-10 flex justify-center">
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }} transition={{ type: "spring", stiffness: 300, damping: 15 }}>
+          <div className="mt-7 flex justify-center sm:mt-10">
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }} transition={{ type: "spring", stiffness: 300, damping: 15 }} className="w-full sm:w-auto">
               <CtaButton
                 ctaKey="product_cta_pricing"
                 size="lg"
-                className="group relative h-14 overflow-hidden rounded-full bg-gradient-to-r from-accent via-accent to-accent/90 px-10 text-base font-semibold text-accent-foreground shadow-[0_0_40px_-10px_hsl(var(--accent)/0.5)] transition-all duration-300 hover:shadow-[0_0_60px_-10px_hsl(var(--accent)/0.6)] animate-cta-shimmer"
+                className="group relative h-14 w-full sm:w-auto overflow-hidden rounded-full bg-gradient-to-r from-accent via-accent to-accent/90 px-8 sm:px-10 text-base font-semibold text-accent-foreground shadow-[0_0_40px_-10px_hsl(var(--accent)/0.5)] transition-all duration-300 hover:shadow-[0_0_60px_-10px_hsl(var(--accent)/0.6)] animate-cta-shimmer"
               >
                 <EditableText page="product" section="hero" contentKey="hero_cta_pricing_label" fallback={t("common.viewPricing")} />
                 <ArrowRight

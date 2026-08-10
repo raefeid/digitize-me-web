@@ -219,6 +219,22 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Close the mobile menu whenever the route changes.
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location.pathname]);
+
+  // Lock background scroll while the mobile menu is open.
+  useEffect(() => {
+    if (!isOpen) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, [isOpen]);
+
+
   const handleEnter = () => {
     clearTimeout(industriesTimeout.current);
     setIndustriesOpen(true);
@@ -424,13 +440,14 @@ const Navbar = () => {
           {/* Mobile toggle */}
           <button
             className={cn(
-              "xl:hidden p-2.5 rounded-xl shrink-0 transition-all duration-300",
+              "xl:hidden inline-flex items-center justify-center h-11 w-11 rounded-xl shrink-0 transition-all duration-300",
               transparentMode
-                ? "border-white/20 bg-white/15 text-white hover:bg-white/20 nav-text-shadow"
+                ? "border border-white/30 bg-[hsl(var(--hero-navy)/0.45)] backdrop-blur-md text-white shadow-[0_6px_18px_hsl(var(--hero-navy)/0.35)] hover:bg-[hsl(var(--hero-navy)/0.6)]"
                 : "border border-border/40 bg-card text-foreground"
             )}
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
+            aria-expanded={isOpen}
           >
             {isOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
@@ -439,7 +456,7 @@ const Navbar = () => {
         {/* Mobile Nav */}
         {isOpen && (
           <div className={cn(
-            "xl:hidden mt-3 backdrop-blur-xl rounded-[1.5rem] p-4",
+            "xl:hidden mt-3 backdrop-blur-xl rounded-[1.5rem] p-4 max-h-[calc(100dvh-7rem)] overflow-y-auto overscroll-contain",
             transparentMode
               ? "bg-[hsl(var(--hero-navy)/0.92)] border border-white/10 shadow-[0_18px_40px_hsl(var(--hero-navy)/0.35)]"
               : "bg-card/95 border border-border/60 shadow-[0_18px_40px_hsl(var(--foreground)/0.12)]"
@@ -479,7 +496,7 @@ const Navbar = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={(e) => { e.preventDefault(); setIsOpen(false); launchExternal("https://fotofind.digitizeme.ae/"); }}
-                  className="w-full flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl text-sm font-semibold bg-accent text-accent-foreground hover:bg-accent/90"
+                  className="w-full flex items-center justify-center gap-1.5 px-4 h-12 rounded-xl text-sm font-semibold bg-accent text-accent-foreground hover:bg-accent/90"
                 >
                   {t("cta.start")}
                 </a>
