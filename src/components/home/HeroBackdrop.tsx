@@ -3,12 +3,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/i18n/LanguageContext";
 import digitalControlImage from "@/assets/hero/digitizeme-digital-control-network.png.asset.json";
 import smartArchivesImage from "@/assets/hero/digitizeme-smart-archives.jpg.asset.json";
-import aiPowerImage from "@/assets/hero/hero-ai-power-scene.jpg.asset.json";
+import aiPowerImage from "@/assets/hero/hero-ai-power-v2.png.asset.json";
 
 const SCENES = [
   { name: "Digital Control", image: digitalControlImage.url, dark: true },
   { name: "Smart Archives", image: smartArchivesImage.url },
-  { name: "AI Power", image: aiPowerImage.url },
+  { name: "AI Power", image: aiPowerImage.url, dark: true },
 ];
 
 interface HeroBackdropProps {
