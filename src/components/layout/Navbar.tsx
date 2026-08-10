@@ -10,6 +10,7 @@ import { useLanguage, Language } from "@/i18n/LanguageContext";
 import { useDynamicIndustries } from "@/hooks/useDynamicIndustries";
 import { useAuth } from "@/hooks/useAuth";
 import logoFallback from "@/assets/digitizeme-logo-light.png";
+import heroLogoAsset from "@/assets/digitizeme-logo-hero-light.png.asset.json";
 import { useBrandingAsset } from "@/hooks/useBranding";
 import { useNavItems, navItemHref } from "@/hooks/useNavItems";
 import { useCustomPages } from "@/hooks/useCustomPages";
@@ -247,8 +248,29 @@ const Navbar = () => {
         )}>
           {/* Logo */}
           <Link to={localizeInternalPath("/", lang)} className="flex items-center shrink-0 min-w-0">
-            <img src={logo} alt="Digitize me" className="h-9 md:h-10 2xl:h-12 w-auto" />
+            <span className="relative block h-9 md:h-10 2xl:h-12">
+              {/* Light logo for the transparent hero state */}
+              <img
+                src={heroLogoAsset.url}
+                alt="Digitize me"
+                className={cn(
+                  "h-full w-auto transition-opacity duration-500",
+                  transparentMode ? "opacity-100" : "opacity-0"
+                )}
+              />
+              {/* Default logo once scrolled */}
+              <img
+                src={logo}
+                alt=""
+                aria-hidden="true"
+                className={cn(
+                  "absolute inset-0 h-full w-auto transition-opacity duration-500",
+                  transparentMode ? "opacity-0" : "opacity-100"
+                )}
+              />
+            </span>
           </Link>
+
 
           {/* Desktop Nav, center pill */}
           <div className="hidden xl:flex flex-1 min-w-0 justify-center px-2">
