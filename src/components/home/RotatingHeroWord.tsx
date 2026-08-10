@@ -9,7 +9,7 @@ interface RotatingHeroWordProps {
 }
 
 const WORD_INTERVAL = 8000;
-const TRANSITION_DURATION = 1.4;
+const TRANSITION_DURATION = 0.9;
 
 const RotatingHeroWord = ({ words, className, onIndexChange }: RotatingHeroWordProps) => {
   const [index, setIndex] = useState(0);
@@ -32,7 +32,7 @@ const RotatingHeroWord = ({ words, className, onIndexChange }: RotatingHeroWordP
       <AnimatePresence mode="wait">
         <motion.span
           key={words[index]}
-          className="inline-block bg-clip-text text-transparent bg-gradient-to-r from-[hsl(var(--hero-on-navy))] to-[hsl(var(--dm-coral))] pb-[0.15em] -mb-[0.15em] align-baseline drop-shadow-[0_3px_18px_hsl(var(--hero-navy)/1)]"
+          className="inline-block bg-clip-text text-transparent bg-gradient-to-r from-[hsl(356_100%_78%)] via-[hsl(var(--dm-coral))] to-[hsl(356_95%_55%)] pb-[0.15em] -mb-[0.15em] align-baseline drop-shadow-[0_2px_24px_hsl(356_94%_60%/0.65)]"
           initial={{ opacity: 0, y: 18, filter: "blur(6px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           exit={{ opacity: 0, y: -14, filter: "blur(4px)" }}
