@@ -10,6 +10,7 @@ import { useLanguage, Language } from "@/i18n/LanguageContext";
 import { useDynamicIndustries } from "@/hooks/useDynamicIndustries";
 import { useAuth } from "@/hooks/useAuth";
 import logoFallback from "@/assets/digitizeme-logo-light.png";
+import logoOnDarkFallback from "@/assets/digitizeme-logo-dark.png";
 import { useBrandingAsset } from "@/hooks/useBranding";
 import { useNavItems, navItemHref } from "@/hooks/useNavItems";
 import { useCustomPages } from "@/hooks/useCustomPages";
