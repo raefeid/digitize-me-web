@@ -42,7 +42,7 @@ const HeroBackdrop = ({ activeScene = 0 }: HeroBackdropProps) => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{
-            opacity: { duration: 0.8, ease: [0.4, 0, 0.2, 1] },
+            opacity: { duration: 0.5, ease: [0.4, 0, 0.2, 1] },
           }}
         />
       </AnimatePresence>
