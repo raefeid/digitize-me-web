@@ -61,7 +61,10 @@ const Navbar = () => {
   // Show "Log out" only when the signed-in user holds the customer role.
   const showCustomerSignedIn = !!user && isCustomer;
   const { publishedList: industriesData, getName: getCustomIndustryName } = useDynamicIndustries();
-  const logo = useBrandingAsset("logo_navbar", logoFallback);
+  const logoDefault = useBrandingAsset("logo_navbar", logoFallback);
+  const logoOnDark = useBrandingAsset("logo_footer", logoOnDarkFallback);
+  // Over the dark hero photo the navbar is transparent → use the white logo.
+  const logo = transparentMode ? logoOnDark : logoDefault;
   const { data: navbarItems } = useNavItems("navbar");
   const { data: customPages } = useCustomPages({ includeDrafts: false });
   const pagesById = (customPages ?? []).reduce<Record<string, { slug: string }>>((acc, p) => {
