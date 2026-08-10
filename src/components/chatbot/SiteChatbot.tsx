@@ -290,17 +290,28 @@ const SiteChatbot = () => {
       {/* Nudge bubble — "I'm here to help" */}
       <AnimatePresence>
         {nudge && !open && (
-          <motion.button
+          <motion.div
             key="nudge"
             initial={{ opacity: 0, y: 8, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8, scale: 0.95 }}
-            onClick={() => { setNudge(false); setOpen(true); }}
             dir={isRTL ? "rtl" : "ltr"}
-            className={`fixed bottom-24 ${isRTL ? "left-6" : "right-6"} z-[60] max-w-[16rem] text-start rounded-2xl bg-card border border-border shadow-xl px-4 py-3 text-sm text-foreground hover:border-accent transition-colors`}
+            className={`fixed bottom-[5.5rem] sm:bottom-24 ${isRTL ? "left-4 sm:left-6" : "right-4 sm:right-6"} z-[60] flex items-start gap-1 max-w-[13rem] sm:max-w-[16rem]`}
           >
-            {isAr ? "أنا هنا للمساعدة — اسألني أي شيء عن DigitizeMe." : "Need a hand? I'm here — ask me anything about DigitizeMe."}
-          </motion.button>
+            <button
+              onClick={() => { setNudge(false); setOpen(true); }}
+              className="text-start rounded-2xl bg-card border border-border shadow-xl px-3.5 py-2.5 sm:px-4 sm:py-3 text-[0.8rem] sm:text-sm leading-snug text-foreground hover:border-accent transition-colors"
+            >
+              {isAr ? "أنا هنا للمساعدة — اسألني أي شيء عن DigitizeMe." : "Need a hand? I'm here — ask me anything about DigitizeMe."}
+            </button>
+            <button
+              onClick={() => setNudge(false)}
+              aria-label={isAr ? "إغلاق" : "Dismiss"}
+              className="shrink-0 h-6 w-6 -ms-1 rounded-full bg-card border border-border text-muted-foreground shadow-md flex items-center justify-center hover:text-foreground"
+            >
+              <X className="w-3 h-3" />
+            </button>
+          </motion.div>
         )}
       </AnimatePresence>
 
@@ -308,17 +319,17 @@ const SiteChatbot = () => {
       <button
         onClick={() => { setNudge(false); setOpen((o) => !o); }}
         aria-label={isAr ? "افتح المحادثة" : "Open chat"}
-        className={`fixed bottom-6 ${isRTL ? "left-6" : "right-6"} z-[60] h-14 w-14 rounded-full bg-[#FF5A5F] text-white shadow-lg hover:scale-105 transition-transform flex items-center justify-center ${nudge && !open ? "animate-pulse ring-4 ring-[#FF5A5F]/30 shadow-[0_0_30px_hsl(var(--accent)/0.6)]" : ""}`}
+        className={`fixed bottom-[max(1rem,env(safe-area-inset-bottom))] sm:bottom-6 ${isRTL ? "left-4 sm:left-6" : "right-4 sm:right-6"} z-[60] h-12 w-12 sm:h-14 sm:w-14 rounded-full bg-[#FF5A5F] text-white shadow-lg hover:scale-105 transition-transform flex items-center justify-center ${nudge && !open ? "animate-pulse ring-4 ring-[#FF5A5F]/30 shadow-[0_0_30px_hsl(var(--accent)/0.6)]" : ""}`}
       >
 
         <AnimatePresence mode="wait">
           {open ? (
             <motion.span key="x" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }}>
-              <X className="w-6 h-6" />
+              <X className="w-5 h-5 sm:w-6 sm:h-6" />
             </motion.span>
           ) : (
             <motion.span key="c" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }}>
-              <MessageCircle className="w-6 h-6" />
+              <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6" />
             </motion.span>
           )}
         </AnimatePresence>
@@ -331,7 +342,7 @@ const SiteChatbot = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className={`fixed bottom-24 ${isRTL ? "left-6" : "right-6"} z-[60] w-[calc(100vw-3rem)] sm:w-96 h-[32rem] max-h-[calc(100vh-8rem)] bg-card border border-border rounded-2xl shadow-2xl flex flex-col overflow-hidden`}
+            className={`fixed bottom-20 sm:bottom-24 ${isRTL ? "left-4 sm:left-6" : "right-4 sm:right-6"} z-[60] w-[calc(100vw-2rem)] sm:w-96 h-[min(30rem,calc(100dvh-8rem))] sm:h-[32rem] sm:max-h-[calc(100vh-8rem)] bg-card border border-border rounded-2xl shadow-2xl flex flex-col overflow-hidden`}
             dir={isRTL ? "rtl" : "ltr"}
           >
             {/* Header */}
