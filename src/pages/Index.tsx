@@ -39,6 +39,12 @@ import LeadCaptureCTA from "@/components/conversion/LeadCaptureCTA";
 import { useEditMode } from "@/components/cms/EditModeContext";
 import { industryLinkItems } from "@/lib/industryLinks";
 import { localizeInternalPath } from "@/lib/localizedRoutes";
+import indLaw from "@/assets/industries/dm-industry-law-firms.jpg";
+import indAccounting from "@/assets/industries/dm-industry-accounting.jpg";
+import indRealEstate from "@/assets/industries/dm-industry-real-estate.jpg";
+import indHealthcare from "@/assets/industries/dm-industry-healthcare.jpg";
+import indGovernment from "@/assets/industries/dm-industry-government.jpg";
+import indBanking from "@/assets/industries/dm-industry-banking-finance.jpg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -62,13 +68,14 @@ const Index = () => {
 
 
   const industries = [
-    { icon: Scale, name: t("ind.law-firms"), slug: "law-firms" },
-    { icon: DollarSign, name: t("ind.accounting"), slug: "accounting" },
-    { icon: Building2, name: t("ind.real-estate"), slug: "real-estate" },
-    { icon: Stethoscope, name: t("ind.healthcare"), slug: "healthcare" },
-    { icon: Landmark, name: t("ind.government"), slug: "government" },
-    { icon: Landmark, name: t("ind.banking-finance"), slug: "banking-finance" },
+    { icon: Scale, name: t("ind.law-firms"), slug: "law-firms", image: indLaw },
+    { icon: DollarSign, name: t("ind.accounting"), slug: "accounting", image: indAccounting },
+    { icon: Building2, name: t("ind.real-estate"), slug: "real-estate", image: indRealEstate },
+    { icon: Stethoscope, name: t("ind.healthcare"), slug: "healthcare", image: indHealthcare },
+    { icon: Landmark, name: t("ind.government"), slug: "government", image: indGovernment },
+    { icon: Landmark, name: t("ind.banking-finance"), slug: "banking-finance", image: indBanking },
   ];
+
 
   const aiFeats = [
     getContent("ai_feat1", t("ai.feat1")),
