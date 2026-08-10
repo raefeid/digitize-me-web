@@ -15,10 +15,16 @@ const BeforeAfterSection = () => {
   useEffect(() => {
     if (inView && !autoTriggered) {
       setAutoTriggered(true);
-      const t1 = setTimeout(() => setIsDigitize(true), 1400);
-      return () => clearTimeout(t1);
     }
   }, [inView, autoTriggered]);
+
+  useEffect(() => {
+    if (!autoTriggered) return;
+    const interval = setInterval(() => {
+      setIsDigitize((prev) => !prev);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [autoTriggered]);
 
   const gauges = [
     {
