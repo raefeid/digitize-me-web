@@ -6,7 +6,7 @@ import smartArchivesImage from "@/assets/hero/digitizeme-smart-archives.jpg.asse
 import aiPowerImage from "@/assets/hero/hero-ai-power-scene.jpg.asset.json";
 
 const SCENES = [
-  { name: "Digital Control", image: digitalControlImage.url },
+  { name: "Digital Control", image: digitalControlImage.url, dark: true },
   { name: "Smart Archives", image: smartArchivesImage.url },
   { name: "AI Power", image: aiPowerImage.url },
 ];
