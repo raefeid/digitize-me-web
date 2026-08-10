@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import digitalControlImage from "@/assets/hero/digitizeme-hero-v5.jpg.asset.json";
+import digitalControlImage from "@/assets/hero/digitizeme-hero-v6.png.asset.json";
 import smartArchivesImage from "@/assets/hero/digitizeme-smart-archives.jpg.asset.json";
 import aiPowerImage from "@/assets/hero/hero-ai-power-scene.jpg.asset.json";
 
@@ -37,8 +37,8 @@ const HeroBackdrop = ({ activeScene = 0 }: HeroBackdropProps) => {
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 1.05 }}
           transition={{
-            opacity: { duration: 1.8, ease: [0.4, 0, 0.2, 1] },
-            scale: { duration: 10, ease: [0.25, 0.1, 0.25, 1] },
+            opacity: { duration: 3, ease: [0.4, 0, 0.2, 1] },
+            scale: { duration: 16, ease: [0.25, 0.1, 0.25, 1] },
           }}
         />
       </AnimatePresence>
