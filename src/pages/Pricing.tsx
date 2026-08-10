@@ -526,21 +526,6 @@ const Pricing = () => {
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className="section-padding bg-background">
-        <div className="container-max max-w-3xl mx-auto">
-          <EditableText as="h2" page="pricing" section="faq" contentKey="title" fallback={t("pricing.faq")} className="text-2xl font-bold text-foreground mb-8 text-center block" rich />
-          <div className="space-y-6">
-            {faqs.map((faq, i) => (
-              <motion.div key={i} className="border border-border rounded-xl p-6 bg-card" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}>
-                <EditableText as="h3" page="pricing" section="faq" contentKey={`faq${i + 1}_q`} fallback={faq.q} className="font-semibold text-foreground mb-2 block" />
-                <EditableText as="p" page="pricing" section="faq" contentKey={`faq${i + 1}_a`} fallback={faq.a} multiline className="text-sm text-muted-foreground" rich />
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       <AddBlockButton page="pricing" />
     </Layout>
   );
