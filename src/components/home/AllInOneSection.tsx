@@ -57,7 +57,7 @@ const AllInOneSection = () => {
                   ))}
                 </div>
                 <div className="border-t border-border pt-3 flex items-center justify-center">
-                  <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1, type: "spring" }} className="bg-accent/10 text-accent text-xs font-bold px-4 py-2 rounded-full">
+                  <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1, type: "spring" }} className="bg-emerald-500/10 text-emerald-600 text-xs font-bold px-4 py-2 rounded-full">
                     {t("aio.unified")}
                   </motion.div>
                 </div>
