@@ -297,7 +297,7 @@ const Index = () => {
               </div>
 
               {/* 3x2 industry tile grid */}
-              <div className="relative grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-5">
+              <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
                 {industries.map((industry, index) => {
                   const Icon = industry.icon;
                   const href = localizeInternalPath(`/industries/${industry.slug}`, isRTL ? "ar" : "en");
@@ -307,16 +307,31 @@ const Index = () => {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: index * 0.07, duration: 0.45 }}
-                      className="rounded-2xl border border-border bg-card p-5 md:p-6 h-full min-h-[130px] flex flex-col justify-between shadow-sm hover:shadow-md hover:border-accent/40 hover:-translate-y-0.5 transition-all"
+                      className="group rounded-2xl border border-border bg-card h-full flex flex-col overflow-hidden shadow-sm hover:shadow-lg hover:border-accent/40 hover:-translate-y-1 transition-all duration-[250ms] ease-out"
                     >
-                      <div className="w-11 h-11 rounded-xl bg-accent/10 text-accent flex items-center justify-center mb-3">
-                        <Icon size={22} />
+                      <div className="relative aspect-[4/3] w-full overflow-hidden">
+                        <img
+                          src={industry.image}
+                          alt={`${industry.name} team managing documents in a UAE office`}
+                          loading="lazy"
+                          width={1024}
+                          height={768}
+                          className="h-full w-full object-cover transition-transform duration-[250ms] ease-out group-hover:scale-[1.04]"
+                        />
+                        <div
+                          className={`absolute -bottom-[22px] w-11 h-11 rounded-xl bg-background text-accent flex items-center justify-center shadow-[0_6px_18px_-6px_hsl(var(--foreground)/0.35)] ${isRTL ? "right-5" : "left-5"}`}
+                        >
+                          <Icon size={22} />
+                        </div>
                       </div>
-                      <div className="text-base md:text-lg font-semibold text-foreground leading-snug">
-                        {industry.name}
+                      <div className="p-5 md:p-6 pt-8">
+                        <div className="text-base md:text-lg font-semibold text-foreground leading-snug">
+                          {industry.name}
+                        </div>
                       </div>
                     </motion.div>
                   );
+
                   return editMode ? (
                     <div key={industry.slug}>{card}</div>
                   ) : (
