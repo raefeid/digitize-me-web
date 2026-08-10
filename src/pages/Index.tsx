@@ -303,8 +303,8 @@ const Index = () => {
                 </div>
               </div>
 
-              {/* 3x2 industry tile grid */}
-              <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+              {/* industry tile grid — 2 cols inside the half-width column, 3 on xl */}
+              <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
                 {industries.map((industry, index) => {
                   const href = localizeInternalPath(`/industries/${industry.slug}`, isRTL ? "ar" : "en");
                   const card = (
