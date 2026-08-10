@@ -10,11 +10,13 @@ const HeroBackdrop = ({ activeScene = 0 }: HeroBackdropProps) => {
   const { isRTL } = useLanguage();
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  // Slow the playback for a calmer, more cinematic feel.
   // Seamless loop: restart slightly before the very end to avoid the
   // single-frame stall some browsers show at the loop boundary.
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
+    v.playbackRate = 0.5;
     const onTimeUpdate = () => {
       if (v.duration && v.currentTime >= v.duration - 0.08) {
         v.currentTime = 0.02;
