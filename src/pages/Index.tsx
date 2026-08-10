@@ -303,8 +303,8 @@ const Index = () => {
                 </div>
               </div>
 
-              {/* 3x2 industry tile grid */}
-              <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+              {/* industry tile grid — 2 cols inside the half-width column, 3 on xl */}
+              <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
                 {industries.map((industry, index) => {
                   const href = localizeInternalPath(`/industries/${industry.slug}`, isRTL ? "ar" : "en");
                   const card = (
@@ -332,10 +332,11 @@ const Index = () => {
                           aria-hidden
                           className="pointer-events-none absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-[900ms] ease-out bg-gradient-to-r from-transparent via-white/20 to-transparent"
                         />
-                        <div className={`absolute bottom-0 inset-x-0 p-5 md:p-6 ${isRTL ? "text-right" : "text-left"}`}>
-                          <div className="text-base md:text-lg font-semibold text-white leading-snug drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
+                        <div className={`absolute bottom-0 inset-x-0 p-4 sm:p-5 md:p-6 ${isRTL ? "text-right" : "text-left"}`}>
+                          <div className="text-sm sm:text-base md:text-lg font-semibold text-white leading-snug break-words hyphens-auto drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
                             {industry.name}
                           </div>
+
                           <div className="mt-2 h-[2px] w-8 rounded-full bg-accent transition-all duration-300 group-hover:w-16" />
                         </div>
                       </div>
