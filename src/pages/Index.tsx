@@ -39,12 +39,19 @@ import LeadCaptureCTA from "@/components/conversion/LeadCaptureCTA";
 import { useEditMode } from "@/components/cms/EditModeContext";
 import { industryLinkItems } from "@/lib/industryLinks";
 import { localizeInternalPath } from "@/lib/localizedRoutes";
-import indLaw from "@/assets/industries/dm-industry-law-firms.jpg";
-import indAccounting from "@/assets/industries/dm-industry-accounting.jpg";
-import indRealEstate from "@/assets/industries/dm-industry-real-estate.jpg";
-import indHealthcare from "@/assets/industries/dm-industry-healthcare.jpg";
-import indGovernment from "@/assets/industries/dm-industry-government.jpg";
-import indBanking from "@/assets/industries/dm-industry-banking-finance.jpg";
+import indLawAsset from "@/assets/industries/industry_law_firms.webp.asset.json";
+import indAccountingAsset from "@/assets/industries/industry_accounting.webp.asset.json";
+import indRealEstateAsset from "@/assets/industries/industry_real_estate.webp.asset.json";
+import indHealthcareAsset from "@/assets/industries/industry_healthcare.webp.asset.json";
+import indGovernmentAsset from "@/assets/industries/industry_government.webp.asset.json";
+import indBankingAsset from "@/assets/industries/industry_banking.webp.asset.json";
+
+const indLaw = indLawAsset.url;
+const indAccounting = indAccountingAsset.url;
+const indRealEstate = indRealEstateAsset.url;
+const indHealthcare = indHealthcareAsset.url;
+const indGovernment = indGovernmentAsset.url;
+const indBanking = indBankingAsset.url;
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -299,15 +306,15 @@ const Index = () => {
               {/* 3x2 industry tile grid */}
               <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
                 {industries.map((industry, index) => {
-                  const Icon = industry.icon;
                   const href = localizeInternalPath(`/industries/${industry.slug}`, isRTL ? "ar" : "en");
                   const card = (
                     <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: index * 0.07, duration: 0.45 }}
-                      className="group rounded-2xl border border-border bg-card h-full flex flex-col overflow-hidden shadow-sm hover:shadow-lg hover:border-accent/40 hover:-translate-y-1 transition-all duration-[250ms] ease-out"
+                      initial={{ opacity: 0, y: 28, scale: 0.96 }}
+                      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                      viewport={{ once: true, amount: 0.3 }}
+                      transition={{ delay: index * 0.08, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                      whileHover={{ y: -6 }}
+                      className="group relative rounded-2xl border border-border bg-card h-full overflow-hidden shadow-sm hover:shadow-xl hover:border-accent/50 transition-[box-shadow,border-color] duration-300"
                     >
                       <div className="relative aspect-[4/3] w-full overflow-hidden">
                         <img
@@ -316,21 +323,25 @@ const Index = () => {
                           loading="lazy"
                           width={1024}
                           height={768}
-                          className="h-full w-full object-cover transition-transform duration-[250ms] ease-out group-hover:scale-[1.04]"
+                          className="h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.08]"
                         />
+                        {/* gradient scrim for title legibility */}
+                        <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/25 to-transparent" />
+                        {/* accent sheen sweep on hover */}
                         <div
-                          className={`absolute -bottom-[22px] w-11 h-11 rounded-xl bg-background text-accent flex items-center justify-center shadow-[0_6px_18px_-6px_hsl(var(--foreground)/0.35)] ${isRTL ? "right-5" : "left-5"}`}
-                        >
-                          <Icon size={22} />
-                        </div>
-                      </div>
-                      <div className="p-5 md:p-6 pt-8">
-                        <div className="text-base md:text-lg font-semibold text-foreground leading-snug">
-                          {industry.name}
+                          aria-hidden
+                          className="pointer-events-none absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-[900ms] ease-out bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                        />
+                        <div className={`absolute bottom-0 inset-x-0 p-5 md:p-6 ${isRTL ? "text-right" : "text-left"}`}>
+                          <div className="text-base md:text-lg font-semibold text-white leading-snug drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
+                            {industry.name}
+                          </div>
+                          <div className="mt-2 h-[2px] w-8 rounded-full bg-accent transition-all duration-300 group-hover:w-16" />
                         </div>
                       </div>
                     </motion.div>
                   );
+
 
                   return editMode ? (
                     <div key={industry.slug}>{card}</div>
