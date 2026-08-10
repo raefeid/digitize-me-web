@@ -8,8 +8,8 @@ interface RotatingHeroWordProps {
   onIndexChange?: (index: number) => void;
 }
 
-const WORD_INTERVAL = 8000;
-const TRANSITION_DURATION = 0.9;
+const WORD_INTERVAL = 4000;
+const TRANSITION_DURATION = 0.45;
 
 const RotatingHeroWord = ({ words, className, onIndexChange }: RotatingHeroWordProps) => {
   const [index, setIndex] = useState(0);
