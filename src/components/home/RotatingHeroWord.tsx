@@ -9,7 +9,7 @@ interface RotatingHeroWordProps {
 }
 
 const WORD_INTERVAL = 8000;
-const TRANSITION_DURATION = 1.4;
+const TRANSITION_DURATION = 0.9;
 
 const RotatingHeroWord = ({ words, className, onIndexChange }: RotatingHeroWordProps) => {
   const [index, setIndex] = useState(0);
