@@ -63,15 +63,21 @@ const BeforeAfterSection = () => {
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mt-2 mb-4">{getContent("ba_title", t("ba.title"))}</h2>
         </div>
 
-        {/* Toggle */}
+        {/* Auto-loop indicator */}
         <div className="flex items-center justify-center gap-4 mb-8">
-          <span className={`text-sm font-medium transition-colors ${!isDigitize ? "text-destructive font-bold" : "text-muted-foreground"}`}>
+          <span className={`text-sm font-medium transition-colors duration-500 ${!isDigitize ? "text-destructive font-bold" : "text-muted-foreground"}`}>
             {t("ba.beforeTitle")}
           </span>
-          <button onClick={() => setIsDigitize(!isDigitize)} className={`relative w-14 h-7 rounded-full transition-colors duration-300 ${isDigitize ? "bg-accent" : "bg-destructive/60"}`} aria-label="Toggle before/after">
+          <div className="relative w-14 h-7 rounded-full transition-colors duration-500 bg-muted overflow-hidden">
+            <motion.div
+              className="absolute top-0 left-0 h-full rounded-full"
+              animate={{ width: "100%" }}
+              transition={{ duration: 4.6, ease: "linear", repeat: Infinity, repeatType: "reverse", repeatDelay: 0.4 }}
+              style={{ backgroundColor: isDigitize ? "hsl(142 71% 45%)" : "hsl(0 84% 60%)" }}
+            />
             <motion.div className="absolute top-0.5 w-6 h-6 rounded-full bg-white shadow-md" animate={{ x: isDigitize ? 30 : 2 }} transition={{ type: "spring", stiffness: 500, damping: 30 }} />
-          </button>
-          <span className={`text-sm font-medium transition-colors ${isDigitize ? "text-accent font-bold" : "text-muted-foreground"}`}>
+          </div>
+          <span className={`text-sm font-medium transition-colors duration-500 ${isDigitize ? "text-accent font-bold" : "text-muted-foreground"}`}>
             {t("ba.afterTitle")}
           </span>
         </div>
