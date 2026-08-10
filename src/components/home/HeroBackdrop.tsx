@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/i18n/LanguageContext";
-import digitalControlImage from "@/assets/hero/digitizeme-hero-v6.png.asset.json";
+import digitalControlImage from "@/assets/hero/digitizeme-digital-control-network.png.asset.json";
 import smartArchivesImage from "@/assets/hero/digitizeme-smart-archives.jpg.asset.json";
 import aiPowerImage from "@/assets/hero/hero-ai-power-scene.jpg.asset.json";
 
 const SCENES = [
-  { name: "Digital Control", image: digitalControlImage.url },
+  { name: "Digital Control", image: digitalControlImage.url, dark: true },
   { name: "Smart Archives", image: smartArchivesImage.url },
   { name: "AI Power", image: aiPowerImage.url },
 ];
@@ -56,14 +56,16 @@ const HeroBackdrop = ({ activeScene = 0 }: HeroBackdropProps) => {
         }}
       />
 
-      {/* Strong left-side scrim so the headline stays readable without dimming the photo */}
+      {/* Left-side scrim so the headline stays readable; lighter on already-dark scenes */}
       <div
-        className="absolute inset-y-0 ltr:left-0 rtl:right-0 w-[85%] sm:w-[70%] md:w-[58%] lg:w-[50%]"
+        className="absolute inset-y-0 ltr:left-0 rtl:right-0 w-[85%] sm:w-[70%] md:w-[58%] lg:w-[50%] transition-opacity duration-1000"
         style={{
+          opacity: SCENES[sceneIndex].dark ? 0.5 : 1,
           backgroundImage:
             `linear-gradient(to ${isRTL ? "left" : "right"}, hsl(var(--hero-navy) / 0.55) 0%, hsl(var(--hero-navy) / 0.35) 45%, hsl(var(--hero-navy) / 0.08) 75%, hsl(var(--hero-navy) / 0) 100%)`,
         }}
       />
+
     </div>
   );
 };
