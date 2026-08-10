@@ -260,7 +260,7 @@ const Index = () => {
             {/* LEFT half — copy */}
             <div className="text-center lg:text-start">
               <EditableText page="home" section="home" contentKey="industries_badge" fallback={t("industries.badge")} className="text-accent font-semibold text-sm uppercase tracking-wider" />
-              <EditableText as="h2" page="home" section="home" contentKey="industries_title" fallback={t("industries.title")} className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mt-2 mb-4"  rich />
+              <EditableText as="h2" page="home" section="home" contentKey="industries_title" fallback={t("industries.title")} className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mt-2 mb-4 whitespace-pre-line" rich />
               <EditableText as="p" page="home" section="home" contentKey="industries_desc" fallback={t("industries.desc")} multiline className="text-muted-foreground text-base md:text-lg"  rich />
             </div>
 
