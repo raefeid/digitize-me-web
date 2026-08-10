@@ -51,13 +51,13 @@ const AllInOneSection = () => {
                 <div className="grid grid-cols-2 gap-x-3 gap-y-2 mb-4">
                   {resolvedTools.map((tool, i) => (
                     <motion.div key={tool.id} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.6 + i * 0.04 }} className="flex items-center gap-1.5">
-                      <Check size={13} className="text-accent shrink-0" />
+                      <Check size={13} className="text-emerald-500 shrink-0" />
                       <EditableText as="span" page="home" section="aio_tools" contentKey={`${tool.id}_name`} fallback={isRTL && tool.name_ar ? tool.name_ar : tool.name} className="text-xs text-muted-foreground" />
                     </motion.div>
                   ))}
                 </div>
                 <div className="border-t border-border pt-3 flex items-center justify-center">
-                  <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1, type: "spring" }} className="bg-accent/10 text-accent text-xs font-bold px-4 py-2 rounded-full">
+                  <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1, type: "spring" }} className="bg-emerald-500/10 text-emerald-600 text-xs font-bold px-4 py-2 rounded-full">
                     {t("aio.unified")}
                   </motion.div>
                 </div>
