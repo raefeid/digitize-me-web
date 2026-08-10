@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 import { Clock, AlertTriangle, TrendingDown, Zap, CheckCircle2, TrendingUp, FileX, Search, ShieldAlert, ShieldCheck, XCircle, CheckCircle } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useSiteContent } from "@/hooks/useSiteContent";
@@ -8,6 +8,17 @@ const BeforeAfterSection = () => {
   const { t } = useLanguage();
   const { getContent } = useSiteContent("home", "before_after");
   const [isDigitize, setIsDigitize] = useState(false);
+  const [autoTriggered, setAutoTriggered] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const inView = useInView(sectionRef, { once: true, margin: "-30% 0px -30% 0px" });
+
+  useEffect(() => {
+    if (inView && !autoTriggered) {
+      setAutoTriggered(true);
+      const t1 = setTimeout(() => setIsDigitize(true), 1400);
+      return () => clearTimeout(t1);
+    }
+  }, [inView, autoTriggered]);
 
   const gauges = [
     {
