@@ -1,15 +1,6 @@
-import { useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useRef } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
-import digitalControlImage from "@/assets/hero/hero-digital-control-v3.png.asset.json";
-import smartArchivesImage from "@/assets/hero/smart-archives-v3.png.asset.json";
-import aiPowerImage from "@/assets/hero/hero-ai-power-v2.png.asset.json";
-
-const SCENES = [
-  { name: "Digital Control", image: digitalControlImage.url, dark: true },
-  { name: "Smart Archives", image: smartArchivesImage.url, dark: true },
-  { name: "AI Power", image: aiPowerImage.url, dark: true },
-];
+import heroVideo from "@/assets/hero/hero-loop.mp4.asset.json";
 
 interface HeroBackdropProps {
   activeScene?: number;
@@ -17,37 +8,38 @@ interface HeroBackdropProps {
 
 const HeroBackdrop = ({ activeScene = 0 }: HeroBackdropProps) => {
   const { isRTL } = useLanguage();
-  const sceneIndex = ((activeScene % SCENES.length) + SCENES.length) % SCENES.length;
+  const videoRef = useRef<HTMLVideoElement>(null);
 
-  // Preload all scene images so transitions never flash a blank frame.
+  // Seamless loop: restart slightly before the very end to avoid the
+  // single-frame stall some browsers show at the loop boundary.
   useEffect(() => {
-    SCENES.forEach((scene) => {
-      const img = new Image();
-      img.src = scene.image;
-    });
+    const v = videoRef.current;
+    if (!v) return;
+    const onTimeUpdate = () => {
+      if (v.duration && v.currentTime >= v.duration - 0.08) {
+        v.currentTime = 0.02;
+        void v.play();
+      }
+    };
+    v.addEventListener("timeupdate", onTimeUpdate);
+    return () => v.removeEventListener("timeupdate", onTimeUpdate);
   }, []);
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-      {/* Cross-fading scene images with a cinematic Ken Burns crossfade */}
-      <AnimatePresence mode="sync">
-        <motion.div
-          key={SCENES[sceneIndex].name}
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat will-change-transform"
-          style={{
-            backgroundImage: `url(${SCENES[sceneIndex].image})`,
-            transform: isRTL ? "scaleX(-1)" : undefined,
-          }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{
-            opacity: { duration: 0.5, ease: [0.4, 0, 0.2, 1] },
-          }}
-        />
-      </AnimatePresence>
+      <video
+        ref={videoRef}
+        className="absolute inset-0 h-full w-full object-cover"
+        src={heroVideo.url}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        style={{ transform: isRTL ? "scaleX(-1)" : undefined }}
+      />
 
-      {/* Global subtle darkening so every scene has consistent contrast for text */}
+      {/* Global subtle darkening so the scene has consistent contrast for text */}
       <div
         className="absolute inset-0"
         style={{
@@ -56,16 +48,15 @@ const HeroBackdrop = ({ activeScene = 0 }: HeroBackdropProps) => {
         }}
       />
 
-      {/* Left-side scrim so the headline stays readable; lighter on already-dark scenes */}
+      {/* Left-side scrim so the headline stays readable */}
       <div
-        className="absolute inset-y-0 ltr:left-0 rtl:right-0 w-[85%] sm:w-[70%] md:w-[58%] lg:w-[50%] transition-opacity duration-1000"
+        className="absolute inset-y-0 ltr:left-0 rtl:right-0 w-[85%] sm:w-[70%] md:w-[58%] lg:w-[50%]"
         style={{
-          opacity: SCENES[sceneIndex].dark ? 0.5 : 1,
+          opacity: 0.5,
           backgroundImage:
             `linear-gradient(to ${isRTL ? "left" : "right"}, hsl(var(--hero-navy) / 0.55) 0%, hsl(var(--hero-navy) / 0.35) 45%, hsl(var(--hero-navy) / 0.08) 75%, hsl(var(--hero-navy) / 0) 100%)`,
         }}
       />
-
     </div>
   );
 };
