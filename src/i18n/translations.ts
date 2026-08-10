@@ -72,7 +72,7 @@ export const translations: TranslationMap = {
 
     // Industries
     "industries.badge": "Industry Solutions",
-    "industries.title": "Built for Document-Intensive Industries",
+    "industries.title": "Built for Document\nIntensive Industries",
     "industries.desc": "Purpose-built solutions for every industry that runs on documents.",
     "industries.viewAll": "View All Industries",
     "industries.learnMore": "Learn more",
