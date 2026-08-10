@@ -8,7 +8,7 @@ import aiPowerImage from "@/assets/hero/hero-ai-power-v2.png.asset.json";
 const SCENES = [
   { name: "Digital Control", image: digitalControlImage.url, dark: true },
   { name: "Smart Archives", image: smartArchivesImage.url },
-  { name: "AI Power", image: aiPowerImage.url },
+  { name: "AI Power", image: aiPowerImage.url, dark: true },
 ];
 
 interface HeroBackdropProps {
