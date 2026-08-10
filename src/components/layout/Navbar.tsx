@@ -10,6 +10,7 @@ import { useLanguage, Language } from "@/i18n/LanguageContext";
 import { useDynamicIndustries } from "@/hooks/useDynamicIndustries";
 import { useAuth } from "@/hooks/useAuth";
 import logoFallback from "@/assets/digitizeme-logo-light.png";
+import logoOnDarkFallback from "@/assets/digitizeme-logo-dark.png";
 import { useBrandingAsset } from "@/hooks/useBranding";
 import { useNavItems, navItemHref } from "@/hooks/useNavItems";
 import { useCustomPages } from "@/hooks/useCustomPages";
@@ -60,7 +61,10 @@ const Navbar = () => {
   // Show "Log out" only when the signed-in user holds the customer role.
   const showCustomerSignedIn = !!user && isCustomer;
   const { publishedList: industriesData, getName: getCustomIndustryName } = useDynamicIndustries();
-  const logo = useBrandingAsset("logo_navbar", logoFallback);
+  const logoDefault = useBrandingAsset("logo_navbar", logoFallback);
+  const logoOnDark = useBrandingAsset("logo_footer", logoOnDarkFallback);
+  // Over the dark hero photo the navbar is transparent → use the white logo.
+  const logo = transparentMode ? logoOnDark : logoDefault;
   const { data: navbarItems } = useNavItems("navbar");
   const { data: customPages } = useCustomPages({ includeDrafts: false });
   const pagesById = (customPages ?? []).reduce<Record<string, { slug: string }>>((acc, p) => {
