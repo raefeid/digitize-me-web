@@ -50,7 +50,7 @@ const BeforeAfterSection = () => {
   ];
 
   return (
-    <section aria-label="Before After Comparison" className="section-padding bg-background">
+    <section ref={sectionRef} aria-label="Before After Comparison" className="section-padding bg-background">
       <div className="container-max">
         <div className="text-center max-w-3xl mx-auto mb-10">
           <span className="text-accent font-semibold text-sm uppercase tracking-wider">{getContent("ba_badge", t("ba.badge"))}</span>
