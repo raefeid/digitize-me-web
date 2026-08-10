@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/i18n/LanguageContext";
-import digitalControlImage from "@/assets/hero/digitizeme-digital-control-network.png.asset.json";
+import digitalControlImage from "@/assets/hero/hero-digital-control-v3.png.asset.json";
 import smartArchivesImage from "@/assets/hero/smart-archives-v3.png.asset.json";
 import aiPowerImage from "@/assets/hero/hero-ai-power-v2.png.asset.json";
 
@@ -42,7 +42,7 @@ const HeroBackdrop = ({ activeScene = 0 }: HeroBackdropProps) => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{
-            opacity: { duration: 1.8, ease: [0.4, 0, 0.2, 1] },
+            opacity: { duration: 1.2, ease: [0.4, 0, 0.2, 1] },
           }}
         />
       </AnimatePresence>
