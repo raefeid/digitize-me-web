@@ -327,50 +327,6 @@ const Index = () => {
               {t("industries.viewAll")} <ArrowRight size={16} className={isRTL ? "mr-2 rotate-180" : "ml-2"} />
             </CtaButton>
           </div>
-          <div className="mt-10 rounded-2xl border border-border bg-card p-6 md:p-8">
-            <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-              <div>
-                <p className="text-sm font-semibold uppercase tracking-wider text-accent">
-                  {isRTL ? "روابط صناعية موجهة" : "Industry landing pages"}
-                </p>
-                <h3 className="mt-2 text-2xl font-bold text-foreground">
-                  {isRTL ? "استكشف حلول إدارة المستندات حسب القطاع" : "Explore document management solutions by industry"}
-                </h3>
-              </div>
-              <Link to={localizeInternalPath("/industries", isRTL ? "ar" : "en")} className="text-sm font-semibold text-accent hover:text-accent/80">
-                {isRTL ? "عرض جميع صفحات القطاعات" : "Browse all industry pages"}
-              </Link>
-            </div>
-            <EditableCardGrid
-              page="home"
-              gridKey="industry_links"
-              className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3"
-              seeds={featuredIndustryLinks.map((industry, index) => ({
-                key: industry.slug,
-                icon: [Scale, DollarSign, Stethoscope][index % 3],
-                title: isRTL ? industry.titleAr : industry.titleEn,
-                desc: isRTL ? industry.descriptionAr : industry.descriptionEn,
-              }))}
-              renderCard={({ id, index, title, desc, animClass }) => {
-                const href = localizeInternalPath(`/industries/${id}`, isRTL ? "ar" : "en");
-                const content = (
-                  <motion.div
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    variants={fadeUp}
-                    custom={index}
-                    className={`rounded-xl border border-border bg-background px-4 py-4 transition-all hover:border-accent/40 hover:shadow-md h-full ${animClass}`}
-                  >
-                    <div className="text-sm font-semibold text-foreground">{title}</div>
-                    <div className="mt-2 text-sm text-muted-foreground">{desc}</div>
-                  </motion.div>
-                );
-
-                return editMode ? content : <Link to={href}>{content}</Link>;
-              }}
-            />
-          </div>
         </div>
       </section>
 
