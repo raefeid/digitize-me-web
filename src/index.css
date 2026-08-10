@@ -130,6 +130,15 @@
     /* Always reserve the vertical scrollbar gutter so short pages (and the
        lazy-route loading fallback) don't shift content sideways on navigation. */
     scrollbar-gutter: stable;
+    /* Stop iOS Safari from inflating text in landscape. */
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* Touch devices: remove the grey tap flash and keep momentum scrolling. */
+  @media (hover: none) {
+    * {
+      -webkit-tap-highlight-color: transparent;
+    }
   }
 
 
@@ -140,6 +149,7 @@
     overflow-x: clip;
     max-width: 100vw;
   }
+
 
 
   h1, h2, h3, h4, h5, h6 {
