@@ -29,23 +29,21 @@ const RotatingHeroWord = ({ words, className, onIndexChange }: RotatingHeroWordP
 
   return (
     <span ref={rootRef} className={cn("relative inline overflow-visible", className)}>
-      <span className="inline-block rounded-lg bg-[hsl(var(--hero-navy)/0.45)] px-2 -mx-1 backdrop-blur-sm shadow-[0_0_30px_-8px_hsl(var(--hero-navy)/0.7)]">
-        <AnimatePresence mode="wait">
-          <motion.span
-            key={words[index]}
-            className="inline-block bg-clip-text text-transparent bg-gradient-to-r from-[hsl(var(--hero-on-navy))] to-[hsl(var(--dm-coral))] pb-[0.15em] -mb-[0.15em] align-baseline drop-shadow-[0_2px_14px_hsl(var(--hero-navy)/0.9)]"
-            initial={{ opacity: 0, y: 18, filter: "blur(6px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            exit={{ opacity: 0, y: -14, filter: "blur(4px)" }}
-            transition={{
-              duration: TRANSITION_DURATION,
-              ease: [0.25, 0.1, 0.25, 1],
-            }}
-          >
-            {words[index]}
-          </motion.span>
-        </AnimatePresence>
-      </span>
+      <AnimatePresence mode="wait">
+        <motion.span
+          key={words[index]}
+          className="inline-block bg-clip-text text-transparent bg-gradient-to-r from-[hsl(var(--hero-on-navy))] to-[hsl(var(--dm-coral))] pb-[0.15em] -mb-[0.15em] align-baseline drop-shadow-[0_3px_18px_hsl(var(--hero-navy)/1)]"
+          initial={{ opacity: 0, y: 18, filter: "blur(6px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          exit={{ opacity: 0, y: -14, filter: "blur(4px)" }}
+          transition={{
+            duration: TRANSITION_DURATION,
+            ease: [0.25, 0.1, 0.25, 1],
+          }}
+        >
+          {words[index]}
+        </motion.span>
+      </AnimatePresence>
     </span>
   );
 };

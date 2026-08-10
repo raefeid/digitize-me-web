@@ -37,18 +37,27 @@ const HeroBackdrop = ({ activeScene = 0 }: HeroBackdropProps) => {
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 1.05 }}
           transition={{
-            opacity: { duration: 1.2, ease: [0.4, 0, 0.2, 1] },
-            scale: { duration: 8, ease: [0.25, 0.1, 0.25, 1] },
+            opacity: { duration: 1.8, ease: [0.4, 0, 0.2, 1] },
+            scale: { duration: 10, ease: [0.25, 0.1, 0.25, 1] },
           }}
         />
       </AnimatePresence>
 
-      {/* Minimal left-side scrim so the headline stays readable without dimming the photo */}
+      {/* Global subtle darkening so every scene has consistent contrast for text */}
       <div
-        className="absolute inset-y-0 left-0 w-[70%] sm:w-[55%] md:w-[45%]"
+        className="absolute inset-0"
         style={{
           backgroundImage:
-            "linear-gradient(to right, hsl(var(--hero-navy) / 0.28) 0%, hsl(var(--hero-navy) / 0.12) 55%, hsl(var(--hero-navy) / 0) 100%)",
+            "radial-gradient(ellipse at 70% 50%, hsl(var(--hero-navy) / 0.22) 0%, transparent 60%)",
+        }}
+      />
+
+      {/* Strong left-side scrim so the headline stays readable without dimming the photo */}
+      <div
+        className="absolute inset-y-0 left-0 w-[85%] sm:w-[70%] md:w-[58%] lg:w-[50%]"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, hsl(var(--hero-navy) / 0.55) 0%, hsl(var(--hero-navy) / 0.35) 45%, hsl(var(--hero-navy) / 0.08) 75%, hsl(var(--hero-navy) / 0) 100%)",
         }}
       />
     </div>
