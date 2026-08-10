@@ -496,7 +496,7 @@ const Navbar = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={(e) => { e.preventDefault(); setIsOpen(false); launchExternal("https://fotofind.digitizeme.ae/"); }}
-                  className="w-full flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl text-sm font-semibold bg-accent text-accent-foreground hover:bg-accent/90"
+                  className="w-full flex items-center justify-center gap-1.5 px-4 h-12 rounded-xl text-sm font-semibold bg-accent text-accent-foreground hover:bg-accent/90"
                 >
                   {t("cta.start")}
                 </a>
