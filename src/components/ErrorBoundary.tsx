@@ -1,4 +1,5 @@
 import { Component, ErrorInfo, ReactNode } from "react";
+import { reportError } from "@/lib/monitoring";
 
 interface Props {
   children: ReactNode;
@@ -58,7 +59,8 @@ class ErrorBoundary extends Component<Props, State> {
         /* sessionStorage unavailable — fall through to the recovery UI */
       }
     }
-    // Hook point for an error monitor (Sentry, etc.).
+    // Report to the error monitor (Sentry) — no-op unless configured.
+    reportError(error, { componentStack: info.componentStack });
     console.error("Uncaught application error:", error, info.componentStack);
   }
 

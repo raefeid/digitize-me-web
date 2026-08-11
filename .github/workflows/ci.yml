@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# Cancel superseded runs on the same ref.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npx tsc --noEmit -p tsconfig.app.json
+
+      - name: Unit tests
+        run: npm test
+
+      - name: Build (includes SEO lint gate)
+        run: npm run build
+
+      # Lint carries pre-existing debt (no-explicit-any / no-useless-escape).
+      # Kept non-blocking so it is visible in CI without blocking merges; make it
+      # a hard gate once the backlog is burned down.
+      - name: Lint (non-blocking)
+        run: npm run lint
+        continue-on-error: true
+
+# NOTE: Playwright e2e (e2e/, playwright.config.ts) is intentionally not run here.
+# @playwright/test is not a tracked dependency and the suite exercises the live
+# Supabase backend (which 401s without credentials), so it would be flaky in CI.
+# Add a dedicated e2e job with browsers + a seeded/mocked backend when ready.

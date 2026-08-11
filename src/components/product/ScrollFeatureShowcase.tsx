@@ -40,7 +40,9 @@ const ScrollFeatureShowcase = ({ features }: Props) => {
     };
 
     video.addEventListener("timeupdate", onTimeUpdate);
-    video.play().catch(() => {});
+    // HTMLMediaElement.play() can return undefined (older/edge browsers, jsdom);
+    // guard the promise so a non-Promise return doesn't throw.
+    video.play()?.catch(() => {});
 
     return () => {
       video.removeEventListener("timeupdate", onTimeUpdate);
