@@ -34,6 +34,8 @@ import { buildIndustrySeo, buildIndustryFaqs, buildIndustryLandingContent, build
 import { useEditMode } from "@/components/cms/EditModeContext";
 import { useAuth } from "@/hooks/useAuth";
 import { localizeInternalPath } from "@/lib/localizedRoutes";
+import { getIndustryCardImage, industryCardAlt } from "@/lib/industryCardImages";
+
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
