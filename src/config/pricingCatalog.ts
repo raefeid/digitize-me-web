@@ -98,7 +98,7 @@ export const DEFAULT_PRICING_PLANS: DefaultPricingPlan[] = [
     prices: individualPricing.individual,
     features: buildFeatures("individual", [
       { name: "1 user", name_ar: "١ مستخدم", included: true },
-      { name: "50 GB storage", name_ar: "٥٠ جيجا تخزين", included: true },
+      { name: "50GB storage", name_ar: "٥٠ جيجا تخزين", included: true },
     ]),
   },
   {
