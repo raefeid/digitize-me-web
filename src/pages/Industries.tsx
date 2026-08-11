@@ -34,6 +34,8 @@ import { buildIndustrySeo, buildIndustryFaqs, buildIndustryLandingContent, build
 import { useEditMode } from "@/components/cms/EditModeContext";
 import { useAuth } from "@/hooks/useAuth";
 import { localizeInternalPath } from "@/lib/localizedRoutes";
+import { getIndustryCardImage, industryCardAlt } from "@/lib/industryCardImages";
+
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -140,6 +142,8 @@ const Industries = () => {
                     : industry.description.slice(0, 120))}...`;
               const isDraft = !!industry.isCustom && !industry.published;
 
+              const photo = getIndustryCardImage(industry.slug);
+
               return (
                 <div className="h-full relative group">
                   {dragHandle}
@@ -148,35 +152,60 @@ const Industries = () => {
                   )}
                   <Link
                     to={`/industries/${industry.slug}`}
-                    className={`block rounded-xl border bg-card p-6 h-full transition-all ${
+                    className={`flex flex-col rounded-xl border bg-card h-full overflow-hidden transition-all duration-[250ms] will-change-transform hover:-translate-y-1 ${
+                      photo ? "" : "p-6"
+                    } ${
                       isDraft
                         ? "border-accent/50 border-dashed hover:border-accent"
                         : "border-border hover:border-accent/30 hover:shadow-lg"
                     }`}
                   >
-                    <div className="flex items-start justify-between mb-4 gap-2">
-                      <Icon size={28} className="text-accent" />
-                      {isDraft && editEnabled && (
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-accent/15 text-accent border border-accent/30">
-                          Draft
+                    {photo ? (
+                      <div className="relative">
+                        <div className="relative aspect-[4/3] overflow-hidden">
+                          <img
+                            src={photo}
+                            alt={industryCardAlt(displayName)}
+                            loading="lazy"
+                            className="h-full w-full object-cover transition-transform duration-[250ms] ease-out group-hover:scale-[1.04]"
+                          />
+                        </div>
+                        <span className="absolute -bottom-5 start-4 h-11 w-11 rounded-xl bg-background shadow-[0_6px_18px_-4px_hsl(220_25%_20%/0.28)] border border-border/60 flex items-center justify-center">
+                          <Icon size={22} className="text-accent" />
                         </span>
-                      )}
-                    </div>
-                    <h2 className="text-lg font-bold text-foreground mb-2">{displayName}</h2>
-                    {description ? (
-                      <p className="text-sm text-muted-foreground">{description}</p>
+                        {isDraft && editEnabled && (
+                          <span className="absolute top-3 end-3 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-accent/15 text-accent border border-accent/30 backdrop-blur">
+                            Draft
+                          </span>
+                        )}
+                      </div>
                     ) : (
-                      <p className="text-sm text-muted-foreground">
-                        {editEnabled
-                          ? isDraft
-                            ? "Draft — only admins can see this. Click to edit, then publish."
-                            : "Click to open and edit this industry's page."
-                          : ""}
-                      </p>
+                      <div className="flex items-start justify-between mb-4 gap-2">
+                        <Icon size={28} className="text-accent" />
+                        {isDraft && editEnabled && (
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-accent/15 text-accent border border-accent/30">
+                            Draft
+                          </span>
+                        )}
+                      </div>
                     )}
-                    <span className="text-sm font-medium text-accent flex items-center gap-1 mt-3">
-                      {t("industries.learnMore")} {displayName} <ArrowRight size={14} className={isRTL ? "rotate-180" : ""} />
-                    </span>
+                    <div className={photo ? "p-6 pt-9 flex flex-col flex-1" : "flex flex-col flex-1"}>
+                      <h2 className="text-lg font-bold text-foreground mb-2">{displayName}</h2>
+                      {description ? (
+                        <p className="text-sm text-muted-foreground">{description}</p>
+                      ) : (
+                        <p className="text-sm text-muted-foreground">
+                          {editEnabled
+                            ? isDraft
+                              ? "Draft — only admins can see this. Click to edit, then publish."
+                              : "Click to open and edit this industry's page."
+                            : ""}
+                        </p>
+                      )}
+                      <span className="text-sm font-medium text-accent flex items-center gap-1 mt-3">
+                        {t("industries.learnMore")} {displayName} <ArrowRight size={14} className={isRTL ? "rotate-180" : ""} />
+                      </span>
+                    </div>
                   </Link>
                   {industry.isCustom && editEnabled && (
                     <div className="absolute bottom-3 right-3 z-10" onClick={(e) => e.stopPropagation()}>
@@ -189,6 +218,7 @@ const Industries = () => {
                   )}
                 </div>
               );
+
             }}
           />
         </div>
