@@ -152,7 +152,7 @@ const Industries = () => {
                   )}
                   <Link
                     to={`/industries/${industry.slug}`}
-                    className={`flex flex-col rounded-xl border bg-card h-full overflow-hidden transition-all duration-250 will-change-transform hover:-translate-y-1 ${
+                    className={`flex flex-col rounded-xl border bg-card h-full overflow-hidden transition-all duration-[250ms] will-change-transform hover:-translate-y-1 ${
                       photo ? "" : "p-6"
                     } ${
                       isDraft
@@ -167,7 +167,7 @@ const Industries = () => {
                             src={photo}
                             alt={industryCardAlt(displayName)}
                             loading="lazy"
-                            className="h-full w-full object-cover transition-transform duration-250 ease-out group-hover:scale-[1.04]"
+                            className="h-full w-full object-cover transition-transform duration-[250ms] ease-out group-hover:scale-[1.04]"
                           />
                         </div>
                         <span className="absolute -bottom-5 start-4 h-11 w-11 rounded-xl bg-background shadow-[0_6px_18px_-4px_hsl(220_25%_20%/0.28)] border border-border/60 flex items-center justify-center">
