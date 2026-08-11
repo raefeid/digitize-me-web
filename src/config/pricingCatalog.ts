@@ -53,8 +53,8 @@ const SHARED_FEATURES: Omit<PricingPlanFeature, "included">[] = [
 /** Per-tier included flags for the shared checklist features (same order as above). */
 const FEATURE_FLAGS: Record<string, boolean[]> = {
   individual:  [true,  true,  true,  true,  true,  false, true,  true,  true,  true,  true ],
-  starter:     [true,  true,  true,  true,  true,  false, true,  false, true,  false, true ],
-  productivity:[true,  true,  true,  true,  true,  true,  true,  false, true,  true,  true ],
+  starter:     [true,  true,  true,  true,  true,  false, true,  true,  true,  true,  true ],
+  productivity:[true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true ],
   professional:[true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true ],
 };
 
@@ -67,6 +67,9 @@ const FEATURE_NAME_OVERRIDES: Record<string, Record<number, { name: string; name
   starter: {
     8: { name: "Normal AI Execution", name_ar: "تنفيذ عادي للذكاء الاصطناعي" },
     10: { name: "Email Support", name_ar: "دعم عبر البريد الإلكتروني" },
+  },
+  professional: {
+    8: { name: "Highest Priority AI Execution", name_ar: "أعلى أولوية في تنفيذ الذكاء الاصطناعي" },
   },
 };
 
@@ -95,7 +98,7 @@ export const DEFAULT_PRICING_PLANS: DefaultPricingPlan[] = [
     prices: individualPricing.individual,
     features: buildFeatures("individual", [
       { name: "1 user", name_ar: "١ مستخدم", included: true },
-      { name: "50 GB storage", name_ar: "٥٠ جيجا تخزين", included: true },
+      { name: "50GB storage", name_ar: "٥٠ جيجا تخزين", included: true },
     ]),
   },
   {
@@ -109,7 +112,7 @@ export const DEFAULT_PRICING_PLANS: DefaultPricingPlan[] = [
     prices: individualPricing.starter,
     features: buildFeatures("starter", [
       { name: "3 users", name_ar: "٣ مستخدمين", included: true },
-      { name: "250 GB shared storage", name_ar: "٢٥٠ جيجا تخزين مشترك", included: true },
+      { name: "250GB shared storage", name_ar: "٢٥٠ جيجا تخزين مشترك", included: true },
     ]),
   },
   {
@@ -123,7 +126,7 @@ export const DEFAULT_PRICING_PLANS: DefaultPricingPlan[] = [
     prices: individualPricing.productivity,
     features: buildFeatures("productivity", [
       { name: "10 users", name_ar: "١٠ مستخدمين", included: true },
-      { name: "2 TB shared storage", name_ar: "٢ تيرا تخزين مشترك", included: true },
+      { name: "2TB shared storage", name_ar: "٢ تيرا تخزين مشترك", included: true },
     ]),
   },
   {
@@ -137,7 +140,7 @@ export const DEFAULT_PRICING_PLANS: DefaultPricingPlan[] = [
     prices: individualPricing.professional,
     features: buildFeatures("professional", [
       { name: "20 users", name_ar: "٢٠ مستخدمًا", included: true },
-      { name: "5 TB shared storage", name_ar: "٥ تيرا تخزين مشترك", included: true },
+      { name: "5TB shared storage", name_ar: "٥ تيرا تخزين مشترك", included: true },
     ]),
   },
 ];
