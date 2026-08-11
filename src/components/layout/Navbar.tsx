@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import * as LucideIcons from "lucide-react";
-import { Menu, X, Globe, ChevronDown, Sparkles, LogOut } from "lucide-react";
+import { Menu, X, Globe, ChevronDown, Sparkles, LogOut, type LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import CtaButton from "@/components/cms/CtaButton";
 import EditableText from "@/components/cms/EditableText";
@@ -25,7 +24,7 @@ type MobileNavNode = {
   external: boolean;
   newTab: boolean;
   children?: MobileNavNode[];
-  iconName?: string | null;
+  iconComp?: LucideIcon | null;
 };
 
 const languages: { code: Language; label: string; flag: string }[] = [
@@ -33,10 +32,9 @@ const languages: { code: Language; label: string; flag: string }[] = [
   { code: "ar", label: "عربي", flag: "🇦🇪" },
 ];
 
-const FeatureIcon = ({ name, className }: { name?: string | null; className?: string }) => {
-  if (!name) return <Sparkles className={className} />;
-  const Cmp = (LucideIcons as any)[name];
-  if (!Cmp) return <Sparkles className={className} />;
+const FeatureIcon = ({ comp, className }: { comp?: LucideIcon | null; className?: string }) => {
+  if (!comp) return <Sparkles className={className} />;
+  const Cmp = comp;
   return <Cmp className={className} />;
 };
 
@@ -138,7 +136,7 @@ const Navbar = () => {
         href: localizeInternalPath(`/industries/${industry.slug}`, lang),
         external: false,
         newTab: false,
-        iconName: industry.icon?.displayName ?? industry.icon?.name ?? null,
+        iconComp: industry.icon ?? null,
       }));
     }
 
@@ -529,7 +527,7 @@ const MobileNavItem = ({
   const hasChildren = !!item.children?.length;
   const isOpen = openIds.includes(item.id);
   const isActive = locationPath === item.href || locationPath.startsWith(`${item.href}/`);
-  const icon = item.iconName ? <FeatureIcon name={item.iconName} className={cn("w-3.5 h-3.5 shrink-0", transparentMode ? "text-accent/80" : "text-accent/60")} /> : null;
+  const icon = item.iconComp ? <FeatureIcon comp={item.iconComp} className={cn("w-3.5 h-3.5 shrink-0", transparentMode ? "text-accent/80" : "text-accent/60")} /> : null;
   const itemClass = cn(
     "w-full flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors",
     hasChildren && "justify-between",

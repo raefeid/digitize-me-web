@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { icons as lucideIcons, LucideIcon, Briefcase } from "lucide-react";
+import { LucideIcon, Briefcase } from "lucide-react";
+import { resolveIconByName } from "@/lib/iconRegistry";
 import { supabase } from "@/integrations/supabase/client";
 import { useSiteContent } from "./useSiteContent";
 import { useAuth } from "./useAuth";
@@ -74,7 +75,7 @@ const parseRegistry = (raw: string | null | undefined): Partial<RegistryValue> =
 
 const resolveIcon = (name: string | undefined): LucideIcon => {
   if (!name) return Briefcase;
-  return (lucideIcons[name as keyof typeof lucideIcons] as LucideIcon) ?? Briefcase;
+  return resolveIconByName(name) ?? Briefcase;
 };
 
 const toStringArray = (v: unknown): string[] =>
