@@ -2,8 +2,11 @@
 // Super-admin-only endpoint. Validates the caller is the hardcoded super-admin
 // (marketing@infasme.com), records the invite in public.invited_team_members,
 // then sends a Supabase Auth invite so the recipient gets an email and creates
-// an account. The DB trigger `apply_invited_role` will assign the correct role
-// when they confirm and sign in for the first time.
+// an account. The DB trigger `apply_invited_role` assigns the role only to
+// accounts created from that invite link (auth.users.invited_at set), so a
+// self-registered account sharing the email cannot inherit the role.
+// If an account with that email already exists, the caller must explicitly
+// confirm the account id before the role is granted.
 //
 // Request body: { email: string, role: "admin" | "editor" | "seo_manager" | "blog_author" }
 
@@ -58,7 +61,7 @@ Deno.serve(async (req) => {
   }
 
   // Parse + validate body
-  let body: { email?: string; role?: string };
+  let body: { email?: string; role?: string; confirmExistingUserId?: string };
   try {
     body = await req.json();
   } catch {
@@ -103,7 +106,20 @@ Deno.serve(async (req) => {
   );
 
   if (existingUser) {
-    // User already has an account — assign the role directly
+    // An account with this address already exists. We do NOT silently promote
+    // it: the account may not belong to the person the super admin intends to
+    // invite. Require an explicit confirmation naming that exact account id.
+    if (body.confirmExistingUserId !== existingUser.id) {
+      return json(409, {
+        error: "existing_account_requires_confirmation",
+        mode: "existing_user_confirmation_required",
+        existingUserId: existingUser.id,
+        createdAt: existingUser.created_at,
+        message:
+          "An account already uses this email address. Confirm you want to grant this role to that specific existing account.",
+      });
+    }
+
     const { error: roleErr } = await admin
       .from("user_roles")
       .upsert(
