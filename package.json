@@ -5,11 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vitest run src/test/industry-seo-lint.test.tsx && vite build",
+    "build": "vitest run src/test/industry-seo-lint.test.tsx && node scripts/generate-sitemap.mjs && vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",
     "seo:lint": "vitest run src/test/industry-seo-lint.test.tsx",
+    "sitemap:build": "node scripts/generate-sitemap.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
