@@ -5,7 +5,7 @@ import { useSiteContent } from "@/hooks/useSiteContent";
 import EditableText from "@/components/cms/EditableText";
 import EditableLink from "@/components/cms/EditableLink";
 import logoFallback from "@/assets/digitizeme-logo-dark.png";
-import infasmeLogoAsset from "@/assets/infasme-logo-new.webp.asset.json";
+import infasmeLogoAsset from "@/assets/infasme-logo-transparent-2.png.asset.json";
 import { useBrandingAsset } from "@/hooks/useBranding";
 import { useNavItems, navItemHref } from "@/hooks/useNavItems";
 import { useCustomPages } from "@/hooks/useCustomPages";
