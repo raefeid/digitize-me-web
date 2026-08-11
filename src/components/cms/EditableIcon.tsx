@@ -1,5 +1,7 @@
 import { ReactNode, forwardRef, useImperativeHandle, useRef, useState } from "react";
-import { ImagePlus, X, Sparkles, Upload, RotateCcw, icons as lucideIcons } from "lucide-react";
+import { ImagePlus, X, Sparkles, Upload, RotateCcw } from "lucide-react";
+import { resolveIconByName } from "@/lib/iconRegistry";
+import { LazyLucideIcon } from "@/components/cms/LazyLucideIcon";
 import { useEditMode } from "./EditModeContext";
 import { useImageOverride } from "@/hooks/useImageOverride";
 import MediaPicker from "@/components/admin/MediaPicker";
@@ -60,7 +62,7 @@ const EditableIcon = forwardRef<HTMLSpanElement, EditableIconProps>(({
 
   const isLucide = !!override && override.startsWith(LUCIDE_PREFIX);
   const lucideName = isLucide ? override!.slice(LUCIDE_PREFIX.length) : null;
-  const LucideOverride = lucideName ? lucideIcons[lucideName as keyof typeof lucideIcons] : null;
+  const LucideOverride = lucideName ? resolveIconByName(lucideName) ?? null : null;
   const showImage = !!override && !isLucide;
 
   const setLucide = (name: string) => {
@@ -101,6 +103,9 @@ const EditableIcon = forwardRef<HTMLSpanElement, EditableIconProps>(({
   const renderActiveIcon = () => {
     if (LucideOverride) {
       return <LucideOverride size={size} className="text-accent" />;
+    }
+    if (lucideName) {
+      return <LazyLucideIcon name={lucideName} size={size} className="text-accent" />;
     }
     if (showImage) {
       return (

@@ -1,6 +1,7 @@
 import { ReactNode, forwardRef, MouseEvent, useMemo, useState, type Ref, type MouseEventHandler, type KeyboardEvent } from "react";
 import { Link } from "react-router-dom";
-import { Pencil, icons as lucideIcons } from "lucide-react";
+import { Pencil } from "lucide-react";
+import { LazyLucideIcon } from "@/components/cms/LazyLucideIcon";
 import { Button, ButtonProps } from "@/components/ui/button";
 import { useCtaTargets, targetToAnchor } from "@/hooks/useCtaTargets";
 import {
@@ -27,9 +28,7 @@ import { launchExternal } from "@/components/transitions/LaunchOverlay";
 /** Render a Lucide icon by name, or null if not found. */
 const renderIcon = (name: string | null | undefined, position: "left" | "right") => {
   if (!name) return null;
-  const Icon = lucideIcons[name as keyof typeof lucideIcons];
-  if (!Icon) return null;
-  return <Icon size={16} className={position === "left" ? "mr-2 shrink-0" : "ml-2 shrink-0"} />;
+  return <LazyLucideIcon name={name} size={16} className={position === "left" ? "mr-2 shrink-0" : "ml-2 shrink-0"} />;
 };
 
 interface CtaButtonProps extends Omit<ButtonProps, "asChild"> {

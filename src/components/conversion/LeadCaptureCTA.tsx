@@ -1,6 +1,7 @@
 import { useMemo, useState, ReactNode, MouseEvent, forwardRef, type Ref, type MouseEventHandler, type KeyboardEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import { Pencil, icons as lucideIcons } from "lucide-react";
+import { Pencil } from "lucide-react";
+import { LazyLucideIcon } from "@/components/cms/LazyLucideIcon";
 import { Button, ButtonProps } from "@/components/ui/button";
 import LeadCaptureModal from "./LeadCaptureModal";
 import { trackCtaClick } from "@/lib/trackCtaClick";
@@ -38,9 +39,7 @@ interface LeadCaptureCTAProps extends Omit<ButtonProps, "asChild" | "onClick"> {
 
 const renderIcon = (name: string | null | undefined, position: "left" | "right") => {
   if (!name) return null;
-  const Icon = lucideIcons[name as keyof typeof lucideIcons];
-  if (!Icon) return null;
-  return <Icon size={16} className={position === "left" ? "mr-2 shrink-0" : "ml-2 shrink-0"} />;
+  return <LazyLucideIcon name={name} size={16} className={position === "left" ? "mr-2 shrink-0" : "ml-2 shrink-0"} />;
 };
 
 /**

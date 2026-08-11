@@ -16,7 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import LucideIconPicker from "@/components/cms/LucideIconPicker";
-import { industriesData } from "@/pages/Industries";
+import { industriesData } from "@/data/industries";
 import { useSeoTemplates, useTemplateGlobals, applySeoTemplate } from "@/hooks/useSeoTemplates";
 import { supabase } from "@/integrations/supabase/client";
 

@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { buildIndustrySeo } from "@/lib/industrySeo";
 import { localizeInternalPath } from "@/lib/localizedRoutes";
-import { industriesData } from "@/pages/Industries";
+import { industriesData } from "@/data/industries";
 
 const mockUseLanguage = vi.fn();
 
