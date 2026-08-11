@@ -7,7 +7,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useDynamicIndustries } from "@/hooks/useDynamicIndustries";
 import { useCustomPages, useSaveCustomPage, type PageBlock } from "@/hooks/useCustomPages";
 import { supabase } from "@/integrations/supabase/client";
-import { industriesData } from "@/pages/Industries";
+import { industriesData } from "@/data/industries";
 
 type GenStatus = "idle" | "running" | "done" | "error" | "skipped";
 type Row = { slug: string; name: string; status: GenStatus; message?: string };

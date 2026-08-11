@@ -5,7 +5,7 @@ import { resolveIconByName } from "@/lib/iconRegistry";
 import { supabase } from "@/integrations/supabase/client";
 import { useSiteContent } from "./useSiteContent";
 import { useAuth } from "./useAuth";
-import { industriesData, IndustryData } from "@/pages/Industries";
+import { industriesData, IndustryData } from "@/data/industries";
 
 /**
  * Phase 3: Industries are now sourced from the `industries` table (DB-first).
