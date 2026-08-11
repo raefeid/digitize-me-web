@@ -1,1 +1,38 @@
 project_id = "tobhnxzhpfzopjzgyzlq"
+
+# Explicit JWT verification posture per edge function (previously undeclared).
+# Public endpoints and secret-protected callbacks are verify_jwt = false; every
+# function that requires a signed-in caller stays verify_jwt = true so the gateway
+# rejects anonymous requests before the function body runs (defense in depth on
+# top of each function's own role checks).
+
+# Public — served to search engines / crawlers.
+[functions.robots]
+verify_jwt = false
+
+[functions.sitemap]
+verify_jwt = false
+
+# Secret-protected — called server-side by the leads pg_net trigger, no user JWT.
+# Authenticated instead via the x-notify-secret shared secret.
+[functions.notify-lead]
+verify_jwt = false
+
+# Authenticated — require a signed-in caller (JWT + role checks inside).
+[functions.ga4-cta-stats]
+verify_jwt = true
+
+[functions.generate-industry-page]
+verify_jwt = true
+
+[functions.generate-page-seo]
+verify_jwt = true
+
+[functions.validate-seo]
+verify_jwt = true
+
+[functions.invite-team-member]
+verify_jwt = true
+
+[functions.list-customer-accounts]
+verify_jwt = true
