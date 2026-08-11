@@ -12,7 +12,7 @@ import UAETrustBlock from "@/components/about/UAETrustBlock";
 import UAEHostingBadge from "@/components/common/UAEHostingBadge";
 import AboutValues from "@/components/about/AboutValues";
 import AboutOffices from "@/components/about/AboutOffices";
-import AboutNews from "@/components/about/AboutNews";
+
 import ClientLogosCarousel from "@/components/home/ClientLogosCarousel";
 
 const About = () => {
@@ -116,9 +116,6 @@ const About = () => {
       {/* Our offices */}
       <AboutOffices />
       <UAETrustBlock />
-
-      {/* In the news */}
-      <AboutNews />
 
       {/* CTA footer */}
       <section className="section-padding bg-primary text-primary-foreground">
