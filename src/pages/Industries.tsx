@@ -415,12 +415,30 @@ export const IndustryDetail = () => {
       <section className="section-padding bg-gradient-to-b from-dm-navy-light to-background">
         <div className="container-max max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="hidden md:block md:order-1"
+            className="md:order-1"
           >
-            <IndustryHeroAnimation icon={industryEn.icon} useLottie={isLawFirms} lottie={slug === "accounting" ? "calculator" : slug === "logistics" ? "delivery" : undefined} />
+            {getIndustryCardImage(slug) ? (
+              <div className="relative overflow-hidden rounded-3xl border border-border/60 shadow-xl bg-muted">
+                <img
+                  src={getIndustryCardImage(slug)}
+                  alt={`${industry.name} document management with DigitizeMe`}
+                  loading="lazy"
+                  width={1024}
+                  height={768}
+                  className="w-full aspect-[16/9] md:aspect-[4/3] object-cover"
+                />
+                <div
+                  className={`pointer-events-none absolute inset-0 ${isRTL ? "bg-gradient-to-l" : "bg-gradient-to-r"} from-transparent via-dm-navy/5 to-dm-navy/35`}
+                />
+              </div>
+            ) : (
+              <div className="hidden md:block">
+                <IndustryHeroAnimation icon={industryEn.icon} useLottie={isLawFirms} lottie={slug === "accounting" ? "calculator" : slug === "logistics" ? "delivery" : undefined} />
+              </div>
+            )}
           </motion.div>
           <div className="md:order-2">
             <h1 className="sr-only">{semanticIndustryH1}</h1>
