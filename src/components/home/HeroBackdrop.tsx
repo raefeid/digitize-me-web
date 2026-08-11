@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
-import heroVideo from "@/assets/hero/hero-loop-v3.mp4.asset.json";
+import heroVideo from "@/assets/hero/hero-loop-v4.mp4.asset.json";
 
 interface HeroBackdropProps {
   activeScene?: number;
