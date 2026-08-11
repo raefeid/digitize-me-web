@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
+import { useCookieConsent } from "@/hooks/useCookieConsent";
 import { useSiteContent } from "@/hooks/useSiteContent";
 import EditableText from "@/components/cms/EditableText";
 import EditableLink from "@/components/cms/EditableLink";
@@ -14,6 +15,7 @@ import UAEHostingBadge from "@/components/common/UAEHostingBadge";
 
 const Footer = () => {
   const { t, isRTL, lang } = useLanguage();
+  const { openPreferences } = useCookieConsent();
   const { getContent } = useSiteContent("footer");
   const logo = useBrandingAsset("logo_footer", logoFallback);
   const infasmeLogo = useBrandingAsset("logo_powered_by", infasmeLogoAsset.url);
@@ -170,6 +172,13 @@ const Footer = () => {
             <EditableLink ctaKey="footer_legal_terms" defaultTo="/terms" trackingPage="footer_legal" className="hover:text-primary-foreground/70 transition-colors">
               <EditableText page="footer" section="legal" contentKey="terms" fallback={t("footer.terms")} />
             </EditableLink>
+            <button
+              type="button"
+              onClick={openPreferences}
+              className="hover:text-primary-foreground/70 transition-colors"
+            >
+              {lang === "ar" ? "تفضيلات ملفات الارتباط" : "Cookie preferences"}
+            </button>
           </div>
         </div>
       </div>
