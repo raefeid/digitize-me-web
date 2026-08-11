@@ -126,7 +126,7 @@ export const DEFAULT_PRICING_PLANS: DefaultPricingPlan[] = [
     prices: individualPricing.productivity,
     features: buildFeatures("productivity", [
       { name: "10 users", name_ar: "١٠ مستخدمين", included: true },
-      { name: "2 TB shared storage", name_ar: "٢ تيرا تخزين مشترك", included: true },
+      { name: "2TB shared storage", name_ar: "٢ تيرا تخزين مشترك", included: true },
     ]),
   },
   {
