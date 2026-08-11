@@ -140,7 +140,7 @@ export const DEFAULT_PRICING_PLANS: DefaultPricingPlan[] = [
     prices: individualPricing.professional,
     features: buildFeatures("professional", [
       { name: "20 users", name_ar: "٢٠ مستخدمًا", included: true },
-      { name: "5 TB shared storage", name_ar: "٥ تيرا تخزين مشترك", included: true },
+      { name: "5TB shared storage", name_ar: "٥ تيرا تخزين مشترك", included: true },
     ]),
   },
 ];
