@@ -9,6 +9,7 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import { Badge } from "@/components/ui/badge";
 import { CustomBlocksRenderer, AddBlockButton } from "@/components/cms/CustomBlocks";
 import type { FaqItem } from "@/lib/jsonLd";
+import { sanitizeRichHtml } from "@/lib/sanitizeHtml";
 
 /**
  * Extract FAQ Q&A pairs from rendered blog HTML.
@@ -186,7 +187,7 @@ const BlogPost = () => {
 
             <div
               className="prose prose-lg max-w-none text-foreground prose-headings:text-foreground prose-p:text-muted-foreground prose-a:text-accent prose-strong:text-foreground [&_.text-primary-foreground]:!text-primary-foreground [&_.text-primary-foreground_*]:!text-inherit [&_.text-primary-foreground_h3]:!text-primary-foreground [&_.text-primary-foreground_p]:!text-primary-foreground/90 [&_.text-primary-foreground_a]:!text-accent-foreground"
-              dangerouslySetInnerHTML={{ __html: getContent() }}
+              dangerouslySetInnerHTML={{ __html: sanitizeRichHtml(getContent()) }}
             />
           </motion.div>
 

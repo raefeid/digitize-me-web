@@ -125,7 +125,12 @@ export const useTrackingScripts = () => {
       cleanups.push(() => s.remove());
     }
 
-    // Custom raw HTML
+    // Custom raw HTML.
+    // These two keys are injected verbatim (they must carry raw <script> for
+    // tags not covered above), so they are NOT sanitized here. Instead, writing
+    // them is restricted to the super_admin role at the DB layer (site_content
+    // RESTRICTIVE policy) and hidden from other roles in TrackingScriptsEditor,
+    // which closes the editor -> site-wide-XSS escalation path.
     if (customHead) {
       const wrap = document.createElement("div");
       wrap.dataset.tracking = "custom-head";
