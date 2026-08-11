@@ -68,12 +68,39 @@ const TeamAccessPanel = () => {
     e.preventDefault();
     if (!email.trim()) return;
     setSubmitting(true);
+    const target = email.trim().toLowerCase();
     try {
-      const { data, error } = await supabase.functions.invoke(
-        "invite-team-member",
-        { body: { email: email.trim().toLowerCase(), role } },
-      );
-      if (error) throw error;
+      const invite = async (confirmExistingUserId?: string) => {
+        const { data, error } = await supabase.functions.invoke(
+          "invite-team-member",
+          { body: { email: target, role, confirmExistingUserId } },
+        );
+        if (error) {
+          // Read the real payload (409 confirmation prompts arrive as errors)
+          const ctx = (error as { context?: Response }).context;
+          if (ctx) {
+            try {
+              return JSON.parse(await ctx.text());
+            } catch {
+              /* fall through */
+            }
+          }
+          throw error;
+        }
+        return data as Record<string, unknown>;
+      };
+
+      let data = await invite();
+      if (data?.mode === "existing_user_confirmation_required") {
+        const ok = confirm(
+          `An account already exists with ${target}. Only continue if you are certain this existing account belongs to the person you want to grant "${role}" access to. Grant the role now?`,
+        );
+        if (!ok) {
+          toast({ title: "Invite cancelled" });
+          return;
+        }
+        data = await invite(String(data.existingUserId));
+      }
       if ((data as { error?: string })?.error) {
         throw new Error((data as { error: string }).error);
       }
@@ -85,8 +112,8 @@ const TeamAccessPanel = () => {
             : "Invitation sent",
         description:
           mode === "existing_user"
-            ? `${email} already has an account — role applied immediately.`
-            : `An invite email was sent to ${email}.`,
+            ? `${target} already had an account — role applied after your confirmation.`
+            : `An invite email was sent to ${target}.`,
       });
       setEmail("");
       qc.invalidateQueries({ queryKey: ["team-invites"] });
