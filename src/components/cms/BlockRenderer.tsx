@@ -7,6 +7,7 @@ import { Card } from "@/components/ui/card";
 import type { PageBlock } from "@/hooks/useCustomPages";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { localizeInternalPath } from "@/lib/localizedRoutes";
+import { sanitizeRichHtml } from "@/lib/sanitizeHtml";
 
 const Icon = ({ name, className }: { name?: string; className?: string }) => {
   if (!name) return <Sparkles className={className} />;
@@ -102,7 +103,7 @@ export const BlockRenderer = ({ block }: { block: PageBlock }) => {
           <div className="container-max px-4">
             <div
               className="prose prose-neutral dark:prose-invert max-w-3xl mx-auto"
-              dangerouslySetInnerHTML={{ __html: block.html || "" }}
+              dangerouslySetInnerHTML={{ __html: sanitizeRichHtml(block.html) }}
             />
           </div>
         </section>

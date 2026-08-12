@@ -18,6 +18,14 @@ vi.mock("lottie-react", () => ({
   default: () => null,
 }));
 
+// jsdom does not implement HTMLMediaElement playback; calling play() logs a
+// "Not implemented" error to the console. Stub it so video components render
+// cleanly in tests.
+if (typeof HTMLMediaElement !== "undefined") {
+  HTMLMediaElement.prototype.play = vi.fn(() => Promise.resolve());
+  HTMLMediaElement.prototype.pause = vi.fn();
+}
+
 
 Object.defineProperty(window, "matchMedia", {
   writable: true,

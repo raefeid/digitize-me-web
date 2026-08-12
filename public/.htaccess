@@ -1,0 +1,82 @@
+# Digitize me — Apache/LiteSpeed config for the built SPA (A2 Hosting).
+# Vite copies this file from public/ into the dist/ root at build time.
+# It provides: security headers, a Content-Security-Policy tuned to the app's
+# real third parties, SPA client-side routing, and cache rules that avoid
+# stale-hashed-chunk 404s after a redeploy.
+
+# ----------------------------------------------------------------------------
+# 1. Security headers
+# ----------------------------------------------------------------------------
+<IfModule mod_headers.c>
+  # Force HTTPS for 2 years incl. subdomains (browsers ignore this over plain HTTP).
+  Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+
+  # Clickjacking protection (legacy header + CSP frame-ancestors below).
+  Header always set X-Frame-Options "SAMEORIGIN"
+
+  # Stop MIME-type sniffing.
+  Header always set X-Content-Type-Options "nosniff"
+
+  # Send only the origin as referrer on cross-origin navigations.
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # Disable powerful features the site does not use (geo pricing is IP-based, not
+  # the browser geolocation API), and opt out of FLoC.
+  Header always set Permissions-Policy "geolocation=(), camera=(), microphone=(), payment=(), usb=(), browsing-topics=()"
+
+  # Content-Security-Policy.
+  # NOTE: 'unsafe-inline' is required in script-src because the analytics loaders
+  # (GA4/GTM/Meta/LinkedIn/TikTok/Clarity/Hotjar) and custom_head/custom_body are
+  # injected as inline <script> at runtime. External script hosts are still
+  # allowlisted, framing is locked, and CMS HTML is DOMPurify-sanitized, so the
+  # residual XSS surface is narrow. To drop 'unsafe-inline' later, move all tags
+  # into GTM or a nonce-based loader.
+  Header always set Content-Security-Policy "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self'; upgrade-insecure-requests; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://ssl.google-analytics.com https://connect.facebook.net https://snap.licdn.com https://analytics.tiktok.com https://www.clarity.ms https://*.clarity.ms https://static.hotjar.com https://script.hotjar.com https://*.hotjar.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; media-src 'self' data: blob: https:; worker-src 'self' blob:; connect-src 'self' https://tobhnxzhpfzopjzgyzlq.supabase.co wss://tobhnxzhpfzopjzgyzlq.supabase.co https://ipapi.co https://ip2c.org https://www.google-analytics.com https://*.google-analytics.com https://region1.google-analytics.com https://analytics.google.com https://stats.g.doubleclick.net https://www.googletagmanager.com https://connect.facebook.net https://www.facebook.com https://px.ads.linkedin.com https://analytics.tiktok.com https://*.clarity.ms https://*.hotjar.com wss://*.hotjar.com; frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://player.vimeo.com https://www.google.com https://td.doubleclick.net https://www.googletagmanager.com"
+</IfModule>
+
+# Do not advertise ETags / stop directory listings.
+Options -Indexes
+
+# Block access to dotfiles and sensitive files if any get uploaded by mistake.
+<FilesMatch "(^\.env|^\.git|\.map$)">
+  Require all denied
+</FilesMatch>
+
+# ----------------------------------------------------------------------------
+# 2. SPA client-side routing
+#    Serve real files/directories as-is; route everything else to index.html
+#    so deep links and hard refreshes (e.g. /pricing, /blog/x) work.
+# ----------------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# ----------------------------------------------------------------------------
+# 3. Caching
+#    Hashed build assets are immutable and cached hard; index.html must never be
+#    cached, so a redeploy is picked up immediately and clients don't request
+#    evicted chunk hashes (which would 404 into a blank SPA).
+# ----------------------------------------------------------------------------
+<IfModule mod_headers.c>
+  <FilesMatch "\.(js|css|woff2?|ttf|otf|eot|svg|png|jpe?g|gif|webp|avif|mp4|webm|ico)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  <FilesMatch "(index\.html|sw\.js|manifest\.webmanifest)$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+# ----------------------------------------------------------------------------
+# 4. Compression
+# ----------------------------------------------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css application/javascript application/json image/svg+xml application/xml
+</IfModule>

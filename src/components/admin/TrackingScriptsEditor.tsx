@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Loader2, Save, ExternalLink, CheckCircle2, type LucideIcon, BarChart3, Tag, Search, Activity, Eye, Music2, Code2, Share2, Briefcase } from "lucide-react";
 import { useSiteContent, useSaveContent, type SiteContentItem } from "@/hooks/useSiteContent";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import { useTeamAccess } from "@/hooks/useTeamAccess";
 
 /**
  * Admin panel where the marketing team pastes tracking IDs (GA4, GTM,
@@ -144,12 +145,25 @@ const groups: Array<{ title: string; description: string; fields: Field[] }> = [
 
 const ALL_FIELDS = groups.flatMap((g) => g.fields);
 
+// The "Custom code" group injects raw <head>/<body> HTML (incl. <script>) that
+// cannot be sanitized, so writing it is restricted to super_admin at the DB layer
+// (site_content RESTRICTIVE policy). Hide it in the UI for everyone else so they
+// don't hit a confusing RLS error on save.
+const ADVANCED_GROUP_TITLE = "Custom code (advanced)";
+
 const TrackingScriptsEditor = () => {
   const { items, isLoading } = useSiteContent("integrations", "tracking");
   const saveContent = useSaveContent();
   const { toast } = useToast();
+  const { isSuperAdmin } = useTeamAccess();
   const [values, setValues] = useState<Record<string, string>>({});
   const [dirty, setDirty] = useState(false);
+
+  const visibleGroups = useMemo(
+    () => (isSuperAdmin ? groups : groups.filter((g) => g.title !== ADVANCED_GROUP_TITLE)),
+    [isSuperAdmin],
+  );
+  const visibleFields = useMemo(() => visibleGroups.flatMap((g) => g.fields), [visibleGroups]);
 
   // Hydrate local state from DB
   useEffect(() => {
@@ -172,7 +186,7 @@ const TrackingScriptsEditor = () => {
   };
 
   const validateAll = (): string | null => {
-    for (const f of ALL_FIELDS) {
+    for (const f of visibleFields) {
       const v = (values[f.key] ?? "").trim();
       if (v && f.pattern && !f.pattern.test(v)) {
         return `${f.label}: format looks wrong. Expected like "${f.placeholder}".`;
@@ -188,7 +202,7 @@ const TrackingScriptsEditor = () => {
       return;
     }
     try {
-      for (const f of ALL_FIELDS) {
+      for (const f of visibleFields) {
         const trimmed = (values[f.key] ?? "").trim();
         const existing = findRow(f.key);
         // Skip rows that are still empty and never existed
@@ -225,7 +239,7 @@ const TrackingScriptsEditor = () => {
     );
   }
 
-  const filledCount = ALL_FIELDS.filter((f) => (values[f.key] ?? "").trim()).length;
+  const filledCount = visibleFields.filter((f) => (values[f.key] ?? "").trim()).length;
 
   return (
     <div className="space-y-6">
@@ -241,12 +255,12 @@ const TrackingScriptsEditor = () => {
           </p>
           <div className="text-xs text-muted-foreground mt-2">
             <CheckCircle2 size={12} className="inline -mt-0.5 mr-1 text-emerald-500" />
-            {filledCount} of {ALL_FIELDS.length} scripts configured
+            {filledCount} of {visibleFields.length} scripts configured
           </div>
         </div>
       </div>
 
-      {groups.map((group) => (
+      {visibleGroups.map((group) => (
         <div key={group.title} className="bg-card border border-border rounded-xl p-5">
           <div className="mb-4">
             <h4 className="font-semibold text-foreground">{group.title}</h4>

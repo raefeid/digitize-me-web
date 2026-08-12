@@ -3,5 +3,4 @@ Allow: /
 Disallow: /admin
 Disallow: /admin/
 
-Host: https://digitize-me-web.lovable.app
-Sitemap: https://digitize-me-web.lovable.app/sitemap.xml
+Sitemap: https://www.digitizeme.ae/sitemap.xml

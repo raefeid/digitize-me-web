@@ -12,8 +12,10 @@ import EditModeBar from "@/components/cms/EditModeBar";
 import FormatToolbar from "@/components/cms/FormatToolbar";
 import { PromotionsHost } from "@/components/promotions/PromotionsHost";
 import { GeoProvider } from "@/hooks/useGeoLocation";
+import { CookieConsentProvider } from "@/hooks/useCookieConsent";
 import { Suspense, lazy, useLayoutEffect } from "react";
 import LaunchOverlay from "@/components/transitions/LaunchOverlay";
+import CookieConsentBanner from "@/components/consent/CookieConsentBanner";
 
 const queryClient = new QueryClient();
 
@@ -120,9 +122,12 @@ const App = () => (
             <EditModeProvider>
               <RevealRegistryProvider>
               <TooltipProvider>
-                <Toaster />
-                <Sonner />
-                <AppRoutes />
+                <CookieConsentProvider>
+                  <Toaster />
+                  <Sonner />
+                  <AppRoutes />
+                  <CookieConsentBanner />
+                </CookieConsentProvider>
               </TooltipProvider>
               </RevealRegistryProvider>
             </EditModeProvider>

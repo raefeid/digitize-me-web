@@ -119,11 +119,6 @@ const Product = () => {
             "Cloud & On-Premise deployment",
             "ERP, CRM and cloud-storage integrations",
           ],
-          aggregateRating: {
-            "@type": "AggregateRating",
-            ratingValue: "4.8",
-            ratingCount: "150",
-          },
         }}
       />
 

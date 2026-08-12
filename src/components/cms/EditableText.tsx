@@ -1,6 +1,7 @@
 import { createElement, forwardRef, useEffect, useImperativeHandle, useRef, useState, ReactNode } from "react";
 import { useEditMode, useEditLang } from "./EditModeContext";
 import { useSiteContent } from "@/hooks/useSiteContent";
+import { sanitizeRichHtml } from "@/lib/sanitizeHtml";
 
 interface EditableTextProps {
   page: string;
@@ -67,7 +68,8 @@ const EditableText = forwardRef<HTMLElement, EditableTextProps>(({
   useEffect(() => {
     if (editing || !ref.current || !canAttachDomRef) return;
     if (rich || looksLikeHTML(display)) {
-      if (ref.current.innerHTML !== display) ref.current.innerHTML = display;
+      const safe = sanitizeRichHtml(display);
+      if (ref.current.innerHTML !== safe) ref.current.innerHTML = safe;
     } else {
       if (ref.current.innerText !== display) ref.current.innerText = display;
     }
@@ -150,7 +152,7 @@ const EditableText = forwardRef<HTMLElement, EditableTextProps>(({
       className: `${className} ${editClass} ${enabled ? "transition-all" : ""}`.trim(),
       ...dirProps,
       ...(initialChildren === undefined
-        ? { dangerouslySetInnerHTML: { __html: display } }
+        ? { dangerouslySetInnerHTML: { __html: sanitizeRichHtml(display) } }
         : {}),
       ...editableProps,
     },

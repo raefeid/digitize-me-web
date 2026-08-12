@@ -1,5 +1,6 @@
 import { createElement, useEffect, useRef, useState } from "react";
 import { useEditMode } from "./EditModeContext";
+import { sanitizeRichHtml } from "@/lib/sanitizeHtml";
 
 interface EditableSectionTextProps {
   /** Stable identity for React/devtools */
@@ -43,7 +44,8 @@ const EditableSectionText = ({
   useEffect(() => {
     if (editing || !ref.current || !canAttachDomRef) return;
     if (rich || looksLikeHTML(display)) {
-      if (ref.current.innerHTML !== display) ref.current.innerHTML = display;
+      const safe = sanitizeRichHtml(display);
+      if (ref.current.innerHTML !== safe) ref.current.innerHTML = safe;
       return;
     }
     if (ref.current.innerText !== display) ref.current.innerText = display;
@@ -99,7 +101,7 @@ const EditableSectionText = ({
       ...(canAttachDomRef ? { ref } : {}),
       className: `${className} ${editClass}`.trim(),
       ...(initialChildren === undefined
-        ? { dangerouslySetInnerHTML: { __html: display } }
+        ? { dangerouslySetInnerHTML: { __html: sanitizeRichHtml(display) } }
         : {}),
       ...editableProps,
     },
