@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Star, Quote } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { useTestimonials } from "@/hooks/useTestimonials";
+import { useTestimonials, DEFAULT_TESTIMONIALS } from "@/hooks/useTestimonials";
 
 interface Props {
   /** Industry name in English — used to filter testimonials by company/role keywords. */
@@ -20,7 +20,9 @@ const IndustryTestimonials = ({ industryName, heading }: Props) => {
   const isAr = lang === "ar";
   const { data: all } = useTestimonials();
 
-  const published = (all ?? []).filter((t) => t.published);
+  const dbPublished = (all ?? []).filter((t) => t.published);
+  // Fall back to the real case-study testimonials when the DB has none.
+  const published = dbPublished.length > 0 ? dbPublished : DEFAULT_TESTIMONIALS;
   const keyword = industryName.toLowerCase().split(/\s|&|\//)[0]; // first significant word
 
   const matched = published.filter((t) => {

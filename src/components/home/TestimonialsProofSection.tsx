@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Star, Quote } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { useClientLogos } from "@/hooks/useClientLogos";
+import { useTestimonials, DEFAULT_TESTIMONIALS } from "@/hooks/useTestimonials";
 
 /**
  * Reinforcing Proofs — combined numeric stats + written testimonials +
@@ -9,61 +9,26 @@ import { useClientLogos } from "@/hooks/useClientLogos";
  * a proof-heavy layout inspired by enterprise SaaS reference designs.
  */
 const TestimonialsProofSection = () => {
-  const { isRTL } = useLanguage();
-  const { data: logos = [] } = useClientLogos();
-  const publishedLogos = logos.filter((l) => l.published);
+  const { lang, isRTL } = useLanguage();
+  const { data: dbTestimonials = [] } = useTestimonials();
+  const publishedDb = dbTestimonials.filter((t) => t.published);
+  // Real customer case studies; admin-added DB testimonials take precedence.
+  const source = publishedDb.length > 0 ? publishedDb : DEFAULT_TESTIMONIALS;
+  const l = (en: string | null, ar: string | null) => (lang === "ar" ? ar : en) ?? en ?? "";
 
   const proofStats = [
-    { value: "500+", label: isRTL ? "شركة تستخدم المنصة" : "Businesses onboarded" },
-    { value: "5M+", label: isRTL ? "صفحة تمت معالجتها" : "Pages processed" },
-    { value: "99.4%", label: isRTL ? "دقة OCR" : "OCR accuracy" },
-    { value: "4.9/5", label: isRTL ? "تقييم العملاء" : "Customer rating" },
+    { value: "1.7M+", label: isRTL ? "مستند تمت رقمنته" : "Documents digitized" },
+    { value: "50%", label: isRTL ? "خفض في التكاليف" : "Cost reduction" },
+    { value: "50,000", label: isRTL ? "صفحة يوميًا" : "Pages captured daily" },
+    { value: "8 mo", label: isRTL ? "لرقمنة كاملة" : "To fully digitize" },
   ];
 
-  const testimonials = isRTL
-    ? [
-        {
-          quote: "قلّصنا وقت البحث عن المستندات من دقائق إلى ثوانٍ — كان الفارق فوريًا.",
-          name: "أحمد المنصوري",
-          role: "مدير العمليات",
-          company: "Gulf Logistics",
-        },
-        {
-          quote: "OCR العربي لا يُضاهى — يقرأ فواتيرنا اليدوية بدقة مذهلة.",
-          name: "فاطمة العلي",
-          role: "شريك",
-          company: "مكتب المحاماة",
-        },
-        {
-          quote: "الأتمتة وحدها وفّرت علينا وظيفة بدوام كامل خلال أول ٦ أشهر.",
-          name: "Rajesh Kumar",
-          role: "CFO",
-          company: "Emirates Retail Group",
-        },
-      ]
-    : [
-        {
-          quote:
-            "We cut document retrieval time from minutes to seconds. The impact on daily operations was immediate.",
-          name: "Ahmed Al Mansouri",
-          role: "Head of Operations",
-          company: "Gulf Logistics",
-        },
-        {
-          quote:
-            "The Arabic OCR is unmatched — it reads our handwritten invoices with astonishing accuracy.",
-          name: "Fatima Al Ali",
-          role: "Partner",
-          company: "Al Ali Law Firm",
-        },
-        {
-          quote:
-            "Automation alone saved us a full-time role in the first 6 months.",
-          name: "Rajesh Kumar",
-          role: "CFO",
-          company: "Emirates Retail Group",
-        },
-      ];
+  const testimonials = source.slice(0, 4).map((t) => ({
+    quote: l(t.quote, t.quote_ar),
+    name: l(t.author_name, t.author_name_ar),
+    role: l(t.role, t.role_ar),
+    company: l(t.company, t.company_ar),
+  }));
 
   return (
     <section
@@ -107,7 +72,7 @@ const TestimonialsProofSection = () => {
         </div>
 
         {/* Testimonial cards */}
-        <div className="grid md:grid-cols-3 gap-5 md:gap-6">
+        <div className="grid md:grid-cols-2 gap-5 md:gap-6">
           {testimonials.map((t, i) => (
             <motion.div
               key={t.name}

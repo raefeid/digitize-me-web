@@ -23,6 +23,99 @@ export interface Testimonial {
 
 export type TestimonialInput = Omit<Testimonial, "id" | "created_at" | "updated_at"> & { id?: string };
 
+/**
+ * Real customer case studies (UAE government & enterprise document-management
+ * projects delivered by Infasme). Used as the fallback set when the DB has no
+ * published testimonials, and as the source for the home proof section. Quotes
+ * are faithful paraphrases of the published case studies.
+ */
+export const DEFAULT_TESTIMONIALS: Testimonial[] = [
+  {
+    id: "cs-union-insurance",
+    author_name: "Anshul Srivastav",
+    author_name_ar: null,
+    role: "Chief Information Officer",
+    role_ar: "الرئيس التنفيذي لتقنية المعلومات",
+    company: "Union Insurance",
+    company_ar: "الاتحاد للتأمين",
+    quote:
+      "We reduced our annual costs by 30% and improved our teams' efficiency — and we're proud to be among the first in the region running a full-fledged ECM on the cloud.",
+    quote_ar:
+      "خفّضنا تكاليفنا السنوية بنسبة 30% وحسّنّا كفاءة فرقنا، ونفخر بأننا من الأوائل في المنطقة في تشغيل نظام إدارة محتوى مؤسسي متكامل على السحابة.",
+    avatar_url: null,
+    company_logo_url: null,
+    rating: 5,
+    featured: true,
+    sort_order: 10,
+    published: true,
+    created_at: "",
+    updated_at: "",
+  },
+  {
+    id: "cs-dubai-economy",
+    author_name: "Mohamed Khalifa Alqaizi",
+    author_name_ar: "محمد خليفة القايزي",
+    role: "IT Director",
+    role_ar: "مدير تقنية المعلومات",
+    company: "Dubai Economy",
+    company_ar: "اقتصادية دبي",
+    quote:
+      "It had a huge impact on digitizing our documents — cutting daily costs, strengthening document security, and making our day-to-day team collaboration far more efficient.",
+    quote_ar:
+      "كان له أثر كبير في رقمنة مستنداتنا؛ إذ خفّض التكاليف اليومية وعزّز أمن المستندات وجعل التعاون اليومي بين الفرق أكثر كفاءة.",
+    avatar_url: null,
+    company_logo_url: null,
+    rating: 5,
+    featured: true,
+    sort_order: 20,
+    published: true,
+    created_at: "",
+    updated_at: "",
+  },
+  {
+    id: "cs-mohp",
+    author_name: "Dr. Fatmah Waalali",
+    author_name_ar: "د. فاطمة وعلالي",
+    role: "Deputy Director, Financial Affairs & Budget",
+    role_ar: "نائب مدير الشؤون المالية والميزانية",
+    company: "Ministry of Health & Prevention – UAE",
+    company_ar: "وزارة الصحة ووقاية المجتمع",
+    quote:
+      "We fully digitized our documents in around eight months. We now have a secure, controlled environment accessible from anywhere, so our team processes payment vouchers easily and in minimum time.",
+    quote_ar:
+      "رقمنّا مستنداتنا بالكامل خلال ثمانية أشهر تقريبًا، وأصبح لدينا بيئة آمنة ومنضبطة يمكن الوصول إليها من أي مكان، فبات فريقنا يعالج سندات الدفع بسهولة وبأقل وقت وجهد.",
+    avatar_url: null,
+    company_logo_url: null,
+    rating: 5,
+    featured: true,
+    sort_order: 30,
+    published: true,
+    created_at: "",
+    updated_at: "",
+  },
+  {
+    id: "cs-fujairah-finance",
+    author_name: "Alia",
+    author_name_ar: "عالية",
+    role: "IT Manager",
+    role_ar: "مدير تقنية المعلومات",
+    company: "Fujairah Finance",
+    company_ar: "دائرة مالية الفجيرة",
+    quote:
+      "It saved us around 50% of our costs and gave our team an efficient way to handle daily and backlog operations — a real step toward complete document management.",
+    quote_ar:
+      "وفّر لنا نحو 50% من التكاليف، ومنح فريقنا وسيلة فعّالة لإدارة العمليات اليومية والمتراكمة، في خطوة حقيقية نحو إدارة مستندات متكاملة.",
+    avatar_url: null,
+    company_logo_url: null,
+    rating: 5,
+    featured: true,
+    sort_order: 40,
+    published: true,
+    created_at: "",
+    updated_at: "",
+  },
+];
+
 export const useTestimonials = () =>
   useQuery({
     queryKey: ["testimonials"],
