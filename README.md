@@ -104,21 +104,23 @@ Storage:
 
 ## 🚀 Getting started
 
+This project uses **[Bun](https://bun.sh)** as its package manager (single lockfile: `bun.lock`).
+
 ```bash
 # Install
-npm install
+bun install
 
 # Run dev server
-npm run dev
+bun run dev
 
 # Build
-npm run build
+bun run build
 
 # Lint
-npm run lint
+bun run lint
 
 # Tests
-npm test
+bun run test
 ```
 
 The Supabase URL & anon key are auto-injected into `.env` by Lovable Cloud — never edit `.env` or `src/integrations/supabase/{client,types}.ts` manually.

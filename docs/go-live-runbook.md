@@ -19,7 +19,7 @@ the new frontend goes live, and several fixes are inert until secrets are set.
 - [ ] Confirm you can reach: the Supabase dashboard (or `supabase` CLI linked to the
       project), the A2 hosting file manager / SFTP, and DNS if needed.
 - [ ] Take a note of the current live state so you can roll back (see §7).
-- [ ] `npm ci && npm run build` locally — must succeed. This runs the SEO-lint gate
+- [ ] `bun install --frozen-lockfile && bun run build` locally — must succeed. This runs the SEO-lint gate
       and regenerates `dist/` including sitemaps and the `.htaccess`.
 
 ---

@@ -3,8 +3,10 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "packageManager": "bun@1.3.11",
   "scripts": {
     "dev": "vite",
+    "typecheck": "tsc --noEmit -p tsconfig.app.json",
     "build": "vitest run src/test/industry-seo-lint.test.tsx && node scripts/generate-sitemap.mjs && vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
