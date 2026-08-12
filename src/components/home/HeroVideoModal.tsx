@@ -2,21 +2,36 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, X } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
-import promoVideo from "@/assets/digitizeme-promo-58s.mp4.asset.json";
-import promoPoster from "@/assets/hero/digitizeme-promo-poster.jpg.asset.json";
+import promoVideo from "@/assets/digitizeme-promo.mp4";
+import promoPoster from "@/assets/hero/digitizeme-promo-poster.jpg";
 
 /**
  * Hero brand video: shows a live muted preview with a polished play button;
  * opens a fullscreen modal with the self-hosted promo video.
  * Video: DigitizeMe brand + walkthrough.
  */
-const VIDEO_URL = promoVideo.url;
-const POSTER_URL = promoPoster.url;
+const VIDEO_URL = promoVideo;
+const POSTER_URL = promoPoster;
 
 const HeroVideoModal = () => {
   const { isRTL } = useLanguage();
   const [open, setOpen] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const previewRef = useRef<HTMLVideoElement>(null);
+
+  // The promo is a large file, so the hover-preview does not autoplay/preload —
+  // the poster is the resting state and the video only streams on hover.
+  const playPreview = () => {
+    const v = previewRef.current;
+    if (v) void v.play().catch(() => {});
+  };
+  const stopPreview = () => {
+    const v = previewRef.current;
+    if (v) {
+      v.pause();
+      v.currentTime = 0;
+    }
+  };
 
   useEffect(() => {
     const video = videoRef.current;
@@ -34,6 +49,8 @@ const HeroVideoModal = () => {
       <motion.button
         type="button"
         onClick={() => setOpen(true)}
+        onMouseEnter={playPreview}
+        onMouseLeave={stopPreview}
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4, duration: 0.6 }}
@@ -49,14 +66,15 @@ const HeroVideoModal = () => {
           loading="eager"
         />
 
-        {/* Live muted video preview layered on top of the poster */}
+        {/* Muted video preview layered on top of the poster — streams on hover
+            only (no autoplay/preload) since the promo is a large file. */}
         <video
+          ref={previewRef}
           src={VIDEO_URL}
           muted
           loop
           playsInline
-          autoPlay
-          preload="auto"
+          preload="none"
           className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-700 group-hover:opacity-100"
         />
 
@@ -118,7 +136,7 @@ const HeroVideoModal = () => {
                 className="w-full h-full"
                 controls
                 playsInline
-                preload="auto"
+                preload="none"
                 title="DigitizeMe product video"
               />
             </motion.div>

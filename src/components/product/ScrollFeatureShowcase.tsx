@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import type { LucideIcon } from "lucide-react";
-import productVideo from "@/assets/digitizeme-product.mp4.asset.json";
+import productVideo from "@/assets/digitizeme-product.mp4";
 
 export interface ShowcaseFeature {
   key: string;
@@ -101,7 +101,7 @@ const ScrollFeatureShowcase = ({ features }: Props) => {
             <div className="relative overflow-hidden rounded-[1.65rem] bg-background aspect-video">
               <video
                 ref={videoRef}
-                src={productVideo.url}
+                src={productVideo}
                 muted
                 loop
                 playsInline

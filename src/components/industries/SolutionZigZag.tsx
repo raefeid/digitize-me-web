@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
-import searchVideo from "@/assets/search_feature.mp4.asset.json";
-import aichatVideo from "@/assets/aichat_feature.mp4.asset.json";
-import reportsVideo from "@/assets/reports_feature.mp4.asset.json";
+import searchVideo from "@/assets/search_feature.mp4";
+import aichatVideo from "@/assets/aichat_feature.mp4";
+import reportsVideo from "@/assets/reports_feature.mp4";
 
 interface SolutionZigZagProps {
   heading: string;
@@ -15,17 +15,17 @@ type FeatureKey = "search" | "aichat" | "reports";
 
 const FEATURES: Record<FeatureKey, { url: string; label: string; caption: (n: string) => string }> = {
   search: {
-    url: searchVideo.url,
+    url: searchVideo,
     label: "Instant Search",
     caption: (n) => `Find any ${n.toLowerCase()} document in seconds — Arabic or English.`,
   },
   aichat: {
-    url: aichatVideo.url,
+    url: aichatVideo,
     label: "AI Assistant",
     caption: (n) => `Ask questions across your ${n.toLowerCase()} archive and get sourced answers.`,
   },
   reports: {
-    url: reportsVideo.url,
+    url: reportsVideo,
     label: "Reports & Insights",
     caption: (n) => `Track ${n.toLowerCase()} activity, compliance and turnaround in live dashboards.`,
   },
