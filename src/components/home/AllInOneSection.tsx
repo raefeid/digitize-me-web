@@ -60,21 +60,21 @@ const AllInOneSection = () => {
 
         <AnimatePresence>
           {absorbed && (
-            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 30 }} transition={{ delay: 0.4, duration: 0.5, type: "spring", stiffness: 150, damping: 20 }} className="w-full max-w-sm mx-auto flex flex-col items-center mb-6">
-              <motion.div initial={{ scale: 0 }} animate={{ scale: 1, boxShadow: "0 0 80px 20px hsl(160 84% 39% / 0.4)" }} transition={{ duration: 0.5, type: "spring" }} className="w-24 h-24 rounded-full bg-white border-2 border-emerald-500/40 flex items-center justify-center p-3 mb-2">
+            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 30 }} transition={{ delay: 0.4, duration: 0.5, type: "spring", stiffness: 150, damping: 20 }} className="w-full max-w-md mx-auto flex flex-col items-center mb-6">
+              <motion.div initial={{ scale: 0 }} animate={{ scale: 1, boxShadow: "0 0 80px 20px hsl(160 84% 39% / 0.4)" }} transition={{ duration: 0.5, type: "spring" }} className="w-28 h-28 rounded-full bg-white border-2 border-emerald-500/40 flex items-center justify-center p-4 mb-4">
                 <img src={logo} alt="Digitize me" className="w-20 h-auto object-contain" />
               </motion.div>
-              <div className="bg-card/90 backdrop-blur-md border border-emerald-500/20 rounded-2xl p-5 shadow-xl w-full">
-                <div className="grid grid-cols-2 gap-x-3 gap-y-2 mb-4">
+              <div className="bg-card/90 backdrop-blur-md border border-emerald-500/20 rounded-2xl p-6 shadow-xl w-full">
+                <div className="grid grid-cols-2 gap-x-5 gap-y-3.5 mb-5">
                   {resolvedTools.map((tool, i) => (
-                    <motion.div key={tool.id} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.6 + i * 0.04 }} className="flex items-center gap-1.5">
-                      <Check size={13} className="text-emerald-500 shrink-0" />
-                      <EditableText as="span" page="home" section="aio_tools" contentKey={`${tool.id}_name`} fallback={isRTL && tool.name_ar ? tool.name_ar : tool.name} className="text-xs text-muted-foreground" />
+                    <motion.div key={tool.id} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.6 + i * 0.04 }} className="flex items-center gap-2">
+                      <Check size={17} className="text-emerald-500 shrink-0" />
+                      <EditableText as="span" page="home" section="aio_tools" contentKey={`${tool.id}_name`} fallback={isRTL && tool.name_ar ? tool.name_ar : tool.name} className="text-sm md:text-[0.95rem] text-foreground/80" />
                     </motion.div>
                   ))}
                 </div>
-                <div className="border-t border-border pt-3 flex items-center justify-center">
-                  <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1, type: "spring" }} className="bg-emerald-500/10 text-emerald-600 text-xs font-bold px-4 py-2 rounded-full">
+                <div className="border-t border-border pt-4 flex items-center justify-center">
+                  <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1, type: "spring" }} className="bg-emerald-500/10 text-emerald-600 text-sm font-bold px-6 py-2.5 rounded-full text-center">
                     {t("aio.unified")}
                   </motion.div>
                 </div>
@@ -89,7 +89,7 @@ const AllInOneSection = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="relative w-full grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5"
+              className="relative w-full grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-3 md:gap-3.5"
             >
               {resolvedTools.map((tool, i) => {
                 const Icon = resolveIcon(tool.icon);
@@ -99,11 +99,11 @@ const AllInOneSection = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.45, delay: i * 0.04, type: "spring", stiffness: 140, damping: 18 }}
-                    className="group rounded-2xl border border-border bg-card p-3 sm:p-5 md:p-6 shadow-sm hover:shadow-md hover:border-accent/30 hover:-translate-y-0.5 transition-all flex flex-row sm:flex-col items-center text-left sm:text-center gap-3 sm:gap-2 sm:min-h-[170px]"
+                    className="group rounded-2xl border border-border bg-card p-3 sm:p-4 shadow-sm hover:shadow-md hover:border-accent/30 hover:-translate-y-0.5 transition-all flex flex-row sm:flex-col items-center text-left sm:text-center gap-3 sm:gap-1.5 sm:min-h-[140px]"
                   >
-                    <div className="w-10 h-10 sm:w-14 sm:h-14 md:w-16 md:h-16 shrink-0 rounded-xl sm:rounded-2xl bg-accent/10 text-accent flex items-center justify-center group-hover:bg-accent group-hover:text-accent-foreground transition-colors">
+                    <div className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 shrink-0 rounded-xl sm:rounded-2xl bg-accent/10 text-accent flex items-center justify-center group-hover:bg-accent group-hover:text-accent-foreground transition-colors">
                       <Icon size={20} className="sm:hidden" />
-                      <Icon size={26} className="hidden sm:block" />
+                      <Icon size={22} className="hidden sm:block" />
                     </div>
                     <div className="flex flex-col sm:items-center sm:contents min-w-0">
                       <EditableText as="span" page="home" section="aio_tools" contentKey={`${tool.id}_name`} fallback={isRTL && tool.name_ar ? tool.name_ar : tool.name} className="text-sm md:text-base font-semibold text-foreground leading-tight" />
