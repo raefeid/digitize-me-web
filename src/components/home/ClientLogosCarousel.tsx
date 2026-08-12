@@ -44,8 +44,8 @@ const ClientLogosCarousel = () => {
         contentKey="label"
         fallback={
           isRTL
-            ? "موثوق من الحكومات والمؤسسات والشركات في دول الخليج"
-            : "Trusted by Governments, Enterprises and Businesses Across the GCC"
+            ? "مدعوم من Infasme — موثوق من الجهات الحكومية في دولة الإمارات"
+            : "Powered by Infasme — trusted by government entities across the UAE"
         }
         className="block text-center text-sm text-foreground/70 font-semibold uppercase tracking-[0.2em] mb-8"
       />
@@ -83,6 +83,17 @@ const ClientLogosCarousel = () => {
           })}
         </div>
       </div>
+      <EditableText
+        page="home"
+        section="client_logos"
+        contentKey="sublabel"
+        fallback={
+          isRTL
+            ? "‏Digitize me هي المنصة الرائدة من Infasme"
+            : "Digitize me is the flagship platform from Infasme"
+        }
+        className="block text-center text-xs text-foreground/50 mt-6"
+      />
     </section>
   );
 };
