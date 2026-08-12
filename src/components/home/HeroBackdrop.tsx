@@ -1,6 +1,8 @@
 import { useEffect, useRef } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
-import heroVideo from "@/assets/hero/hero-loop-v6.mp4.asset.json";
+// Locally bundled hero video (real Vite asset — hashed and served from our own
+// origin, no Lovable CDN dependency). A direct import resolves to the URL string.
+import heroVideo from "@/assets/hero/hero_optionA_calm_4k.mp4";
 
 interface HeroBackdropProps {
   activeScene?: number;
@@ -30,7 +32,7 @@ const HeroBackdrop = ({ activeScene = 0 }: HeroBackdropProps) => {
       <video
         ref={videoRef}
         className="absolute inset-0 h-full w-full object-cover"
-        src={heroVideo.url}
+        src={heroVideo}
         autoPlay
         muted
         loop
