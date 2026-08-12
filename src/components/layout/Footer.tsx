@@ -6,7 +6,7 @@ import { useSiteContent } from "@/hooks/useSiteContent";
 import EditableText from "@/components/cms/EditableText";
 import EditableLink from "@/components/cms/EditableLink";
 import logoFallback from "@/assets/digitizeme-logo-dark.png";
-import infasmeLogoAsset from "@/assets/infasme-logo-transparent-2.png.asset.json";
+import infasmeLogoWhite from "@/assets/infasme-logo-white.png";
 import { useBrandingAsset } from "@/hooks/useBranding";
 import { useNavItems, navItemHref } from "@/hooks/useNavItems";
 import { useCustomPages } from "@/hooks/useCustomPages";
@@ -18,7 +18,7 @@ const Footer = () => {
   const { openPreferences } = useCookieConsent();
   const { getContent } = useSiteContent("footer");
   const logo = useBrandingAsset("logo_footer", logoFallback);
-  const infasmeLogo = useBrandingAsset("logo_powered_by", infasmeLogoAsset.url);
+  const infasmeLogo = useBrandingAsset("logo_powered_by", infasmeLogoWhite);
   const { data: footerItems } = useNavItems("footer");
   const { data: customPages } = useCustomPages({ includeDrafts: false });
   const pagesById = (customPages ?? []).reduce<Record<string, { slug: string }>>((acc, p) => {

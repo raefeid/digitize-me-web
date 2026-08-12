@@ -1,6 +1,9 @@
 import { motion } from "framer-motion";
 import { useLanguage } from "@/i18n/LanguageContext";
-import infasmeLogo from "@/assets/infasme-logo-new.webp.asset.json";
+// Bundled Infasme logos. This section sits on bg-background, so the dark logo
+// shows in light mode and the white logo in dark mode (auto-switch).
+import infasmeLogoDark from "@/assets/infasme-logo-dark.png";
+import infasmeLogoWhite from "@/assets/infasme-logo-white.png";
 
 /**
  * "Crafted by Infasme" attribution strip. Subtle, elegant animation:
@@ -51,13 +54,23 @@ const MadeByInfasme = () => {
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             />
             <motion.img
-              src={infasmeLogo.url}
+              src={infasmeLogoDark}
               alt="Infasme"
               initial={{ opacity: 0, scale: 0.85 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-              className="relative h-14 md:h-20 w-auto object-contain select-none"
+              className="relative h-14 md:h-20 w-auto object-contain select-none block dark:hidden"
+              loading="lazy"
+            />
+            <motion.img
+              src={infasmeLogoWhite}
+              alt="Infasme"
+              initial={{ opacity: 0, scale: 0.85 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+              className="relative h-14 md:h-20 w-auto object-contain select-none hidden dark:block"
               loading="lazy"
             />
           </motion.a>
