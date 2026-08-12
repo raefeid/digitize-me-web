@@ -17,13 +17,13 @@ const FoundersMessage = () => {
               page="about"
               slotKey="founder_portrait"
               alt="Raef Eid"
-              className="w-44 h-44 md:w-56 md:h-56 rounded-2xl overflow-hidden bg-muted border border-border shadow-lg"
-              imgClassName="w-full h-full object-cover"
+              className="w-48 md:w-60 rounded-2xl overflow-hidden bg-muted border border-border shadow-lg"
+              imgClassName="w-full h-auto object-contain"
             >
             <img
               src={raefEidPortrait}
               alt="Raef Eid"
-              className="w-44 h-44 md:w-56 md:h-56 rounded-2xl object-cover bg-muted border border-border shadow-lg"
+              className="w-48 md:w-60 h-auto rounded-2xl border border-border shadow-lg"
               loading="lazy"
             />
             </EditableImage>
