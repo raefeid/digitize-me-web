@@ -39,18 +39,13 @@ import LeadCaptureCTA from "@/components/conversion/LeadCaptureCTA";
 import { useEditMode } from "@/components/cms/EditModeContext";
 import { industryLinkItems } from "@/lib/industryLinks";
 import { localizeInternalPath } from "@/lib/localizedRoutes";
-import indLawAsset from "@/assets/industries/industry_law_firms.webp.asset.json";
-import indRealEstateAsset from "@/assets/industries/industry_real_estate.webp.asset.json";
-import indHealthcareAsset from "@/assets/industries/industry_healthcare.webp.asset.json";
-import indGovernmentAsset from "@/assets/industries/industry_government.webp.asset.json";
 // Locally bundled, optimized photos (real Vite assets → URL string).
+import indLaw from "@/assets/industries/industry_law_firms.jpg";
+import indRealEstate from "@/assets/industries/industry_real_estate.jpg";
+import indHealthcare from "@/assets/industries/industry_healthcare.jpg";
+import indGovernment from "@/assets/industries/industry_government.jpg";
 import indAccounting from "@/assets/industries/industry_accounting.jpg";
 import indBanking from "@/assets/industries/industry_banking.jpg";
-
-const indLaw = indLawAsset.url;
-const indRealEstate = indRealEstateAsset.url;
-const indHealthcare = indHealthcareAsset.url;
-const indGovernment = indGovernmentAsset.url;
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
