@@ -3,7 +3,7 @@
 import accounting from "@/assets/industries/industry_accounting.jpg";
 import banking from "@/assets/industries/industry_banking.jpg";
 import education from "@/assets/industries/industry_education.jpg";
-import trade from "@/assets/industries/industry_trade.jpg";
+import shipping from "@/assets/industries/industry_shipping.jpg";
 import insurance from "@/assets/industries/industry_insurance.jpg";
 import logistics from "@/assets/industries/industry_logistics.jpg";
 import retail from "@/assets/industries/industry_retail.jpg";
@@ -29,7 +29,7 @@ export const industryCardImages: Record<string, string> = {
   education,
   manufacturing,
   construction,
-  "import-export": trade,
+  "import-export": shipping,
   "oil-gas": oilGas,
   insurance,
   retail,
