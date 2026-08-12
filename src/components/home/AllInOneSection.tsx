@@ -51,8 +51,8 @@ const AllInOneSection = () => {
         </div>
 
         <div className="flex items-center justify-center gap-4 mb-6">
-          <span className={`text-sm font-medium transition-colors ${!absorbed ? "text-foreground" : "text-muted-foreground"}`}>{t("aio.without")}</span>
-          <button onClick={() => setAbsorbed(!absorbed)} className={`relative w-14 h-7 rounded-full transition-colors duration-300 ${absorbed ? "bg-emerald-500" : "bg-border"}`} aria-label="Toggle with/without Digitize me">
+          <span className={`text-sm font-medium transition-colors ${!absorbed ? "text-red-600 font-bold" : "text-muted-foreground"}`}>{t("aio.without")}</span>
+          <button onClick={() => setAbsorbed(!absorbed)} className={`relative w-14 h-7 rounded-full transition-colors duration-300 ${absorbed ? "bg-emerald-500" : "bg-red-500"}`} aria-label="Toggle with/without Digitize me">
             <motion.div className="absolute top-0.5 w-6 h-6 rounded-full bg-white shadow-md" animate={{ x: absorbed ? 30 : 2 }} transition={{ type: "spring", stiffness: 500, damping: 30 }} />
           </button>
           <span className={`text-sm font-medium transition-colors ${absorbed ? "text-emerald-600 font-bold" : "text-muted-foreground"}`}>{t("aio.with")}</span>
