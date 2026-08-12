@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 import { icons, Check } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useSiteContent } from "@/hooks/useSiteContent";
@@ -17,6 +17,23 @@ const AllInOneSection = () => {
   const { t, isRTL } = useLanguage();
   const { getContent } = useSiteContent("home", "allinone");
   const [absorbed, setAbsorbed] = useState(false);
+  const [autoTriggered, setAutoTriggered] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const inView = useInView(sectionRef, { once: true, margin: "-30% 0px -30% 0px" });
+
+  // Start the auto-cycle only once the section scrolls into view.
+  useEffect(() => {
+    if (inView && !autoTriggered) setAutoTriggered(true);
+  }, [inView, autoTriggered]);
+
+  // Auto-cycle the comparison so the "without → with" transformation plays
+  // itself. Same proven pattern as BeforeAfterSection: one interval, created
+  // once when autoTriggered flips true.
+  useEffect(() => {
+    if (!autoTriggered) return;
+    const interval = setInterval(() => setAbsorbed((prev) => !prev), 4500);
+    return () => clearInterval(interval);
+  }, [autoTriggered]);
 
   // Pull the admin-managed tool list (falls back to defaults until query resolves).
   const { data: toolsData } = useAioTools();
@@ -25,7 +42,7 @@ const AllInOneSection = () => {
   const resolvedTools = tools;
 
   return (
-    <section className="section-padding bg-muted/20 overflow-hidden" aria-label="All in One Platform">
+    <section ref={sectionRef} className="section-padding bg-muted/20 overflow-hidden" aria-label="All in One Platform">
       <div className="container-max">
         <div className="text-center max-w-3xl mx-auto mb-12">
           <span className="text-accent font-semibold text-sm uppercase tracking-wider">{getContent("aio_badge", t("aio.badge"))}</span>
@@ -35,19 +52,19 @@ const AllInOneSection = () => {
 
         <div className="flex items-center justify-center gap-4 mb-6">
           <span className={`text-sm font-medium transition-colors ${!absorbed ? "text-foreground" : "text-muted-foreground"}`}>{t("aio.without")}</span>
-          <button onClick={() => setAbsorbed(!absorbed)} className={`relative w-14 h-7 rounded-full transition-colors duration-300 ${absorbed ? "bg-accent" : "bg-border"}`} aria-label="Toggle with/without Digitize me">
+          <button onClick={() => setAbsorbed(!absorbed)} className={`relative w-14 h-7 rounded-full transition-colors duration-300 ${absorbed ? "bg-emerald-500" : "bg-border"}`} aria-label="Toggle with/without Digitize me">
             <motion.div className="absolute top-0.5 w-6 h-6 rounded-full bg-white shadow-md" animate={{ x: absorbed ? 30 : 2 }} transition={{ type: "spring", stiffness: 500, damping: 30 }} />
           </button>
-          <span className={`text-sm font-medium transition-colors ${absorbed ? "text-accent font-bold" : "text-muted-foreground"}`}>{t("aio.with")}</span>
+          <span className={`text-sm font-medium transition-colors ${absorbed ? "text-emerald-600 font-bold" : "text-muted-foreground"}`}>{t("aio.with")}</span>
         </div>
 
         <AnimatePresence>
           {absorbed && (
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 30 }} transition={{ delay: 0.4, duration: 0.5, type: "spring", stiffness: 150, damping: 20 }} className="w-full max-w-sm mx-auto flex flex-col items-center mb-6">
-              <motion.div initial={{ scale: 0 }} animate={{ scale: 1, boxShadow: "0 0 80px 20px hsl(var(--accent) / 0.4)" }} transition={{ duration: 0.5, type: "spring" }} className="w-24 h-24 rounded-full bg-white border-2 border-accent/40 flex items-center justify-center p-3 mb-2">
+              <motion.div initial={{ scale: 0 }} animate={{ scale: 1, boxShadow: "0 0 80px 20px hsl(160 84% 39% / 0.4)" }} transition={{ duration: 0.5, type: "spring" }} className="w-24 h-24 rounded-full bg-white border-2 border-emerald-500/40 flex items-center justify-center p-3 mb-2">
                 <img src={logo} alt="Digitize me" className="w-20 h-auto object-contain" />
               </motion.div>
-              <div className="bg-card/90 backdrop-blur-md border border-accent/20 rounded-2xl p-5 shadow-xl w-full">
+              <div className="bg-card/90 backdrop-blur-md border border-emerald-500/20 rounded-2xl p-5 shadow-xl w-full">
                 <div className="grid grid-cols-2 gap-x-3 gap-y-2 mb-4">
                   {resolvedTools.map((tool, i) => (
                     <motion.div key={tool.id} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.6 + i * 0.04 }} className="flex items-center gap-1.5">
