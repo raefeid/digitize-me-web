@@ -2,7 +2,8 @@ import { Quote } from "lucide-react";
 import EditableText from "@/components/cms/EditableText";
 import EditableImage from "@/components/cms/EditableImage";
 import { useLanguage } from "@/i18n/LanguageContext";
-import raefEidPortrait from "@/assets/raef-eid-portrait.jpg.asset.json";
+// Locally bundled, optimized portrait (real Vite asset → URL string).
+import raefEidPortrait from "@/assets/raef-eid-portrait.jpg";
 
 
 const FoundersMessage = () => {
@@ -20,9 +21,9 @@ const FoundersMessage = () => {
               imgClassName="w-full h-full object-cover"
             >
             <img
-              src={raefEidPortrait.url}
+              src={raefEidPortrait}
               alt="Raef Eid"
-              className="w-full h-full object-cover"
+              className="w-44 h-44 md:w-56 md:h-56 rounded-2xl object-cover bg-muted border border-border shadow-lg"
               loading="lazy"
             />
             </EditableImage>
