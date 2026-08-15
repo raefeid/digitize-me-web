@@ -28,3 +28,9 @@ pnpm-lock.yaml
 *.njsproj
 *.sln
 *.sw?
+
+# Local working assets (source media staged for the site, not for the repo)
+Replace images/
+
+# Claude Code local config (dev-server launch config, etc.)
+.claude/
