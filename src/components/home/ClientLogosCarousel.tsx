@@ -52,7 +52,16 @@ const ClientLogosCarousel = () => {
       <div className="relative">
         <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-muted/30 to-transparent z-10 pointer-events-none" />
         <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-muted/30 to-transparent z-10 pointer-events-none" />
+        {/*
+          Force LTR on the track: the marquee translates left by -50% to loop
+          seamlessly, which assumes a left-anchored, rightward-extending strip.
+          Under the page's dir="rtl" the track anchors right and the duplicate
+          copy sits off-screen left, so sliding left exposed a large empty gap
+          on the right and broke the loop. Logos are direction-neutral, so we
+          lay the strip out LTR in both languages.
+        */}
         <div
+          dir="ltr"
           className="flex items-center whitespace-nowrap w-max animate-marquee"
           style={{ animationDuration: `${Math.max(20, logos.length * 4)}s` }}
         >
