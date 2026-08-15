@@ -89,6 +89,7 @@ const Index = () => {
     getContent("hero_rotate1", t("hero.rotate1")),
     getContent("hero_rotate2", t("hero.rotate2")),
     getContent("hero_rotate3", t("hero.rotate3")),
+    getContent("hero_rotate4", t("hero.rotate4")),
   ];
   const featuredIndustryLinks = industryLinkItems.filter((i) =>
     ["law-firms", "accounting", "healthcare"].includes(i.slug)
