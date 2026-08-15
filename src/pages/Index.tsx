@@ -131,7 +131,7 @@ const Index = () => {
       <section className="relative overflow-hidden -mt-20 md:-mt-24 min-h-[100svh] flex flex-col justify-center pt-32 pb-16 md:pt-36 md:pb-20">
         <HeroBackdrop activeScene={heroScene} />
         <div className="container-max relative w-full">
-          <div className={`max-w-3xl section-stack ${isRTL ? "text-right ml-auto" : "text-left mr-auto"}`}>
+          <div className={`max-w-4xl section-stack ${isRTL ? "text-right ml-auto" : "text-left mr-auto"}`}>
             <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0}>
               <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[hsl(var(--hero-navy)/0.45)] text-[hsl(var(--hero-on-navy))] text-sm font-medium mb-2 md:mb-3 backdrop-blur-sm border border-[hsl(var(--hero-on-navy)/0.22)] drop-shadow-[0_2px_14px_hsl(var(--hero-navy)/0.65)]">
                 <Languages size={16} />
@@ -142,7 +142,15 @@ const Index = () => {
               <span className="inline drop-shadow-[0_3px_18px_hsl(var(--hero-navy)/0.9)]">
                 <EditableText page="home" section="home" contentKey="hero_title" fallback={t("hero.title1")} rich />
               </span>{" "}
-              <RotatingHeroWord words={rotatingWords} className="inline whitespace-nowrap" onIndexChange={setHeroScene} />
+              {/* Glue the connector word ("into"/"إلى") to the rotating word so the
+                  line breaks BEFORE it — "Turn Document Chaos" / "into Unified
+                  Knowledge" — instead of orphaning "into" at the end of line 1.
+                  Only glue from md up (container is wide enough there); smaller
+                  screens wrap freely to avoid overflow. */}
+              <span className="whitespace-normal md:whitespace-nowrap">
+                <span className="drop-shadow-[0_3px_18px_hsl(var(--hero-navy)/0.9)]">{t("hero.connector")}</span>{" "}
+                <RotatingHeroWord words={rotatingWords} className="inline whitespace-nowrap" onIndexChange={setHeroScene} />
+              </span>
             </motion.h1>
             <div className={`h-[3px] w-14 rounded-full bg-accent mb-4 drop-shadow-[0_2px_10px_hsl(var(--accent)/0.6)] ${isRTL ? "ml-0 mr-auto" : "mr-auto"}`} />
             <EditableText

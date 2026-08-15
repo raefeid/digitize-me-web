@@ -16,7 +16,8 @@ export const translations: TranslationMap = {
 
     // Hero
     "hero.badge": "Arabic & English AI-Powered OCR",
-    "hero.title1": "Turn Document Chaos into",
+    "hero.title1": "Turn Document Chaos",
+    "hero.connector": "into",
     "hero.title2": "Smart Archives",
     "hero.rotate1": "Smart Archives",
     "hero.rotate2": "Instant Answers",
@@ -284,7 +285,8 @@ export const translations: TranslationMap = {
 
     // Hero
     "hero.badge": "التعرف الذكي بالعربية والإنجليزية",
-    "hero.title1": "حوّل فوضى المستندات إلى",
+    "hero.title1": "حوّل فوضى المستندات",
+    "hero.connector": "إلى",
     "hero.title2": "أرشيفات ذكية",
     "hero.rotate1": "أرشيفات ذكية",
     "hero.rotate2": "إجابات فورية",
