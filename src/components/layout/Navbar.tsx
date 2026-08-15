@@ -287,14 +287,14 @@ const Navbar = () => {
                     onMouseLeave={handleLeave}
                   >
                     <Link
-                      to={link.href}
+                      to={localizeInternalPath(link.href, lang)}
                       className={cn(
                         "flex items-center gap-1 xl:gap-1.5 px-2.5 xl:px-3 2xl:px-4 py-2 rounded-xl text-[0.95rem] 2xl:text-sm font-semibold transition-all duration-200 whitespace-nowrap",
                         transparentMode
-                          ? location.pathname.startsWith("/industries")
+                          ? location.pathname.startsWith(localizeInternalPath("/industries", lang))
                             ? "text-white bg-white/20 shadow-[0_4px_14px_rgba(0,0,0,0.25)] nav-text-shadow-strong"
                             : "text-white hover:bg-white/15 nav-text-shadow"
-                          : location.pathname.startsWith("/industries")
+                          : location.pathname.startsWith(localizeInternalPath("/industries", lang))
                             ? "text-accent bg-card shadow-[0_4px_12px_hsl(var(--foreground)/0.06)]"
                             : "text-muted-foreground hover:text-foreground hover:bg-card/80"
                       )}
@@ -319,10 +319,10 @@ const Navbar = () => {
                                 return (
                                   <Link
                                     key={industry.slug}
-                                    to={`/industries/${industry.slug}`}
+                                    to={localizeInternalPath(`/industries/${industry.slug}`, lang)}
                                     onClick={() => setIndustriesOpen(false)}
                                     className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm transition-all group ${
-                                      location.pathname === `/industries/${industry.slug}`
+                                      location.pathname === localizeInternalPath(`/industries/${industry.slug}`, lang)
                                         ? "text-accent bg-accent/10"
                                         : "text-muted-foreground hover:text-foreground hover:bg-muted/80"
                                     }`}
@@ -344,7 +344,7 @@ const Navbar = () => {
               const cls = cn(
                 "px-2.5 xl:px-3 2xl:px-4 py-2 rounded-xl text-[0.95rem] 2xl:text-sm font-semibold transition-all duration-200 whitespace-nowrap",
                 transparentMode
-                  ? location.pathname === link.href
+                  ? location.pathname === localizeInternalPath(link.href, lang)
                     ? "text-white bg-white/20 shadow-[0_4px_14px_rgba(0,0,0,0.25)] nav-text-shadow-strong"
                     : "text-white hover:bg-white/15 nav-text-shadow"
                   : location.pathname === link.href
@@ -359,7 +359,7 @@ const Navbar = () => {
                 );
               }
               return (
-                <Link key={link.href} to={link.href} className={cls}>
+                <Link key={link.href} to={localizeInternalPath(link.href, lang)} className={cls}>
                   {link.label}
                 </Link>
               );
@@ -524,9 +524,11 @@ const MobileNavItem = ({
   depth?: number;
   transparentMode?: boolean;
 }) => {
+  const { lang } = useLanguage();
+  const localizedHref = localizeInternalPath(item.href, lang);
   const hasChildren = !!item.children?.length;
   const isOpen = openIds.includes(item.id);
-  const isActive = locationPath === item.href || locationPath.startsWith(`${item.href}/`);
+  const isActive = locationPath === localizedHref || locationPath.startsWith(`${localizedHref}/`);
   const icon = item.iconComp ? <FeatureIcon comp={item.iconComp} className={cn("w-3.5 h-3.5 shrink-0", transparentMode ? "text-accent/80" : "text-accent/60")} /> : null;
   const itemClass = cn(
     "w-full flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors",
@@ -552,7 +554,7 @@ const MobileNavItem = ({
           <span className="truncate">{item.label}</span>
         </a>
       ) : (
-        <Link to={item.href} onClick={onNavigate} className={itemClass}>
+        <Link to={localizedHref} onClick={onNavigate} className={itemClass}>
           {icon}
           <span className="truncate">{item.label}</span>
         </Link>
@@ -561,7 +563,7 @@ const MobileNavItem = ({
       {hasChildren && isOpen && (
         <div className={`mt-1 mb-2 flex flex-col gap-0.5 ${depth === 0 ? "ml-3 border-l-2 border-accent/20 pl-3" : "ml-4 pl-2"}`}>
           {(!item.external && !item.newTab) && (
-            <Link to={item.href} onClick={onNavigate} className={cn("px-3 py-2 rounded-lg text-sm font-semibold transition-colors", transparentMode ? "text-accent hover:bg-white/10 nav-text-shadow" : "text-accent hover:bg-accent/10")}>
+            <Link to={localizedHref} onClick={onNavigate} className={cn("px-3 py-2 rounded-lg text-sm font-semibold transition-colors", transparentMode ? "text-accent hover:bg-white/10 nav-text-shadow" : "text-accent hover:bg-accent/10")}>
               View {item.label}
             </Link>
           )}
