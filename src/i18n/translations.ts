@@ -23,7 +23,7 @@ export const translations: TranslationMap = {
     "hero.rotate2": "Instant Answers",
     "hero.rotate3": "Unified Knowledge",
     "hero.rotate4": "Smarter Decisions",
-    "hero.desc": "An AI-powered document digitization and management platform that brings your paper archives and scattered repositories into one unified, governed environment.\n\nScan, extract, classify, and retrieve documents in Arabic and English within seconds—get trusted answers and make faster, better-informed decisions.",
+    "hero.desc": "An AI-powered document digitization and management platform that brings your paper archives and scattered documents into one unified, governed environment.\n\nScan, extract, classify, and retrieve documents in Arabic and English within seconds—get trusted answers and make faster, better-informed decisions.",
     "hero.cta1": "Try it for Free",
     "hero.cta2": "Request A Demo",
     "hero.search": 'Search documents... "contract 2024"',
