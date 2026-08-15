@@ -44,37 +44,41 @@ const AllInOneSection = () => {
           <span className={`text-sm font-medium transition-colors ${absorbed ? "text-emerald-600 font-bold" : "text-muted-foreground"}`}>{t("aio.with")}</span>
         </div>
 
-        <AnimatePresence>
-          {absorbed && (
-            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 30 }} transition={{ delay: 0.4, duration: 0.5, type: "spring", stiffness: 150, damping: 20 }} className="w-full max-w-md mx-auto flex flex-col items-center mb-6">
+        {/*
+          One AnimatePresence in "wait" mode so only a single panel is ever
+          mounted: the outgoing one fully exits before the incoming one mounts.
+          Two overlapping panels used to briefly stack in normal flow, doubling
+          the section height and flashing content into the next section.
+        */}
+        <AnimatePresence mode="wait">
+          {absorbed ? (
+            <motion.div key="with" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 30 }} transition={{ duration: 0.4, type: "spring", stiffness: 150, damping: 20 }} className="w-full max-w-md mx-auto flex flex-col items-center mb-6">
               <motion.div initial={{ scale: 0 }} animate={{ scale: 1, boxShadow: "0 0 80px 20px hsl(160 84% 39% / 0.4)" }} transition={{ duration: 0.5, type: "spring" }} className="w-28 h-28 rounded-full bg-white border-2 border-emerald-500/40 flex items-center justify-center p-4 mb-4">
                 <img src={logo} alt="Digitize me" className="w-20 h-auto object-contain" />
               </motion.div>
               <div className="bg-card/90 backdrop-blur-md border border-emerald-500/20 rounded-2xl p-6 shadow-xl w-full">
                 <div className="grid grid-cols-2 gap-x-5 gap-y-3.5 mb-5">
                   {resolvedTools.map((tool, i) => (
-                    <motion.div key={tool.id} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.6 + i * 0.04 }} className="flex items-center gap-2">
+                    <motion.div key={tool.id} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 + i * 0.04 }} className="flex items-center gap-2">
                       <Check size={17} className="text-emerald-500 shrink-0" />
                       <EditableText as="span" page="home" section="aio_tools" contentKey={`${tool.id}_name`} fallback={isRTL && tool.name_ar ? tool.name_ar : tool.name} className="text-sm md:text-[0.95rem] text-foreground/80" />
                     </motion.div>
                   ))}
                 </div>
                 <div className="border-t border-border pt-4 flex items-center justify-center">
-                  <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1, type: "spring" }} className="bg-emerald-500/10 text-emerald-600 text-sm font-bold px-6 py-2.5 rounded-full text-center">
+                  <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.5, type: "spring" }} className="bg-emerald-500/10 text-emerald-600 text-sm font-bold px-6 py-2.5 rounded-full text-center">
                     {t("aio.unified")}
                   </motion.div>
                 </div>
               </div>
             </motion.div>
-          )}
-        </AnimatePresence>
-
-        <AnimatePresence>
-          {!absorbed && (
+          ) : (
             <motion.div
+              key="without"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
               className="relative w-full grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-3 md:gap-3.5"
             >
               {resolvedTools.map((tool, i) => {
