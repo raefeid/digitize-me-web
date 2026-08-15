@@ -52,7 +52,7 @@ const AllInOneSection = () => {
         */}
         <AnimatePresence mode="wait">
           {absorbed ? (
-            <motion.div key="with" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 30 }} transition={{ duration: 0.4, type: "spring", stiffness: 150, damping: 20 }} className="w-full max-w-md mx-auto flex flex-col items-center mb-6">
+            <motion.div key="with" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 30 }} transition={{ duration: 0.4, type: "spring", stiffness: 150, damping: 20 }} className="w-full max-w-md mx-auto flex flex-col items-center">
               <motion.div initial={{ scale: 0 }} animate={{ scale: 1, boxShadow: "0 0 80px 20px hsl(160 84% 39% / 0.4)" }} transition={{ duration: 0.5, type: "spring" }} className="w-28 h-28 rounded-full bg-white border-2 border-emerald-500/40 flex items-center justify-center p-4 mb-4">
                 <img src={logo} alt="Digitize me" className="w-20 h-auto object-contain" />
               </motion.div>
