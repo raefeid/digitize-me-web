@@ -142,7 +142,7 @@ const Index = () => {
               <span className="inline drop-shadow-[0_3px_18px_hsl(var(--hero-navy)/0.9)]">
                 <EditableText page="home" section="home" contentKey="hero_title" fallback={t("hero.title1")} rich />
               </span>{" "}
-              <RotatingHeroWord words={rotatingWords} className="inline" onIndexChange={setHeroScene} />
+              <RotatingHeroWord words={rotatingWords} className="inline whitespace-nowrap" onIndexChange={setHeroScene} />
             </motion.h1>
             <div className={`h-[3px] w-14 rounded-full bg-accent mb-4 drop-shadow-[0_2px_10px_hsl(var(--accent)/0.6)] ${isRTL ? "ml-0 mr-auto" : "mr-auto"}`} />
             <EditableText
