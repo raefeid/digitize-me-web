@@ -1,5 +1,6 @@
-import { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import { useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useSyncedComparison } from "@/hooks/useSyncedComparison";
 import { Clock, AlertTriangle, TrendingDown, Zap, CheckCircle2, TrendingUp, FileX, Search, ShieldAlert, ShieldCheck, XCircle, CheckCircle } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useSiteContent } from "@/hooks/useSiteContent";
@@ -7,24 +8,9 @@ import { useSiteContent } from "@/hooks/useSiteContent";
 const BeforeAfterSection = () => {
   const { t } = useLanguage();
   const { getContent } = useSiteContent("home", "before_after");
-  const [isDigitize, setIsDigitize] = useState(false);
-  const [autoTriggered, setAutoTriggered] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
-  const inView = useInView(sectionRef, { once: true, margin: "-30% 0px -30% 0px" });
-
-  useEffect(() => {
-    if (inView && !autoTriggered) {
-      setAutoTriggered(true);
-    }
-  }, [inView, autoTriggered]);
-
-  useEffect(() => {
-    if (!autoTriggered) return;
-    const interval = setInterval(() => {
-      setIsDigitize((prev) => !prev);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [autoTriggered]);
+  // Shared toggle: this section and AllInOneSection flip together on one timer.
+  const { active: isDigitize } = useSyncedComparison(sectionRef);
 
   const gauges = [
     {

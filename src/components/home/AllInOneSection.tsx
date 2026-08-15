@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import { useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useSyncedComparison } from "@/hooks/useSyncedComparison";
 import { icons, Check } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useSiteContent } from "@/hooks/useSiteContent";
@@ -16,24 +17,9 @@ const resolveIcon = (name: string) => {
 const AllInOneSection = () => {
   const { t, isRTL } = useLanguage();
   const { getContent } = useSiteContent("home", "allinone");
-  const [absorbed, setAbsorbed] = useState(false);
-  const [autoTriggered, setAutoTriggered] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
-  const inView = useInView(sectionRef, { once: true, margin: "-30% 0px -30% 0px" });
-
-  // Start the auto-cycle only once the section scrolls into view.
-  useEffect(() => {
-    if (inView && !autoTriggered) setAutoTriggered(true);
-  }, [inView, autoTriggered]);
-
-  // Auto-cycle the comparison so the "without → with" transformation plays
-  // itself. Same proven pattern as BeforeAfterSection: one interval, created
-  // once when autoTriggered flips true.
-  useEffect(() => {
-    if (!autoTriggered) return;
-    const interval = setInterval(() => setAbsorbed((prev) => !prev), 4500);
-    return () => clearInterval(interval);
-  }, [autoTriggered]);
+  // Shared toggle: this section and BeforeAfterSection flip together on one timer.
+  const { active: absorbed, toggle } = useSyncedComparison(sectionRef);
 
   // Pull the admin-managed tool list (falls back to defaults until query resolves).
   const { data: toolsData } = useAioTools();
@@ -52,7 +38,7 @@ const AllInOneSection = () => {
 
         <div className="flex items-center justify-center gap-4 mb-6">
           <span className={`text-sm font-medium transition-colors ${!absorbed ? "text-red-600 font-bold" : "text-muted-foreground"}`}>{t("aio.without")}</span>
-          <button onClick={() => setAbsorbed(!absorbed)} className={`relative w-14 h-7 rounded-full transition-colors duration-300 ${absorbed ? "bg-emerald-500" : "bg-red-500"}`} aria-label="Toggle with/without Digitize me">
+          <button onClick={toggle} className={`relative w-14 h-7 rounded-full transition-colors duration-300 ${absorbed ? "bg-emerald-500" : "bg-red-500"}`} aria-label="Toggle with/without Digitize me">
             <motion.div className="absolute top-0.5 w-6 h-6 rounded-full bg-white shadow-md" animate={{ x: absorbed ? 30 : 2 }} transition={{ type: "spring", stiffness: 500, damping: 30 }} />
           </button>
           <span className={`text-sm font-medium transition-colors ${absorbed ? "text-emerald-600 font-bold" : "text-muted-foreground"}`}>{t("aio.with")}</span>
