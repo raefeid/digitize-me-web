@@ -508,7 +508,7 @@ export const translations: TranslationMap = {
 
     // All-in-One
     "aio.badge": "منصة شاملة",
-    "aio.title": "برامج بقيمة ١٠,٠٠٠ دولار. متضمنة.",
+    "aio.title": "يتضمن برامج متخصصة بآلاف الدولارات",
     "aio.desc": "لا اشتراكات منفصلة، لا إضافات مفاجئة - كل شيء مدمج في خطة واحدة بسيطة.",
     "aio.without": "بدون Digitize me",
     "aio.with": "مع Digitize me",

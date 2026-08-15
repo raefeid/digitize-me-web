@@ -17,10 +17,10 @@ const TestimonialsProofSection = () => {
   const l = (en: string | null, ar: string | null) => (lang === "ar" ? ar : en) ?? en ?? "";
 
   const proofStats = [
-    { value: "1.7M+", label: isRTL ? "مستند تمت رقمنته" : "Documents digitized" },
-    { value: "50%", label: isRTL ? "خفض في التكاليف" : "Cost reduction" },
-    { value: "50,000", label: isRTL ? "صفحة يوميًا" : "Pages captured daily" },
-    { value: "8 mo", label: isRTL ? "لرقمنة كاملة" : "To fully digitize" },
+    { value: "78.5M", label: isRTL ? "صفحة تحت الحوكمة" : "Pages under governance" },
+    { value: "< 2s", label: isRTL ? "زمن استرجاع المستند" : "Document retrieval" },
+    { value: "100%", label: isRTL ? "تتبّع من المسح حتى الأرشفة" : "Capture-to-archive traceability" },
+    { value: "$2.1M", label: isRTL ? "توفير سنوي متوقّع" : "Projected annual savings" },
   ];
 
   const testimonials = source.slice(0, 4).map((t) => ({
