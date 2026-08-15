@@ -56,19 +56,21 @@ const ClientLogosCarousel = () => {
         }
         className="block text-center text-sm text-foreground/70 font-semibold uppercase tracking-[0.2em] mb-8"
       />
-      <div className="relative">
+      {/*
+        Force LTR on the whole marquee viewport (not just the track). The
+        marquee loops by translating left by -50%, which assumes the strip is
+        left-anchored and overflows to the right. A block wider than its
+        container is anchored by its PARENT's direction: under the page's
+        dir="rtl" the strip anchored to the RIGHT and overflowed left, so the
+        animation started on the strip's end and slid into empty space past its
+        right edge — logos scrolled off, then blank, then reset. dir="ltr" here
+        left-anchors the strip (and orders its items) exactly like English.
+        Logos are direction-neutral, so LTR layout is correct in both languages.
+      */}
+      <div dir="ltr" className="relative">
         <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-muted/30 to-transparent z-10 pointer-events-none" />
         <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-muted/30 to-transparent z-10 pointer-events-none" />
-        {/*
-          Force LTR on the track: the marquee translates left by -50% to loop
-          seamlessly, which assumes a left-anchored, rightward-extending strip.
-          Under the page's dir="rtl" the track anchors right and the duplicate
-          copy sits off-screen left, so sliding left exposed a large empty gap
-          on the right and broke the loop. Logos are direction-neutral, so we
-          lay the strip out LTR in both languages.
-        */}
         <div
-          dir="ltr"
           className="flex items-center whitespace-nowrap w-max animate-marquee"
           style={{ animationDuration: `${Math.max(20, half.length * 4)}s` }}
         >
