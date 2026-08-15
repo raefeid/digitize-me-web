@@ -61,8 +61,8 @@ const About = () => {
               contentKey="title"
               fallback={
                 isRTL
-                  ? "ثلاثة عقود من ذكاء المستندات. مصمّمة للإمارات."
-                  : "Three Decades of Document Intelligence. Built for the UAE."
+                  ? "ثلاثة عقود من ذكاء المستندات."
+                  : "Three Decades of Document Intelligence."
               }
               className="text-5xl md:text-6xl lg:text-7xl font-bold text-foreground mt-4 mb-6 block leading-[1.05]"
               rich
@@ -74,8 +74,8 @@ const About = () => {
               contentKey="desc"
               fallback={
                 isRTL
-                  ? "لأكثر من ثلاثة عقود، ساعدنا الجهات الحكومية والمؤسسات والقطاعات الخاضعة للتنظيم على إدارة المعلومات على نطاق واسع. تنقل Digitize me هذه الخبرة إلى منصة سحابية مبنية لأعمال الإمارات اليوم."
-                  : "For over three decades, we've helped governments, enterprises and regulated industries manage information at scale. Digitize me brings that expertise into a cloud platform built for today's UAE businesses."
+                  ? "لأكثر من ثلاثة عقود، ساعدنا الجهات الحكومية والمؤسسات والقطاعات الخاضعة للتنظيم على إدارة المعلومات على نطاق واسع. تنقل Digitize me هذه الخبرة إلى منصة سحابية مبنية لأعمالكم اليوم."
+                  : "For over three decades, we've helped governments, enterprises and regulated industries manage information at scale. Digitize me brings that expertise into a cloud platform built for your business today."
               }
               className="text-xl md:text-2xl text-muted-foreground max-w-3xl mb-8"
               rich
