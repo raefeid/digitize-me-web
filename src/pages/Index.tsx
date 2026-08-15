@@ -220,7 +220,13 @@ const Index = () => {
 
 
 
-      {/* 4. How It Works */}
+      {/* 4. All-in-One */}
+      <AllInOneSection />
+
+      {/* 5. AI & OCR section removed — consolidated into the interactive BilingualOCRHero above. */}
+
+
+      {/* 7. How It Works */}
       <section className="section-padding bg-background" aria-label="Document Processing Workflow">
         <div className="container-max">
           <div className="text-center max-w-3xl mx-auto mb-10">
@@ -233,12 +239,6 @@ const Index = () => {
           </EditableImage>
         </div>
       </section>
-
-      {/* 5. AI & OCR section removed — consolidated into the interactive BilingualOCRHero above. */}
-
-
-      {/* 7. All-in-One */}
-      <AllInOneSection />
 
       {/* 8. Before/After */}
       <BeforeAfterSection />
