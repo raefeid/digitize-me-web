@@ -83,6 +83,7 @@ const Navbar = () => {
     "/industries": "القطاعات",
     "/pricing": "الأسعار",
     "/about": "من نحن",
+    "/contact": "تواصل معنا",
   };
 
   // Fallback shown only when nav_items table is empty (first run).
@@ -93,6 +94,7 @@ const Navbar = () => {
     { label: t("nav.industries"), href: "/industries", dropdown: "industries" as const, external: false, newTab: false },
     { label: t("nav.pricing"), href: "/pricing", dropdown: null as any, external: false, newTab: false },
     { label: isRTL ? "من نحن" : t("nav.about"), href: "/about", dropdown: null as any, external: false, newTab: false },
+    { label: t("nav.contact"), href: "/contact", dropdown: null as any, external: false, newTab: false },
   ];
 
   const cmsNavLinks = customNavTopLevel

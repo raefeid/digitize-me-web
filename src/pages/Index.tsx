@@ -159,6 +159,9 @@ const Index = () => {
                 <EditableText page="home" section="home" contentKey="hero_cta1" fallback={t("hero.cta1")} />
                 <ArrowRight size={18} className={isRTL ? "mr-2 rotate-180" : "ml-2"} />
               </CtaButton>
+              <CtaButton ctaKey="hero_secondary" defaultTo="/contact" size="lg" variant="outline" className="w-full sm:w-auto rounded-full px-7 sm:px-9 h-14 text-base border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white backdrop-blur-sm">
+                <EditableText page="home" section="home" contentKey="hero_cta2" fallback={t("hero.cta2")} />
+              </CtaButton>
             </motion.div>
           </div>
 
