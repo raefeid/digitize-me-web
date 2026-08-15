@@ -53,10 +53,10 @@ const AllInOneSection = () => {
         <AnimatePresence mode="wait">
           {absorbed ? (
             <motion.div key="with" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 30 }} transition={{ duration: 0.4, type: "spring", stiffness: 150, damping: 20 }} className="w-full max-w-md mx-auto flex flex-col items-center">
-              <motion.div initial={{ scale: 0 }} animate={{ scale: 1, boxShadow: "0 0 80px 20px hsl(160 84% 39% / 0.4)" }} transition={{ duration: 0.5, type: "spring" }} className="w-28 h-28 rounded-full bg-white border-2 border-emerald-500/40 flex items-center justify-center p-4 mb-4">
+              <motion.div initial={{ scale: 0 }} animate={{ scale: 1, boxShadow: "0 0 80px 20px hsl(160 84% 39% / 0.4)" }} transition={{ duration: 0.5, type: "spring" }} className="w-28 h-28 rounded-full bg-white border-2 border-emerald-500/40 flex items-center justify-center p-4 mb-2">
                 <img src={logo} alt="Digitize me" className="w-20 h-auto object-contain" />
               </motion.div>
-              <div className="bg-card/90 backdrop-blur-md border border-emerald-500/20 rounded-2xl p-6 shadow-xl w-full">
+              <div className="bg-card/90 backdrop-blur-md border border-emerald-500/20 rounded-2xl px-6 py-5 shadow-xl w-full">
                 <div className="grid grid-cols-2 gap-x-5 gap-y-3.5 mb-5">
                   {resolvedTools.map((tool, i) => (
                     <motion.div key={tool.id} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 + i * 0.04 }} className="flex items-center gap-2">
