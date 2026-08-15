@@ -33,8 +33,15 @@ const ClientLogosCarousel = () => {
 
   if (isLoading) return null;
 
-  // Duplicate for seamless infinite scroll
-  const display = [...logos, ...logos];
+  // The marquee loops by sliding the track left by exactly one "half" (-50%).
+  // That is only seamless when a half is at least as wide as the viewport —
+  // otherwise the strip scrolls fully past and leaves blank space before the
+  // animation resets. A single pass of the logos can be narrower than a wide
+  // screen, so we repeat the list a few times per half to guarantee the half
+  // always overflows the viewport. Both halves are identical for a clean wrap.
+  const COPIES_PER_HALF = 3;
+  const half = Array.from({ length: COPIES_PER_HALF }, () => logos).flat();
+  const display = [...half, ...half];
 
   return (
     <section className="py-14 bg-muted/30 border-y border-border overflow-hidden">
@@ -63,7 +70,7 @@ const ClientLogosCarousel = () => {
         <div
           dir="ltr"
           className="flex items-center whitespace-nowrap w-max animate-marquee"
-          style={{ animationDuration: `${Math.max(20, logos.length * 4)}s` }}
+          style={{ animationDuration: `${Math.max(20, half.length * 4)}s` }}
         >
           {display.map((logo, i) => {
             const img = (
