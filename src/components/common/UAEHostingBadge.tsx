@@ -15,8 +15,8 @@ interface UAEHostingBadgeProps {
 const UAEHostingBadge = ({ variant = "default", className = "" }: UAEHostingBadgeProps) => {
   const { isRTL } = useLanguage();
   const fallback = isRTL
-    ? "🇦🇪 مستضاف في الإمارات • بيانات إقليمية"
-    : "🇦🇪 Hosted in the UAE • Regional data residency";
+    ? "🇦🇪🇸🇦 مستضاف في الإمارات والسعودية • بيانات إقليمية"
+    : "🇦🇪🇸🇦 Hosted in the UAE & KSA • Regional data residency";
 
   const base =
     "inline-flex items-center gap-2 rounded-full text-xs font-medium whitespace-nowrap";

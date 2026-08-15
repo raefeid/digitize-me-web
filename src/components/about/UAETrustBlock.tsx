@@ -47,7 +47,7 @@ const UAETrustBlock = () => {
             page="about"
             section="uae"
             contentKey="eyebrow"
-            fallback={isRTL ? "🇦🇪 مستضاف في الإمارات" : "🇦🇪 Hosted in the UAE"}
+            fallback={isRTL ? "🇦🇪🇸🇦 مستضاف في الإمارات والسعودية" : "🇦🇪🇸🇦 Hosted in the UAE & KSA"}
             className="text-accent font-semibold text-sm uppercase tracking-wider"
           />
           <EditableText

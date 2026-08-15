@@ -29,10 +29,10 @@ const About = () => {
         )}
         description={getContent(
           "meta_description",
-          "Meet the team behind Digitize me. 30+ years of regional expertise in document management, AI OCR and digital transformation — hosted in the UAE.",
+          "Meet the team behind Digitize me. 30+ years of regional expertise in document management, AI OCR and digital transformation — hosted in the UAE & KSA.",
         )}
         titleAr="من نحن — Digitize me | أكثر من ٣٠ عامًا من التحول الرقمي في الإمارات"
-        descriptionAr="تعرّف على الفريق وراء Digitize me. أكثر من ٣٠ عامًا من الخبرة الإقليمية في إدارة المستندات وOCR بالذكاء الاصطناعي والتحول الرقمي — مستضاف في الإمارات."
+        descriptionAr="تعرّف على الفريق وراء Digitize me. أكثر من ٣٠ عامًا من الخبرة الإقليمية في إدارة المستندات وOCR بالذكاء الاصطناعي والتحول الرقمي — مستضاف في الإمارات والسعودية."
         path="/about"
         pageKey="about"
       />
