@@ -10,9 +10,9 @@ const VALUES = [
     titleEn: "Trust",
     titleAr: "الثقة",
     descEn:
-      "Your documents are your business. UAE data residency, strict access control and full audit trails are the baseline, not an upgrade.",
+      "Your documents are your business. UAE & KSA data residency, strict access control and full audit trails are the baseline, not an upgrade.",
     descAr:
-      "مستنداتك هي عملك. إقامة البيانات في الإمارات والتحكم الصارم بالوصول وسجلات التدقيق الكاملة هي الأساس وليست إضافة.",
+      "مستنداتك هي عملك. إقامة البيانات في الإمارات والسعودية والتحكم الصارم بالوصول وسجلات التدقيق الكاملة هي الأساس وليست إضافة.",
   },
   {
     slot: "v2",

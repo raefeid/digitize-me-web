@@ -9,7 +9,7 @@ interface UAEHostingBadgeProps {
 }
 
 /**
- * Site-wide trust badge reinforcing UAE data residency & regional presence.
+ * Site-wide trust badge reinforcing UAE & KSA data residency & regional presence.
  * Label is editable via CMS (page="site", section="trust", key="uae_hosting_label").
  */
 const UAEHostingBadge = ({ variant = "default", className = "" }: UAEHostingBadgeProps) => {

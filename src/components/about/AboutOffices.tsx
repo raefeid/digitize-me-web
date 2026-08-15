@@ -11,8 +11,8 @@ const OFFICES = [
     cityAr: "دبي، الإمارات",
     roleEn: "Headquarters",
     roleAr: "المقر الرئيسي",
-    descEn: "Product, engineering and customer success — plus UAE-hosted infrastructure.",
-    descAr: "المنتج والهندسة ونجاح العملاء — بالإضافة إلى بنية تحتية مستضافة في الإمارات.",
+    descEn: "Product, engineering and customer success — plus UAE & KSA-hosted infrastructure.",
+    descAr: "المنتج والهندسة ونجاح العملاء — بالإضافة إلى بنية تحتية مستضافة في الإمارات والسعودية.",
   },
   {
     slot: "o2",

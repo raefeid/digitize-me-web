@@ -26,7 +26,7 @@ export const SITE_FACTS = {
   freePlan: "Free — try now, pay later",
   businessEntry: "$99/mo (or $69/mo billed yearly)",
   setupTime: "~2 minutes",
-  hosting: "UAE data centers",
+  hosting: "UAE & KSA data centers",
 };
 
 const KB: KBEntry[] = [
@@ -99,9 +99,9 @@ const KB: KBEntry[] = [
   {
     keywords: ["security", "secure", "compliance", "gdpr", "uae", "hosting", "encryption", "أمان", "حماية", "تشفير"],
     answer_en:
-      `Data is hosted in ${SITE_FACTS.hosting} with AES-256 encryption at rest and TLS 1.3 in transit, role-based access control, full audit trails, and compliance with UAE data-residency requirements.`,
+      `Data is hosted in ${SITE_FACTS.hosting} with AES-256 encryption at rest and TLS 1.3 in transit, role-based access control, full audit trails, and compliance with UAE & KSA data-residency requirements.`,
     answer_ar:
-      "البيانات مستضافة في مراكز بيانات الإمارات مع تشفير AES-256 وTLS 1.3، وصلاحيات مبنية على الأدوار، وسجلات تدقيق كاملة، والامتثال لمتطلبات إقامة البيانات الإماراتية.",
+      "البيانات مستضافة في مراكز بيانات الإمارات والسعودية مع تشفير AES-256 وTLS 1.3، وصلاحيات مبنية على الأدوار، وسجلات تدقيق كاملة، والامتثال لمتطلبات إقامة البيانات في الإمارات والسعودية.",
   },
   {
     keywords: ["about", "who", "infasme", "company", "من", "عن", "شركة"],

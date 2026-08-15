@@ -58,9 +58,9 @@ const MILESTONES: Milestone[] = [
     titleEn: "Strengthening Regional Trust",
     titleAr: "تعزيز الثقة الإقليمية",
     descEn:
-      "We move the SaaS infrastructure to UAE-hosted cloud regions — ensuring data residency, low latency and full regional compliance.",
+      "We move the SaaS infrastructure to UAE & KSA-hosted cloud regions — ensuring data residency, low latency and full regional compliance.",
     descAr:
-      "نقل البنية التحتية لخدمة SaaS إلى مناطق سحابية مستضافة في الإمارات — لضمان إقامة البيانات وزمن استجابة منخفض والامتثال الإقليمي الكامل.",
+      "نقل البنية التحتية لخدمة SaaS إلى مناطق سحابية مستضافة في الإمارات والسعودية — لضمان إقامة البيانات وزمن استجابة منخفض والامتثال الإقليمي الكامل.",
   },
   {
     key: "m6",

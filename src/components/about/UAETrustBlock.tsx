@@ -7,12 +7,12 @@ const PILLARS = [
   {
     slot: "p1",
     Icon: ShieldCheck,
-    titleEn: "UAE data residency",
-    titleAr: "إقامة البيانات في الإمارات",
+    titleEn: "UAE & KSA data residency",
+    titleAr: "إقامة البيانات في الإمارات والسعودية",
     descEn:
-      "Our SaaS infrastructure runs in UAE-hosted cloud regions. Your documents never leave the country unless you ask them to.",
+      "Our SaaS infrastructure runs in UAE & KSA-hosted cloud regions. Your documents never leave the region unless you ask them to.",
     descAr:
-      "تعمل بنيتنا التحتية على مناطق سحابية مستضافة في الإمارات. لا تغادر مستنداتك الدولة إلا إذا طلبت ذلك.",
+      "تعمل بنيتنا التحتية على مناطق سحابية مستضافة في الإمارات والسعودية. لا تغادر مستنداتك المنطقة إلا إذا طلبت ذلك.",
   },
   {
     slot: "p2",
