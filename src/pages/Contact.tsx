@@ -218,16 +218,17 @@ const Contact = () => {
                   </div>
                   <div>
                     <EditableText as="h3" page="contact" section="info" contentKey="phone_label" fallback={t("contact.phone")} className="font-semibold text-foreground text-sm block" />
-                    <p className="text-muted-foreground text-sm">
+                    <p dir="ltr" className="text-muted-foreground text-sm [unicode-bidi:isolate] rtl:text-right">
                       <a href={`tel:${getContent("contact_phone1", "+97145808611")}`} className="hover:text-accent transition-colors">
                         <EditableText page="contact" section="info" contentKey="contact_phone1" fallback="+971 4 580 8611" />
                       </a>
                     </p>
-                    <p className="text-muted-foreground text-sm">
+                    <p dir="ltr" className="text-muted-foreground text-sm [unicode-bidi:isolate] rtl:text-right">
                       <a href={`tel:${getContent("contact_phone2", "+971565226587")}`} className="hover:text-accent transition-colors">
                         <EditableText page="contact" section="info" contentKey="contact_phone2" fallback="+971 56 522 6587" />
                       </a>
                     </p>
+
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
