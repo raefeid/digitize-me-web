@@ -133,7 +133,7 @@ const Product = () => {
       />
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-dm-navy-light via-accent/5 to-background px-4 py-14 md:py-20">
+      <section className="relative overflow-hidden bg-gradient-to-b from-dm-navy-light via-accent/5 to-background px-4 pb-8 pt-12 md:pb-10 md:pt-16">
         <div aria-hidden className="pointer-events-none absolute -top-32 left-1/2 h-80 w-[42rem] -translate-x-1/2 rounded-full bg-accent/20 blur-3xl" />
         <div className="relative mx-auto w-full max-w-5xl text-center">
           <EditableText
@@ -155,21 +155,6 @@ const Product = () => {
             className="mx-auto mt-4 max-w-3xl text-base text-muted-foreground sm:mt-6 sm:text-lg md:text-xl"
             rich
           />
-          <div className="mt-7 flex justify-center sm:mt-10">
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }} transition={{ type: "spring", stiffness: 300, damping: 15 }} className="w-full sm:w-auto">
-              <CtaButton
-                ctaKey="product_cta_pricing"
-                size="lg"
-                className="group relative h-14 w-full sm:w-auto overflow-hidden rounded-full bg-gradient-to-r from-accent via-accent to-accent/90 px-8 sm:px-10 text-base font-semibold text-accent-foreground shadow-[0_0_40px_-10px_hsl(var(--accent)/0.5)] transition-all duration-300 hover:shadow-[0_0_60px_-10px_hsl(var(--accent)/0.6)] animate-cta-shimmer"
-              >
-                <EditableText page="product" section="hero" contentKey="hero_cta_pricing_label" fallback={t("common.viewPricing")} />
-                <ArrowRight
-                  size={18}
-                  className={isRTL ? "mr-2 rotate-180 transition-transform duration-300 group-hover:-translate-x-1.5" : "ml-2 transition-transform duration-300 group-hover:translate-x-1.5"}
-                />
-              </CtaButton>
-            </motion.div>
-          </div>
 
         </div>
       </section>
