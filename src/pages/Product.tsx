@@ -133,7 +133,7 @@ const Product = () => {
       />
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-dm-navy-light via-accent/5 to-background px-4 pb-8 pt-12 md:pb-10 md:pt-16">
+      <section className="relative overflow-hidden bg-gradient-to-b from-dm-navy-light via-accent/5 to-background px-4 pb-16 pt-12 md:pb-24 md:pt-16">
         <div aria-hidden className="pointer-events-none absolute -top-32 left-1/2 h-80 w-[42rem] -translate-x-1/2 rounded-full bg-accent/20 blur-3xl" />
         <div className="relative mx-auto w-full max-w-5xl text-center">
           <EditableText
