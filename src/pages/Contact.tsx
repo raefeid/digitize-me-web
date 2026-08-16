@@ -204,9 +204,10 @@ const Contact = () => {
                   </div>
                   <div>
                     <EditableText as="h3" page="contact" section="info" contentKey="email_label" fallback={t("contact.email")} className="font-semibold text-foreground text-sm block" />
-                    <a href={`mailto:${getContent("contact_email", "info@digitizeme.ae")}`} className="text-muted-foreground text-sm hover:text-accent transition-colors">
+                    <a href={`mailto:${getContent("contact_email", "info@digitizeme.ae")}`} dir="ltr" className="text-muted-foreground text-sm hover:text-accent transition-colors inline-block [unicode-bidi:isolate] rtl:text-right">
                       <EditableText page="contact" section="info" contentKey="contact_email" fallback="info@digitizeme.ae" />
                     </a>
+
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
