@@ -364,9 +364,10 @@ const Contact = () => {
                     ) : (
                       <span />
                     )}
-                    <span id="contact-message-counter" className={`text-[11px] tabular-nums ${formData.message.length > 1000 ? "text-destructive" : "text-muted-foreground"}`}>
+                    <span id="contact-message-counter" dir="ltr" className={`text-[11px] tabular-nums [unicode-bidi:isolate] ${formData.message.length > 1000 ? "text-destructive" : "text-muted-foreground"}`}>
                       {formData.message.length}/1000
                     </span>
+
                   </div>
                 </div>
                 <StyleEditableButton
