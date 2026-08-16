@@ -281,7 +281,7 @@ const Product = () => {
               page="product"
               section="industry_links"
               contentKey="industry_links_badge"
-              fallback="Industry solutions"
+              fallback={isRTL ? "حلول حسب القطاع" : "Industry solutions"}
               className="text-sm font-semibold uppercase tracking-wider text-accent"
             />
             <EditableText
@@ -289,7 +289,7 @@ const Product = () => {
               page="product"
               section="industry_links"
               contentKey="industry_links_title"
-              fallback="Jump to industry landing pages tied to your document workflows"
+              fallback={isRTL ? "انتقل إلى صفحات القطاعات المرتبطة بسير عمل مستنداتك" : "Jump to industry landing pages tied to your document workflows"}
               className="mt-2 text-3xl md:text-4xl font-bold text-foreground block"
               rich
             />
@@ -298,7 +298,7 @@ const Product = () => {
               page="product"
               section="industry_links"
               contentKey="industry_links_desc"
-              fallback="Explore keyword-focused industry pages that show how OCR, document control, and workflow automation fit each business model."
+              fallback={isRTL ? "استكشف صفحات القطاعات التي توضّح كيف يتلاءم التعرّف الضوئي وإدارة المستندات وأتمتة سير العمل مع كل نموذج عمل." : "Explore keyword-focused industry pages that show how OCR, document control, and workflow automation fit each business model."}
               multiline
               className="mt-4 text-muted-foreground"
               rich
