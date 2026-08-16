@@ -150,28 +150,6 @@ const Partners = () => {
     },
   ];
 
-  const steps = [
-    {
-      n: "01",
-      title: T("Apply", "قدّم طلبك"),
-      desc: T("Send the short form below. We reply within 2 business days.", "أرسل النموذج القصير أدناه. نرد خلال يومي عمل."),
-    },
-    {
-      n: "02",
-      title: T("Discovery call", "مكالمة تعارف"),
-      desc: T("30 minutes to align on territory, target sectors and commercials.", "٣٠ دقيقة للاتفاق على المنطقة والقطاعات المستهدفة والشروط التجارية."),
-    },
-    {
-      n: "03",
-      title: T("Enablement", "التمكين"),
-      desc: T("Certification, demo tenant and your first co-selling plan.", "الشهادات وبيئة العرض وأول خطة بيع مشترك."),
-    },
-    {
-      n: "04",
-      title: T("Go to market", "الانطلاق للسوق"),
-      desc: T("Joint pipeline reviews, shared leads and quarterly growth targets.", "مراجعات مشتركة للفرص وعملاء مشتركون وأهداف نمو ربع سنوية."),
-    },
-  ];
 
   const scrollToId = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     const el = document.getElementById(id);
@@ -348,38 +326,6 @@ const Partners = () => {
         </div>
       </section>
 
-      {/* Process */}
-      <section className="section-padding">
-        <div className="container-max">
-          <div className="mx-auto max-w-2xl text-center">
-            <span className="text-sm font-semibold uppercase tracking-wider text-accent">
-              {T("How it works", "كيف تسير العملية")}
-            </span>
-            <h2 className="mt-3 text-3xl font-bold text-foreground md:text-4xl">
-              {T("From first call to first deal in 30 days", "من أول مكالمة إلى أول صفقة خلال ٣٠ يومًا")}
-            </h2>
-          </div>
-          <div className="relative mt-12 grid gap-6 md:grid-cols-4">
-            <div className="absolute inset-x-0 top-8 hidden h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent md:block" />
-            {steps.map((s, i) => (
-              <motion.div
-                key={s.n}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.4 }}
-                transition={{ duration: 0.4, delay: i * 0.1 }}
-                className="relative rounded-2xl border border-border bg-card p-6"
-              >
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent text-sm font-bold text-accent-foreground">
-                  {s.n}
-                </div>
-                <h3 className="mt-4 text-base font-semibold text-foreground">{s.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Application */}
       <section id="apply" className="section-padding scroll-mt-24 bg-primary text-primary-foreground">
