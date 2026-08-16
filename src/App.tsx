@@ -88,6 +88,8 @@ const AppRoutes = () => (
         <Route path="/ar/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
         <Route path="/ar/about" element={<About />} />
+        <Route path="/partners" element={<Partners />} />
+        <Route path="/ar/partners" element={<Partners />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="/terms" element={<TermsOfService />} />
         <Route path="/blog" element={<Blog />} />
