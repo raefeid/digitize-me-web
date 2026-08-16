@@ -125,22 +125,23 @@ const Footer = () => {
               </li>
               <li className="flex items-center gap-2 text-sm text-primary-foreground/70">
                 <Mail size={16} className="shrink-0" />
-                <a href={`mailto:${getContent("email", "info@digitizeme.ae")}`} className="hover:text-primary-foreground transition-colors">
+                <a href={`mailto:${getContent("email", "info@digitizeme.ae")}`} dir="ltr" className="hover:text-primary-foreground transition-colors [unicode-bidi:isolate]">
                   <EditableText page="footer" section="contact" contentKey="email" fallback="info@digitizeme.ae" />
                 </a>
               </li>
               <li className="flex items-center gap-2 text-sm text-primary-foreground/70">
                 <Phone size={16} className="shrink-0" />
-                <a href={`tel:${getContent("phone1", "+97145808611")}`} className="hover:text-primary-foreground transition-colors">
+                <a href={`tel:${getContent("phone1", "+97145808611")}`} dir="ltr" className="hover:text-primary-foreground transition-colors [unicode-bidi:isolate]">
                   <EditableText page="footer" section="contact" contentKey="phone1" fallback="+971 4 580 8611" />
                 </a>
               </li>
               <li className="flex items-center gap-2 text-sm text-primary-foreground/70">
                 <Phone size={16} className="shrink-0" />
-                <a href={`tel:${getContent("phone2", "+971565226587")}`} className="hover:text-primary-foreground transition-colors">
+                <a href={`tel:${getContent("phone2", "+971565226587")}`} dir="ltr" className="hover:text-primary-foreground transition-colors [unicode-bidi:isolate]">
                   <EditableText page="footer" section="contact" contentKey="phone2" fallback="+971 56 522 6587" />
                 </a>
               </li>
+
             </ul>
             <div className="flex flex-wrap gap-3 mt-6">
               <EditableLink ctaKey="footer_social_linkedin" defaultTo={linkedinUrl} trackingPage="footer_social" className="w-9 h-9 rounded-lg bg-primary-foreground/10 flex items-center justify-center hover:bg-primary-foreground/20 transition-colors" aria-label="LinkedIn">
