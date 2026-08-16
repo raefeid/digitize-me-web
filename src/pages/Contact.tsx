@@ -204,9 +204,10 @@ const Contact = () => {
                   </div>
                   <div>
                     <EditableText as="h3" page="contact" section="info" contentKey="email_label" fallback={t("contact.email")} className="font-semibold text-foreground text-sm block" />
-                    <a href={`mailto:${getContent("contact_email", "info@digitizeme.ae")}`} className="text-muted-foreground text-sm hover:text-accent transition-colors">
+                    <a href={`mailto:${getContent("contact_email", "info@digitizeme.ae")}`} dir="ltr" className="text-muted-foreground text-sm hover:text-accent transition-colors inline-block [unicode-bidi:isolate] rtl:text-right">
                       <EditableText page="contact" section="info" contentKey="contact_email" fallback="info@digitizeme.ae" />
                     </a>
+
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
@@ -217,16 +218,17 @@ const Contact = () => {
                   </div>
                   <div>
                     <EditableText as="h3" page="contact" section="info" contentKey="phone_label" fallback={t("contact.phone")} className="font-semibold text-foreground text-sm block" />
-                    <p className="text-muted-foreground text-sm">
+                    <p dir="ltr" className="text-muted-foreground text-sm [unicode-bidi:isolate] rtl:text-right">
                       <a href={`tel:${getContent("contact_phone1", "+97145808611")}`} className="hover:text-accent transition-colors">
                         <EditableText page="contact" section="info" contentKey="contact_phone1" fallback="+971 4 580 8611" />
                       </a>
                     </p>
-                    <p className="text-muted-foreground text-sm">
+                    <p dir="ltr" className="text-muted-foreground text-sm [unicode-bidi:isolate] rtl:text-right">
                       <a href={`tel:${getContent("contact_phone2", "+971565226587")}`} className="hover:text-accent transition-colors">
                         <EditableText page="contact" section="info" contentKey="contact_phone2" fallback="+971 56 522 6587" />
                       </a>
                     </p>
+
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
@@ -362,9 +364,10 @@ const Contact = () => {
                     ) : (
                       <span />
                     )}
-                    <span id="contact-message-counter" className={`text-[11px] tabular-nums ${formData.message.length > 1000 ? "text-destructive" : "text-muted-foreground"}`}>
+                    <span id="contact-message-counter" dir="ltr" className={`text-[11px] tabular-nums [unicode-bidi:isolate] ${formData.message.length > 1000 ? "text-destructive" : "text-muted-foreground"}`}>
                       {formData.message.length}/1000
                     </span>
+
                   </div>
                 </div>
                 <StyleEditableButton
