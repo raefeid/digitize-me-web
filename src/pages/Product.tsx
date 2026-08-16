@@ -38,14 +38,24 @@ const Product = () => {
   // EditableCardGrid wraps each in <EditableText>, which already handles
   // EN/AR overrides. The fallbacks below are English canonical strings —
   // the Arabic versions live in CMS rows seeded for every key.
-  const aiFeatures = [
-    { key: "ai_lang", icon: Languages, title: "Arabic & English OCR", desc: "Industry-leading bilingual OCR with 99%+ accuracy on printed and handwritten text." },
-    { key: "ai_classify", icon: Brain, title: "AI Classification", desc: "Automatically classify documents by type, department, and priority without manual intervention." },
-    { key: "ai_extract", icon: Scan, title: "Intelligent Data Extraction", desc: "Extract key fields, names, dates, amounts, reference numbers, from any document format." },
-    { key: "ai_search", icon: Search, title: "Full-Text Search", desc: "Search across millions of pages instantly. Find any document by content, metadata, or tag." },
-    { key: "ai_tag", icon: FileText, title: "Auto Tagging & Metadata", desc: "AI generates tags and metadata automatically, making every document instantly searchable." },
-    { key: "ai_analytics", icon: BarChart3, title: "Analytics & Insights", desc: "Track document volumes, processing times, and team productivity with built-in analytics." },
-  ];
+  const aiFeatures = isRTL
+    ? [
+        { key: "ai_lang", icon: Languages, title: "تعرّف ضوئي عربي وإنجليزي", desc: "محرك تعرّف ضوئي ثنائي اللغة بدقة تتجاوز 99% للنصوص المطبوعة والمكتوبة بخط اليد." },
+        { key: "ai_classify", icon: Brain, title: "تصنيف بالذكاء الاصطناعي", desc: "تصنيف تلقائي للمستندات حسب النوع والقسم والأولوية دون أي تدخل يدوي." },
+        { key: "ai_extract", icon: Scan, title: "استخراج ذكي للبيانات", desc: "استخراج الحقول المهمة — الأسماء والتواريخ والمبالغ والأرقام المرجعية — من أي صيغة مستند." },
+        { key: "ai_search", icon: Search, title: "بحث في النص الكامل", desc: "ابحث في ملايين الصفحات فورًا. اعثر على أي مستند بالمحتوى أو البيانات الوصفية أو الوسم." },
+        { key: "ai_tag", icon: FileText, title: "وسم وبيانات وصفية تلقائية", desc: "يولّد الذكاء الاصطناعي الوسوم والبيانات الوصفية تلقائيًا ليصبح كل مستند قابلاً للبحث فورًا." },
+        { key: "ai_analytics", icon: BarChart3, title: "تحليلات ورؤى", desc: "تابع أحجام المستندات وأوقات المعالجة وإنتاجية الفريق عبر تحليلات مدمجة." },
+      ]
+    : [
+        { key: "ai_lang", icon: Languages, title: "Arabic & English OCR", desc: "Industry-leading bilingual OCR with 99%+ accuracy on printed and handwritten text." },
+        { key: "ai_classify", icon: Brain, title: "AI Classification", desc: "Automatically classify documents by type, department, and priority without manual intervention." },
+        { key: "ai_extract", icon: Scan, title: "Intelligent Data Extraction", desc: "Extract key fields, names, dates, amounts, reference numbers, from any document format." },
+        { key: "ai_search", icon: Search, title: "Full-Text Search", desc: "Search across millions of pages instantly. Find any document by content, metadata, or tag." },
+        { key: "ai_tag", icon: FileText, title: "Auto Tagging & Metadata", desc: "AI generates tags and metadata automatically, making every document instantly searchable." },
+        { key: "ai_analytics", icon: BarChart3, title: "Analytics & Insights", desc: "Track document volumes, processing times, and team productivity with built-in analytics." },
+      ];
+
 
   const steps = [
     { step: "01", titleKey: "product_how_step1", descKey: "product_how_step1_desc", titleFallback: t("product.how.step1"), descFallback: t("product.how.step1.desc") },
