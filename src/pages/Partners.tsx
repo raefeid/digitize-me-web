@@ -173,12 +173,14 @@ const Partners = () => {
     },
   ];
 
-  const stats = [
-    { value: "30+", label: T("Years in the region", "عامًا في المنطقة") },
-    { value: "500+", label: T("Enterprise deployments", "تطبيق مؤسسي") },
-    { value: "2", label: T("Data centres (UAE & KSA)", "مركزا بيانات (الإمارات والسعودية)") },
-    { value: "48h", label: T("Partner response time", "زمن الرد على الشركاء") },
-  ];
+  const scrollToId = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    e.preventDefault();
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+    window.history.replaceState(null, "", `#${id}`);
+  };
+
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
