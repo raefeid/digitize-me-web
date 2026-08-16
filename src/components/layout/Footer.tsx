@@ -62,6 +62,7 @@ const Footer = () => {
                 { keyName: "product_onprem", ctaKey: "footer_product_onprem", label: t("footer.onprem"), href: "/product#on-premise" },
                 { keyName: "product_aiocr", ctaKey: "footer_product_aiocr", label: t("footer.aiocr"), href: "/product#ai-ocr" },
                 { keyName: "product_pricing", ctaKey: "footer_product_pricing", label: t("nav.pricing"), href: "/pricing" },
+                { keyName: "product_partners", ctaKey: "footer_product_partners", label: isRTL ? "برنامج الشركاء" : "Partner program", href: "/partners" },
                 { keyName: "product_blog", ctaKey: "footer_product_blog", label: isRTL ? "المدونة" : "Blog", href: "/blog" },
               ].map((link) => (
                 <li key={link.ctaKey}>

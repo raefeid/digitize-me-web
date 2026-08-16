@@ -41,6 +41,7 @@ const CustomPage = lazy(() => import("./pages/CustomPage.tsx"));
 const ForgotPassword = lazy(() => import("./pages/ForgotPassword.tsx"));
 const ResetPassword = lazy(() => import("./pages/ResetPassword.tsx"));
 const About = lazy(() => import("./pages/About.tsx"));
+const Partners = lazy(() => import("./pages/Partners.tsx"));
 
 import { useTrackingScripts } from "@/hooks/useTrackingScripts";
 import SiteChatbot from "@/components/chatbot/SiteChatbot";
@@ -87,6 +88,8 @@ const AppRoutes = () => (
         <Route path="/ar/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
         <Route path="/ar/about" element={<About />} />
+        <Route path="/partners" element={<Partners />} />
+        <Route path="/ar/partners" element={<Partners />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="/terms" element={<TermsOfService />} />
         <Route path="/blog" element={<Blog />} />

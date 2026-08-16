@@ -94,6 +94,7 @@ const Navbar = () => {
     { label: t("nav.industries"), href: "/industries", dropdown: "industries" as const, external: false, newTab: false },
     { label: t("nav.pricing"), href: "/pricing", dropdown: null as any, external: false, newTab: false },
     { label: isRTL ? "من نحن" : t("nav.about"), href: "/about", dropdown: null as any, external: false, newTab: false },
+    { label: isRTL ? "الشركاء" : "Partners", href: "/partners", dropdown: null as any, external: false, newTab: false },
     { label: t("nav.contact"), href: "/contact", dropdown: null as any, external: false, newTab: false },
   ];
 
