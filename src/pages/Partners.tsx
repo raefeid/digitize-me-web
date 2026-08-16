@@ -173,12 +173,14 @@ const Partners = () => {
     },
   ];
 
-  const stats = [
-    { value: "30+", label: T("Years in the region", "عامًا في المنطقة") },
-    { value: "500+", label: T("Enterprise deployments", "تطبيق مؤسسي") },
-    { value: "2", label: T("Data centres (UAE & KSA)", "مركزا بيانات (الإمارات والسعودية)") },
-    { value: "48h", label: T("Partner response time", "زمن الرد على الشركاء") },
-  ];
+  const scrollToId = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    e.preventDefault();
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+    window.history.replaceState(null, "", `#${id}`);
+  };
+
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -257,37 +259,21 @@ const Partners = () => {
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
-                <a href="#apply">
+                <a href="#apply" onClick={(e) => scrollToId(e, "apply")}>
                   {T("Become a partner", "كن شريكًا")}
                   <ArrowRight className="ms-2 h-4 w-4" />
                 </a>
               </Button>
               <Button asChild size="lg" variant="outline">
-                <a href="#benefits">{T("See the benefits", "اطّلع على المزايا")}</a>
+                <a href="#benefits" onClick={(e) => scrollToId(e, "benefits")}>
+                  {T("See the benefits", "اطّلع على المزايا")}
+                </a>
               </Button>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="border-y border-border bg-card/40">
-        <div className="container-max grid grid-cols-2 gap-6 py-10 md:grid-cols-4">
-          {stats.map((s, i) => (
-            <motion.div
-              key={s.label}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.4 }}
-              transition={{ duration: 0.4, delay: i * 0.08 }}
-              className="text-center"
-            >
-              <div className="text-3xl font-bold text-accent md:text-4xl">{s.value}</div>
-              <div className="mt-1 text-sm text-muted-foreground">{s.label}</div>
-            </motion.div>
-          ))}
-        </div>
-      </section>
 
       {/* Benefits */}
       <section id="benefits" className="section-padding scroll-mt-24">
